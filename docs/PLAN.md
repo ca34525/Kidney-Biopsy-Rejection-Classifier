@@ -55,6 +55,9 @@ The [defensibility and implementation audit](AUDIT.md) is complete on
 analysis checks, derives report claims from measured results, and simplifies the
 README. The methods, fitted model, and frozen threshold are preserved. The audit
 documents the narrow model-selection margin and the limits of assay quality checks.
+A second pass makes the training and prediction workflows explicit, expands dense
+calculations, and gives each chart its own function. Its full 27-fit reproduction
+retains all nine evaluation tables exactly; the service keeps its frozen model.
 
 Remaining project work is the interview presentation and deployment preparation,
 including a local container run and a small cloud demonstration if access permits.

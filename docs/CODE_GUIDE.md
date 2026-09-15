@@ -14,10 +14,17 @@ Start with the path a single prediction takes:
 3. [Prediction](../src/kidney_biopsy/prediction.py): check model compatibility, calculate scores, apply the threshold.
 4. [API](../src/kidney_biopsy/api.py): expose that same path over HTTP.
 
-Then read [training](../experiments/rejection_public/run.py) for the saved split,
-candidate fits, and threshold selection. The source reader is only needed to
-understand the public-study import. Historical source snapshots under `results/`
-explain old runs; they are not additional application implementations to maintain.
+Then read `run_experiment` in [training](../experiments/rejection_public/run.py).
+It calls `prepare_data`, `fit_candidates`, and `freeze_and_evaluate` in that order.
+The output directories are passed explicitly. The source reader is only needed
+to understand the public-study import. Historical source snapshots under
+`results/` explain old runs; they are not additional application implementations
+to maintain.
+
+For reporting, `analyze_run` in [analysis](../scripts/analyze_results.py) shows the
+sequence from verified inputs through calculations, tables, figures, and the
+manifest. Each figure has a named plotting function. The browser script likewise
+separates the prediction request from single-specimen and batch rendering.
 
 ## Input contract
 

@@ -9,11 +9,11 @@ with recorded biopsy diagnoses. The audit found no result-invalidating leakage,
 label, split, or metric error in the reviewed workflow. It found several input
 and reporting bugs, which are fixed on this branch.
 
-The application already has a small design: a shared prediction package, one
-FastAPI service, and one HTML page with plain JavaScript and CSS. The useful
-simplifications were consolidating repeated checks and making the documentation
-easier to enter. Further architectural changes would add work without making the
-prediction path appreciably simpler.
+The first pass established that the application had a small design, but did not
+adequately address how its code reads. The second pass reorganized the training,
+analysis, API, and browser workflows into named steps and expanded compressed
+expressions. The application still uses one shared prediction package, one
+FastAPI service, and one HTML page with plain JavaScript and CSS.
 
 This review used the [saved UNOS job description](references/JOB_DESCRIPTION.txt).
 It assesses the code and evidence available here; it is not an independent
@@ -90,6 +90,26 @@ cohort would be needed for independent confirmation.
 | The README mixed setup instructions with repeated development history. | Lead with the question, same-row error counts, demo command, and reproduction steps. Add a short code reading order; retain detailed evidence in its existing guides. |
 | Some wording obscured the narrow model-selection margin and assay-QC scope. | State both directly and distinguish 27 total fits from 27 primary candidates. Clarify that hosted CI success still needs execution evidence. |
 
+## Reading the revised implementation
+
+The standard for this pass was whether a reader can follow the main operation,
+understand each intermediate value, and find the corresponding calculation
+without decoding abbreviations or hidden mutable settings.
+
+| Entry point | What is now visible |
+| --- | --- |
+| [Training](../experiments/rejection_public/run.py) | `run_experiment` calls `prepare_data`, `fit_candidates`, and `freeze_and_evaluate`. Output directories are explicit arguments. Candidate order and configuration remain fixed. |
+| [Normalization](../src/kidney_biopsy/preprocessing.py) | Validation, log counts, the housekeeping mean, subtraction, and ordered feature selection appear as separate steps. |
+| [Model loading](../src/kidney_biopsy/prediction.py) | Paths, artifact checks, schema checks, and predictor construction have descriptive local names and a clear sequence. |
+| [Analysis](../scripts/analyze_results.py) | A short CLI calls `analyze_run`; calculation, export, and manifest writing are distinct. Each of the six figures has its own named plotting function. |
+| [HTTP prediction](../src/kidney_biopsy/api.py) | Request checks, CSV parsing, scoring, and response construction are visible in order. Optional local evidence loading follows the routes. |
+| [Browser](../src/kidney_biopsy/static/app.js) | The request flow is separate from single-specimen and batch rendering. Event handlers and DOM construction use ordinary statements and descriptive names. |
+
+The files use more lines because arguments and calculations are no longer packed
+together. No new framework or generic abstraction was introduced. The report's
+written content remains substantial, and historical runs retain their original
+source snapshots. Those are different reading tasks from following a prediction.
+
 ## What remains worth keeping
 
 - **One normalization and scoring path.** Training, CLI, and API share it.
@@ -99,10 +119,10 @@ cohort would be needed for independent confirmation.
   inspectable without a new orchestration framework.
 - **Completed run snapshots.** They preserve how old results were produced. They
   are historical records, not competing copies of the live application.
-- **Existing dependencies and frozen model.** This audit adds no framework,
-  dependency, endpoint, model fit, or deployment platform.
+- **Existing dependencies and frozen service model.** This audit adds no framework,
+  dependency, endpoint, candidate model, or deployment platform.
 
-## Verification
+## Initial verification
 
 - [Before](../results/checks/20260915_audit/before.json): 55 passing tests.
 - [Final checks](../results/checks/20260915_audit/final.json): 64 passing tests, including
@@ -118,9 +138,28 @@ cohort would be needed for independent confirmation.
   recorded binary-run artifacts remain intact; the original and shared-code runs
   still agree across all nine evaluation tables.
 
-No models were refitted or completed outputs overwritten. Dependency installation
-and browser layout were unchanged; the earlier fresh-install and browser evidence
-remains in the [verification guide](VERIFICATION.md).
+The initial pass did not refit models. Its records are preserved above.
+
+## Readability verification
+
+- [64 existing tests pass](../results/checks/20260915_readability/checks.json).
+  No tests were added solely to mirror the refactoring.
+- [Full training reproduction](../results/checks/20260915_readability/reproduction.json):
+  all 27 fits were rerun in a new directory. All nine evaluation tables, selected
+  models, thresholds, and split assignments match the original; score differences
+  are exactly zero.
+- [Real HTTP comparison](../results/checks/20260915_readability/http/http.json):
+  all 345 specimens agree with CLI and saved predictions within `1.11e-16`, with
+  identical flags.
+- [Browser checks](../results/checks/20260915_readability/browser.json): valid and
+  invalid examples, a two-specimen upload, clearing stale results, rejection of a
+  changed server model, and recovery after reloading all work.
+- [Report comparison](../results/checks/20260915_readability/analysis_comparison.json):
+  all eight real-data aggregate tables, the metrics JSON, and all six PNG charts
+  reproduce the preserved analysis byte-for-byte.
+
+The reproduction is saved under `results/reproduction/20260915_readability` with
+its own source snapshots and model artifacts. Completed runs were not overwritten.
 
 ## Fit to the role and remaining work
 

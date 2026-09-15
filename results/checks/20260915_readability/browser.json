@@ -1,0 +1,22 @@
+{
+  "verified_utc": "2026-09-15T17:57:05.079287+00:00",
+  "successful": true,
+  "method": "Visible interactions in the Codex in-app browser against a local Uvicorn server.",
+  "checks": [
+    "Public example displays model score, flag, and threshold.",
+    "Incomplete example displays the missing IFNG error and no prediction.",
+    "Changing the selected example clears the previous result.",
+    "Uploading a two-specimen public CSV displays both rows with their flags.",
+    "Restarting the server with the reproduced model causes the open page to reject the changed model version.",
+    "Reloading restores current metadata and scoring.",
+    "No browser console errors observed."
+  ],
+  "initial_run": "results/reproduction/20260915_shared",
+  "replacement_run": "results/reproduction/20260915_readability",
+  "source_hashes": {
+    "src/kidney_biopsy/api.py": "632452def2e95a7cf702f0c89274e53ff1f78685b5009dd6601241c71c70093f",
+    "src/kidney_biopsy/static/app.js": "41d45b7437da78900dff5591eafd35b58c075d7f0619f5acc23cbdd20c54b310",
+    "src/kidney_biopsy/static/index.html": "2b79b61afad787dd7b8c2a897d5e257619a9d778a015b36e57045949555a6a91",
+    "src/kidney_biopsy/static/style.css": "36c13f116d5678b8113f92b790ff5014d567d6a3ef3ff5f08718d635e754263a"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "verified_utc": "2026-09-15T17:59:56.239867+00:00",
+  "successful": true,
+  "comparison": "Every aggregate CSV, primary metrics JSON, and all six PNG charts match byte-for-byte.",
+  "files": [
+    {
+      "original": "results/analysis/20260915_baseline/assay_group_errors.csv",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/assay_group_errors.csv",
+      "sha256": "447cd27975dcec717e4ad04cf23ec237cd04d0e8e115d1f2bc7a004a80b3076c"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/cohort_composition.csv",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/cohort_composition.csv",
+      "sha256": "269781684617388f99f24992deb3a70cc3520ce246a8b97ae37526178d4433c8"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/error_overlap.csv",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/error_overlap.csv",
+      "sha256": "46bd8c7ed4e2ba2448600c238a4d4729220464c549e209176f3cb9f0176c6c7d"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/errors_by_diagnosis.csv",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/errors_by_diagnosis.csv",
+      "sha256": "4048a7ffad8776bfa89c43371328bd1708f6bfa2aeddb030d020545117e1d9ee"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/metric_intervals.csv",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/metric_intervals.csv",
+      "sha256": "015b7c039ebf439059e2b41575deb319e13c1c38ac4d7991f647fcb2df38b3d7"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/model_metrics.csv",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/model_metrics.csv",
+      "sha256": "b0c61c942369c150bd74b3f7bc092e7c9eb689a12bb54dd607a123b7daf0ec69"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/paired_differences.csv",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/paired_differences.csv",
+      "sha256": "1fd083292f7a7ba90cd8545d468e63a3f37f444b4aee441bd62b39b0c7cfe436"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/reliability_bins.csv",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/reliability_bins.csv",
+      "sha256": "8c300664473ab37dedb5997726c1afb5ef84f662267d556db393df9c1cde6719"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/model_metrics.json",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/model_metrics.json",
+      "sha256": "cfccd17b99715e9d0ca97929b4fd2205dd9e293ec2fc11125c2d27e68b7dcdb7"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/figures/01_roc_precision_recall.png",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/figures/01_roc_precision_recall.png",
+      "sha256": "8acd8161c7ff9968d9a8bd46ac5ce03566ee754cdac8c104846d34c7f60885d4"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/figures/02_confusion_matrices.png",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/figures/02_confusion_matrices.png",
+      "sha256": "7a8b0a5d3453087835037067eabf3f665f0179905d5ea703f455d7a0f8088e01"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/figures/03_absolute_errors.png",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/figures/03_absolute_errors.png",
+      "sha256": "2e92d6d1784ba1c8616ddc62161eb2c9a4165ccbe963488c01ce82a57dfbc6f7"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/figures/04_errors_by_diagnosis.png",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/figures/04_errors_by_diagnosis.png",
+      "sha256": "43a72f1c9cdf2cb6cfef120babede597437f3342ab57ecd6bee5c90c94952d59"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/figures/05_score_distributions.png",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/figures/05_score_distributions.png",
+      "sha256": "ae3a4eb77c6c24bea5143f0eaad7d75b6dc6499c89838baff8143de5e5f56f83"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/figures/06_score_reliability.png",
+      "regenerated": "data/processed/audit/20260915_readability/analysis/figures/06_score_reliability.png",
+      "sha256": "25d6bccf82d901fa1d6785f60c00013282c92e04856955b35405570c674bca88"
+    }
+  ],
+  "analysis_manifest": "data/processed/audit/20260915_readability/analysis/analysis_manifest.json",
+  "analysis_manifest_sha256": "a392f46c3dc0e15dd810a082422c656c56864cd4c389476e0d21a95c1d193548",
+  "source_code": [
+    {
+      "file": "scripts/analyze_results.py",
+      "sha256": "4a9aadc56a26b05b23d36cd7e725e31f45e94ceecbb0c33e99a96a89d8565005"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "sha256": "e417c92b89a1c55fe89f1de9f9fd23dfa01a153ecf40f70e9c698467dbec6a14"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "sha256": "0928d9bcc561790f421f095db9abf69a6d70605ebc7523145ba6006875277830"
+    }
+  ],
+  "bootstrap_replicates": 2000
+}
