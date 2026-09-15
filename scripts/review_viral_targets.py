@@ -15,8 +15,12 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from kidney_biopsy import normalize_counts, read_geo_matrix, read_rcc_archive
-from verify_local_data import local_path, records, sha256 as digest, verify
+from kidney_biopsy import map_diagnoses, normalize_counts, read_geo_matrix, read_rcc_archive
+
+if __package__:
+    from .verify_local_data import local_path, records, sha256 as digest, verify
+else:
+    from verify_local_data import local_path, records, sha256 as digest, verify
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,6 +61,21 @@ def markdown_table(headers: list[str], rows: list[list[str]]) -> str:
                      + ["| " + " | ".join(row) + " |" for row in rows])
 
 
+def higher_signal_outcomes(frame: pd.DataFrame) -> dict[str, int]:
+    """Count validation outcomes among specimens above the descriptive reference."""
+    higher = frame.both_BK_signals_above_zero
+    rejection = map_diagnoses(frame.diagnosis).astype(bool)
+    predicted = frame.predicted.astype(bool)  # Joining discovery rows gives this column object dtype.
+    return {
+        "n": int(higher.sum()),
+        "no_rejection": int((higher & ~rejection).sum()),
+        "rejection": int((higher & rejection).sum()),
+        "negative_results": int((higher & ~predicted).sum()),
+        "false_flags": int((higher & ~rejection & predicted).sum()),
+        "missed_rejection": int((higher & rejection & ~predicted).sum()),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--baseline-dir", default="results/reproduction/baseline")
@@ -66,8 +85,8 @@ def main() -> None:
     baseline, out, specimen_dir = map(local_path, [args.baseline_dir, args.output_dir, args.specimen_dir])
     if not specimen_dir.is_relative_to(ROOT / "data/processed"):
         parser.error("Specimen-level records must remain under data/processed.")
-    if any(path.exists() and any(path.iterdir()) for path in [out, specimen_dir]):
-        parser.error("Preserve completed work: choose new empty output and specimen directories.")
+    if any(path.exists() for path in [out, specimen_dir]):
+        parser.error("Output destinations already exist; choose new output and specimen directories.")
     started = datetime.now(timezone.utc).isoformat()
     for item in records():
         verify(local_path(item["file"]), item)
@@ -176,20 +195,25 @@ def main() -> None:
     for error_group, values in errors.groupby("error_group"):
         values = values.set_index("target")
         error_rows.append([error_group, str(int(values.iloc[0].n)), *[f"{values.loc[target, 'median']:.2f}" for target in TARGETS]])
-    discovery_high = int(high.loc[high.cohort.eq("Discovery"), "both_above_zero"].sum())
-    validation_high = int(high.loc[high.cohort.eq("Author technical validation"), "both_above_zero"].sum())
+    no_rejection_high = high.loc[high.diagnosis.eq("No Rejection")].set_index("cohort")
+    discovery_high = int(no_rejection_high.loc["Discovery", "both_above_zero"])
+    validation_high = int(no_rejection_high.loc["Author technical validation", "both_above_zero"])
     nonrejection_discovery = int(high.loc[high.cohort.eq("Discovery") & high.diagnosis.eq("No Rejection"), "n"].iloc[0])
     nonrejection_validation = int(high.loc[high.cohort.eq("Author technical validation") & high.diagnosis.eq("No Rejection"), "n"].iloc[0])
-    tail_false_flags = int(frame.loc[validation_ids].query("both_BK_signals_above_zero").predicted.sum())
+    rejection_high = int(high.loc[high.diagnosis.ne("No Rejection"), "both_above_zero"].sum())
+    tail = higher_signal_outcomes(frame.loc[validation_ids])
+    importance_description = "; ".join(
+        f"{row.gene}: rank {int(row.rank)}, importance {row.importance:.2f}"
+        for row in viral_importance.itertuples(index=False))
     report = f"""# BK targets and study composition
 
 This descriptive follow-up reviews the frozen `{selected}` model from `{args.baseline_dir}`. It does not fit a model, change its features, choose a new operating threshold, or diagnose infection. Re-run with `uv run python scripts/review_viral_targets.py --output-dir results/analysis/NEW_viral --specimen-dir data/processed/analysis/NEW_viral`.
 
 ## Main finding
 
-The two BK targets have the second and third largest saved CatBoost importance values ({viral_importance.iloc[0].importance:.2f} and {viral_importance.iloc[1].importance:.2f}). The B-HOT panel includes viral targets; these measurements are not human genes. [Banff B-HOT consensus, Table 2](https://pmc.ncbi.nlm.nih.gov/articles/PMC7496585/).
+The saved importance table ranks the two BK targets as follows: {importance_description}. The B-HOT panel includes viral targets; these measurements are not human genes. [Banff B-HOT consensus, Table 2](https://pmc.ncbi.nlm.nih.gov/articles/PMC7496585/).
 
-In this dataset, a small upper tail in both BK signals occurs only among specimens labeled no rejection: {discovery_high}/{nonrejection_discovery} discovery specimens and {validation_high}/{nonrejection_validation} author-validation specimens have both normalized signals above zero. All {validation_high} validation specimens in that group received a no-rejection result ({tail_false_flags} false flags). This is consistent with the model using information associated with the composition of the no-rejection group. Importance alone does not establish that direction, the reason for the association, or an individual feature's causal contribution. Most correctly negative specimens are outside this small group.
+Among specimens labeled no rejection, {discovery_high}/{nonrejection_discovery} discovery specimens and {validation_high}/{nonrejection_validation} author-validation specimens have both normalized BK signals above zero. Across both cohorts, {rejection_high} specimens labeled rejection also meet that reference. Of the {tail['n']} validation specimens above the reference, {tail['negative_results']} received a no-rejection result; there were {tail['false_flags']} false flags and {tail['missed_rejection']} missed rejection cases. These counts describe the relationship between BK signals, recorded diagnosis, and the model's results. Importance alone does not establish the direction, the reason for the association, or an individual feature's causal contribution.
 
 Zero is a descriptive reference for the normalized scale: `count + 1` exceeds the geometric mean of the 12 `housekeeping count + 1` values. It is not an infection cutoff or a detection limit. The reference was used after reviewing results, for description only. Full quantiles and raw-count ranges are in `signals_by_cohort_diagnosis.csv`.
 
@@ -207,7 +231,7 @@ The table shows median normalized signals; full ranges and quantiles are in `sig
 
 {markdown_table(["Result", "n", "BK large T Ag", "BK VP1"], error_rows)}
 
-Neither missed rejection cases nor false flags has both BK signals above zero. Their central values overlap those of correctly classified specimens. These aggregate comparisons describe associations and cannot assign a reason to an individual mistake. A feature-removal experiment would be separate follow-up modeling, and was not done here.
+There are {tail['missed_rejection']} missed rejection cases and {tail['false_flags']} false flags with both BK signals above zero. These aggregate comparisons describe associations and cannot assign a reason to an individual mistake. A feature-removal experiment would be separate follow-up modeling, and was not done here.
 
 ## Available metadata and limits
 

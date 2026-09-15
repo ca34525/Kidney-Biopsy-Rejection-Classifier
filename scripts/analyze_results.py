@@ -6,7 +6,6 @@ Run from the project root: uv run python scripts/analyze_results.py
 from __future__ import annotations
 
 import argparse
-import hashlib
 import importlib.metadata
 import json
 import os
@@ -25,12 +24,9 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import average_precision_score, precision_recall_curve, roc_auc_score, roc_curve
 
-DIAGNOSES = {
-    "No Rejection": 0,
-    "Antibody-mediated Rejection": 1,
-    "T cell-mediated Rejection": 1,
-    "Mixed Rejection": 1,
-}
+from kidney_biopsy.preprocessing import DIAGNOSES, map_diagnoses
+from kidney_biopsy.prediction import project_path as checked_project_path, sha256
+
 SHORT_DIAGNOSES = ["No rejection\n(false flags)", "Antibody-mediated\n(misses)", "T cell-mediated\n(misses)", "Mixed\n(misses)"]
 SPLITS = ["train", "discovery_screen", "author_validation"]
 METADATA = ["Date", "CartridgeID", "ScannerID"]
@@ -41,24 +37,16 @@ METRICS = ["sensitivity", "specificity", "ppv", "npv", "roc_auc", "average_preci
 DIFFERENCES = ["sensitivity", "specificity", "roc_auc", "brier", "fn", "fp"]
 
 
-def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 def relative(path: Path) -> str:
     return path.resolve().relative_to(ROOT).as_posix()
 
 
 def project_path(value: str) -> Path:
-    path = (ROOT / value).resolve()
-    path.relative_to(ROOT)
-    return path
+    return checked_project_path(ROOT, value)
 
 
 def binary_labels(histology: pd.Series) -> pd.Series:
-    if histology.isna().any() or not histology.isin(DIAGNOSES).all():
-        raise ValueError("Unknown or missing original diagnosis in saved split")
-    return histology.map(DIAGNOSES).astype(int)
+    return map_diagnoses(histology)
 
 
 def unique_index(frame: pd.DataFrame, name: str) -> None:
@@ -567,8 +555,8 @@ def main() -> None:
     if not case_dir.is_relative_to(ROOT / "data" / "processed"):
         raise ValueError("Per-specimen tables must be under ignored data/processed")
     for destination in [out, case_dir]:
-        if destination.exists() and (not destination.is_dir() or any(destination.iterdir())):
-            raise ValueError(f"Output destination is not empty; choose a new directory: {relative(destination)}")
+        if destination.exists():
+            raise ValueError(f"Output destination already exists; choose a new directory: {relative(destination)}")
     split, evaluation, scores, thresholds, inputs, result = load_run(run)
     configuration = {"run_dir": relative(run), "output_dir": relative(out), "case_dir": relative(case_dir), "bootstrap_replicates": args.bootstrap,
                      "seed": args.seed, "bootstrap_unit": "biopsy specimen", "bootstrap_scheme": "ordinary paired nonparametric percentile",
@@ -600,6 +588,9 @@ def main() -> None:
                *sorted(figures.glob("*")), case_dir / "specimen_review.csv", case_dir / "selected_model_errors.csv"]
     write_json(previous, {"configuration": configuration, "inputs": input_records,
                           "source": {"file": relative(Path(__file__)), "sha256": sha256(Path(__file__))},
+                          "source_code": [{"file": relative(path), "sha256": sha256(path)} for path in (
+                              Path(__file__), ROOT / "src/kidney_biopsy/preprocessing.py",
+                              ROOT / "src/kidney_biopsy/prediction.py")],
                           "environment_lock": {"file": "uv.lock", "sha256": sha256(ROOT / "uv.lock")},
                           "python": platform.python_version(),
                           "dependencies": {name: importlib.metadata.version(name) for name in ["numpy", "pandas", "scikit-learn", "matplotlib"]},

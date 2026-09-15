@@ -96,6 +96,22 @@ Node was used only for this syntax check.
 
 ## Existing analysis evidence
 
+### Defensibility and implementation audit: September 15, 2026
+
+The [audit report](AUDIT.md) explains the fixes and the retained methodological
+limits. The [final check record](../results/checks/20260915_audit/final.json)
+contains **64 passing tests**. The new
+[HTTP check](../results/checks/20260915_audit/http/http.json) reproduces all 345
+validation scores within `1.11e-16` with identical flags. The
+[report comparison](../results/checks/20260915_audit/report_comparison.json) confirms
+byte-for-byte agreement for all 14 aggregate CSVs and the primary metrics JSON.
+New analysis manifests include the source hashes of the shared helpers they use.
+The [preserved-run check](../results/checks/20260915_audit/preserved_runs.json)
+verifies existing model and run artifacts. No model fitting or dependency changes
+were part of the audit.
+
+### Earlier analysis checks
+
 The [shared-code reproduction](../results/checks/20260915_shared/reproduction.json)
 compares the fixed training procedure with the preserved baseline. The associated
 [test record](../results/checks/20260915_shared/tests.json) and

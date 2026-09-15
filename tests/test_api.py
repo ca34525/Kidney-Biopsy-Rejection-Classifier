@@ -192,6 +192,27 @@ class ApiTests(unittest.TestCase):
             path.write_text("changed", encoding="utf-8")
             self.assert_invalid(client.get("/demo/examples/valid"), 503)
 
+    def test_malformed_optional_examples_do_not_break_upload_predictions(self):
+        demo = self.root / "data/demo"
+        demo.mkdir(parents=True)
+        path = demo / "valid.csv"
+        self.raw.iloc[[0]].to_csv(path, index_label="specimen")
+        item = {"id": "valid", "label": "Synthetic example", "description": "Test fixture", "valid": True,
+                "file": "data/demo/valid.csv", "bytes": path.stat().st_size, "sha256": sha256(path)}
+        for field, value in [("label", None), ("description", []), ("valid", "false")]:
+            malformed = {**item, field: value}
+            if value is None:
+                del malformed[field]
+            with self.subTest(field=field):
+                (demo / "manifest.json").write_text(json.dumps({"examples": [malformed]}), encoding="utf-8")
+                with TestClient(create_app(project_root=self.root, run_dir="results/test")) as client:
+                    self.assertEqual(client.get("/health").status_code, 200)
+                    self.assertEqual(client.get("/demo/examples").json(), {"examples": []})
+                    response = client.post("/predict", content=self.raw.to_csv(index_label="specimen"),
+                                           headers={"Content-Type": "text/csv"})
+                    self.assertEqual(response.status_code, 200)
+                    self.assertEqual(len(response.json()["predictions"]), len(self.raw))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -18,10 +18,14 @@ def read_geo_matrix(path: str | Path) -> tuple[pd.DataFrame, pd.DataFrame]:
         text = stream.read()
     pre, table = text.split("!series_matrix_table_begin", 1)
     rows = [next(csv.reader([line], delimiter="\t")) for line in pre.splitlines() if line.startswith("!Sample_")]
-    ids = next(row[1:] for row in rows if row[0] == "!Sample_geo_accession")
+    accession_rows = [row[1:] for row in rows if row[0] == "!Sample_geo_accession"]
+    if len(accession_rows) != 1:
+        raise ValueError("GEO metadata must contain exactly one specimen accession row.")
+    ids = accession_rows[0]
     if not ids or len(set(ids)) != len(ids) or any(not ident.strip() for ident in ids):
         raise ValueError("GEO metadata specimen IDs must be present and unique.")
     meta = pd.DataFrame(index=ids)
+    seen_fields = set()
     for row in rows:
         if len(row) != len(ids) + 1:
             raise ValueError("GEO metadata row does not match the specimen count.")
@@ -29,9 +33,16 @@ def read_geo_matrix(path: str | Path) -> tuple[pd.DataFrame, pd.DataFrame]:
             for ident, value in zip(ids, row[1:]):
                 if ": " in value:
                     key, value = value.split(": ", 1)
+                    if (ident, key) in seen_fields:
+                        raise ValueError(f"Duplicate GEO metadata field {key!r} for {ident}.")
+                    seen_fields.add((ident, key))
                     meta.loc[ident, key] = value
         elif row[0] in ("!Sample_title", "!Sample_source_name_ch1"):
-            meta[row[0].removeprefix("!Sample_")] = row[1:]
+            key = row[0].removeprefix("!Sample_")
+            if key in meta:
+                raise ValueError(f"Duplicate GEO metadata field {key!r}.")
+            seen_fields.update((ident, key) for ident in ids)
+            meta[key] = row[1:]
     values = pd.read_csv(io.StringIO(table.split("!series_matrix_table_end")[0].strip()), sep="\t", index_col=0).T
     if not values.index.is_unique or set(values.index) != set(meta.index):
         raise ValueError("GEO expression and metadata specimen IDs differ.")

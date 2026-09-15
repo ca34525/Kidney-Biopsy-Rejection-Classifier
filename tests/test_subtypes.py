@@ -127,9 +127,20 @@ class SubtypeSplitTests(unittest.TestCase):
             directory = Path(temporary)
             marker = directory / "frozen.json"
             marker.write_text("already complete")
-            with self.assertRaisesRegex(ValueError, "not empty"):
+            with self.assertRaisesRegex(ValueError, "already exists"):
                 fresh_destinations(directory, ROOT / "data/processed/models/new", ROOT / "data/processed/analysis/new", ROOT / "results/reproduction/baseline")
             self.assertEqual(marker.read_text(), "already complete")
+
+    def test_empty_destinations_are_rejected_before_training(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / ".uv-cache") as temporary:
+            root = Path(temporary)
+            outputs = [root / "results/new", root / "data/processed/models/new", root / "data/processed/analysis/new"]
+            for destination in outputs:
+                destination.mkdir(parents=True)
+                with self.subTest(destination=destination), mock.patch("experiments.rejection_subtypes.run.ROOT", root):
+                    with self.assertRaisesRegex(ValueError, "already exists"):
+                        fresh_destinations(*outputs, root / "results/benchmark")
+                destination.rmdir()
 
 
 if __name__ == "__main__":

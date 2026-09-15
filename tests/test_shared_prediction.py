@@ -72,6 +72,15 @@ class PreprocessingTests(unittest.TestCase):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 normalize_counts(data, self.schema)
 
+    def test_boolean_and_complex_counts_cannot_be_coerced_to_real_numbers(self):
+        mixed = self.raw.astype(object)
+        mixed.loc["002", "IFNG"] = True
+        complex_counts = self.raw.astype(complex)
+        complex_counts.loc["002", "IFNG"] = 10 + 2j
+        for counts in (mixed, self.raw.assign(IFNG=True), complex_counts):
+            with self.subTest(dtype=str(counts.IFNG.dtype)), self.assertRaisesRegex(ValueError, "real numbers"):
+                normalize_counts(counts, self.schema)
+
     def test_empty_missing_or_duplicate_specimens_fail(self):
         cases = [self.raw.iloc[:0], self.raw.set_axis(["x", "x", "y", "z"]),
                  self.raw.set_axis(["", "x", "y", "z"]), self.raw.set_axis([None, "x", "y", "z"])]

@@ -64,6 +64,9 @@ def _demo_examples(root: Path, demo_dir: str) -> dict:
             ident = item["id"]
             if not re.fullmatch(r"[a-z0-9-]{1,40}", ident) or ident in examples:
                 raise ValueError("Invalid example manifest.")
+            if (not all(isinstance(item[key], str) and item[key].strip()
+                        for key in ("label", "description")) or not isinstance(item["valid"], bool)):
+                raise ValueError("Invalid example description.")
             path = verify_artifact(root, item)
             if path.parent != directory or path.suffix != ".csv" or path.stat().st_size > MAX_UPLOAD_BYTES:
                 raise ValueError("Invalid example location or size.")

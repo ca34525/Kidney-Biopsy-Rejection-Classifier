@@ -5,6 +5,20 @@ The research training script and batch prediction application import
 housekeeping normalization, score calculation, and saved-model loading.
 The training script keeps model fitting and discovery-based selection.
 
+## Reading order
+
+Start with the path a single prediction takes:
+
+1. [CLI](../src/kidney_biopsy/cli.py): load the configured model, read a CSV, write results.
+2. [Preprocessing](../src/kidney_biopsy/preprocessing.py): check the complete batch and normalize each specimen.
+3. [Prediction](../src/kidney_biopsy/prediction.py): check model compatibility, calculate scores, apply the threshold.
+4. [API](../src/kidney_biopsy/api.py): expose that same path over HTTP.
+
+Then read [training](../experiments/rejection_public/run.py) for the saved split,
+candidate fits, and threshold selection. The source reader is only needed to
+understand the public-study import. Historical source snapshots under `results/`
+explain old runs; they are not additional application implementations to maintain.
+
 ## Input contract
 
 A CSV contains one specimen per row. The first column contains a unique,
@@ -18,7 +32,8 @@ counts, and non-finite values. Extra columns, including metadata, are
 rejected. A batch fails as a whole if any specimen is invalid. The default
 CSV batch limit is 1,000 specimens and the CLI file limit is 20 MiB. Numeric checks do not establish that
 the input came from the correct assay; assay compatibility is the caller's
-responsibility.
+responsibility. These are file and numeric checks; the caller must also complete
+the laboratory's assay quality checks.
 
 Each specimen is transformed independently:
 
@@ -81,7 +96,8 @@ server and compares all 345 validation predictions with the CLI and saved scores
 
 Codex assisted with extracting the package, writing the analysis and checks,
 and reviewing generated charts. Acceptance evidence is the 30 passing tests,
-the 109.7-second local rerun of the fixed 27-model procedure, exact agreement
+the 109.7-second local rerun of the fixed procedure (27 fits: nine configurations
+for each of three binary targets), exact agreement
 across nine evaluation prediction tables, and exact agreement after model reload.
 The existing discovery split, model candidates, selection rule, and thresholds
 were preserved. The calibration and error reviews did not change model fitting.

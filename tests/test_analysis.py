@@ -8,7 +8,11 @@ from unittest import mock
 import numpy as np
 import pandas as pd
 
-from scripts.analyze_results import ROOT, align_predictions, binary_labels, main, metrics, paired_bootstrap, reliability, wilson
+from scripts.analyze_results import (
+    ROOT, align_predictions, binary_labels, main, metrics, paired_bootstrap,
+    project_path, reliability, wilson,
+)
+from scripts.review_viral_targets import higher_signal_outcomes
 
 
 class AnalysisValidationTests(unittest.TestCase):
@@ -49,10 +53,47 @@ class AnalysisValidationTests(unittest.TestCase):
             marker = saved / "preserved.txt"
             marker.write_text("preserve this")
             with mock.patch("scripts.analyze_results.ROOT", root), mock.patch("sys.argv", ["analyze_results.py", "--output-dir", "already_done"]), mock.patch("scripts.analyze_results.load_run") as load:
-                with self.assertRaisesRegex(ValueError, "not empty"):
+                with self.assertRaisesRegex(ValueError, "already exists"):
                     main()
                 load.assert_not_called()
             self.assertEqual(marker.read_text(), "preserve this")
+
+    def test_empty_destination_is_rejected_before_reading_run(self):
+        with tempfile.TemporaryDirectory(dir=ROOT / ".uv-cache") as temporary:
+            root = Path(temporary)
+            (root / "empty").mkdir()
+            with (
+                mock.patch("scripts.analyze_results.ROOT", root),
+                mock.patch("sys.argv", ["analyze_results.py", "--output-dir", "empty"]),
+                mock.patch("scripts.analyze_results.load_run") as load,
+            ):
+                with self.assertRaisesRegex(ValueError, "already exists"):
+                    main()
+                load.assert_not_called()
+            self.assertEqual(list((root / "empty").iterdir()), [])
+
+    def test_analysis_paths_reject_absolute_traversal_and_linked_inputs(self):
+        for value in [str(ROOT / "data"), "../data", "data/../data"]:
+            with self.subTest(path=value), self.assertRaises(ValueError):
+                project_path(value)
+        with mock.patch.object(Path, "is_symlink", return_value=True):
+            with self.assertRaisesRegex(ValueError, "Linked"):
+                project_path("data/raw/input.csv")
+
+
+class ViralReviewTests(unittest.TestCase):
+    def test_higher_signal_counts_distinguish_false_flags_and_missed_rejection(self):
+        frame = pd.DataFrame({
+            "diagnosis": ["No Rejection", "No Rejection", "Mixed Rejection", "Mixed Rejection", "No Rejection"],
+            "predicted": pd.Series([False, True, False, True, True], dtype=object),
+            "both_BK_signals_above_zero": [True, True, True, True, False],
+        })
+        self.assertEqual(higher_signal_outcomes(frame), {
+            "n": 4, "no_rejection": 2, "rejection": 2, "negative_results": 2,
+            "false_flags": 1, "missed_rejection": 1,
+        })
+        frame["both_BK_signals_above_zero"] = False
+        self.assertTrue(all(value == 0 for value in higher_signal_outcomes(frame).values()))
 
 
 class UncertaintyTests(unittest.TestCase):

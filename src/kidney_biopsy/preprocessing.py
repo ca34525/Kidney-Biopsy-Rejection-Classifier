@@ -101,8 +101,9 @@ def validate_counts(counts: pd.DataFrame, schema: AssaySchema | None = None) -> 
             raise ValueError(f"Unexpected assay targets or metadata columns: {', '.join(extra)}")
     elif not set(counts.columns).difference(HOUSEKEEPING_TARGETS):
         raise ValueError("Counts need at least one non-housekeeping assay target.")
-    if any(pd.api.types.is_bool_dtype(dtype) for dtype in counts.dtypes):
-        raise ValueError("Raw counts must be numeric counts, not booleans.")
+    if any(isinstance(value, (bool, np.bool_, complex, np.complexfloating))
+           for value in counts.to_numpy().flat):
+        raise ValueError("Raw counts must be real numbers, not booleans or complex values.")
     try:
         numeric = counts.astype(float)
     except (ValueError, TypeError) as error:
