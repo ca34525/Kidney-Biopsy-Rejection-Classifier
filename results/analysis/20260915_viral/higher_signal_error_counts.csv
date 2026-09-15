@@ -1,0 +1,5 @@
+error_group,n,both_above_zero
+Correct no-rejection result,168,4
+Correct rejection flag,144,0
+False rejection flag,8,0
+Missed rejection,25,0

@@ -1,0 +1,32 @@
+{
+  "verified_utc": "2026-09-15T15:38:46.267368+00:00",
+  "run_dir": "results/reproduction/baseline",
+  "inference_csv": "data/processed/predictions/shared_baseline.csv",
+  "inference_sha256": "f509ad1988e9f39a93921fe8937de10e2b9fdc0675c2d60c9001f65045672b5d",
+  "run_manifest_sha256": "884f28f48686a4451fc4cf144f5ed12e29a6e926b88275b06d73160521a19fdb",
+  "verified_artifacts": 25,
+  "specimens": 345,
+  "max_absolute_probability_difference": 0.0,
+  "predicted_positive": 152,
+  "predicted_negative": 193,
+  "threshold": 0.8765880870219778,
+  "numeric_tolerance": 1e-12,
+  "source_status": [
+    {
+      "file": "experiments/rejection_public/run.py",
+      "recorded_sha256": "c7a5bf0314af9bb3878b3cd450f650b28ba24bbcf5f7e488fc4acff1da921155",
+      "current_sha256": "c840e2aea35e2404ab228b0fedca21d21f0b5455603e906b63ce9077b507f627",
+      "current_matches_run": false,
+      "snapshot": null
+    },
+    {
+      "file": "uv.lock",
+      "recorded_sha256": "4a48e241f17298576ee6962878f507e7d555bb02636959c0c21b42608aaa5d27",
+      "current_sha256": "a9237c3ce98dad69e09e1a592ecdc68db949ef7a1cffc32dd46cceff4f4e76c2",
+      "current_matches_run": false,
+      "snapshot": null
+    }
+  ],
+  "source_note": "Changed current source or lockfiles are recorded as development since the run; immutable artifacts and available source snapshots must still match their hashes.",
+  "comparison": "Shared inference versus evaluation produced by this local training run."
+}

@@ -1,0 +1,13 @@
+model_a,model_b,error_type,eligible_n,both_error,a_only_error,b_only_error,neither_error
+catboost_all_depth4,logistic_all,missed_rejection,169,20,5,13,131
+catboost_all_depth4,logistic_all,false_flag,176,2,6,6,162
+catboost_all_depth4,single_gene_IFNG,missed_rejection,169,8,17,6,138
+catboost_all_depth4,single_gene_IFNG,false_flag,176,5,3,70,98
+catboost_all_depth4,training_prevalence,missed_rejection,169,0,25,0,144
+catboost_all_depth4,training_prevalence,false_flag,176,8,0,168,0
+logistic_all,single_gene_IFNG,missed_rejection,169,8,25,6,130
+logistic_all,single_gene_IFNG,false_flag,176,8,0,67,101
+logistic_all,training_prevalence,missed_rejection,169,0,33,0,136
+logistic_all,training_prevalence,false_flag,176,8,0,168,0
+single_gene_IFNG,training_prevalence,missed_rejection,169,0,14,0,155
+single_gene_IFNG,training_prevalence,false_flag,176,75,0,101,0

@@ -1,0 +1,23 @@
+{
+  "verified_utc": "2026-09-15T15:42:52.470560+00:00",
+  "command": "uv run --frozen python -m unittest discover -s tests -v",
+  "tests_run": 30,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "successful": true,
+  "test_files": [
+    {
+      "file": "tests/test_analysis.py",
+      "sha256": "a7041397f4aa05e13694c1167213524f1b8022dc074b71e3cb3566f25e92af3e"
+    },
+    {
+      "file": "tests/test_shared_prediction.py",
+      "sha256": "9568b6c2743735b1030fefcd44f59aa864e74c8ee9cfaff7c42ca9b8edc792ed"
+    },
+    {
+      "file": "tests/test_source_readers.py",
+      "sha256": "923b5cd3044ee8f54e02719fbc7ee048d5fb15141f09e60b74e7cd2f8130f404"
+    }
+  ]
+}

@@ -28,7 +28,11 @@ is unavailable, state that and use the tested local container for the interview.
 
 ## Current and planned work
 
-The repository's README records what currently runs and links to locally generated
-results. This plan describes the intended sequence, not a claim that the API,
-container, CI, cloud deployment, or slides are already finished. Update progress
-after actual checks, and keep each next step small enough to complete.
+As of September 15, 2026, the initial analysis, model comparison, error review,
+uncertainty and score-reliability assessment, and shared preprocessing/prediction
+package are complete. The fixed 27-model procedure was rerun through that package;
+all nine evaluation prediction tables matched the preserved baseline exactly.
+The README links to reports, editable charts, and verification records.
+
+The next work is the small FastAPI service and HTML demonstration, followed by
+container/CI checks and the interview presentation. These remain planned work.

@@ -1,0 +1,208 @@
+{
+  "configuration": {
+    "run_dir": "results/reproduction/baseline",
+    "output_dir": "results/analysis/20260915_baseline",
+    "case_dir": "data/processed/analysis/20260915_baseline",
+    "bootstrap_replicates": 2000,
+    "seed": 20260915,
+    "bootstrap_unit": "biopsy specimen",
+    "bootstrap_scheme": "ordinary paired nonparametric percentile",
+    "models_and_thresholds": {
+      "catboost_all_depth4": 0.8765880870219778,
+      "logistic_all": 0.8536733723106492,
+      "single_gene_IFNG": 0.5207579856992155,
+      "training_prevalence": 0.5
+    },
+    "reliability_edges": [
+      0.0,
+      0.1,
+      0.2,
+      0.30000000000000004,
+      0.4,
+      0.5,
+      0.6000000000000001,
+      0.7000000000000001,
+      0.8,
+      0.9,
+      1.0
+    ]
+  },
+  "inputs": [
+    {
+      "file": "results/reproduction/baseline/biopsy_split.csv",
+      "sha256": "e179b5ef6fdceac592db55878bd82aaf01f08b7c9eb65afa99d326b309ecab6a"
+    },
+    {
+      "file": "results/reproduction/baseline/raw_batch_identifiers.csv",
+      "sha256": "1f13b4b73940c5756edd4509d1784db60a4925a25eb41530b6807ef36134a3ae"
+    },
+    {
+      "file": "results/reproduction/baseline/biopsy_results.json",
+      "sha256": "734dc953c7df5d255896ef08fe7f358090b8415b41e89594856f27879b2ad248"
+    },
+    {
+      "file": "results/reproduction/baseline/any_rejection_frozen.json",
+      "sha256": "f469b7b8f966e4cede743720e1c33b77bcfcde481687a5252a252617e50eae5e"
+    },
+    {
+      "file": "results/reproduction/baseline/run_manifest.json",
+      "sha256": "884f28f48686a4451fc4cf144f5ed12e29a6e926b88275b06d73160521a19fdb"
+    },
+    {
+      "file": "results/reproduction/baseline/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "sha256": "2c5fcedb726348ba7a7ac06e4e195f81f4b8d921d186997cb2ab2ee8197ab91a"
+    },
+    {
+      "file": "results/reproduction/baseline/any_rejection_logistic_all_test_predictions.csv",
+      "sha256": "7a722fa2ea5766e166557be9b1f6449541edf4ed14040e11d7e975d0c5b89e76"
+    },
+    {
+      "file": "results/reproduction/baseline/any_rejection_single_gene_IFNG_test_predictions.csv",
+      "sha256": "01f67a15880020aca5a085a2e50b526cd3599878fbd4c4ba3cc282a0cdda7835"
+    }
+  ],
+  "source": {
+    "file": "scripts/analyze_results.py",
+    "sha256": "3903b18c2b89ef93823b9beb4d596b1a7a023099924fc81cec39bd593a8e545f"
+  },
+  "environment_lock": {
+    "file": "uv.lock",
+    "sha256": "a9237c3ce98dad69e09e1a592ecdc68db949ef7a1cffc32dd46cceff4f4e76c2"
+  },
+  "python": "3.12.13",
+  "dependencies": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2"
+  },
+  "model_version": "results/reproduction/baseline:catboost_all_depth4",
+  "provenance_checks": {
+    "saved_inputs_match_run_manifest": true,
+    "public_manifest_matches_run": true,
+    "physical_raw_files_match_source_manifest": true
+  },
+  "run_manifest_sha256": "884f28f48686a4451fc4cf144f5ed12e29a6e926b88275b06d73160521a19fdb",
+  "outputs": [
+    {
+      "file": "results/analysis/20260915_baseline/REPORT.md",
+      "sha256": "a5562e1ee7ba45e5f754ebc5f07b557b73f47fc1743e8373bdbd525d9fc9ea55",
+      "bytes": 12421
+    },
+    {
+      "file": "results/analysis/20260915_baseline/model_metrics.json",
+      "sha256": "cfccd17b99715e9d0ca97929b4fd2205dd9e293ec2fc11125c2d27e68b7dcdb7",
+      "bytes": 2200
+    },
+    {
+      "file": "results/analysis/20260915_baseline/model_metrics.csv",
+      "sha256": "b0c61c942369c150bd74b3f7bc092e7c9eb689a12bb54dd607a123b7daf0ec69",
+      "bytes": 1085
+    },
+    {
+      "file": "results/analysis/20260915_baseline/metric_intervals.csv",
+      "sha256": "015b7c039ebf439059e2b41575deb319e13c1c38ac4d7991f647fcb2df38b3d7",
+      "bytes": 3427
+    },
+    {
+      "file": "results/analysis/20260915_baseline/paired_differences.csv",
+      "sha256": "1fd083292f7a7ba90cd8545d468e63a3f37f444b4aee441bd62b39b0c7cfe436",
+      "bytes": 1205
+    },
+    {
+      "file": "results/analysis/20260915_baseline/errors_by_diagnosis.csv",
+      "sha256": "4048a7ffad8776bfa89c43371328bd1708f6bfa2aeddb030d020545117e1d9ee",
+      "bytes": 1823
+    },
+    {
+      "file": "results/analysis/20260915_baseline/assay_group_errors.csv",
+      "sha256": "447cd27975dcec717e4ad04cf23ec237cd04d0e8e115d1f2bc7a004a80b3076c",
+      "bytes": 46916
+    },
+    {
+      "file": "results/analysis/20260915_baseline/error_overlap.csv",
+      "sha256": "46bd8c7ed4e2ba2448600c238a4d4729220464c549e209176f3cb9f0176c6c7d",
+      "bytes": 867
+    },
+    {
+      "file": "results/analysis/20260915_baseline/reliability_bins.csv",
+      "sha256": "8c300664473ab37dedb5997726c1afb5ef84f662267d556db393df9c1cde6719",
+      "bytes": 3661
+    },
+    {
+      "file": "results/analysis/20260915_baseline/cohort_composition.csv",
+      "sha256": "269781684617388f99f24992deb3a70cc3520ce246a8b97ae37526178d4433c8",
+      "bytes": 20746
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/01_roc_precision_recall.png",
+      "sha256": "8acd8161c7ff9968d9a8bd46ac5ce03566ee754cdac8c104846d34c7f60885d4",
+      "bytes": 142231
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/01_roc_precision_recall.svg",
+      "sha256": "02dd234d8e3e01a9c3d821e5842c51925da9a9fef5cb206f4ce26a5b616b21d0",
+      "bytes": 51583
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/02_confusion_matrices.png",
+      "sha256": "7a8b0a5d3453087835037067eabf3f665f0179905d5ea703f455d7a0f8088e01",
+      "bytes": 194882
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/02_confusion_matrices.svg",
+      "sha256": "e2d15d7742a7755a459253e8c508e43dd8018243277f269461a9d2b5a430f3af",
+      "bytes": 33918
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/03_absolute_errors.png",
+      "sha256": "2e92d6d1784ba1c8616ddc62161eb2c9a4165ccbe963488c01ce82a57dfbc6f7",
+      "bytes": 48909
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/03_absolute_errors.svg",
+      "sha256": "64452ef3e1a5cd84f0bb509e0416a7d04b800edf5c1478ec234577d52315fb10",
+      "bytes": 12410
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/04_errors_by_diagnosis.png",
+      "sha256": "43a72f1c9cdf2cb6cfef120babede597437f3342ab57ecd6bee5c90c94952d59",
+      "bytes": 133019
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/04_errors_by_diagnosis.svg",
+      "sha256": "a3e481e49f4c922e1fceb0117caf9461db08f988ec33c837df4cfcd4a7b8867d",
+      "bytes": 41825
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/05_score_distributions.png",
+      "sha256": "ae3a4eb77c6c24bea5143f0eaad7d75b6dc6499c89838baff8143de5e5f56f83",
+      "bytes": 157592
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/05_score_distributions.svg",
+      "sha256": "c2c8c08f8d97932ca7432f014fe8b9a1d04814b77c0e7855cb7882fcafa7e125",
+      "bytes": 47384
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/06_score_reliability.png",
+      "sha256": "25d6bccf82d901fa1d6785f60c00013282c92e04856955b35405570c674bca88",
+      "bytes": 302088
+    },
+    {
+      "file": "results/analysis/20260915_baseline/figures/06_score_reliability.svg",
+      "sha256": "06cdba1e50ecb64a1ff0f6b85d066d2e2349d7a52231237c83ad97a7c0e3a3e6",
+      "bytes": 65677
+    },
+    {
+      "file": "data/processed/analysis/20260915_baseline/specimen_review.csv",
+      "sha256": "c5b9a38e543bcdb47aebf4e1832036162ba2994601a12c6c3095d58fc637b6e7",
+      "bytes": 98565
+    },
+    {
+      "file": "data/processed/analysis/20260915_baseline/selected_model_errors.csv",
+      "sha256": "cdb97ffb2579b257f8f250738a397472198be46c1f7fa678fabdd81724ccbbdf",
+      "bytes": 9753
+    }
+  ]
+}

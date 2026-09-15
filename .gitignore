@@ -1,6 +1,7 @@
 .venv/
 .uv-cache/
 __pycache__/
+*.egg-info/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
@@ -21,5 +22,6 @@ catboost_info/
 results/**/biopsy_split.csv
 results/**/raw_batch_identifiers.csv
 results/**/*_test_predictions.csv
+results/**/*_screen_predictions.csv
 results/**/inference.csv
 results/**/smoke_*.csv

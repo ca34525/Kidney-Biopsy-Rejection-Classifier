@@ -1,0 +1,13 @@
+model,minus_model,metric,estimate,lower,upper,valid_replicates
+catboost_all_depth4,logistic_all,sensitivity,0.047337278106508895,-0.00013661202185791588,0.09740655685777633,2000
+catboost_all_depth4,logistic_all,specificity,0.0,-0.03589820359281436,0.04022988505747127,2000
+catboost_all_depth4,logistic_all,roc_auc,0.013078267885960226,0.00013367465664488326,0.026952976125008597,2000
+catboost_all_depth4,logistic_all,brier,-0.007520568886984283,-0.024752099772892167,0.009861032903201807,2000
+catboost_all_depth4,logistic_all,fn,-8.0,-17.0,0.024999999999863576,2000
+catboost_all_depth4,logistic_all,fp,0.0,-7.0,6.0,2000
+catboost_all_depth4,single_gene_IFNG,sensitivity,-0.0650887573964497,-0.12353106411103768,-0.011694206446348438,2000
+catboost_all_depth4,single_gene_IFNG,specificity,0.38068181818181823,0.3089684474595435,0.45835755813953477,2000
+catboost_all_depth4,single_gene_IFNG,roc_auc,0.12634480903711687,0.08662016806722694,0.1666588263537521,2000
+catboost_all_depth4,single_gene_IFNG,brier,-0.10676768579426482,-0.13403063081886604,-0.07896084976231452,2000
+catboost_all_depth4,single_gene_IFNG,fn,11.0,2.0,21.0,2000
+catboost_all_depth4,single_gene_IFNG,fp,-67.0,-83.0,-53.0,2000

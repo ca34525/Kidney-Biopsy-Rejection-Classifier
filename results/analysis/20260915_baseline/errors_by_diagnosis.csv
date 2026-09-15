@@ -1,0 +1,17 @@
+model,histology,error_type,errors,n,error_rate,wilson_lower,wilson_upper
+catboost_all_depth4,No Rejection,false_flag,8,176,0.045454545454545456,0.02320977688004896,0.08711772463603079
+catboost_all_depth4,Antibody-mediated Rejection,missed_rejection,6,56,0.10714285714285714,0.05003935571117074,0.21468445171071482
+catboost_all_depth4,T cell-mediated Rejection,missed_rejection,18,95,0.18947368421052632,0.12334852229116193,0.27973596569651077
+catboost_all_depth4,Mixed Rejection,missed_rejection,1,18,0.05555555555555555,0.009875190978303097,0.25757300781872594
+logistic_all,No Rejection,false_flag,8,176,0.045454545454545456,0.02320977688004896,0.08711772463603079
+logistic_all,Antibody-mediated Rejection,missed_rejection,8,56,0.14285714285714285,0.07420788536920624,0.25735921228705333
+logistic_all,T cell-mediated Rejection,missed_rejection,25,95,0.2631578947368421,0.1850652476987089,0.35966020924104136
+logistic_all,Mixed Rejection,missed_rejection,0,18,0.0,0.0,0.17587922364665765
+single_gene_IFNG,No Rejection,false_flag,75,176,0.42613636363636365,0.3554229333262941,0.5000052856700691
+single_gene_IFNG,Antibody-mediated Rejection,missed_rejection,9,56,0.16071428571428573,0.08692667607595139,0.2780620666974952
+single_gene_IFNG,T cell-mediated Rejection,missed_rejection,5,95,0.05263157894736842,0.02268811304914955,0.11734886117037888
+single_gene_IFNG,Mixed Rejection,missed_rejection,0,18,0.0,0.0,0.17587922364665765
+training_prevalence,No Rejection,false_flag,176,176,1.0,0.9786397483323124,1.0
+training_prevalence,Antibody-mediated Rejection,missed_rejection,0,56,0.0,6.938893903907228e-18,0.06419393671876342
+training_prevalence,T cell-mediated Rejection,missed_rejection,0,95,0.0,0.0,0.038864853539472964
+training_prevalence,Mixed Rejection,missed_rejection,0,18,0.0,0.0,0.17587922364665765

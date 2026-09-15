@@ -1,0 +1,9 @@
+cohort,diagnosis,n,both_above_zero,fraction
+Author technical validation,Antibody-mediated Rejection,56,0,0
+Author technical validation,Mixed Rejection,18,0,0
+Author technical validation,No Rejection,176,4,0.022727273
+Author technical validation,T cell-mediated Rejection,95,0,0
+Discovery,Antibody-mediated Rejection,276,0,0
+Discovery,Mixed Rejection,76,0,0
+Discovery,No Rejection,356,16,0.04494382
+Discovery,T cell-mediated Rejection,342,0,0
