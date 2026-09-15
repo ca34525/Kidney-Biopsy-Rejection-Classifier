@@ -30,7 +30,8 @@ is unavailable, state that and use the tested local container for the interview.
 
 As of September 15, 2026, the initial analysis, model comparison, error review,
 uncertainty and score-reliability assessment, and shared preprocessing/prediction
-package are complete. The fixed 27-model procedure was rerun through that package;
+package are complete. The fixed procedure (27 fits across three binary targets)
+was rerun through that package;
 all nine evaluation prediction tables matched the preserved baseline exactly.
 The README links to reports, editable charts, and verification records.
 
@@ -43,11 +44,20 @@ counts. The service continues to use the binary model.
 
 The [FastAPI service and HTML demonstration](API.md) are complete. They support
 prepared public examples and validated CSV uploads, return a versioned score and
-flag, and explain invalid input. All 55 tests pass. A real HTTP check reproduced
+flag, and explain invalid input. All 64 tests pass after the audit. A real HTTP check reproduced
 all 345 validation scores within `1e-12` of CLI and saved results. The
 [verification guide](VERIFICATION.md) records the clean-install checks and CI
 workflow. The repository's GitHub remote is configured; pushes and pull requests
 trigger the hosted checks.
+
+The [defensibility and implementation audit](AUDIT.md) is complete on
+`audit/defensibility-and-elegance`. It fixes ambiguous input handling, consolidates
+analysis checks, derives report claims from measured results, and simplifies the
+README. The methods, fitted model, and frozen threshold are preserved. The audit
+documents the narrow model-selection margin and the limits of assay quality checks.
+A second pass makes the training and prediction workflows explicit, expands dense
+calculations, and gives each chart its own function. Its full 27-fit reproduction
+retains all nine evaluation tables exactly; the service keeps its frozen model.
 
 Remaining project work is the interview presentation and deployment preparation,
 including a local container run and a small cloud demonstration if access permits.

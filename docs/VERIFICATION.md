@@ -96,6 +96,38 @@ Node was used only for this syntax check.
 
 ## Existing analysis evidence
 
+### Defensibility and implementation audit: September 15, 2026
+
+The [audit report](AUDIT.md) explains the fixes and the retained methodological
+limits. The [final check record](../results/checks/20260915_audit/final.json)
+contains **64 passing tests**. The new
+[HTTP check](../results/checks/20260915_audit/http/http.json) reproduces all 345
+validation scores within `1.11e-16` with identical flags. The
+[report comparison](../results/checks/20260915_audit/report_comparison.json) confirms
+byte-for-byte agreement for all 14 aggregate CSVs and the primary metrics JSON.
+New analysis manifests include the source hashes of the shared helpers they use.
+The [preserved-run check](../results/checks/20260915_audit/preserved_runs.json)
+verifies existing model and run artifacts. No model fitting or dependency changes
+were part of that initial pass.
+
+### Readability refactor: September 15, 2026
+
+The second pass reorganized the main workflows and expanded dense calculations.
+All [64 existing tests](../results/checks/20260915_readability/checks.json) pass.
+A [full 27-fit reproduction](../results/checks/20260915_readability/reproduction.json)
+matches all nine original evaluation tables exactly, including split assignments,
+model choices, and thresholds. The new run has its own source snapshots.
+
+The [HTTP check](../results/checks/20260915_readability/http/http.json) confirms
+CLI/API/saved-score agreement on all 345 validation specimens. The
+[browser check](../results/checks/20260915_readability/browser.json) covers valid,
+invalid, batch, stale-result, and changed-model behavior. The
+[analysis comparison](../results/checks/20260915_readability/analysis_comparison.json)
+confirms byte-for-byte agreement for eight aggregate tables, the metrics JSON,
+and all six PNG charts on the real data. No dependencies were changed.
+
+### Earlier analysis checks
+
 The [shared-code reproduction](../results/checks/20260915_shared/reproduction.json)
 compares the fixed training procedure with the preserved baseline. The associated
 [test record](../results/checks/20260915_shared/tests.json) and

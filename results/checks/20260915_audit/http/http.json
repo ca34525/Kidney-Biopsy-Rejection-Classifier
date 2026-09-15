@@ -1,0 +1,33 @@
+{
+  "verified_utc": "2026-09-15T17:28:21.258752+00:00",
+  "successful": true,
+  "run_dir": "results/reproduction/20260915_shared",
+  "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+  "run_manifest_sha256": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d",
+  "specimens": 345,
+  "http_requests_for_predictions": 22,
+  "numeric_tolerance": 1e-12,
+  "max_http_cli_score_difference": 1.1102230246251565e-16,
+  "max_http_saved_score_difference": 1.1102230246251565e-16,
+  "checks": [
+    "real_http_server_ready",
+    "demo_page_served",
+    "all_345_http_cli_saved_predictions_agree_with_reordered_columns",
+    "invalid_http_batch_rejected_without_predictions",
+    "http_batch_limit_enforced"
+  ],
+  "script_sha256": "5a29aa5a5b4703f19919ae044a131465fa9bda172a17dddf431bf029d5b144cd",
+  "source_hashes": {
+    "src/kidney_biopsy/__init__.py": "0926aa92e36bb57d541c43ddfde79afab43fcae5661b9abbcd53e91fb721d4b0",
+    "src/kidney_biopsy/__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "src/kidney_biopsy/api.py": "e8a897f8403b39adb9fe3dee6663590b217831f4a6fc363975bb9feee0539785",
+    "src/kidney_biopsy/cli.py": "3cdecb87d61e754a6a4c326acfb4938262bac92f60ad8e29206e6a063084d87b",
+    "src/kidney_biopsy/prediction.py": "ada0e7774af08da99297477d5fdbbca9cb058b775aaba65014cd4fdb30acee70",
+    "src/kidney_biopsy/preprocessing.py": "77604383275176013719bfcc0ab8bc47a36131c9195b9b894e64a9f8a336c5b8",
+    "src/kidney_biopsy/source.py": "28f3ac2a9a0839d0888d129481327f41c64d4fa0f0bfa9aff5d4123b37f6e2e5",
+    "src/kidney_biopsy/static/app.js": "5d6ab5b2afed9363590b2f5bbbd01dd1e17e177601a599df2973aec3b6232cb3",
+    "src/kidney_biopsy/static/index.html": "2b79b61afad787dd7b8c2a897d5e257619a9d778a015b36e57045949555a6a91",
+    "src/kidney_biopsy/static/style.css": "36c13f116d5678b8113f92b790ff5014d567d6a3ef3ff5f08718d635e754263a"
+  },
+  "case_directory": "data/processed/audit/20260915_http"
+}

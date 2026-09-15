@@ -1,0 +1,363 @@
+{
+  "started_utc": "2026-09-15T17:47:46.451110+00:00",
+  "finished_utc": "2026-09-15T17:49:42.487230+00:00",
+  "elapsed_seconds": 116.04306720000022,
+  "python": "3.12.13",
+  "dependencies": {
+    "catboost": "1.2.10",
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "input_manifest": "data/manifest.json",
+  "input_manifest_sha256": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6",
+  "source": {
+    "file": "experiments/rejection_public/run.py",
+    "sha256": "77d35ad8b3f0f2a306c179245729707cd62c49d1a26d1a78e5c6962fc10fde04"
+  },
+  "sources": [
+    {
+      "file": "experiments/rejection_public/run.py",
+      "sha256": "77d35ad8b3f0f2a306c179245729707cd62c49d1a26d1a78e5c6962fc10fde04",
+      "snapshot": "results/reproduction/20260915_readability/source/experiments/rejection_public/run.py"
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "e7b67debb9f7dd1d0619cce835231fda7974eb0d54dd53b5b0fda12890967711",
+      "snapshot": "results/reproduction/20260915_readability/source/pyproject.toml"
+    },
+    {
+      "file": "uv.lock",
+      "sha256": "88413f5df28df70a947eed01f7493b114eb73a1a4c56decfbfc49ace1a0e388b",
+      "snapshot": "results/reproduction/20260915_readability/source/uv.lock"
+    },
+    {
+      "file": "scripts/verify_local_data.py",
+      "sha256": "57a0ab252a33bbe77e4e84fae6e951e35c1683a05e436c50d586d6a6cfcd9874",
+      "snapshot": "results/reproduction/20260915_readability/source/scripts/verify_local_data.py"
+    },
+    {
+      "file": "src/kidney_biopsy/__init__.py",
+      "sha256": "0926aa92e36bb57d541c43ddfde79afab43fcae5661b9abbcd53e91fb721d4b0",
+      "snapshot": "results/reproduction/20260915_readability/source/src/kidney_biopsy/__init__.py"
+    },
+    {
+      "file": "src/kidney_biopsy/__main__.py",
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "snapshot": "results/reproduction/20260915_readability/source/src/kidney_biopsy/__main__.py"
+    },
+    {
+      "file": "src/kidney_biopsy/api.py",
+      "sha256": "632452def2e95a7cf702f0c89274e53ff1f78685b5009dd6601241c71c70093f",
+      "snapshot": "results/reproduction/20260915_readability/source/src/kidney_biopsy/api.py"
+    },
+    {
+      "file": "src/kidney_biopsy/cli.py",
+      "sha256": "521097f70b001a8da10d8bf9df378217c1ac112c6b2cd878b40c8508d0a02f29",
+      "snapshot": "results/reproduction/20260915_readability/source/src/kidney_biopsy/cli.py"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "sha256": "0928d9bcc561790f421f095db9abf69a6d70605ebc7523145ba6006875277830",
+      "snapshot": "results/reproduction/20260915_readability/source/src/kidney_biopsy/prediction.py"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "sha256": "e417c92b89a1c55fe89f1de9f9fd23dfa01a153ecf40f70e9c698467dbec6a14",
+      "snapshot": "results/reproduction/20260915_readability/source/src/kidney_biopsy/preprocessing.py"
+    },
+    {
+      "file": "src/kidney_biopsy/source.py",
+      "sha256": "9c5281214f61c548c03424db01e43c06d98609f16612ad57dd4e2bccafaeae13",
+      "snapshot": "results/reproduction/20260915_readability/source/src/kidney_biopsy/source.py"
+    }
+  ],
+  "environment_lock": {
+    "file": "uv.lock",
+    "sha256": "88413f5df28df70a947eed01f7493b114eb73a1a4c56decfbfc49ace1a0e388b"
+  },
+  "seeds": {
+    "discovery_split": 20260915,
+    "catboost": 2026,
+    "extra_trees": 2026,
+    "hist_boosting": 2026
+  },
+  "fit_count": 27,
+  "output_dir": "results/reproduction/20260915_readability",
+  "model_dir": "data/processed/models/20260915_readability",
+  "artifacts": [
+    {
+      "file": "results/reproduction/20260915_readability/antibody_mediated_component_catboost_all_depth6_screen_predictions.csv",
+      "bytes": 10508,
+      "sha256": "8797e1469b9549331ad3e0caf5537a1613b794d92ea7a086d61f516968744819"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "bytes": 13859,
+      "sha256": "d3f6b663e7fb6490f794056cb707a8a4ce72a0a05618f8a1c73d09326e5e0790"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/antibody_mediated_component_frozen.json",
+      "bytes": 23548,
+      "sha256": "f531c4a4a94328786963aae7367f12f68b81551002857382a3b77496bf173fa4"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/antibody_mediated_component_logistic_all_screen_predictions.csv",
+      "bytes": 10505,
+      "sha256": "48e3be051f1a77cc8fca0a1f9ddce4d72036a5a10914942c24b6394cf9684574"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/antibody_mediated_component_logistic_all_test_predictions.csv",
+      "bytes": 13878,
+      "sha256": "8a0d9460951d987fef6aa74c8fd511faa44d941d707338ae3b97ed6d14d5189d"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/antibody_mediated_component_single_gene_IFNG_screen_predictions.csv",
+      "bytes": 10199,
+      "sha256": "e49510766bce77fad94376fc0c4deac00ad880a0acc35fda7717cd98f40fef85"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/antibody_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "bytes": 13409,
+      "sha256": "aa80d3e8d24f1f94db15695142d3a4dc08444f64855bca95966c709e020329b7"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/any_rejection_catboost_all_depth4_screen_predictions.csv",
+      "bytes": 10248,
+      "sha256": "57aef2ed1f39aa8644f2d5e5da2176f553e652c87946ff5565ef648c361334ea"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "bytes": 13559,
+      "sha256": "2c5fcedb726348ba7a7ac06e4e195f81f4b8d921d186997cb2ab2ee8197ab91a"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/any_rejection_frozen.json",
+      "bytes": 23519,
+      "sha256": "5a2e506fa676f07acea3cd3c99807b4737b79f302de8be708523c6e3c734d443"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/any_rejection_gene_importance.csv",
+      "bytes": 15221,
+      "sha256": "3d1346d5aed70cc22566ff03c05f87f712dcc61e81ddf04435687c4f12fb6b58"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/any_rejection_logistic_all_screen_predictions.csv",
+      "bytes": 10264,
+      "sha256": "591a4d88ffad96b2ebcadb3afad69af0d200db8aa400df43e5d6a08b344b21e7"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/any_rejection_logistic_all_test_predictions.csv",
+      "bytes": 13584,
+      "sha256": "7a722fa2ea5766e166557be9b1f6449541edf4ed14040e11d7e975d0c5b89e76"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/any_rejection_single_gene_IFNG_screen_predictions.csv",
+      "bytes": 10099,
+      "sha256": "c6916c304ca671d659232a02f3ed25abda9df4c0a5e3629172441c4715ef6516"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/any_rejection_single_gene_IFNG_test_predictions.csv",
+      "bytes": 13289,
+      "sha256": "01f67a15880020aca5a085a2e50b526cd3599878fbd4c4ba3cc282a0cdda7835"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/biopsy_results.json",
+      "bytes": 9807,
+      "sha256": "f6ca8029c7a985f0a1d965f52d2bfa1dda1a4dd037fd0c720bded644da0b3a11"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/biopsy_screen.csv",
+      "bytes": 6923,
+      "sha256": "65a54f710ae3753b61417a7745e9d9ea13c6494598e511dc1300d83ec7470a66"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/biopsy_split.csv",
+      "bytes": 102516,
+      "sha256": "e179b5ef6fdceac592db55878bd82aaf01f08b7c9eb65afa99d326b309ecab6a"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/configuration.json",
+      "bytes": 2039,
+      "sha256": "1704a1e4ce9ffce95127d83b8843177cd8aab4e7e46cc42565af206f5763c7b6"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/data_audit.json",
+      "bytes": 995,
+      "sha256": "785ff15f476efcdd8cba2eea72bef0ecac740a9404058dad89e0d3001ff3c888"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/raw_batch_identifiers.csv",
+      "bytes": 66874,
+      "sha256": "1f13b4b73940c5756edd4509d1784db60a4925a25eb41530b6807ef36134a3ae"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/experiments/rejection_public/run.py",
+      "bytes": 20956,
+      "sha256": "77d35ad8b3f0f2a306c179245729707cd62c49d1a26d1a78e5c6962fc10fde04"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/pyproject.toml",
+      "bytes": 843,
+      "sha256": "e7b67debb9f7dd1d0619cce835231fda7974eb0d54dd53b5b0fda12890967711"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/scripts/verify_local_data.py",
+      "bytes": 2745,
+      "sha256": "57a0ab252a33bbe77e4e84fae6e951e35c1683a05e436c50d586d6a6cfcd9874"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/__init__.py",
+      "bytes": 652,
+      "sha256": "0926aa92e36bb57d541c43ddfde79afab43fcae5661b9abbcd53e91fb721d4b0"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/__main__.py",
+      "bytes": 30,
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/api.py",
+      "bytes": 12648,
+      "sha256": "632452def2e95a7cf702f0c89274e53ff1f78685b5009dd6601241c71c70093f"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/cli.py",
+      "bytes": 3012,
+      "sha256": "521097f70b001a8da10d8bf9df378217c1ac112c6b2cd878b40c8508d0a02f29"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/prediction.py",
+      "bytes": 8558,
+      "sha256": "0928d9bcc561790f421f095db9abf69a6d70605ebc7523145ba6006875277830"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/preprocessing.py",
+      "bytes": 8652,
+      "sha256": "e417c92b89a1c55fe89f1de9f9fd23dfa01a153ecf40f70e9c698467dbec6a14"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/source.py",
+      "bytes": 5112,
+      "sha256": "9c5281214f61c548c03424db01e43c06d98609f16612ad57dd4e2bccafaeae13"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/uv.lock",
+      "bytes": 62752,
+      "sha256": "88413f5df28df70a947eed01f7493b114eb73a1a4c56decfbfc49ace1a0e388b"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/t_cell_mediated_component_catboost_all_depth4_screen_predictions.csv",
+      "bytes": 10417,
+      "sha256": "f5efaec729896e4452c57c3e3b713ca2716bad5a2f3a6352c06d6926e9ae2034"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "bytes": 13727,
+      "sha256": "03deba22cee69854910534b228c80e4ea94197ecfcc78504d623e5ba07abde96"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/t_cell_mediated_component_frozen.json",
+      "bytes": 23543,
+      "sha256": "58916ba17e2f768b12e15a01127cd784119f6859a349b4d976d50b68e9f34527"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/t_cell_mediated_component_logistic_all_screen_predictions.csv",
+      "bytes": 10417,
+      "sha256": "0455f43cb3a68c589c7b25e2c74830a53fda932749a899362d0e05f493e78146"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/t_cell_mediated_component_logistic_all_test_predictions.csv",
+      "bytes": 13747,
+      "sha256": "b035af173249956498c4e5844fbe80b3dd06cd7d68ae82f01d23e8bef9ccf21e"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/t_cell_mediated_component_single_gene_IFNG_screen_predictions.csv",
+      "bytes": 10199,
+      "sha256": "b66bf25846d4e6d31cbd63b4ebc7cdd46fc7abff7854a3858f5439e81fdaded4"
+    },
+    {
+      "file": "results/reproduction/20260915_readability/t_cell_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "bytes": 13410,
+      "sha256": "13a0981402f285cfee33b8263503a5592ca5b76bf6d25c166514a4d7c21adabf"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/antibody_mediated_component_catboost_all_depth6.joblib",
+      "bytes": 391117,
+      "sha256": "3d6c35a6cb58f6c02467899ae4be3b31b5cae001bcbbc5746b78f1421e77b3ab"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/antibody_mediated_component_logistic_all.joblib",
+      "bytes": 31937,
+      "sha256": "d90fcab9442f4c4fc5114134c5d870175754d0a25c75acef88c38eb7374bfc54"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/antibody_mediated_component_selected_model.cbm",
+      "bytes": 376368,
+      "sha256": "2c72fec7a801eb26729bc9c01e2bbe2860b2aa879f4de1e64249a6badf4ad7f6"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/antibody_mediated_component_selected_model.joblib",
+      "bytes": 391117,
+      "sha256": "3d6c35a6cb58f6c02467899ae4be3b31b5cae001bcbbc5746b78f1421e77b3ab"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/antibody_mediated_component_single_gene_IFNG.joblib",
+      "bytes": 1617,
+      "sha256": "9ddc57ea2f0e7fcb25e2e3c602f9a181abfc06f0eec16ae544b1be575d5e22b9"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/any_rejection_catboost_all_depth4.joblib",
+      "bytes": 153501,
+      "sha256": "e51ee8ee14941590a849b4da2d6aff8f2a5fb975cf960c5b224059ce42967081"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/any_rejection_logistic_all.joblib",
+      "bytes": 31937,
+      "sha256": "d09bf7d3d214e67a0e7e932cde9fb4f1bbf8aebeaf34c23d832d7eab3adb9803"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/any_rejection_selected_model.cbm",
+      "bytes": 138752,
+      "sha256": "5e239d9aae9237aba872c9e06c76781a27842e9d4cfe01705c6d9ea2774347c2"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/any_rejection_selected_model.joblib",
+      "bytes": 153501,
+      "sha256": "e51ee8ee14941590a849b4da2d6aff8f2a5fb975cf960c5b224059ce42967081"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/any_rejection_single_gene_IFNG.joblib",
+      "bytes": 1617,
+      "sha256": "8199ffd118b6476976451874e3c0c1af0ae6657d8d64a88c275c4f0fcdc11392"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/t_cell_mediated_component_catboost_all_depth4.joblib",
+      "bytes": 153653,
+      "sha256": "f0c527f2aa0f178a56da5ad5f9671616519791638914ac4d6162818bd8169a16"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/t_cell_mediated_component_logistic_all.joblib",
+      "bytes": 31937,
+      "sha256": "fe10b5137d76289ff3a092005626046dae314cec22128cd4308c9af0ac962d76"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/t_cell_mediated_component_selected_model.cbm",
+      "bytes": 138904,
+      "sha256": "5b56ba5e9a58fea95245002e426e9573736a4b4ac4bf278f6a81164a0f1cd56b"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/t_cell_mediated_component_selected_model.joblib",
+      "bytes": 153653,
+      "sha256": "f0c527f2aa0f178a56da5ad5f9671616519791638914ac4d6162818bd8169a16"
+    },
+    {
+      "file": "data/processed/models/20260915_readability/t_cell_mediated_component_single_gene_IFNG.joblib",
+      "bytes": 1617,
+      "sha256": "c997ced0a360bad429c24d58a11a141524b50e191ceed28aab1d99bdded7ba1a"
+    }
+  ],
+  "configuration": "configuration.json"
+}

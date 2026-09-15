@@ -16,6 +16,23 @@ The authors' [Supplementary Methods](https://ars.els-cdn.com/content/image/1-s2.
 
 The accessible source material does not establish patient or transplant-center independence between cohorts. Use “author technical-validation cohort” when describing the split. The main article's full Methods were not available in the captured source material; this is a source-access limitation.
 
+## What this project reproduces
+
+The reproducible procedure is this project's own analysis. It uses raw RCC counts
+and a specimen-level housekeeping transform. It does not reconstruct the authors'
+complete preprocessing or published LASSO classifier. The
+[deposited sample description](https://ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM6510698)
+describes the processed matrix as batch-corrected; that matrix is not used as the
+model input here.
+
+The input checks establish file structure, complete targets, and usable numbers.
+They do not establish assay quality. The project has not independently repeated
+the control-probe, imaging, or binding-density QC for the deposited specimens.
+Those are distinct checks in the manufacturer's
+[nCounter guidance](https://brukerspatialbiology.com/support/knowledgebase/ncounter-data-analysis/),
+reviewed September 15, 2026. The prediction app assumes the laboratory has
+completed its assay quality checks.
+
 ## Questions the implementation should answer
 
 - Does CatBoost improve on regularized multigene logistic regression on identical specimens, using the same target and preprocessing? Include an IFNG-only model and a constant baseline to make the comparison understandable.

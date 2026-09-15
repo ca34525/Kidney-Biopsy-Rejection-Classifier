@@ -219,8 +219,8 @@ def candidates() -> dict:
 
 def fresh_destinations(run: Path, model_dir: Path, case_dir: Path, benchmark: Path) -> None:
     for path in [run, model_dir, case_dir]:
-        if path.exists() and (not path.is_dir() or any(path.iterdir())):
-            raise ValueError(f"Output destination is not empty; choose a new directory: {relative(path)}")
+        if path.exists():
+            raise ValueError(f"Output destination already exists; choose a new directory: {relative(path)}")
     for path in [model_dir, case_dir]:
         if not path.is_relative_to(ROOT / "data/processed"):
             raise ValueError("Models and per-specimen tables must stay in ignored data/processed.")

@@ -1,0 +1,97 @@
+{
+  "verified_utc": "2026-09-15T17:32:41.091099+00:00",
+  "successful": true,
+  "comparison": "Byte-for-byte SHA-256 agreement of every aggregate CSV; primary model_metrics.json also identical.",
+  "tables": [
+    {
+      "original": "results/analysis/20260915_baseline/assay_group_errors.csv",
+      "regenerated": "data/processed/audit/20260915_analysis_final/report/assay_group_errors.csv",
+      "sha256": "447cd27975dcec717e4ad04cf23ec237cd04d0e8e115d1f2bc7a004a80b3076c"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/cohort_composition.csv",
+      "regenerated": "data/processed/audit/20260915_analysis_final/report/cohort_composition.csv",
+      "sha256": "269781684617388f99f24992deb3a70cc3520ce246a8b97ae37526178d4433c8"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/error_overlap.csv",
+      "regenerated": "data/processed/audit/20260915_analysis_final/report/error_overlap.csv",
+      "sha256": "46bd8c7ed4e2ba2448600c238a4d4729220464c549e209176f3cb9f0176c6c7d"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/errors_by_diagnosis.csv",
+      "regenerated": "data/processed/audit/20260915_analysis_final/report/errors_by_diagnosis.csv",
+      "sha256": "4048a7ffad8776bfa89c43371328bd1708f6bfa2aeddb030d020545117e1d9ee"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/metric_intervals.csv",
+      "regenerated": "data/processed/audit/20260915_analysis_final/report/metric_intervals.csv",
+      "sha256": "015b7c039ebf439059e2b41575deb319e13c1c38ac4d7991f647fcb2df38b3d7"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/model_metrics.csv",
+      "regenerated": "data/processed/audit/20260915_analysis_final/report/model_metrics.csv",
+      "sha256": "b0c61c942369c150bd74b3f7bc092e7c9eb689a12bb54dd607a123b7daf0ec69"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/paired_differences.csv",
+      "regenerated": "data/processed/audit/20260915_analysis_final/report/paired_differences.csv",
+      "sha256": "1fd083292f7a7ba90cd8545d468e63a3f37f444b4aee441bd62b39b0c7cfe436"
+    },
+    {
+      "original": "results/analysis/20260915_baseline/reliability_bins.csv",
+      "regenerated": "data/processed/audit/20260915_analysis_final/report/reliability_bins.csv",
+      "sha256": "8c300664473ab37dedb5997726c1afb5ef84f662267d556db393df9c1cde6719"
+    },
+    {
+      "original": "results/analysis/20260915_viral/batch_cohort_overlap.csv",
+      "regenerated": "data/processed/audit/20260915_viral/report/batch_cohort_overlap.csv",
+      "sha256": "e71709fe0364343a4a280b0e5b2394bb76b1e8769407ee6f8e9aafe6f112a678"
+    },
+    {
+      "original": "results/analysis/20260915_viral/higher_signal_counts.csv",
+      "regenerated": "data/processed/audit/20260915_viral/report/higher_signal_counts.csv",
+      "sha256": "8afae0db7cd265e83e09a610851d41f0a42a881fc72b59e8776af704a9ed3600"
+    },
+    {
+      "original": "results/analysis/20260915_viral/higher_signal_error_counts.csv",
+      "regenerated": "data/processed/audit/20260915_viral/report/higher_signal_error_counts.csv",
+      "sha256": "36335e6037560dd2a10f9b6e734597751ef2b428977af47c631e77799b6916b7"
+    },
+    {
+      "original": "results/analysis/20260915_viral/signals_by_cohort_diagnosis.csv",
+      "regenerated": "data/processed/audit/20260915_viral/report/signals_by_cohort_diagnosis.csv",
+      "sha256": "ea52f9e9e0e9dde2be4bc2d2537cc987c14064e784fe075c3b6714aeab84409a"
+    },
+    {
+      "original": "results/analysis/20260915_viral/signals_by_validation_error.csv",
+      "regenerated": "data/processed/audit/20260915_viral/report/signals_by_validation_error.csv",
+      "sha256": "1859da826b3fef0c54c7685b653dd945c8024cba6cac92abccb50ac8fd74e994"
+    },
+    {
+      "original": "results/analysis/20260915_viral/viral_feature_importance.csv",
+      "regenerated": "data/processed/audit/20260915_viral/report/viral_feature_importance.csv",
+      "sha256": "92fdc8767d12ff8e63a05ccf9f551b7b8f95b48bda52d0f6ba77e3b03d23991b"
+    }
+  ],
+  "analysis_manifest": "data/processed/audit/20260915_analysis_final/report/analysis_manifest.json",
+  "analysis_manifest_sha256": "f29300915aa5865dc50ea113e45e2b2fce15fe18ffc746750b2e553df0bb6f32",
+  "analysis_source_code": [
+    {
+      "file": "scripts/analyze_results.py",
+      "sha256": "dc9c0b6804543b509f696ccc0d61f913ee2fdca0a2994ab62bf189d61dd64c8b"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "sha256": "77604383275176013719bfcc0ab8bc47a36131c9195b9b894e64a9f8a336c5b8"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "sha256": "ada0e7774af08da99297477d5fdbbca9cb058b775aaba65014cd4fdb30acee70"
+    }
+  ],
+  "subtype_manifest": "results/followup/20260915_subtypes/run_manifest.json",
+  "subtype_manifest_sha256": "d8b8180d56a1b1de96d3e1fd41cf1dc4c5060d2c5df91d83a0588d210e3fde13",
+  "verified_subtype_artifacts": 35,
+  "models_refit": false
+}

@@ -1,0 +1,39 @@
+[project]
+name = "kidney-biopsy-rejection-classifier"
+version = "0.1.0"
+description = "Reproducible kidney biopsy rejection classification from public assay data"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "catboost==1.2.10",
+    "fastapi>=0.141.1",
+    "joblib==1.6.0",
+    "matplotlib==3.11.2",
+    "numpy==2.5.3",
+    "pandas==3.0.5",
+    "scikit-learn==1.9.1",
+    "scipy==1.18.1",
+    "uvicorn>=0.53.0",
+]
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+kidney-biopsy-predict = "kidney_biopsy.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+kidney_biopsy = ["static/*.html", "static/*.css", "static/*.js"]
+
+[tool.uv]
+package = true
+cache-dir = ".uv-cache"
+link-mode = "copy"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+]

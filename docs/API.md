@@ -82,6 +82,9 @@ duplicate targets, duplicate or empty specimen IDs, extra metadata or targets,
 empty/ragged/malformed CSV, and nonnumeric, negative, or non-finite counts fail
 the entire batch. No missing values are filled and no partial predictions are
 returned. The caller must establish that counts came from the compatible assay.
+File and numeric checks do not establish assay quality. The application assumes
+the laboratory has completed its assay quality checks; this project did not
+independently repeat control-probe or imaging QC for the deposited cohort.
 
 Send a prepared valid example from PowerShell:
 
