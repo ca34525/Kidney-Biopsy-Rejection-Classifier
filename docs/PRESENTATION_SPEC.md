@@ -55,8 +55,8 @@ should occupy only the space needed to understand the result.
   and specificity through missed rejection and false flags before using the terms.
 - Include the regularized multivariable comparison. Do not make the talk depend on
   a complicated model winning.
-- Distinguish the binary project target from the original study's four-class task.
-  Do not compare their accuracy percentages as if they measured the same task.
+- Distinguish the binary benchmark, four-class follow-up, and original study.
+  Do not compare accuracy percentages across different prediction tasks.
 - Show the model version and threshold in the demonstration. Use only public
   study examples with no invented clinical history.
 - Explain current use and the main limitation in plain language. Keep extra

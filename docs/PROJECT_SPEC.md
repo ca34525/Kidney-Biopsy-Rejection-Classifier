@@ -47,6 +47,8 @@ for a paid service, a public clinical endpoint, or a production platform.
 Use public [GSE212160](https://ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160):
 1,395 biopsy specimens measured on the NanoString B-HOT panel. The source describes
 770 measurements, including 12 housekeeping targets and 758 assay targets.
+These tissue-level RNA measurements reflect both activity within cells and the
+mixture of cell types in the specimen.
 
 **Unit of observation:** one biopsy specimen. **Prediction time:** after biopsy
 tissue has been collected and the compatible molecular assay is available.
@@ -98,8 +100,8 @@ assignments. Check joins, cross-split duplicate records, and class counts.
 Train the baseline models and a bounded set of candidates. The starting recipe
 includes CatBoost with 300 trees, depths 4 and 6, learning rate 0.04, and seed 2026;
 full-panel and selected-feature regularized logistic models; and a few existing
-tree-model alternatives. The main delivery remains the binary classifier. Secondary
-rejection components can remain in the analysis and backup material.
+tree-model alternatives. Keep the binary classifier as the benchmark for the
+subtype follow-up below.
 
 Use screening data to set a threshold for each model: maximize specificity while
 retaining at least 90% of screening rejection cases. Choose the main model using
@@ -137,6 +139,28 @@ data. Do not make calibration a prerequisite for presenting a clearly labeled sc
 **Reproduction note:** rerunning the same fixed procedure is reproduction. If
 evaluation results lead to changes, describe the new comparison as follow-up work.
 Keep this distinction in the methods; it does not block ordinary development.
+
+### Rejection subtype follow-up
+
+Compare four-class CatBoost with multinomial logistic regression using the same
+split and shared preprocessing. Predict the four recorded diagnoses above, and
+compare with the separate antibody-mediated and T-cell-mediated component models;
+mixed rejection is positive for both components. Limit this extension to these
+existing labels.
+
+- Choose configurations and any thresholds using discovery data. Score every
+  specimen directly; do not require a positive binary flag before assessing subtype.
+- Report a four-by-four confusion matrix, class counts, and sensitivity and
+  precision for each class, with particular attention to mixed rejection. Use the
+  highest class score for the four-class prediction.
+- Sum the three rejection-class scores to obtain an any-rejection score. Select
+  its threshold using the existing discovery-screen sensitivity rule and compare
+  missed rejection and false flags with the binary benchmark on the same rows.
+- Compare component-model errors, including recognition of mixed rejection, to
+  assess whether separate component scores describe the recorded diagnoses better.
+
+The technical-validation cohort has already been examined, so label this extension
+as follow-up analysis. Independent confirmation would require a new cohort.
 
 ## Software design
 

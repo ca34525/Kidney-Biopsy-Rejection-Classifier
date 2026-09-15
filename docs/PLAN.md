@@ -34,5 +34,8 @@ package are complete. The fixed 27-model procedure was rerun through that packag
 all nine evaluation prediction tables matched the preserved baseline exactly.
 The README links to reports, editable charts, and verification records.
 
+Add the bounded [rejection subtype follow-up](PROJECT_SPEC.md#rejection-subtype-follow-up)
+to the analysis: four-class models, component models, and the binary benchmark.
+
 The next work is the small FastAPI service and HTML demonstration, followed by
 container/CI checks and the interview presentation. These remain planned work.
