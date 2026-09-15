@@ -3,7 +3,6 @@
 Can molecular measurements from an existing kidney transplant biopsy classify
 its recorded rejection diagnosis? This project compares models on public
 NanoString B-HOT data and serves the selected model through a small research app.
-It was built for a UNOS Associate Data Scientist interview.
 
 ## Result
 
@@ -125,7 +124,6 @@ For another binary run, the subtype script accepts `--benchmark-run` and
 | --- | --- |
 | [Project specification](docs/PROJECT_SPEC.md) | Question, data, evaluation, and required deliverables |
 | [Research context](docs/RESEARCH_CONTEXT.md) | Dataset and source-study methods |
-| [Job requirements](docs/JOB_REQUIREMENTS.md) | Project evidence against the [supplied role](docs/references/JOB_DESCRIPTION.txt) |
 | [Plan](docs/PLAN.md) | Completed work and remaining delivery tasks |
 | [Presentation specification](docs/PRESENTATION_SPEC.md) and [guide](docs/PRESENTATION_GUIDE.md) | Full 20-minute talk, slides, notes, and rehearsal |
 | [Source manifest](data/manifest.json) | Public download URLs, sizes, and hashes |
