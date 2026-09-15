@@ -1,0 +1,9 @@
+{
+  "verified_artifacts": 25,
+  "specimens": 345,
+  "max_absolute_probability_difference": 0.0,
+  "predicted_positive": 152,
+  "predicted_negative": 193,
+  "threshold": 0.8765880870219778,
+  "comparison": "Separate inference versus evaluation produced by this local training run."
+}

@@ -1,0 +1,44 @@
+Supplied UNOS Associate Data Scientist position description
+Source document preserved locally in data/reference/job/
+
+Position Description
+United Network for Organ Sharing (UNOS) is seeking an Associate Data Scientist with a passion for developing data driven products to advance the field of Transplantation. You’ll be part of a team collaborating within the Product and Tech org, working to take AI and machine learning projects from idea, through design and development, into deployment and production. The goal of your work is to have a meaningful impact on the lives of those waiting for transplants or transplant recipients. This role is ideal for recent graduates or early-career professionals with a strong academic foundation in data science, statistics, computer science, or software engineering who are interested in learning how machine learning solutions are developed, deployed, and maintained in production environments.
+
+
+
+Key Responsibilities
+Support the conversion of analytical prototypes and machine learning models into scalable and maintainable software solutions under the guidance of senior team members.
+Develop technical expertise in software development, computer science, and model deployment practices through hands-on project work and mentorship.
+Work closely with software development, DevOps, and Data Engineering teams to support model training, testing, and deployment activities.
+Integrate, clean, and transform data from diverse structured and unstructured sources, and contribute to the development and maintenance of data pipelines
+Apply analytical and data science techniques to derive insights and information from large datasets
+Perform analytics on big data assets
+Leverage domain knowledge and creativity to generate novel hypotheses 
+Explore the adaptation of novel data science and machine learning applications to current issues in Transplantation
+
+Minimum Requirements
+Experience in data science, analytics, computer programming, or related fields through graduate research, internships, academic projects, assistantships, or professional employment.
+Coursework, research, project experience, or exposure to high-performance computing or big data tools (e.g., Spark, Hive) preferred.
+
+
+Critical Skills
+Ability to assimilate and disseminate new software tools and programming techniques
+Strong demonstrated desire to learn new skills and techniques
+Strong written and oral English-language communication skills
+The ability to meet deadlines, and to work independently and as part of a team
+Exposure to cloud platforms such as AWS, Azure, or Google Cloud through coursework, internships, projects, or professional experience
+Familiarity with Git and version control workflows
+Exposure to software testing concepts and CI/CD practices
+Familiarity with APIs and how applications exchange data
+Rapid prototyping, hackathon, and/or front-end project experience 
+ 
+Additional Skills & Qualifications
+Coursework, academic projects, or practical experience using R, SQL, and/or Python
+Experience with large (terabytes) databases
+Familiarity with software development lifecycle concepts
+Exposure to working within terminal emulators 
+Experience using AI-assisted software development tools (e.g., Claude Code, GitHub Copilot, Cursor, or similar)
+Interest in emerging AI technologies, including agentic systems, AI-assisted development, and LLM-enabled applications
+
+Education
+Master's degree in Data Science, Computer Science, Statistics, Bioinformatics, Applied Mathematics, or a related field strongly preferred. Recent graduates are encouraged to apply.

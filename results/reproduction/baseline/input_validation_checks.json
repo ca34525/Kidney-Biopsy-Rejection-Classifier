@@ -1,0 +1,31 @@
+[
+  {
+    "case": "valid_reordered",
+    "passed": true,
+    "absolute_probability_difference": 0.0
+  },
+  {
+    "case": "missing_target",
+    "passed": true
+  },
+  {
+    "case": "negative",
+    "passed": true
+  },
+  {
+    "case": "infinite",
+    "passed": true
+  },
+  {
+    "case": "duplicate_specimen",
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "passed": true
+  },
+  {
+    "case": "duplicate_target",
+    "passed": true
+  }
+]

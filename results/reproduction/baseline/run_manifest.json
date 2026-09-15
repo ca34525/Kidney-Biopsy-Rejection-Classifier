@@ -1,0 +1,159 @@
+{
+  "started_utc": "2026-09-15T15:20:11.564525+00:00",
+  "finished_utc": "2026-09-15T15:22:12.121248+00:00",
+  "python": "3.12.13",
+  "dependencies": {
+    "catboost": "1.2.10",
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "input_manifest": "data/manifest.json",
+  "input_manifest_sha256": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6",
+  "source": {
+    "file": "experiments/rejection_public/run.py",
+    "sha256": "c7a5bf0314af9bb3878b3cd450f650b28ba24bbcf5f7e488fc4acff1da921155"
+  },
+  "environment_lock": {
+    "file": "uv.lock",
+    "sha256": "4a48e241f17298576ee6962878f507e7d555bb02636959c0c21b42608aaa5d27"
+  },
+  "seeds": {
+    "discovery_split": 20260915,
+    "catboost": 2026,
+    "extra_trees": 2026,
+    "hist_boosting": 2026
+  },
+  "fit_count": 27,
+  "output_dir": "results/reproduction/baseline",
+  "model_dir": "data/processed/models/baseline",
+  "artifacts": [
+    {
+      "file": "results/reproduction/baseline/antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "bytes": 13859,
+      "sha256": "d3f6b663e7fb6490f794056cb707a8a4ce72a0a05618f8a1c73d09326e5e0790"
+    },
+    {
+      "file": "results/reproduction/baseline/antibody_mediated_component_frozen.json",
+      "bytes": 10924,
+      "sha256": "ffb07364feb4b5d862483de6ee6e3b873b436b636a7a56bc72ce28ca2c35395e"
+    },
+    {
+      "file": "results/reproduction/baseline/antibody_mediated_component_logistic_all_test_predictions.csv",
+      "bytes": 13878,
+      "sha256": "8a0d9460951d987fef6aa74c8fd511faa44d941d707338ae3b97ed6d14d5189d"
+    },
+    {
+      "file": "results/reproduction/baseline/antibody_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "bytes": 13409,
+      "sha256": "aa80d3e8d24f1f94db15695142d3a4dc08444f64855bca95966c709e020329b7"
+    },
+    {
+      "file": "results/reproduction/baseline/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "bytes": 13559,
+      "sha256": "2c5fcedb726348ba7a7ac06e4e195f81f4b8d921d186997cb2ab2ee8197ab91a"
+    },
+    {
+      "file": "results/reproduction/baseline/any_rejection_frozen.json",
+      "bytes": 10909,
+      "sha256": "f469b7b8f966e4cede743720e1c33b77bcfcde481687a5252a252617e50eae5e"
+    },
+    {
+      "file": "results/reproduction/baseline/any_rejection_gene_importance.csv",
+      "bytes": 15221,
+      "sha256": "3d1346d5aed70cc22566ff03c05f87f712dcc61e81ddf04435687c4f12fb6b58"
+    },
+    {
+      "file": "results/reproduction/baseline/any_rejection_logistic_all_test_predictions.csv",
+      "bytes": 13584,
+      "sha256": "7a722fa2ea5766e166557be9b1f6449541edf4ed14040e11d7e975d0c5b89e76"
+    },
+    {
+      "file": "results/reproduction/baseline/any_rejection_single_gene_IFNG_test_predictions.csv",
+      "bytes": 13289,
+      "sha256": "01f67a15880020aca5a085a2e50b526cd3599878fbd4c4ba3cc282a0cdda7835"
+    },
+    {
+      "file": "results/reproduction/baseline/biopsy_results.json",
+      "bytes": 9801,
+      "sha256": "734dc953c7df5d255896ef08fe7f358090b8415b41e89594856f27879b2ad248"
+    },
+    {
+      "file": "results/reproduction/baseline/biopsy_screen.csv",
+      "bytes": 6925,
+      "sha256": "ed2a28e20845d745af9dd7eae926c9d144aae2a23693829ee9e7224a9d394832"
+    },
+    {
+      "file": "results/reproduction/baseline/biopsy_split.csv",
+      "bytes": 102516,
+      "sha256": "e179b5ef6fdceac592db55878bd82aaf01f08b7c9eb65afa99d326b309ecab6a"
+    },
+    {
+      "file": "results/reproduction/baseline/inference.csv",
+      "bytes": 12878,
+      "sha256": "5f9e7fe604f7aa03a1ff66599eecf3193817f1197c85ad19d8a7d2d00b78bd09"
+    },
+    {
+      "file": "results/reproduction/baseline/input_validation_checks.json",
+      "bytes": 468,
+      "sha256": "abbebeb05c714e2c7f0b780a4232fb6b15ca5c360e167e8cd4fd915dec42785a"
+    },
+    {
+      "file": "results/reproduction/baseline/raw_batch_identifiers.csv",
+      "bytes": 66874,
+      "sha256": "1f13b4b73940c5756edd4509d1784db60a4925a25eb41530b6807ef36134a3ae"
+    },
+    {
+      "file": "results/reproduction/baseline/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "bytes": 13727,
+      "sha256": "03deba22cee69854910534b228c80e4ea94197ecfcc78504d623e5ba07abde96"
+    },
+    {
+      "file": "results/reproduction/baseline/t_cell_mediated_component_frozen.json",
+      "bytes": 10921,
+      "sha256": "e8bdcd8ed8da928b2524cf51f89425548a0727ad15750e272f361a95bd427dc9"
+    },
+    {
+      "file": "results/reproduction/baseline/t_cell_mediated_component_logistic_all_test_predictions.csv",
+      "bytes": 13747,
+      "sha256": "b035af173249956498c4e5844fbe80b3dd06cd7d68ae82f01d23e8bef9ccf21e"
+    },
+    {
+      "file": "results/reproduction/baseline/t_cell_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "bytes": 13410,
+      "sha256": "13a0981402f285cfee33b8263503a5592ca5b76bf6d25c166514a4d7c21adabf"
+    },
+    {
+      "file": "data/processed/models/baseline/antibody_mediated_component_selected_model.cbm",
+      "bytes": 376368,
+      "sha256": "855ca5708623e6d089434d92418af9cdfb665c9c504336ff15b72884ada1c5e2"
+    },
+    {
+      "file": "data/processed/models/baseline/antibody_mediated_component_selected_model.joblib",
+      "bytes": 391117,
+      "sha256": "bb0de3a3dbb1a14a7e959206101959562b70a96fbe06db2172e52341c5dc3df8"
+    },
+    {
+      "file": "data/processed/models/baseline/any_rejection_selected_model.cbm",
+      "bytes": 138752,
+      "sha256": "ddbc838e770e122f973b0879ebacb81ab52961c687618a18e702557c072eebf0"
+    },
+    {
+      "file": "data/processed/models/baseline/any_rejection_selected_model.joblib",
+      "bytes": 153501,
+      "sha256": "1022253be0bfa3526c73b055ef7f4ac2674a96b5a89d201ba62734961656ce28"
+    },
+    {
+      "file": "data/processed/models/baseline/t_cell_mediated_component_selected_model.cbm",
+      "bytes": 138904,
+      "sha256": "ae8c2fce3c1effaf2065d3a9d095e8f55501dfa68926536405bcf684ece6efff"
+    },
+    {
+      "file": "data/processed/models/baseline/t_cell_mediated_component_selected_model.joblib",
+      "bytes": 153653,
+      "sha256": "8aeceef888b7bd372194e11f668a026c1c54424d2b60d4faec3c474425f206ef"
+    }
+  ]
+}

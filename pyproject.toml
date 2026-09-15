@@ -1,0 +1,18 @@
+[project]
+name = "kidney-biopsy-rejection-classifier"
+version = "0.1.0"
+description = "Reproducible kidney biopsy rejection classification from public assay data"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "catboost==1.2.10",
+    "joblib==1.6.0",
+    "numpy==2.5.3",
+    "pandas==3.0.5",
+    "scikit-learn==1.9.1",
+    "scipy==1.18.1",
+]
+
+[tool.uv]
+package = false
+cache-dir = ".uv-cache"
+link-mode = "copy"

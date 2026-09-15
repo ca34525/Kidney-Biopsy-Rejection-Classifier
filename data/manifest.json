@@ -1,0 +1,18 @@
+[
+  {
+    "gse": "GSE212160",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/matrix/GSE212160_series_matrix.txt.gz",
+    "file": "data/raw/rejection_public/GSE212160_series_matrix.txt.gz",
+    "retrieved": "2026-09-15",
+    "sha256": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050",
+    "bytes": 2444946
+  },
+  {
+    "gse": "GSE212160",
+    "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/suppl/GSE212160_RAW.tar",
+    "file": "data/raw/rejection_public/GSE212160_RAW.tar",
+    "retrieved": "2026-09-15",
+    "sha256": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8",
+    "bytes": 13547520
+  }
+]
