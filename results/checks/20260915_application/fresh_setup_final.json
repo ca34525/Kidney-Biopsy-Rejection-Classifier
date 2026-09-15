@@ -1,0 +1,591 @@
+{
+  "verified_utc": "2026-09-15T16:46:41.899706+00:00",
+  "successful": true,
+  "copied_project": "data/processed/setup_checks/20260915_application_final/project",
+  "run_dir": "results/reproduction/20260915_shared",
+  "steps": [
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--frozen",
+        "--no-editable",
+        "--python",
+        "3.12"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 53.968
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "experiments/rejection_public/download.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.332
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "scripts/verify_local_data.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.108
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "scripts/check_project.py",
+        "--require-installed",
+        "--output",
+        "results/checks/fresh/checks.json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 10.219
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "python",
+        "scripts/verify_fresh_setup.py",
+        "--check-copy",
+        "--run-dir",
+        "results/reproduction/20260915_shared",
+        "--output",
+        "results/checks/fresh/application.json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 3.964
+    }
+  ],
+  "errors": [],
+  "scope": "Fresh dependency installation, physical local inputs, software tests, and installed CLI/API. No model retraining or container run.",
+  "copied_files": [
+    {
+      "file": ".github/workflows/checks.yml",
+      "bytes": 1017,
+      "sha256": "8167f0712ac7eeeb171451114ef400f263bf4f82cf6d845b8def8944785851fa"
+    },
+    {
+      "file": ".gitignore",
+      "bytes": 433,
+      "sha256": "b491907802045bc8cfeb9aa56d382ee92e73839911f21bd4376dabd7a7f3dc76"
+    },
+    {
+      "file": ".python-version",
+      "bytes": 5,
+      "sha256": "7b55f8e67b5623c4bef3fa691288da9437d79d3aba156de48d481db32ac7d16d"
+    },
+    {
+      "file": "AGENTS.md",
+      "bytes": 5400,
+      "sha256": "bd3fd114abc5f133ba71d90768d05a3167379324a2ba4cbd089901f61f26eedc"
+    },
+    {
+      "file": "data/demo/antibody-mediated.csv",
+      "bytes": 8962,
+      "sha256": "dae16c7704634bfa9ffb830bc29bbf432111797869adf793fe4dc1a258242a54"
+    },
+    {
+      "file": "data/demo/manifest.json",
+      "bytes": 3583,
+      "sha256": "3b1cd720937d6423e6306950cb0787d46a5107584112f7bbe29e75a036bd63ed"
+    },
+    {
+      "file": "data/demo/missing-target.csv",
+      "bytes": 8764,
+      "sha256": "2244db262da231ba6a1c66d4408cb80d8a8e93734372995c78eeadbfdab9e336"
+    },
+    {
+      "file": "data/demo/mixed.csv",
+      "bytes": 8834,
+      "sha256": "ee1cf5ce82cfaf650ad0c343f569986b9f9704f5ae552ca849ca27b118a96c47"
+    },
+    {
+      "file": "data/demo/no-rejection.csv",
+      "bytes": 8773,
+      "sha256": "b52338dcb59e2632954832500a6ceed7049c84f152237cbca5ac4fd6b1c31df0"
+    },
+    {
+      "file": "data/demo/t-cell-mediated.csv",
+      "bytes": 9001,
+      "sha256": "9e5cd74b1ad754fb70391d1bdb4b15c33bf39ed7438967c0adc0deaaed060c4f"
+    },
+    {
+      "file": "data/manifest.json",
+      "bytes": 697,
+      "sha256": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6"
+    },
+    {
+      "file": "data/processed/models/20260915_shared/any_rejection_selected_model.joblib",
+      "bytes": 153501,
+      "sha256": "e8d1cc2a4f684b86aa524cac2f21802847999d41a70c1728ceef092811a5f94f"
+    },
+    {
+      "file": "data/raw/rejection_public/GSE212160_RAW.tar",
+      "bytes": 13547520,
+      "sha256": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8"
+    },
+    {
+      "file": "data/raw/rejection_public/GSE212160_series_matrix.txt.gz",
+      "bytes": 2444946,
+      "sha256": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050"
+    },
+    {
+      "file": "docs/API.md",
+      "bytes": 6656,
+      "sha256": "99506cb14984defb0083f1f1811e2fc46de3c9da10f64e7281255fc84594a753"
+    },
+    {
+      "file": "docs/CODE_GUIDE.md",
+      "bytes": 4650,
+      "sha256": "3e188c3e04bdf24a9b37eddef5d8f731d19f2bcc488d66e3d002187290935147"
+    },
+    {
+      "file": "docs/JOB_REQUIREMENTS.md",
+      "bytes": 4127,
+      "sha256": "f3141167f3de99615f2b1ae912562968b4408e773bbb790e0efc0fefde2d1261"
+    },
+    {
+      "file": "docs/PLAN.md",
+      "bytes": 2704,
+      "sha256": "f77b26894be2aae97034b67c595957ffd5e63bc97ab248cbf294edb8a4d68895"
+    },
+    {
+      "file": "docs/PRESENTATION_GUIDE.md",
+      "bytes": 10817,
+      "sha256": "cf33dbe28a2b9d2ca66521a19f5979d050fb5c2d308f309b08018ceeeb5ee32f"
+    },
+    {
+      "file": "docs/PRESENTATION_SPEC.md",
+      "bytes": 5115,
+      "sha256": "14e27e05e5fa7876ab013f4930fb9208285366710f7f4e35793ba032ab1ee36c"
+    },
+    {
+      "file": "docs/PROJECT_SPEC.md",
+      "bytes": 13279,
+      "sha256": "d48151d91c019665dee1aa231db67c17a85ec674ea5619724bb5e118e6daf137"
+    },
+    {
+      "file": "docs/references/JOB_DESCRIPTION.txt",
+      "bytes": 3640,
+      "sha256": "01ea6261e85ea8068608e5ddd48d0cc804b1dacb11b4d29ca36a3dc2dfe9d731"
+    },
+    {
+      "file": "docs/RESEARCH_CONTEXT.md",
+      "bytes": 3500,
+      "sha256": "8b358592d9b4e50b547744812f577aec51cc57d222c4c6a14034bfd1f6ed1e84"
+    },
+    {
+      "file": "docs/VERIFICATION.md",
+      "bytes": 3883,
+      "sha256": "2d99a78ccaa1dc44d1ea9c80b3a216be3c63e35061789a5d00fe65651648b7fc"
+    },
+    {
+      "file": "experiments/rejection_public/download.py",
+      "bytes": 1334,
+      "sha256": "f72bb15fe3c9b124711bcb64da4bab0922984cf408336d2ec0e6ab0d2b3f021b"
+    },
+    {
+      "file": "experiments/rejection_public/predict.py",
+      "bytes": 227,
+      "sha256": "cce895e6a0bcc316ab3db54e5b598049fcbcd3a16d3ec227097925b87d9fbb8e"
+    },
+    {
+      "file": "experiments/rejection_public/run.py",
+      "bytes": 14934,
+      "sha256": "c840e2aea35e2404ab228b0fedca21d21f0b5455603e906b63ce9077b507f627"
+    },
+    {
+      "file": "experiments/rejection_subtypes/run.py",
+      "bytes": 46211,
+      "sha256": "43a84c218ba3ce613d1085913338ac8a38f76e7a708b1def1a54539456bddb07"
+    },
+    {
+      "file": "pyproject.toml",
+      "bytes": 843,
+      "sha256": "e7b67debb9f7dd1d0619cce835231fda7974eb0d54dd53b5b0fda12890967711"
+    },
+    {
+      "file": "README.md",
+      "bytes": 9622,
+      "sha256": "a6a512051c4f1626476cead2aac0f160a3d7e38656bc91c55a08905172433708"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/antibody_mediated_component_frozen.json",
+      "bytes": 23543,
+      "sha256": "5fc29e5ea323ec4c0e1645befb51ae58b682ab918c854c9de975279e780689ca"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/any_rejection_frozen.json",
+      "bytes": 23514,
+      "sha256": "fed0e4f0b37431d2ef9de026071294d3ebef007c1ed38b348ea552d664bb2308"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/any_rejection_gene_importance.csv",
+      "bytes": 15221,
+      "sha256": "3d1346d5aed70cc22566ff03c05f87f712dcc61e81ddf04435687c4f12fb6b58"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/biopsy_results.json",
+      "bytes": 9809,
+      "sha256": "e01c8b44309ea1d2e25bdec71d388e968309d406606efd83837fc2d611b724d0"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "bytes": 6924,
+      "sha256": "a2af6949101f38cf992d87baadc9fa7dcdb4c05d0c0389d2ed99af153dc419e0"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/configuration.json",
+      "bytes": 2039,
+      "sha256": "1704a1e4ce9ffce95127d83b8843177cd8aab4e7e46cc42565af206f5763c7b6"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/data_audit.json",
+      "bytes": 995,
+      "sha256": "785ff15f476efcdd8cba2eea72bef0ecac740a9404058dad89e0d3001ff3c888"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/run_manifest.json",
+      "bytes": 15261,
+      "sha256": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/t_cell_mediated_component_frozen.json",
+      "bytes": 23538,
+      "sha256": "b673b155eeeeed163c9201a19264a1590dd3f3b28d616c34cbe30ddf2bc13755"
+    },
+    {
+      "file": "scripts/analyze_results.py",
+      "bytes": 44531,
+      "sha256": "3903b18c2b89ef93823b9beb4d596b1a7a023099924fc81cec39bd593a8e545f"
+    },
+    {
+      "file": "scripts/check_project.py",
+      "bytes": 5629,
+      "sha256": "c230ffd1c2d0ab26a723691cbd5f29d3c93ab5f9c951341393d1f48db49e1399"
+    },
+    {
+      "file": "scripts/prepare_demo.py",
+      "bytes": 4188,
+      "sha256": "31f63010511ac00cc1961697b84916a130f770454ef9ef46a248c0e3027a33d4"
+    },
+    {
+      "file": "scripts/review_viral_targets.py",
+      "bytes": 19399,
+      "sha256": "4cb56ca0a554dfd43c3e892cef0b67cc943e051dfc20889f7f92d05977d970e3"
+    },
+    {
+      "file": "scripts/verify_fresh_setup.py",
+      "bytes": 14256,
+      "sha256": "06cd1306ecfe54e4206e5ed224e6e5bcc26e89a8aeddf0d7841e331413ee1a5f"
+    },
+    {
+      "file": "scripts/verify_http_service.py",
+      "bytes": 9259,
+      "sha256": "5a29aa5a5b4703f19919ae044a131465fa9bda172a17dddf431bf029d5b144cd"
+    },
+    {
+      "file": "scripts/verify_inference.py",
+      "bytes": 4739,
+      "sha256": "2d4afc31c6f9c7ed948a6891bd58a179febaf99c5093be38f52b03faa21e290e"
+    },
+    {
+      "file": "scripts/verify_local_data.py",
+      "bytes": 2745,
+      "sha256": "57a0ab252a33bbe77e4e84fae6e951e35c1683a05e436c50d586d6a6cfcd9874"
+    },
+    {
+      "file": "scripts/verify_reproduction.py",
+      "bytes": 3888,
+      "sha256": "2c868f2cdb1a231bae24409488b6386658a6789e1d29c16842504228fd51f6a6"
+    },
+    {
+      "file": "src/kidney_biopsy/__init__.py",
+      "bytes": 652,
+      "sha256": "0926aa92e36bb57d541c43ddfde79afab43fcae5661b9abbcd53e91fb721d4b0"
+    },
+    {
+      "file": "src/kidney_biopsy/__main__.py",
+      "bytes": 30,
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
+    },
+    {
+      "file": "src/kidney_biopsy/api.py",
+      "bytes": 10825,
+      "sha256": "b0f310e1e6b1846d4c2fa0163ca0b693a080338a4ee6a8f404b88b922066a319"
+    },
+    {
+      "file": "src/kidney_biopsy/cli.py",
+      "bytes": 2835,
+      "sha256": "3cdecb87d61e754a6a4c326acfb4938262bac92f60ad8e29206e6a063084d87b"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "bytes": 7760,
+      "sha256": "ada0e7774af08da99297477d5fdbbca9cb058b775aaba65014cd4fdb30acee70"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "bytes": 7948,
+      "sha256": "21957d51e1645c9676b307f8b7796a2a6702c26d004d3bdcaf4074cc57a43f9e"
+    },
+    {
+      "file": "src/kidney_biopsy/source.py",
+      "bytes": 3731,
+      "sha256": "682ab59a9db72fe8e252b93d5e2fc9637cc856783e4b88ad23520a6d1b5b2ca2"
+    },
+    {
+      "file": "src/kidney_biopsy/static/app.js",
+      "bytes": 9272,
+      "sha256": "5d6ab5b2afed9363590b2f5bbbd01dd1e17e177601a599df2973aec3b6232cb3"
+    },
+    {
+      "file": "src/kidney_biopsy/static/index.html",
+      "bytes": 5413,
+      "sha256": "2b79b61afad787dd7b8c2a897d5e257619a9d778a015b36e57045949555a6a91"
+    },
+    {
+      "file": "src/kidney_biopsy/static/style.css",
+      "bytes": 13054,
+      "sha256": "36c13f116d5678b8113f92b790ff5014d567d6a3ef3ff5f08718d635e754263a"
+    },
+    {
+      "file": "tests/test_analysis.py",
+      "bytes": 4580,
+      "sha256": "a7041397f4aa05e13694c1167213524f1b8022dc074b71e3cb3566f25e92af3e"
+    },
+    {
+      "file": "tests/test_api.py",
+      "bytes": 11634,
+      "sha256": "c2128b17b60dcb80e33178ea03c296d39a4cd65c639614623ae597dfe8293034"
+    },
+    {
+      "file": "tests/test_shared_prediction.py",
+      "bytes": 10720,
+      "sha256": "9568b6c2743735b1030fefcd44f59aa864e74c8ee9cfaff7c42ca9b8edc792ed"
+    },
+    {
+      "file": "tests/test_source_readers.py",
+      "bytes": 3009,
+      "sha256": "923b5cd3044ee8f54e02719fbc7ee048d5fb15141f09e60b74e7cd2f8130f404"
+    },
+    {
+      "file": "tests/test_subtypes.py",
+      "bytes": 6858,
+      "sha256": "6365155ef89bae9382c146a2503b271e51b75b9719e5f55d5c981e8c45b45060"
+    },
+    {
+      "file": "uv.lock",
+      "bytes": 62752,
+      "sha256": "88413f5df28df70a947eed01f7493b114eb73a1a4c56decfbfc49ace1a0e388b"
+    }
+  ],
+  "software_checks": {
+    "verified_utc": "2026-09-15T16:47:36.585722+00:00",
+    "successful": true,
+    "errors": [],
+    "checks": {
+      "syntax": {
+        "python_files": 25,
+        "toml_files": 2
+      },
+      "environment": {
+        "python": "3.12.13",
+        "environment": ".venv",
+        "package": ".venv/Lib/site-packages/kidney_biopsy/__init__.py",
+        "installed_package_required": true,
+        "static_assets": [
+          "index.html",
+          "style.css",
+          "app.js"
+        ],
+        "package_versions": {
+          "kidney-biopsy-rejection-classifier": "0.1.0",
+          "numpy": "2.5.3",
+          "pandas": "3.0.5",
+          "scikit-learn": "1.9.1",
+          "catboost": "1.2.10",
+          "fastapi": "0.141.1",
+          "uvicorn": "0.53.0",
+          "httpx": "0.28.1"
+        }
+      },
+      "tests": {
+        "tests_run": 55,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "successful": true,
+        "failed_tests": []
+      }
+    },
+    "sources": [
+      {
+        "file": "experiments/rejection_public/download.py",
+        "sha256": "f72bb15fe3c9b124711bcb64da4bab0922984cf408336d2ec0e6ab0d2b3f021b"
+      },
+      {
+        "file": "experiments/rejection_public/predict.py",
+        "sha256": "cce895e6a0bcc316ab3db54e5b598049fcbcd3a16d3ec227097925b87d9fbb8e"
+      },
+      {
+        "file": "experiments/rejection_public/run.py",
+        "sha256": "c840e2aea35e2404ab228b0fedca21d21f0b5455603e906b63ce9077b507f627"
+      },
+      {
+        "file": "experiments/rejection_subtypes/run.py",
+        "sha256": "43a84c218ba3ce613d1085913338ac8a38f76e7a708b1def1a54539456bddb07"
+      },
+      {
+        "file": "scripts/analyze_results.py",
+        "sha256": "3903b18c2b89ef93823b9beb4d596b1a7a023099924fc81cec39bd593a8e545f"
+      },
+      {
+        "file": "scripts/check_project.py",
+        "sha256": "c230ffd1c2d0ab26a723691cbd5f29d3c93ab5f9c951341393d1f48db49e1399"
+      },
+      {
+        "file": "scripts/prepare_demo.py",
+        "sha256": "31f63010511ac00cc1961697b84916a130f770454ef9ef46a248c0e3027a33d4"
+      },
+      {
+        "file": "scripts/review_viral_targets.py",
+        "sha256": "4cb56ca0a554dfd43c3e892cef0b67cc943e051dfc20889f7f92d05977d970e3"
+      },
+      {
+        "file": "scripts/verify_fresh_setup.py",
+        "sha256": "06cd1306ecfe54e4206e5ed224e6e5bcc26e89a8aeddf0d7841e331413ee1a5f"
+      },
+      {
+        "file": "scripts/verify_http_service.py",
+        "sha256": "5a29aa5a5b4703f19919ae044a131465fa9bda172a17dddf431bf029d5b144cd"
+      },
+      {
+        "file": "scripts/verify_inference.py",
+        "sha256": "2d4afc31c6f9c7ed948a6891bd58a179febaf99c5093be38f52b03faa21e290e"
+      },
+      {
+        "file": "scripts/verify_local_data.py",
+        "sha256": "57a0ab252a33bbe77e4e84fae6e951e35c1683a05e436c50d586d6a6cfcd9874"
+      },
+      {
+        "file": "scripts/verify_reproduction.py",
+        "sha256": "2c868f2cdb1a231bae24409488b6386658a6789e1d29c16842504228fd51f6a6"
+      },
+      {
+        "file": "src/kidney_biopsy/__init__.py",
+        "sha256": "0926aa92e36bb57d541c43ddfde79afab43fcae5661b9abbcd53e91fb721d4b0"
+      },
+      {
+        "file": "src/kidney_biopsy/__main__.py",
+        "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
+      },
+      {
+        "file": "src/kidney_biopsy/api.py",
+        "sha256": "b0f310e1e6b1846d4c2fa0163ca0b693a080338a4ee6a8f404b88b922066a319"
+      },
+      {
+        "file": "src/kidney_biopsy/cli.py",
+        "sha256": "3cdecb87d61e754a6a4c326acfb4938262bac92f60ad8e29206e6a063084d87b"
+      },
+      {
+        "file": "src/kidney_biopsy/prediction.py",
+        "sha256": "ada0e7774af08da99297477d5fdbbca9cb058b775aaba65014cd4fdb30acee70"
+      },
+      {
+        "file": "src/kidney_biopsy/preprocessing.py",
+        "sha256": "21957d51e1645c9676b307f8b7796a2a6702c26d004d3bdcaf4074cc57a43f9e"
+      },
+      {
+        "file": "src/kidney_biopsy/source.py",
+        "sha256": "682ab59a9db72fe8e252b93d5e2fc9637cc856783e4b88ad23520a6d1b5b2ca2"
+      },
+      {
+        "file": "tests/test_analysis.py",
+        "sha256": "a7041397f4aa05e13694c1167213524f1b8022dc074b71e3cb3566f25e92af3e"
+      },
+      {
+        "file": "tests/test_api.py",
+        "sha256": "c2128b17b60dcb80e33178ea03c296d39a4cd65c639614623ae597dfe8293034"
+      },
+      {
+        "file": "tests/test_shared_prediction.py",
+        "sha256": "9568b6c2743735b1030fefcd44f59aa864e74c8ee9cfaff7c42ca9b8edc792ed"
+      },
+      {
+        "file": "tests/test_source_readers.py",
+        "sha256": "923b5cd3044ee8f54e02719fbc7ee048d5fb15141f09e60b74e7cd2f8130f404"
+      },
+      {
+        "file": "tests/test_subtypes.py",
+        "sha256": "6365155ef89bae9382c146a2503b271e51b75b9719e5f55d5c981e8c45b45060"
+      },
+      {
+        "file": "pyproject.toml",
+        "sha256": "e7b67debb9f7dd1d0619cce835231fda7974eb0d54dd53b5b0fda12890967711"
+      },
+      {
+        "file": "uv.lock",
+        "sha256": "88413f5df28df70a947eed01f7493b114eb73a1a4c56decfbfc49ace1a0e388b"
+      },
+      {
+        "file": ".github/workflows/checks.yml",
+        "sha256": "8167f0712ac7eeeb171451114ef400f263bf4f82cf6d845b8def8944785851fa"
+      },
+      {
+        "file": "src/kidney_biopsy/static/index.html",
+        "sha256": "2b79b61afad787dd7b8c2a897d5e257619a9d778a015b36e57045949555a6a91"
+      },
+      {
+        "file": "src/kidney_biopsy/static/style.css",
+        "sha256": "36c13f116d5678b8113f92b790ff5014d567d6a3ef3ff5f08718d635e754263a"
+      },
+      {
+        "file": "src/kidney_biopsy/static/app.js",
+        "sha256": "5d6ab5b2afed9363590b2f5bbbd01dd1e17e177601a599df2973aec3b6232cb3"
+      }
+    ],
+    "elapsed_seconds": 9.785
+  },
+  "application": {
+    "verified_utc": "2026-09-15T16:47:50.473433+00:00",
+    "successful": true,
+    "run_dir": "results/reproduction/20260915_shared",
+    "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+    "environment": ".venv",
+    "package": ".venv/Lib/site-packages/kidney_biopsy/__init__.py",
+    "installed_static_assets": [
+      "index.html",
+      "style.css",
+      "app.js"
+    ],
+    "routes": {
+      "/": 200,
+      "/assets/style.css": 200,
+      "/assets/app.js": 200,
+      "/health": 200,
+      "/model": 200
+    },
+    "specimens": 2,
+    "numeric_tolerance": 1e-12,
+    "evaluation_source": "results/reproduction/20260915_shared/biopsy_results.json",
+    "max_absolute_score_difference": 1.1102230246251565e-16,
+    "invalid_batch_status": 422,
+    "invalid_batch_error_code": "invalid_csv",
+    "raw_counts_logged": false
+  },
+  "elapsed_seconds": 68.673
+}

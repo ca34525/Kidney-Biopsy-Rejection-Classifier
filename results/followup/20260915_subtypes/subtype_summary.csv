@@ -1,0 +1,7 @@
+split,model,n,accuracy,macro_f1,correct,incorrect
+discovery_screen,four_class_catboost,263,0.8517110266159695,0.7885451422957531,224,39
+discovery_screen,four_class_logistic,263,0.8593155893536122,0.7987007199005374,226,37
+discovery_screen,separate_components,263,0.870722433460076,0.8331040718041142,229,34
+author_validation,four_class_catboost,345,0.8144927536231884,0.725060911565732,281,64
+author_validation,four_class_logistic,345,0.8202898550724638,0.7597012604053586,283,62
+author_validation,separate_components,345,0.8231884057971014,0.7370266682005792,284,61

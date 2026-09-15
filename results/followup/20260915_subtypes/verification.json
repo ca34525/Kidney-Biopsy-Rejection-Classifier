@@ -1,0 +1,19 @@
+{
+  "frozen_before_validation_scores": true,
+  "frozen_sha256": "1c9b6c41614631a95d0586247b36ee46ffea69a4661ac749e65996a05c365dbc",
+  "score_absolute_tolerance": 1e-12,
+  "model_reload_max_absolute_difference": {
+    "discovery_screen:four_class_catboost": 0.0,
+    "discovery_screen:four_class_logistic": 0.0,
+    "author_validation:four_class_catboost": 0.0,
+    "author_validation:four_class_logistic": 0.0
+  },
+  "benchmark_saved_score_max_absolute_difference": {
+    "discovery_screen:any_rejection": 1.1102230246251565e-16,
+    "discovery_screen:antibody_mediated_component": 1.1102230246251565e-16,
+    "discovery_screen:t_cell_mediated_component": 1.1102230246251565e-16,
+    "author_validation:any_rejection": 1.1102230246251565e-16,
+    "author_validation:antibody_mediated_component": 1.1102230246251565e-16,
+    "author_validation:t_cell_mediated_component": 1.1102230246251565e-16
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "analysis_type": "Follow-up; technical-validation results were already examined in prior work.",
+  "started_utc": "2026-09-15T16:40:05.127986+00:00",
+  "finished_utc": "2026-09-15T16:42:02.441835+00:00",
+  "elapsed_seconds": 117.31570980000015,
+  "python": "3.12.13",
+  "dependencies": {
+    "catboost": "1.2.10",
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2"
+  },
+  "sources": [
+    {
+      "file": "experiments/rejection_subtypes/run.py",
+      "snapshot": "results/followup/20260915_subtypes/source/experiments/rejection_subtypes/run.py",
+      "sha256": "43a84c218ba3ce613d1085913338ac8a38f76e7a708b1def1a54539456bddb07"
+    },
+    {
+      "file": "scripts/verify_local_data.py",
+      "snapshot": "results/followup/20260915_subtypes/source/scripts/verify_local_data.py",
+      "sha256": "57a0ab252a33bbe77e4e84fae6e951e35c1683a05e436c50d586d6a6cfcd9874"
+    },
+    {
+      "file": "tests/test_subtypes.py",
+      "snapshot": "results/followup/20260915_subtypes/source/tests/test_subtypes.py",
+      "sha256": "6365155ef89bae9382c146a2503b271e51b75b9719e5f55d5c981e8c45b45060"
+    },
+    {
+      "file": "pyproject.toml",
+      "snapshot": "results/followup/20260915_subtypes/source/pyproject.toml",
+      "sha256": "e7b67debb9f7dd1d0619cce835231fda7974eb0d54dd53b5b0fda12890967711"
+    },
+    {
+      "file": "uv.lock",
+      "snapshot": "results/followup/20260915_subtypes/source/uv.lock",
+      "sha256": "88413f5df28df70a947eed01f7493b114eb73a1a4c56decfbfc49ace1a0e388b"
+    },
+    {
+      "file": "src/kidney_biopsy/__init__.py",
+      "snapshot": "results/followup/20260915_subtypes/source/src/kidney_biopsy/__init__.py",
+      "sha256": "0926aa92e36bb57d541c43ddfde79afab43fcae5661b9abbcd53e91fb721d4b0"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "snapshot": "results/followup/20260915_subtypes/source/src/kidney_biopsy/preprocessing.py",
+      "sha256": "21957d51e1645c9676b307f8b7796a2a6702c26d004d3bdcaf4074cc57a43f9e"
+    },
+    {
+      "file": "src/kidney_biopsy/source.py",
+      "snapshot": "results/followup/20260915_subtypes/source/src/kidney_biopsy/source.py",
+      "sha256": "682ab59a9db72fe8e252b93d5e2fc9637cc856783e4b88ad23520a6d1b5b2ca2"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "snapshot": "results/followup/20260915_subtypes/source/src/kidney_biopsy/prediction.py",
+      "sha256": "ada0e7774af08da99297477d5fdbbca9cb058b775aaba65014cd4fdb30acee70"
+    }
+  ],
+  "raw_sources": [
+    {
+      "gse": "GSE212160",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/matrix/GSE212160_series_matrix.txt.gz",
+      "file": "data/raw/rejection_public/GSE212160_series_matrix.txt.gz",
+      "retrieved": "2026-09-15",
+      "sha256": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050",
+      "bytes": 2444946
+    },
+    {
+      "gse": "GSE212160",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/suppl/GSE212160_RAW.tar",
+      "file": "data/raw/rejection_public/GSE212160_RAW.tar",
+      "retrieved": "2026-09-15",
+      "sha256": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8",
+      "bytes": 13547520
+    }
+  ],
+  "inputs": [
+    {
+      "file": "results/reproduction/20260915_shared/run_manifest.json",
+      "sha256": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/biopsy_split.csv",
+      "sha256": "e179b5ef6fdceac592db55878bd82aaf01f08b7c9eb65afa99d326b309ecab6a"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/biopsy_results.json",
+      "sha256": "e01c8b44309ea1d2e25bdec71d388e968309d406606efd83837fc2d611b724d0"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/any_rejection_frozen.json",
+      "sha256": "fed0e4f0b37431d2ef9de026071294d3ebef007c1ed38b348ea552d664bb2308"
+    },
+    {
+      "file": "data/processed/models/20260915_shared/any_rejection_selected_model.joblib",
+      "sha256": "e8d1cc2a4f684b86aa524cac2f21802847999d41a70c1728ceef092811a5f94f"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/antibody_mediated_component_frozen.json",
+      "sha256": "5fc29e5ea323ec4c0e1645befb51ae58b682ab918c854c9de975279e780689ca"
+    },
+    {
+      "file": "data/processed/models/20260915_shared/antibody_mediated_component_selected_model.joblib",
+      "sha256": "cbb8d5e949a5b64bda7df799454fdd5d3e6c4ecd0f7662f9ee65021b6d1676e1"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/t_cell_mediated_component_frozen.json",
+      "sha256": "b673b155eeeeed163c9201a19264a1590dd3f3b28d616c34cbe30ddf2bc13755"
+    },
+    {
+      "file": "data/processed/models/20260915_shared/t_cell_mediated_component_selected_model.joblib",
+      "sha256": "089339b0ba8a63d1d2ce62e947e2f11ab8539a378c82c85527a8aac4c7e4d4e6"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/any_rejection_catboost_all_depth4_screen_predictions.csv",
+      "sha256": "57aef2ed1f39aa8644f2d5e5da2176f553e652c87946ff5565ef648c361334ea"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/antibody_mediated_component_catboost_all_depth6_screen_predictions.csv",
+      "sha256": "8797e1469b9549331ad3e0caf5537a1613b794d92ea7a086d61f516968744819"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/t_cell_mediated_component_catboost_all_depth4_screen_predictions.csv",
+      "sha256": "f5efaec729896e4452c57c3e3b713ca2716bad5a2f3a6352c06d6926e9ae2034"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "sha256": "2c5fcedb726348ba7a7ac06e4e195f81f4b8d921d186997cb2ab2ee8197ab91a"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "sha256": "d3f6b663e7fb6490f794056cb707a8a4ce72a0a05618f8a1c73d09326e5e0790"
+    },
+    {
+      "file": "results/reproduction/20260915_shared/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "sha256": "03deba22cee69854910534b228c80e4ea94197ecfcc78504d623e5ba07abde96"
+    }
+  ],
+  "input_manifest_sha256": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6",
+  "fit_count": 5,
+  "environment_lock": {
+    "file": "uv.lock",
+    "snapshot": "results/followup/20260915_subtypes/source/uv.lock",
+    "sha256": "88413f5df28df70a947eed01f7493b114eb73a1a4c56decfbfc49ace1a0e388b"
+  },
+  "artifacts": [
+    {
+      "file": "results/followup/20260915_subtypes/any_errors_by_diagnosis.csv",
+      "bytes": 2584,
+      "sha256": "3b92d614f7f321405f725894779b08c7ad3c532599627fbb10d241ebbb03a213"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/any_rejection_metrics.csv",
+      "bytes": 2459,
+      "sha256": "22fb812a4acc7bbbab78dbfc7146aae44282a502d8971efe180e58957ddaaaa6"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/candidate_screen.csv",
+      "bytes": 584,
+      "sha256": "8af14658ef57ca18230c7861efffd2375fdc9b7ae70225df641ece3924c16afa"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/class_counts.csv",
+      "bytes": 484,
+      "sha256": "d5fd0e6a8a000a207fe039a44c3fc98345a406a6ff4c6bb675da523064f392c8"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/component_metrics.csv",
+      "bytes": 3947,
+      "sha256": "1fb547c29e3947973b30517007e55e5959f364c6a1e43a8451d5b525fb068399"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/configuration.json",
+      "bytes": 1836,
+      "sha256": "7f3ac5e37989d520a7fa0b18174b93b8361b3e93a14f29f7106fbf1565051d47"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/confusion_matrices.csv",
+      "bytes": 7933,
+      "sha256": "c7c61c1ffc613ec2cabfdc5d75c3793ce7a79ccd72841b55f150378e6a557a95"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/data_audit.json",
+      "bytes": 1579,
+      "sha256": "b62f564506a75fe74d0e3a2b340da5ccc0f00c27d12a757fcc5dada8f1a94844"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/figures/01_subtype_confusion.png",
+      "bytes": 130941,
+      "sha256": "ef59f70d2771e5a684b6d290b1b6e2a8aca1f1f984d105323667616c51de2767"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/figures/01_subtype_confusion.svg",
+      "bytes": 40278,
+      "sha256": "9983ee1b36b63af31e213f5f608eaa2d6c330fa5cff27421eb505290f4d402ad"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/figures/02_any_rejection_errors.png",
+      "bytes": 59609,
+      "sha256": "97982656235215d39f252876b3360c80c6b9a889760904c0c2b17c15689c6a01"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/figures/02_any_rejection_errors.svg",
+      "bytes": 11628,
+      "sha256": "5444f315a4802af16ec835cc8cac36a08d8e54d6b7a09c8e1b0e0198cf28a368"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/figures/03_mixed_rejection.png",
+      "bytes": 65318,
+      "sha256": "2051b7094113b0086fe3e09b49f351086af7ea802b9c94f91f16d94acbee5e97"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/figures/03_mixed_rejection.svg",
+      "bytes": 13577,
+      "sha256": "aed239555cf7d06b38fc741d376bc3687ae3e2a3eb22b95e2b5a31a290606625"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/frozen.json",
+      "bytes": 103885,
+      "sha256": "1c9b6c41614631a95d0586247b36ee46ffea69a4661ac749e65996a05c365dbc"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/mixed_rejection.csv",
+      "bytes": 372,
+      "sha256": "01f1c0b900732cc70e1215927c45d4ca1b8dbc92b0da1e6ea99f954910454b46"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/paired_error_differences.csv",
+      "bytes": 468,
+      "sha256": "a508163f530fba8f0b99d4e601e9a9aeae8e544114b17cf67ee695b0752c6026"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/per_class_metrics.csv",
+      "bytes": 4633,
+      "sha256": "46f627ca0067768bab2dc5f187f4ac5fc8a1aed0a4e2b565eda554849eb07007"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/REPORT.md",
+      "bytes": 10396,
+      "sha256": "1d40347bafc38aa87ecd479ca4c277018e13fa3c832c0b2e1dc92460da0ce57d"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/source/experiments/rejection_subtypes/run.py",
+      "bytes": 46211,
+      "sha256": "43a84c218ba3ce613d1085913338ac8a38f76e7a708b1def1a54539456bddb07"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/source/pyproject.toml",
+      "bytes": 843,
+      "sha256": "e7b67debb9f7dd1d0619cce835231fda7974eb0d54dd53b5b0fda12890967711"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/source/scripts/verify_local_data.py",
+      "bytes": 2745,
+      "sha256": "57a0ab252a33bbe77e4e84fae6e951e35c1683a05e436c50d586d6a6cfcd9874"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/source/src/kidney_biopsy/__init__.py",
+      "bytes": 652,
+      "sha256": "0926aa92e36bb57d541c43ddfde79afab43fcae5661b9abbcd53e91fb721d4b0"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/source/src/kidney_biopsy/prediction.py",
+      "bytes": 7760,
+      "sha256": "ada0e7774af08da99297477d5fdbbca9cb058b775aaba65014cd4fdb30acee70"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/source/src/kidney_biopsy/preprocessing.py",
+      "bytes": 7948,
+      "sha256": "21957d51e1645c9676b307f8b7796a2a6702c26d004d3bdcaf4074cc57a43f9e"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/source/src/kidney_biopsy/source.py",
+      "bytes": 3731,
+      "sha256": "682ab59a9db72fe8e252b93d5e2fc9637cc856783e4b88ad23520a6d1b5b2ca2"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/source/tests/test_subtypes.py",
+      "bytes": 6858,
+      "sha256": "6365155ef89bae9382c146a2503b271e51b75b9719e5f55d5c981e8c45b45060"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/source/uv.lock",
+      "bytes": 62752,
+      "sha256": "88413f5df28df70a947eed01f7493b114eb73a1a4c56decfbfc49ace1a0e388b"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/subtype_summary.csv",
+      "bytes": 574,
+      "sha256": "796d4ea2374d80b0ab76f74ca9859a287805675646cb50f49d29fd721b441350"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/verification.json",
+      "bytes": 919,
+      "sha256": "3d017cec19747f8dcae38f7cf93b963d20133dff889925deaa99b9acbde13c2e"
+    },
+    {
+      "file": "data/processed/models/20260915_subtypes/four_class_catboost.joblib",
+      "bytes": 852968,
+      "sha256": "d2c722e03ebe767c81bd49a6cc90aa51f8a35c8eb524c7243d7a3f817e562f86"
+    },
+    {
+      "file": "data/processed/models/20260915_subtypes/four_class_logistic.joblib",
+      "bytes": 50169,
+      "sha256": "7a0944f9a931261f3b1956efce01ca951fc9094ae56199a04f35a1ae05dd0c51"
+    },
+    {
+      "file": "data/processed/analysis/20260915_subtypes/author_validation_scores.csv",
+      "bytes": 167361,
+      "sha256": "9d2638e25cece96d551477075f0dd6cba471f671d5ca79d7089f4af441d67292"
+    },
+    {
+      "file": "data/processed/analysis/20260915_subtypes/biopsy_split.csv",
+      "bytes": 102516,
+      "sha256": "e179b5ef6fdceac592db55878bd82aaf01f08b7c9eb65afa99d326b309ecab6a"
+    },
+    {
+      "file": "data/processed/analysis/20260915_subtypes/discovery_screen_scores.csv",
+      "bytes": 129431,
+      "sha256": "e756d5e355e39f786d9cb8b8355316b6d0a63af5867b8179001d7df2269a088f"
+    }
+  ]
+}

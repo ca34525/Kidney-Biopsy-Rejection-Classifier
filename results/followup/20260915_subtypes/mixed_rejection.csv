@@ -1,0 +1,7 @@
+split,model,actual_mixed,as_no_rejection,as_antibody,as_tcell,as_mixed
+discovery_screen,four_class_catboost,19,0,5,5,9
+discovery_screen,four_class_logistic,19,0,5,5,9
+discovery_screen,separate_components,19,0,2,2,15
+author_validation,four_class_catboost,18,0,5,6,7
+author_validation,four_class_logistic,18,0,4,4,10
+author_validation,separate_components,18,0,5,3,10

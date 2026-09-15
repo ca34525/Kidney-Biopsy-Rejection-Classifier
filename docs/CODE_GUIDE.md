@@ -67,9 +67,15 @@ are never reused as output directories. `scripts/verify_reproduction.py`
 compares assignments, selected models, thresholds, and scores with a
 preserved reference run; its score tolerance is `1e-12`.
 
-The FastAPI service and HTML demonstration are subsequent project work.
-They can call the same package without copying preprocessing or importing
-the training script.
+The FastAPI service in `api.py` calls this package without copying preprocessing
+or importing the training script. It serves the standalone page in `static/`.
+The [API guide](API.md) describes startup, example preparation, request limits,
+and structured errors. The service uses the frozen binary model; the separate
+four-class follow-up is a research comparison in `experiments/rejection_subtypes/`.
+
+The [verification guide](VERIFICATION.md) covers the test suite, CI, and a fresh
+noneditable installation. `scripts/verify_http_service.py` starts a real local
+server and compares all 345 validation predictions with the CLI and saved scores.
 
 ## Development record: September 15, 2026
 
@@ -79,3 +85,13 @@ the 109.7-second local rerun of the fixed 27-model procedure, exact agreement
 across nine evaluation prediction tables, and exact agreement after model reload.
 The existing discovery split, model candidates, selection rule, and thresholds
 were preserved. The calibration and error reviews did not change model fitting.
+
+The subsequent subtype comparison fitted five candidates in 117.3 seconds. Codex
+also assisted with the API, example preparation, browser behavior, and automated
+verification. The expanded suite has 55 passing tests. A real HTTP check compared
+all 345 validation specimens with CLI and saved predictions within `1e-12`.
+Browser checks covered a valid example, invalid input, a two-specimen upload,
+clearing stale results after input changes, and refusing results if the configured
+model changed while the page remained open. The fresh-install record in the
+verification guide establishes that the packaged app works in a separate local
+environment. These are software checks, not new clinical validation.

@@ -1,0 +1,97 @@
+split,model,actual,predicted,n
+discovery_screen,four_class_catboost,No Rejection,No Rejection,82
+discovery_screen,four_class_catboost,No Rejection,Antibody-mediated Rejection,2
+discovery_screen,four_class_catboost,No Rejection,T cell-mediated Rejection,4
+discovery_screen,four_class_catboost,No Rejection,Mixed Rejection,1
+discovery_screen,four_class_catboost,Antibody-mediated Rejection,No Rejection,4
+discovery_screen,four_class_catboost,Antibody-mediated Rejection,Antibody-mediated Rejection,58
+discovery_screen,four_class_catboost,Antibody-mediated Rejection,T cell-mediated Rejection,4
+discovery_screen,four_class_catboost,Antibody-mediated Rejection,Mixed Rejection,3
+discovery_screen,four_class_catboost,T cell-mediated Rejection,No Rejection,6
+discovery_screen,four_class_catboost,T cell-mediated Rejection,Antibody-mediated Rejection,4
+discovery_screen,four_class_catboost,T cell-mediated Rejection,T cell-mediated Rejection,75
+discovery_screen,four_class_catboost,T cell-mediated Rejection,Mixed Rejection,1
+discovery_screen,four_class_catboost,Mixed Rejection,No Rejection,0
+discovery_screen,four_class_catboost,Mixed Rejection,Antibody-mediated Rejection,5
+discovery_screen,four_class_catboost,Mixed Rejection,T cell-mediated Rejection,5
+discovery_screen,four_class_catboost,Mixed Rejection,Mixed Rejection,9
+discovery_screen,four_class_logistic,No Rejection,No Rejection,79
+discovery_screen,four_class_logistic,No Rejection,Antibody-mediated Rejection,3
+discovery_screen,four_class_logistic,No Rejection,T cell-mediated Rejection,7
+discovery_screen,four_class_logistic,No Rejection,Mixed Rejection,0
+discovery_screen,four_class_logistic,Antibody-mediated Rejection,No Rejection,2
+discovery_screen,four_class_logistic,Antibody-mediated Rejection,Antibody-mediated Rejection,59
+discovery_screen,four_class_logistic,Antibody-mediated Rejection,T cell-mediated Rejection,5
+discovery_screen,four_class_logistic,Antibody-mediated Rejection,Mixed Rejection,3
+discovery_screen,four_class_logistic,T cell-mediated Rejection,No Rejection,5
+discovery_screen,four_class_logistic,T cell-mediated Rejection,Antibody-mediated Rejection,1
+discovery_screen,four_class_logistic,T cell-mediated Rejection,T cell-mediated Rejection,79
+discovery_screen,four_class_logistic,T cell-mediated Rejection,Mixed Rejection,1
+discovery_screen,four_class_logistic,Mixed Rejection,No Rejection,0
+discovery_screen,four_class_logistic,Mixed Rejection,Antibody-mediated Rejection,5
+discovery_screen,four_class_logistic,Mixed Rejection,T cell-mediated Rejection,5
+discovery_screen,four_class_logistic,Mixed Rejection,Mixed Rejection,9
+discovery_screen,separate_components,No Rejection,No Rejection,83
+discovery_screen,separate_components,No Rejection,Antibody-mediated Rejection,3
+discovery_screen,separate_components,No Rejection,T cell-mediated Rejection,2
+discovery_screen,separate_components,No Rejection,Mixed Rejection,1
+discovery_screen,separate_components,Antibody-mediated Rejection,No Rejection,4
+discovery_screen,separate_components,Antibody-mediated Rejection,Antibody-mediated Rejection,59
+discovery_screen,separate_components,Antibody-mediated Rejection,T cell-mediated Rejection,2
+discovery_screen,separate_components,Antibody-mediated Rejection,Mixed Rejection,4
+discovery_screen,separate_components,T cell-mediated Rejection,No Rejection,7
+discovery_screen,separate_components,T cell-mediated Rejection,Antibody-mediated Rejection,1
+discovery_screen,separate_components,T cell-mediated Rejection,T cell-mediated Rejection,72
+discovery_screen,separate_components,T cell-mediated Rejection,Mixed Rejection,6
+discovery_screen,separate_components,Mixed Rejection,No Rejection,0
+discovery_screen,separate_components,Mixed Rejection,Antibody-mediated Rejection,2
+discovery_screen,separate_components,Mixed Rejection,T cell-mediated Rejection,2
+discovery_screen,separate_components,Mixed Rejection,Mixed Rejection,15
+author_validation,four_class_catboost,No Rejection,No Rejection,154
+author_validation,four_class_catboost,No Rejection,Antibody-mediated Rejection,5
+author_validation,four_class_catboost,No Rejection,T cell-mediated Rejection,17
+author_validation,four_class_catboost,No Rejection,Mixed Rejection,0
+author_validation,four_class_catboost,Antibody-mediated Rejection,No Rejection,3
+author_validation,four_class_catboost,Antibody-mediated Rejection,Antibody-mediated Rejection,47
+author_validation,four_class_catboost,Antibody-mediated Rejection,T cell-mediated Rejection,4
+author_validation,four_class_catboost,Antibody-mediated Rejection,Mixed Rejection,2
+author_validation,four_class_catboost,T cell-mediated Rejection,No Rejection,16
+author_validation,four_class_catboost,T cell-mediated Rejection,Antibody-mediated Rejection,2
+author_validation,four_class_catboost,T cell-mediated Rejection,T cell-mediated Rejection,73
+author_validation,four_class_catboost,T cell-mediated Rejection,Mixed Rejection,4
+author_validation,four_class_catboost,Mixed Rejection,No Rejection,0
+author_validation,four_class_catboost,Mixed Rejection,Antibody-mediated Rejection,5
+author_validation,four_class_catboost,Mixed Rejection,T cell-mediated Rejection,6
+author_validation,four_class_catboost,Mixed Rejection,Mixed Rejection,7
+author_validation,four_class_logistic,No Rejection,No Rejection,155
+author_validation,four_class_logistic,No Rejection,Antibody-mediated Rejection,6
+author_validation,four_class_logistic,No Rejection,T cell-mediated Rejection,15
+author_validation,four_class_logistic,No Rejection,Mixed Rejection,0
+author_validation,four_class_logistic,Antibody-mediated Rejection,No Rejection,3
+author_validation,four_class_logistic,Antibody-mediated Rejection,Antibody-mediated Rejection,46
+author_validation,four_class_logistic,Antibody-mediated Rejection,T cell-mediated Rejection,5
+author_validation,four_class_logistic,Antibody-mediated Rejection,Mixed Rejection,2
+author_validation,four_class_logistic,T cell-mediated Rejection,No Rejection,16
+author_validation,four_class_logistic,T cell-mediated Rejection,Antibody-mediated Rejection,4
+author_validation,four_class_logistic,T cell-mediated Rejection,T cell-mediated Rejection,72
+author_validation,four_class_logistic,T cell-mediated Rejection,Mixed Rejection,3
+author_validation,four_class_logistic,Mixed Rejection,No Rejection,0
+author_validation,four_class_logistic,Mixed Rejection,Antibody-mediated Rejection,4
+author_validation,four_class_logistic,Mixed Rejection,T cell-mediated Rejection,4
+author_validation,four_class_logistic,Mixed Rejection,Mixed Rejection,10
+author_validation,separate_components,No Rejection,No Rejection,161
+author_validation,separate_components,No Rejection,Antibody-mediated Rejection,5
+author_validation,separate_components,No Rejection,T cell-mediated Rejection,8
+author_validation,separate_components,No Rejection,Mixed Rejection,2
+author_validation,separate_components,Antibody-mediated Rejection,No Rejection,6
+author_validation,separate_components,Antibody-mediated Rejection,Antibody-mediated Rejection,43
+author_validation,separate_components,Antibody-mediated Rejection,T cell-mediated Rejection,2
+author_validation,separate_components,Antibody-mediated Rejection,Mixed Rejection,5
+author_validation,separate_components,T cell-mediated Rejection,No Rejection,18
+author_validation,separate_components,T cell-mediated Rejection,Antibody-mediated Rejection,1
+author_validation,separate_components,T cell-mediated Rejection,T cell-mediated Rejection,70
+author_validation,separate_components,T cell-mediated Rejection,Mixed Rejection,6
+author_validation,separate_components,Mixed Rejection,No Rejection,0
+author_validation,separate_components,Mixed Rejection,Antibody-mediated Rejection,5
+author_validation,separate_components,Mixed Rejection,T cell-mediated Rejection,3
+author_validation,separate_components,Mixed Rejection,Mixed Rejection,10

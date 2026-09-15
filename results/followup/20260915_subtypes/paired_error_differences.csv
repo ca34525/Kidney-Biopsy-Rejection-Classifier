@@ -1,0 +1,7 @@
+model,reference,metric,estimate,lower,upper,resamples
+four_class_catboost,binary_benchmark,missed_rejection,4,-1.0,9.0,2000
+four_class_catboost,binary_benchmark,false_flags,0,-5.0,5.0,2000
+four_class_logistic,binary_benchmark,missed_rejection,3,-3.0,10.0,2000
+four_class_logistic,binary_benchmark,false_flags,2,-4.0,9.0,2000
+separate_components,binary_benchmark,missed_rejection,-1,-8.0,5.0,2000
+separate_components,binary_benchmark,false_flags,7,0.0,14.0,2000

@@ -1,0 +1,33 @@
+split,model,diagnosis,n,errors,error_type
+discovery_screen,four_class_catboost,No Rejection,89,6,false_flag
+discovery_screen,four_class_catboost,Antibody-mediated Rejection,69,5,missed_rejection
+discovery_screen,four_class_catboost,T cell-mediated Rejection,86,12,missed_rejection
+discovery_screen,four_class_catboost,Mixed Rejection,19,0,missed_rejection
+discovery_screen,four_class_logistic,No Rejection,89,7,false_flag
+discovery_screen,four_class_logistic,Antibody-mediated Rejection,69,5,missed_rejection
+discovery_screen,four_class_logistic,T cell-mediated Rejection,86,11,missed_rejection
+discovery_screen,four_class_logistic,Mixed Rejection,19,1,missed_rejection
+discovery_screen,binary_benchmark,No Rejection,89,5,false_flag
+discovery_screen,binary_benchmark,Antibody-mediated Rejection,69,5,missed_rejection
+discovery_screen,binary_benchmark,T cell-mediated Rejection,86,12,missed_rejection
+discovery_screen,binary_benchmark,Mixed Rejection,19,0,missed_rejection
+discovery_screen,separate_components,No Rejection,89,6,false_flag
+discovery_screen,separate_components,Antibody-mediated Rejection,69,4,missed_rejection
+discovery_screen,separate_components,T cell-mediated Rejection,86,7,missed_rejection
+discovery_screen,separate_components,Mixed Rejection,19,0,missed_rejection
+author_validation,four_class_catboost,No Rejection,176,8,false_flag
+author_validation,four_class_catboost,Antibody-mediated Rejection,56,6,missed_rejection
+author_validation,four_class_catboost,T cell-mediated Rejection,95,22,missed_rejection
+author_validation,four_class_catboost,Mixed Rejection,18,1,missed_rejection
+author_validation,four_class_logistic,No Rejection,176,10,false_flag
+author_validation,four_class_logistic,Antibody-mediated Rejection,56,6,missed_rejection
+author_validation,four_class_logistic,T cell-mediated Rejection,95,22,missed_rejection
+author_validation,four_class_logistic,Mixed Rejection,18,0,missed_rejection
+author_validation,binary_benchmark,No Rejection,176,8,false_flag
+author_validation,binary_benchmark,Antibody-mediated Rejection,56,6,missed_rejection
+author_validation,binary_benchmark,T cell-mediated Rejection,95,18,missed_rejection
+author_validation,binary_benchmark,Mixed Rejection,18,1,missed_rejection
+author_validation,separate_components,No Rejection,176,15,false_flag
+author_validation,separate_components,Antibody-mediated Rejection,56,6,missed_rejection
+author_validation,separate_components,T cell-mediated Rejection,95,18,missed_rejection
+author_validation,separate_components,Mixed Rejection,18,0,missed_rejection

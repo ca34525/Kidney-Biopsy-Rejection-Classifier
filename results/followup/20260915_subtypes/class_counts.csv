@@ -1,0 +1,13 @@
+split,diagnosis,n
+train,No Rejection,267
+train,Antibody-mediated Rejection,207
+train,T cell-mediated Rejection,256
+train,Mixed Rejection,57
+discovery_screen,No Rejection,89
+discovery_screen,Antibody-mediated Rejection,69
+discovery_screen,T cell-mediated Rejection,86
+discovery_screen,Mixed Rejection,19
+author_validation,No Rejection,176
+author_validation,Antibody-mediated Rejection,56
+author_validation,T cell-mediated Rejection,95
+author_validation,Mixed Rejection,18

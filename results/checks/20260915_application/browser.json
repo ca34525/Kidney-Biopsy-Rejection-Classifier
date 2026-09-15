@@ -1,0 +1,31 @@
+{
+  "verified_utc": "2026-09-15T16:48:11.533247+00:00",
+  "successful": true,
+  "method": "Actual browser interactions through the Codex in-app browser against a local Uvicorn server.",
+  "url": "http://127.0.0.1:8765",
+  "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+  "checks": [
+    "Public no-rejection example displayed score 0.275 and below-threshold flag.",
+    "Incomplete example displayed missing-IFNG error with no result.",
+    "Two-specimen public CSV upload displayed both rows, scores 0.275 and 0.998, and the corresponding flags.",
+    "Changing the selected example removed the previous score and named the new pending example.",
+    "Restarting the server with a different model version while the page retained original metadata caused the result to be rejected with a reload instruction.",
+    "Restored the configured shared binary model and reloaded the final page.",
+    "Desktop screenshot inspected for readable controls, score, threshold, and evaluation error counts.",
+    "JavaScript syntax check passed using node --check."
+  ],
+  "assets": [
+    {
+      "file": "src/kidney_biopsy/static/index.html",
+      "sha256": "2b79b61afad787dd7b8c2a897d5e257619a9d778a015b36e57045949555a6a91"
+    },
+    {
+      "file": "src/kidney_biopsy/static/style.css",
+      "sha256": "36c13f116d5678b8113f92b790ff5014d567d6a3ef3ff5f08718d635e754263a"
+    },
+    {
+      "file": "src/kidney_biopsy/static/app.js",
+      "sha256": "5d6ab5b2afed9363590b2f5bbbd01dd1e17e177601a599df2973aec3b6232cb3"
+    }
+  ]
+}

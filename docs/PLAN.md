@@ -34,8 +34,20 @@ package are complete. The fixed 27-model procedure was rerun through that packag
 all nine evaluation prediction tables matched the preserved baseline exactly.
 The README links to reports, editable charts, and verification records.
 
-Add the bounded [rejection subtype follow-up](PROJECT_SPEC.md#rejection-subtype-follow-up)
-to the analysis: four-class models, component models, and the binary benchmark.
+The bounded [rejection subtype follow-up](../results/followup/20260915_subtypes/REPORT.md)
+is complete. Five new candidates were fitted using the same saved split.
+Four-class logistic regression recognized 10 of 18 mixed diagnoses with 5 false
+mixed calls, compared with 10 and 13 for the separate component models. The
+four-class models did not improve the frozen binary model's rejection error
+counts. The service continues to use the binary model.
 
-The next work is the small FastAPI service and HTML demonstration, followed by
-container/CI checks and the interview presentation. These remain planned work.
+The [FastAPI service and HTML demonstration](API.md) are complete. They support
+prepared public examples and validated CSV uploads, return a versioned score and
+flag, and explain invalid input. All 55 tests pass. A real HTTP check reproduced
+all 345 validation scores within `1e-12` of CLI and saved results. The
+[verification guide](VERIFICATION.md) records the clean-install checks and CI
+workflow. The repository's GitHub remote is configured; pushes and pull requests
+trigger the hosted checks.
+
+Remaining project work is the interview presentation and deployment preparation,
+including a local container run and a small cloud demonstration if access permits.

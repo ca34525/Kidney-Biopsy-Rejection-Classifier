@@ -1,0 +1,2 @@
+# Completed follow-up artifacts must retain the bytes recorded in their manifests.
+results/followup/** -text
