@@ -22,6 +22,7 @@ async function runPrediction() {
     element("p", "", "The complete batch must pass input checks before any scores are returned."),
   );
   ui.result.replaceChildren(waiting);
+  byId("example-evidence-context").hidden = true;
 
   try {
     const body = await readSelectedCounts();
@@ -31,7 +32,19 @@ async function runPrediction() {
       body,
     });
     const prediction = await jsonResponse(response);
-    showPredictions(prediction);
+    let walkthrough = null;
+    let walkthroughUnavailable = false;
+    const selectedExample = examples.find((item) => item.id === ui.exampleSelect.value);
+    if (!ui.countsFile.files[0] && selectedExample?.valid) {
+      try {
+        walkthrough = await jsonResponse(await fetch(
+          `/demo/walkthrough/${encodeURIComponent(selectedExample.id)}`,
+        ));
+      } catch {
+        walkthroughUnavailable = true;
+      }
+    }
+    showPredictions(prediction, walkthrough, walkthroughUnavailable);
   } catch (error) {
     const message = error instanceof TypeError
       ? "The service could not be reached. Check that the local application is running."
@@ -60,7 +73,7 @@ async function readSelectedCounts() {
   return response.arrayBuffer();
 }
 
-function showPredictions(data) {
+function showPredictions(data, walkthrough, walkthroughUnavailable) {
   const results = data.predictions;
   if (!Array.isArray(results) || results.length === 0) {
     throw new Error("The service returned no predictions.");
@@ -76,25 +89,50 @@ function showPredictions(data) {
       "so its threshold and evaluation counts match the model.",
     );
   }
+  if (walkthrough && (
+    results.length !== 1 ||
+    walkthrough.example_id !== ui.exampleSelect.value ||
+    walkthrough.specimen !== results[0].specimen ||
+    walkthrough.model_version !== metadata.model_version ||
+    walkthrough.schema_version !== metadata.schema_version ||
+    walkthrough.preprocessing_version !== metadata.preprocessing_version ||
+    walkthrough.threshold !== metadata.threshold ||
+    walkthrough.prediction.rejection_score !== results[0].rejection_score ||
+    walkthrough.prediction.rejection_flag !== results[0].rejection_flag
+  )) {
+    throw new Error(
+      "The walkthrough no longer matches this prediction. Reload the page so its " +
+      "example, model, and evaluation counts agree.",
+    );
+  }
 
   const box = results.length === 1
-    ? singlePrediction(results[0])
+    ? singlePrediction(results[0], walkthrough)
     : batchPredictions(results);
   const specimenDescription = results.length === 1 ? "this specimen" : "every specimen";
   box.append(element(
     "p", "input-ok",
     `✓ All ${data.input_checks.required_targets} targets passed input checks for ${specimenDescription}.`,
   ));
+  if (walkthroughUnavailable) {
+    box.append(element("p", "score-note",
+      "The public-example walkthrough could not be verified. The score above still " +
+      "comes from the checked counts; prepare the examples again to restore the walkthrough."));
+  }
+  byId("example-evidence-context").hidden = !walkthrough || !metadata.evaluation;
   ui.result.replaceChildren(box);
 }
 
-function singlePrediction(result) {
+function singlePrediction(result, walkthrough) {
   const box = element("div", "prediction");
-  box.append(
-    element("p", "specimen-label", `Specimen ${result.specimen}`),
-    flag(result.rejection_flag),
-    element("p", "score-label", "Rejection model score"),
-  );
+  box.append(element("p", "specimen-label", `Specimen ${result.specimen}`));
+  if (walkthrough) {
+    box.append(
+      element("p", "recorded-diagnosis", `Recorded diagnosis: ${walkthrough.recorded_diagnosis}`),
+      normalizationWalkthrough(walkthrough),
+    );
+  }
+  box.append(element("p", "score-label", "Rejection model score"));
   const score = element("p", "score-value", result.rejection_score.toFixed(3));
   score.title = String(result.rejection_score);
   box.append(score);
@@ -117,8 +155,72 @@ function singlePrediction(result) {
   box.append(
     track,
     axis,
+    flag(result.rejection_flag),
     element("p", "score-note", "This is a model score, not a verified probability for an individual biopsy."),
   );
+  if (walkthrough) {
+    const agrees = result.rejection_flag === walkthrough.recorded_rejection;
+    const comparison = agrees
+      ? "For this specimen, the flag agrees with the recorded diagnosis."
+      : result.rejection_flag
+        ? "For this specimen, the result is a false rejection flag."
+        : "For this specimen, the result is a missed rejection case.";
+    box.append(element("p", "example-comparison", comparison));
+  }
+  return box;
+}
+
+function normalizationWalkthrough(walkthrough) {
+  const values = walkthrough.normalization;
+  const box = element("section", "normalization-walkthrough");
+  box.setAttribute("aria-label", "From raw counts to normalized model inputs");
+  box.append(
+    element("h3", "", "From raw counts to model inputs"),
+    element("p", "raw-count-description",
+      `${walkthrough.required_targets} measurements include ${values.housekeeping.length} ` +
+      `housekeeping targets. For example, ${values.illustrated_target} has ` +
+      `${values.raw_count.toLocaleString("en-US")} raw counts.`),
+  );
+  const arithmetic = element("div", "normalization-arithmetic");
+  for (const [label, value, operator] of [
+    ["log₂(count + 1)", values.log2_count_plus_one, ""],
+    ["Housekeeping mean", values.housekeeping_mean, "−"],
+    ["Normalized IFNG", values.normalized_value, "="],
+  ]) {
+    const part = element("div", "arithmetic-term");
+    const number = element("strong", "", value.toFixed(3));
+    number.title = String(value);
+    part.append(element("span", "arithmetic-operator", operator), number,
+      element("span", "arithmetic-label", label));
+    arithmetic.append(part);
+  }
+  box.append(arithmetic, element("p", "normalization-note",
+    `The housekeeping mean uses log₂(count + 1) for all ${values.housekeeping.length} ` +
+    `housekeeping targets. The same calculation supplies all ${walkthrough.predictor_targets} ` +
+    "assay targets to the model. The diagnosis and specimen ID are not predictors."));
+
+  const details = element("details", "housekeeping-details");
+  details.append(element("summary", "", "See the 12 housekeeping measurements"));
+  const table = element("table", "housekeeping-table");
+  const header = element("tr");
+  for (const label of ["Target", "Raw count", "log₂(count + 1)"]) {
+    const cell = element("th", "", label);
+    cell.scope = "col";
+    header.append(cell);
+  }
+  const head = element("thead");
+  head.append(header);
+  const body = element("tbody");
+  for (const target of values.housekeeping) {
+    const row = element("tr");
+    row.append(element("td", "", target.target),
+      element("td", "", target.raw_count.toLocaleString("en-US")),
+      element("td", "", target.log2_count_plus_one.toFixed(3)));
+    body.append(row);
+  }
+  table.append(head, body);
+  details.append(table);
+  box.append(details);
   return box;
 }
 
@@ -157,6 +259,7 @@ function batchPredictions(results) {
 }
 
 function describeSelection() {
+  byId("example-evidence-context").hidden = true;
   const example = examples.find((item) => item.id === ui.exampleSelect.value);
   byId("example-description").textContent = example?.description ||
     "Prepared public examples are unavailable. You can upload a compatible CSV.";
@@ -191,6 +294,7 @@ function setBusy(value) {
 }
 
 function showError(message) {
+  byId("example-evidence-context").hidden = true;
   const box = element("div", "error-result");
   box.setAttribute("role", "alert");
   box.append(

@@ -40,9 +40,9 @@
       </section>
 
       <section class="panel result-panel" aria-labelledby="result-title">
-        <div class="section-heading"><span class="step-number">02</span><h2 id="result-title">Read the result</h2><span class="fixed-tag">Fixed threshold</span></div>
+        <div class="section-heading"><span class="step-number">02</span><h2 id="result-title">Follow the specimen</h2><span class="fixed-tag">Fixed threshold</span></div>
         <div id="result-content" aria-live="polite" aria-atomic="true">
-          <div class="empty-result"><span class="empty-icon" aria-hidden="true">↗</span><h3>Ready when you are</h3><p>Choose a public example or upload compatible raw counts to see a model score and research flag.</p></div>
+          <div class="empty-result"><span class="empty-icon" aria-hidden="true">↗</span><h3>Ready when you are</h3><p>Choose a public example to follow its counts through normalization, the model score, and the fixed threshold. Compatible CSV uploads return scores through the same model.</p></div>
         </div>
         <div id="threshold-context" class="threshold-context" hidden>
           <div><span>Frozen threshold</span><strong id="threshold-value"></strong></div>
@@ -52,7 +52,7 @@
     </div>
 
     <section class="evidence" aria-labelledby="evidence-title">
-      <div class="evidence-intro"><p class="eyebrow">What happened in evaluation</p><h2 id="evidence-title">A flag can be wrong.<br>A low score can miss rejection.</h2><p id="evaluation-description">Loading the frozen model’s evaluation results…</p></div>
+      <div class="evidence-intro"><p class="eyebrow">03 · Put the result in context</p><h2 id="evidence-title">A flag can be wrong.<br> A low score can miss rejection.</h2><p id="evaluation-description">Loading the frozen model’s evaluation results…</p><p id="example-evidence-context" hidden>This public discovery-screen example illustrates the software. The error counts describe the separate technical-validation cohort.</p></div>
       <div class="evidence-card"><span class="evidence-number" id="false-flags">—</span><h3>False rejection flags</h3><p id="false-flags-description">Among specimens recorded as no rejection.</p></div>
       <div class="evidence-card"><span class="evidence-number" id="missed-rejection">—</span><h3>Missed rejection cases</h3><p id="missed-description">Among specimens recorded as rejection.</p></div>
     </section>

@@ -9,14 +9,20 @@ from pathlib import Path
 
 import pandas as pd
 
-from kidney_biopsy.prediction import load_predictor, project_path, sha256, verify_artifact
+from kidney_biopsy.prediction import (
+    DEFAULT_RUN,
+    load_predictor,
+    project_path,
+    sha256,
+    verify_artifact,
+)
 from kidney_biopsy.source import read_geo_matrix, read_rcc_archive
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project-root", default=".")
-    parser.add_argument("--results-dir", default="results/reproduction/20260915_shared")
+    parser.add_argument("--results-dir", default=DEFAULT_RUN)
     parser.add_argument("--output-dir", default="data/demo")
     args = parser.parse_args()
     root = Path(args.project_root).resolve()

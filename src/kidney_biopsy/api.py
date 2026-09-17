@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import io
 import json
+import logging
 import os
 import re
 from contextlib import asynccontextmanager
@@ -18,13 +19,24 @@ from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from starlette.concurrency import run_in_threadpool
 
-from .prediction import Predictor, load_predictor, project_path, verify_artifact
+from .prediction import DEFAULT_RUN, Predictor, load_predictor, project_path, verify_artifact
 from .preprocessing import read_counts_csv
+from .walkthrough import describe_specimen
 
-DEFAULT_RUN = "results/reproduction/20260915_shared"
 MAX_UPLOAD_BYTES = 2 * 1024 * 1024
 MAX_SPECIMENS = 16
 STATIC_DIR = Path(__file__).with_name("static")
+LOGGER = logging.getLogger(__name__)
+
+
+def _startup_failure_reason(error: Exception) -> str:
+    if isinstance(error, FileNotFoundError):
+        return "missing_artifact"
+    if isinstance(error, (ValueError, KeyError)):
+        return "invalid_artifact_or_schema"
+    if isinstance(error, OSError):
+        return "unreadable_artifact"
+    return "unexpected_startup_error"
 
 
 def failure(status: int, code: str, message: str) -> JSONResponse:
@@ -55,8 +67,14 @@ def create_app(
             application.state.predictor = predictor
             application.state.evaluation = _load_evaluation(root, selected_run, predictor)
             application.state.examples = _load_demo_examples(root, selected_demo)
-        except Exception:
-            # Readiness reports a safe error. No model paths or upload data enter logs.
+        except Exception as error:
+            # Give operators a useful category without exposing exception messages,
+            # local paths, model internals, or request data.
+            LOGGER.error(
+                "Research model startup failed (%s). Check the configured run, "
+                "artifact hashes, and model/schema compatibility.",
+                _startup_failure_reason(error),
+            )
             application.state.predictor = None
         yield
         application.state.predictor = None
@@ -213,6 +231,28 @@ def create_app(
             headers={"Content-Disposition": f'attachment; filename="{example_id}.csv"'},
         )
 
+    @application.get("/demo/walkthrough/{example_id}")
+    def walkthrough(example_id: str):
+        predictor = application.state.predictor
+        if predictor is None:
+            return failure(503, "model_unavailable", "The configured research model is not ready.")
+        item = application.state.examples.get(example_id)
+        if item is None or not item["valid"]:
+            return failure(
+                404, "walkthrough_unavailable", "Choose a valid prepared public example."
+            )
+        try:
+            path = verify_artifact(root, item)
+            counts = read_counts_csv(path, predictor.schema, max_specimens=1)
+            return describe_specimen(counts, item, predictor)
+        except Exception:
+            return failure(
+                503,
+                "walkthrough_unavailable",
+                "This walkthrough could not be verified for the configured model. "
+                "Prepare the public examples again.",
+            )
+
     @application.get("/", include_in_schema=False)
     def page():
         return FileResponse(STATIC_DIR / "index.html")
@@ -303,7 +343,7 @@ def _load_demo_examples(root: Path, demo_dir: str) -> dict:
                 or path.stat().st_size > MAX_UPLOAD_BYTES
             ):
                 raise ValueError("Invalid example location or size.")
-            examples[example_id] = item
+            examples[example_id] = {**item, "model_version": manifest.get("model_version")}
         return examples
     except (OSError, ValueError, KeyError, TypeError):
         return {}

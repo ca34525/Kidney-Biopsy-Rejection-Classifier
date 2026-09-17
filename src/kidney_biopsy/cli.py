@@ -10,10 +10,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
-from .prediction import load_predictor, project_path, verify_artifact
+from .prediction import DEFAULT_RUN, load_predictor, project_path, verify_artifact
 from .preprocessing import read_counts_csv
 from .source import read_geo_matrix, read_rcc_archive
 
@@ -25,8 +26,10 @@ def main(argv=None) -> None:
     input_options = parser.add_mutually_exclusive_group(required=True)
     input_options.add_argument("--counts-csv")
     input_options.add_argument("--geo-validation", action="store_true")
-    parser.add_argument("--project-root", default=".")
-    parser.add_argument("--results-dir", default="results/reproduction/baseline")
+    parser.add_argument("--project-root", default=os.environ.get("KIDNEY_BIOPSY_PROJECT_ROOT", "."))
+    parser.add_argument(
+        "--results-dir", default=os.environ.get("KIDNEY_BIOPSY_RESULTS_DIR", DEFAULT_RUN)
+    )
     parser.add_argument("--model-dir", default=None)
     parser.add_argument("--output", default="data/processed/predictions/inference.csv")
     args = parser.parse_args(argv)

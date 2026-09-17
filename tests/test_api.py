@@ -306,6 +306,130 @@ class ApiTests(unittest.TestCase):
                     self.assertEqual(response.status_code, 200)
                     self.assertEqual(len(response.json()["predictions"]), len(self.raw))
 
+    def prepare_walkthrough(self, frame=None, **overrides):
+        demo = self.root / "data/demo"
+        demo.mkdir(parents=True, exist_ok=True)
+        path = demo / "valid.csv"
+        (self.raw.iloc[[0]] if frame is None else frame).to_csv(path, index_label="specimen")
+        item = {
+            "id": "valid",
+            "label": "Synthetic example",
+            "description": "Test fixture",
+            "valid": True,
+            "specimen": "001",
+            "recorded_diagnosis": "No Rejection",
+            "file": "data/demo/valid.csv",
+            "bytes": path.stat().st_size,
+            "sha256": sha256(path),
+            **overrides,
+        }
+        (demo / "manifest.json").write_text(
+            json.dumps({"examples": [item], "model_version": self.frozen["model_version"]}),
+            encoding="utf-8",
+        )
+        return path
+
+    def test_public_walkthrough_matches_raw_prediction_and_shared_normalization(self):
+        frame = self.raw.iloc[[0], ::-1]
+        # Use unequal housekeeping counts so the test can detect an average taken
+        # on raw counts instead of the specified mean of logged counts.
+        frame = frame.copy()
+        frame.loc["001", HOUSEKEEPING_TARGETS[0]] = 255.0
+        self.prepare_walkthrough(frame)
+        with TestClient(create_app(project_root=self.root, run_dir="results/test")) as client:
+            response = client.get("/demo/walkthrough/valid")
+            self.assertEqual(response.status_code, 200, response.text)
+            walkthrough = response.json()
+            prediction = client.post(
+                "/predict",
+                content=frame.to_csv(index_label="specimen"),
+                headers={"Content-Type": "text/csv"},
+            ).json()["predictions"][0]
+            self.assertEqual(walkthrough["prediction"], prediction)
+            self.assertEqual(walkthrough["recorded_diagnosis"], "No Rejection")
+            self.assertFalse(walkthrough["recorded_rejection"])
+            self.assertEqual(walkthrough["model_version"], prediction["model_version"])
+            self.assertEqual(walkthrough["schema_version"], prediction["schema_version"])
+            values = walkthrough["normalization"]
+            self.assertEqual(values["raw_count"], 0)
+            self.assertEqual(len(values["housekeeping"]), 12)
+            self.assertAlmostEqual(values["housekeeping_mean"], (8 + 11) / 12)
+            self.assertAlmostEqual(
+                values["normalized_value"], normalize_counts(frame, self.schema).loc["001", "IFNG"]
+            )
+            self.assertEqual(walkthrough["predictor_targets"], len(self.schema.features))
+            self.assertEqual(response.headers["cache-control"], "no-store")
+
+    def test_walkthrough_refuses_changed_files_invalid_labels_and_wrong_specimens(self):
+        for changes in [
+            {"specimen": "another-specimen"},
+            {"recorded_diagnosis": "Unknown diagnosis"},
+            {"recorded_diagnosis": None},
+        ]:
+            with self.subTest(changes=changes):
+                self.prepare_walkthrough(**changes)
+                with TestClient(
+                    create_app(project_root=self.root, run_dir="results/test")
+                ) as client:
+                    self.assert_invalid(client.get("/demo/walkthrough/valid"), 503)
+                    self.assertEqual(client.get("/health").status_code, 200)
+        path = self.prepare_walkthrough()
+        with TestClient(create_app(project_root=self.root, run_dir="results/test")) as client:
+            path.write_text("changed", encoding="utf-8")
+            self.assert_invalid(client.get("/demo/walkthrough/valid"), 503)
+
+    def test_walkthrough_is_only_available_for_one_valid_prepared_public_specimen(self):
+        self.prepare_walkthrough(self.raw)
+        with TestClient(create_app(project_root=self.root, run_dir="results/test")) as client:
+            self.assert_invalid(client.get("/demo/walkthrough/valid"), 503)
+            self.assert_invalid(client.get("/demo/walkthrough/private-upload.csv"), 404)
+        self.prepare_walkthrough(valid=False)
+        with TestClient(create_app(project_root=self.root, run_dir="results/test")) as client:
+            self.assert_invalid(client.get("/demo/walkthrough/valid"), 404)
+
+    def test_changed_model_hides_walkthrough_but_keeps_counts_and_predictions_available(self):
+        self.prepare_walkthrough()
+        self.frozen["model_version"] = "new-model-version"
+        self.write_manifest()
+        with TestClient(create_app(project_root=self.root, run_dir="results/test")) as client:
+            self.assert_invalid(client.get("/demo/walkthrough/valid"), 503)
+            self.assertEqual(client.get("/demo/examples/valid").status_code, 200)
+            response = client.post(
+                "/predict",
+                content=self.raw.to_csv(index_label="specimen"),
+                headers={"Content-Type": "text/csv"},
+            )
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(
+                response.json()["predictions"][0]["model_version"], "new-model-version"
+            )
+
+    def test_startup_logs_actionable_categories_without_private_exception_details(self):
+        for exception, category in [
+            (FileNotFoundError, "missing_artifact"),
+            (ValueError, "invalid_artifact_or_schema"),
+            (KeyError, "invalid_artifact_or_schema"),
+            (PermissionError, "unreadable_artifact"),
+            (RuntimeError, "unexpected_startup_error"),
+        ]:
+            with self.subTest(exception=exception):
+                with (
+                    patch(
+                        "kidney_biopsy.api.load_predictor", side_effect=exception("private/path")
+                    ),
+                    self.assertLogs("kidney_biopsy.api", level="ERROR") as captured,
+                    TestClient(
+                        create_app(project_root=self.root, run_dir="results/test")
+                    ) as client,
+                ):
+                    self.assertEqual(client.get("/health").status_code, 503)
+                    self.assert_invalid(client.get("/demo/walkthrough/valid"), 503)
+                log = "\n".join(captured.output)
+                self.assertIn(category, log)
+                self.assertIn("Check the configured run", log)
+                self.assertNotIn("private/path", log)
+                self.assertNotIn("Traceback", log)
+
 
 if __name__ == "__main__":
     unittest.main()

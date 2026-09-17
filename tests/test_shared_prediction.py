@@ -2,6 +2,7 @@
 
 import io
 import json
+import os
 import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
@@ -11,6 +12,7 @@ from unittest.mock import patch
 import joblib
 import numpy as np
 import pandas as pd
+from fastapi.testclient import TestClient
 from pandas.testing import assert_frame_equal
 from sklearn.linear_model import LogisticRegression
 
@@ -24,6 +26,7 @@ from kidney_biopsy import (
     predict_scores,
     read_counts_csv,
 )
+from kidney_biopsy.api import create_app
 from kidney_biopsy.cli import main as predict_main
 from kidney_biopsy.prediction import sha256
 
@@ -279,6 +282,41 @@ class PredictionTests(unittest.TestCase):
                 ]
             )
         self.assertFalse((self.root / "invalid_result.csv").exists())
+
+    def test_cli_and_service_use_same_environment_with_explicit_override(self):
+        self.raw.to_csv(self.root / "counts.csv", index_label="specimen")
+        environment = {
+            "KIDNEY_BIOPSY_PROJECT_ROOT": str(self.root),
+            "KIDNEY_BIOPSY_RESULTS_DIR": "results/test",
+        }
+        with patch.dict(os.environ, environment), redirect_stdout(io.StringIO()):
+            predict_main(["--counts-csv", "counts.csv", "--output", "environment.csv"])
+            with TestClient(create_app()) as client:
+                response = client.post(
+                    "/predict",
+                    content=self.raw.to_csv(index_label="specimen"),
+                    headers={"Content-Type": "text/csv"},
+                )
+                self.assertEqual(response.status_code, 200)
+                expected = pd.DataFrame(response.json()["predictions"])
+        actual = pd.read_csv(self.root / "environment.csv", dtype={"specimen": str})
+        assert_frame_equal(actual, expected, atol=1e-12, rtol=0)
+        environment["KIDNEY_BIOPSY_RESULTS_DIR"] = "results/nonexistent"
+        with patch.dict(os.environ, environment), redirect_stdout(io.StringIO()):
+            predict_main(
+                [
+                    "--counts-csv",
+                    "counts.csv",
+                    "--results-dir",
+                    "results/test",
+                    "--output",
+                    "override.csv",
+                ]
+            )
+            with TestClient(create_app(run_dir="results/test")) as client:
+                self.assertEqual(client.get("/health").status_code, 200)
+        overridden = pd.read_csv(self.root / "override.csv", dtype={"specimen": str})
+        assert_frame_equal(overridden, expected, atol=1e-12, rtol=0)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,29 @@
+{
+  "verified_utc": "2026-09-17T20:50:07.751693+00:00",
+  "successful": true,
+  "verification": "docker",
+  "errors": [],
+  "bundle_sha256": "230e73d9a37c234b237ce263be4d0eaa782d1bf84d271d29c543fc85fd94d82d",
+  "image": {
+    "tag": "kidney-biopsy:coherence",
+    "id": "sha256:a1186370c91079f7e90c14d48e9ddd04b331a843031b27a397d39ba4a257525a",
+    "bytes": 277418578,
+    "user": "10001:10001"
+  },
+  "checks": {
+    "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+    "schema_version": "bhot-v1",
+    "valid_specimens": 4,
+    "invalid_examples_rejected": 1,
+    "public_walkthroughs_verified": 4,
+    "maximum_score_difference": 0.0,
+    "score_tolerance": 1e-12,
+    "flags_and_metadata_agree": true,
+    "page_and_assets_served": true,
+    "example_files_agree": true,
+    "evaluation_counts_agree": true,
+    "docker_healthcheck_passed": true,
+    "read_only_container": true
+  },
+  "elapsed_seconds": 5.4
+}

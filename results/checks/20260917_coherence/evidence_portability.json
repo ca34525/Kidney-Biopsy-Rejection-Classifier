@@ -1,0 +1,20 @@
+{
+  "verified_utc": "2026-09-17T20:52:31.260100+00:00",
+  "successful": true,
+  "manifests": [
+    {
+      "manifest": "results/analysis/20260915_baseline/analysis_manifest.json",
+      "verified_entries": 32
+    },
+    {
+      "manifest": "results/analysis/20260915_viral/manifest.json",
+      "verified_entries": 18
+    },
+    {
+      "manifest": "results/presentation/20260917_evidence/manifest.json",
+      "verified_entries": 7
+    }
+  ],
+  "files_verified_with_both_autocrlf_settings": 86,
+  "interpretation": "Current Git attributes preserve the same exact evidence bytes regardless of automatic Windows/Linux line-ending conversion. Existing analysis and new presentation inputs/outputs match their manifests."
+}

@@ -1,0 +1,34 @@
+{
+  "verified_utc": "2026-09-17T20:49:06.820492+00:00",
+  "successful": true,
+  "run_dir": "results/reproduction/20260915_shared",
+  "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+  "run_manifest_sha256": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d",
+  "specimens": 345,
+  "http_requests_for_predictions": 22,
+  "numeric_tolerance": 1e-12,
+  "max_http_cli_score_difference": 1.1102230246251565e-16,
+  "max_http_saved_score_difference": 1.1102230246251565e-16,
+  "checks": [
+    "real_http_server_ready",
+    "demo_page_served",
+    "all_345_http_cli_saved_predictions_agree_with_reordered_columns",
+    "invalid_http_batch_rejected_without_predictions",
+    "http_batch_limit_enforced"
+  ],
+  "script_sha256": "4c0cf2c4847c0dbbdc3c498c86f9c3dcfce3ecd0ee29746cff774753bc34beb0",
+  "source_hashes": {
+    "src/kidney_biopsy/__init__.py": "7bda3941a0fae738f1e91f5c3ce369244a97a69b279d7eb0bca9c008bd9733c2",
+    "src/kidney_biopsy/__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "src/kidney_biopsy/api.py": "c22a57a48fba533f8f66435ffbfe55c338071013c57d600bff5775c926d58237",
+    "src/kidney_biopsy/cli.py": "a6b965d5dafebacafd04b067af4b2edef7029e10f4a8a3604756f11efb133056",
+    "src/kidney_biopsy/prediction.py": "6004e22d8690bc21b943b776c7715bcdcf2a3097a1c8825dd7bb992115882f19",
+    "src/kidney_biopsy/preprocessing.py": "c206612ee9febecde4132e674ba7ce920cd65caeef17917a4d861d5c1fed4d67",
+    "src/kidney_biopsy/source.py": "61760e92720793b23361211358af98ca6f74cf35067909d031eb05ce8465b40d",
+    "src/kidney_biopsy/static/app.js": "70256da755c4f789a23ed34168ed300e767ee8a000180cf95ce436b4a7de2ec6",
+    "src/kidney_biopsy/static/index.html": "fd47605ccb9a6936eaccfce23074554168812aff39be234f43d4f60d43fd170e",
+    "src/kidney_biopsy/static/style.css": "cbbeb6afbc5c0c3f21f6f980b168d54c108a0a41508948b107b351729dac75e0",
+    "src/kidney_biopsy/walkthrough.py": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d"
+  },
+  "case_directory": "data/processed/checks/20260917_coherence/http"
+}

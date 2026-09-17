@@ -5,6 +5,11 @@ The research training script and batch prediction application import
 housekeeping normalization, score calculation, and saved-model loading.
 The training script keeps model fitting and discovery-based selection.
 
+See [current status](STATUS.md) for the latest evidence. The CLI and API default
+to the same frozen `results/reproduction/20260915_shared` run. Both respect
+`KIDNEY_BIOPSY_PROJECT_ROOT` and `KIDNEY_BIOPSY_RESULTS_DIR`; explicit CLI options
+override those environment settings.
+
 ## Reading order
 
 Start with the path a single prediction takes:
@@ -13,6 +18,11 @@ Start with the path a single prediction takes:
 2. [Preprocessing](../src/kidney_biopsy/preprocessing.py): check the complete batch and normalize each specimen.
 3. [Prediction](../src/kidney_biopsy/prediction.py): check model compatibility, calculate scores, apply the threshold.
 4. [API](../src/kidney_biopsy/api.py): expose that same path over HTTP.
+
+The [public-specimen walkthrough](API.md#follow-the-specimen) makes this path
+visible in the browser. It shows real IFNG and housekeeping values from a verified
+prepared example, then uses the same predictor and compares its flag with the
+recorded label. It does not add a feature-explanation model or a second scoring path.
 
 Then read `run_experiment` in [training](../experiments/rejection_public/run.py).
 It calls `prepare_data`, `fit_candidates`, and `freeze_and_evaluate` in that order.
@@ -106,6 +116,9 @@ path with a tiny synthetic CatBoost model; the real deployment image contains th
 selected research model and prepared public examples.
 
 ## Development record: September 15, 2026
+
+The counts below describe those completed checks. The [verification guide](VERIFICATION.md)
+records subsequent checks; the older totals are not the current suite size.
 
 Codex assisted with extracting the package, writing the analysis and checks,
 and reviewing generated charts. Acceptance evidence is the 30 passing tests,

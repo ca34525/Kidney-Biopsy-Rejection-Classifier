@@ -1,0 +1,54 @@
+{
+  "created_utc": "2026-09-17T20:46:28.236013+00:00",
+  "analysis_dir": "results/analysis/20260915_baseline",
+  "source_model_version": "results/reproduction/baseline:catboost_all_depth4",
+  "analysis_manifest": {
+    "file": "results/analysis/20260915_baseline/analysis_manifest.json",
+    "sha256": "5b9e51d49100aa04b0f643455ee6ed40524e0a3547dafada54f0fd17e8594095"
+  },
+  "inputs": [
+    {
+      "file": "results/analysis/20260915_baseline/model_metrics.csv",
+      "sha256": "b0c61c942369c150bd74b3f7bc092e7c9eb689a12bb54dd607a123b7daf0ec69",
+      "bytes": 1085
+    },
+    {
+      "file": "results/analysis/20260915_baseline/reliability_bins.csv",
+      "sha256": "8c300664473ab37dedb5997726c1afb5ef84f662267d556db393df9c1cde6719",
+      "bytes": 3661
+    }
+  ],
+  "script": {
+    "file": "scripts/prepare_presentation_figures.py",
+    "sha256": "e9412e444f0e372e694fc6a2afcc3d886a0ce1faff5700ed0f66e458ab4b8bd9"
+  },
+  "environment_lock_sha256": "e91b18c34ecc90c61ad12e378a7b87b32d4768e13cf75ce25f1a9af642c4b5f6",
+  "matplotlib_version": "3.11.2",
+  "outputs": [
+    {
+      "file": "results/presentation/20260917_evidence/01_model_errors.png",
+      "bytes": 134125,
+      "sha256": "951935265b019e7f910d5544e8da46d5c0a8a37b31c220064e533e8ada93295c"
+    },
+    {
+      "file": "results/presentation/20260917_evidence/01_model_errors.svg",
+      "bytes": 10752,
+      "sha256": "009bddd10f7adeea31e560d86476116267cd47b3687edb724c683a004ee287c7"
+    },
+    {
+      "file": "results/presentation/20260917_evidence/02_score_reliability.png",
+      "bytes": 212799,
+      "sha256": "f14a180c9202cbe6e9bbf999e1ce265952de4ad4346c1b015283577c44c7d5cd"
+    },
+    {
+      "file": "results/presentation/20260917_evidence/02_score_reliability.svg",
+      "bytes": 19964,
+      "sha256": "4fec91e8a723cf9d53bc590b8685f18446b807fd2d1cdd08abc1f1b2901d86e8"
+    },
+    {
+      "file": "results/presentation/20260917_evidence/README.md",
+      "bytes": 2143,
+      "sha256": "89436443130e3659bae3ad5866747373a04304f3e58151a241382fbf187b0e15"
+    }
+  ]
+}

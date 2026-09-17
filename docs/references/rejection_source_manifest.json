@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc1.docx",
+    "retrieved": "2026-09-15",
+    "local_path": "data/reference/study/rejection_mmc1.docx",
+    "bytes": 94711,
+    "sha256": "006ce55874c2bb4399f5ac1d8d83a02c63784def0eab5f812f34b1e683fb1b03",
+    "extracted_text_path": "data/reference/study/rejection_supplement.txt",
+    "extracted_text_sha256": "8d8f1bb557c2d7f740a7c4ef417f3e4b180341ea799a0a5359056635e7ac35ff"
+  },
+  {
+    "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc2.docx",
+    "retrieved": "2026-09-15",
+    "local_path": "data/reference/study/rejection_mmc2.docx",
+    "bytes": 1227398,
+    "sha256": "faca9a6a429563486113bb734598022c86701351d3f0f21999332d88de4ee17c",
+    "extracted_text_path": "data/reference/study/rejection_supplement_2.txt",
+    "extracted_text_sha256": "09004f1367908bcf9a3549ab274269c17439065ab9bcdd9725e6cb8a1cb28251"
+  },
+  {
+    "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc3.docx",
+    "retrieved": "2026-09-15",
+    "local_path": "data/reference/study/rejection_mmc3.docx",
+    "bytes": 44178,
+    "sha256": "07954004cbb6659bbdedc74be4c09549d5327e49cde9f776e0da279b54d49d23",
+    "extracted_text_path": "data/reference/study/rejection_supplement_3.txt",
+    "extracted_text_sha256": "cad761ac80de5f67e38375cc9f2f8d1b2fe13f2e4140d7e1098bf701e6f071d8"
+  },
+  {
+    "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc4.docx",
+    "retrieved": "2026-09-15",
+    "local_path": "data/reference/study/rejection_mmc4.docx",
+    "bytes": 34569,
+    "sha256": "b2091d88bc88a7a694ab9135a82b8c558a316e269e30bd3a6e88d843dc6f5a98",
+    "extracted_text_path": "data/reference/study/rejection_supplement_4.txt",
+    "extracted_text_sha256": "9d1d4987526b9876af38ab7ab22f35f97bc7bd7153b78f1edea9f7ecb7569049"
+  },
+  {
+    "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc5.docx",
+    "retrieved": "2026-09-15",
+    "local_path": "data/reference/study/rejection_mmc5.docx",
+    "bytes": 20137,
+    "sha256": "b9837a9e8dc5372f32af28270e5ea74e253119fd8b00bdb31daea543dd29033e",
+    "extracted_text_path": "data/reference/study/rejection_supplement_5.txt",
+    "extracted_text_sha256": "3e77151d16713a62208d631d243b8025a01281ca0a1a799e87c30ee5b6d68f91"
+  },
+  {
+    "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc6.docx",
+    "retrieved": "2026-09-15",
+    "local_path": "data/reference/study/rejection_mmc6.docx",
+    "bytes": 21029,
+    "sha256": "c298c3b3a051fb5c3b7ee9738c428e76790e8cfacdbee43e527b7d99a7ca374d",
+    "extracted_text_path": "data/reference/study/rejection_supplement_6.txt",
+    "extracted_text_sha256": "dca2da0b72bdf34863f6598a559e93fec621714185d00ed261415dec6a1fc6af"
+  }
+]

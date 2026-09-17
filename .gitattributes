@@ -1,2 +1,5 @@
-# Completed follow-up artifacts must retain the bytes recorded in their manifests.
-results/followup/** -text
+# Recorded evidence and source snapshots are hashed byte for byte.
+# Preserve original line endings on every platform, including future checkouts.
+results/** -text
+# Run manifests also record the exact bytes of the public input manifest.
+data/manifest.json -text

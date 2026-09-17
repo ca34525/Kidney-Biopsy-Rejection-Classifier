@@ -3,6 +3,10 @@
 Run these commands from the project root using Python 3.12 and uv. Every saved
 check record uses a new destination so earlier results remain available.
 
+See [current status](STATUS.md) for the reading order and the revision attached
+to each result. Completed records below are preserved; later edits require their
+own checks.
+
 ## Fast checks
 
 ```powershell
@@ -52,8 +56,52 @@ outside CI. See the [container guide](CONTAINERS.md) for the same commands local
 The workflow uses the documented interfaces for [checkout](https://github.com/actions/checkout),
 [setup-uv](https://github.com/astral-sh/setup-uv), and
 [upload-artifact](https://github.com/actions/upload-artifact), checked on
-September 15, 2026. The workflow is configured locally; an actual hosted CI pass
-requires a repository push and a completed GitHub Actions run.
+September 15, 2026. The workflow has a verified hosted pass, recorded below.
+That pass covers its listed revision rather than every subsequent local edit.
+
+## Hosted CI: verified September 17, 2026
+
+[Software checks #8](https://github.com/ca34525/Kidney-Biopsy-Rejection-Classifier/actions/runs/35270209322)
+completed successfully for PR #2 head
+`ce34d4c79442098308c89ca4ccb34542c4010216`. The run includes installed-package,
+lint, formatting, test, and synthetic-container checks. It establishes hosted
+execution for that previous revision, not for the current
+`codex/coherent-demo-and-stability` branch's additions. It does not
+deploy the research model or establish a cloud endpoint.
+
+## Current application checks: September 17, 2026
+
+The [current verification record](../results/checks/20260917_coherence/README.md)
+covers the public-specimen walkthrough, aligned CLI/API defaults, presentation
+figures, and consistency fixes. These are local checks; the hosted run above
+covers the earlier revision.
+
+- [Installed-package checks](../results/checks/20260917_coherence/checks.json):
+  **94 tests passed**. Ruff lint and formatting also passed on 35 active Python files.
+- [Real HTTP check](../results/checks/20260917_coherence/http/http.json): all 345
+  author-validation scores agree across CLI, API, and saved results within
+  `1.11e-16`, with identical flags.
+- [Rebuilt research container](../results/checks/20260917_coherence/container.json):
+  four public walkthroughs verified, one invalid example rejected, and maximum
+  score difference zero. Nonroot operation, a read-only filesystem, and the
+  container health check passed.
+- [Preserved prediction comparison](../results/checks/20260917_coherence/reproduction.json):
+  all nine existing prediction tables agree exactly. This check compares saved
+  runs; it does not represent new model fits.
+- [Preserved artifacts](../results/checks/20260917_coherence/preserved_runs_after.json):
+  all 167 recorded artifacts match their original manifests.
+
+The preservation check found line-ending conversion in eleven historical source
+snapshots. [Restoration evidence](../results/checks/20260917_coherence/snapshot_line_endings.json)
+records only byte sequences that match the original manifests. `.gitattributes`
+now preserves every file under `results/` without newline conversion. The
+[Git-byte check](../results/checks/20260917_coherence/git_evidence_bytes.json)
+records 86 evidence files that differ from the previous Git blobs only in line
+endings. The original manifests, model parameters, thresholds, and numeric results
+were not changed.
+The [evidence-portability check](../results/checks/20260917_coherence/evidence_portability.json)
+also verifies recorded analysis/figure hashes and that Git retains evidence bytes
+with either automatic line-ending setting.
 
 ## CI and container checks: September 17, 2026
 

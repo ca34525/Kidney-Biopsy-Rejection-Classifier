@@ -1,5 +1,8 @@
 # One week implementation plan
 
+For the latest reading order and completed evidence, see [current status](STATUS.md).
+The dated progress entries below describe earlier stages of the project.
+
 The exact interview date is unconfirmed. Treat the days below as working days
 relative to the start, with the final day reserved for delivery practice. Protect
 presentation time if implementation takes longer than expected.
@@ -67,5 +70,16 @@ The [verification record](../results/checks/20260917_ci_docker/README.md) record
 78 passing tests and both image checks. The [AWS guide](AWS_DEPLOYMENT.md) supplies
 one Lightsail deployment procedure and its configuration files.
 
-Remaining work is the interview presentation, a hosted CI run for this branch,
-and a small cloud demonstration if account access permits.
+The previous revision now has a [verified hosted CI pass](VERIFICATION.md#hosted-ci-verified-september-17-2026).
+The current branch's application changes have separate
+[local verification](VERIFICATION.md#current-application-checks-september-17-2026).
+
+The bounded [discovery-only stability follow-up](../results/followup/20260917_stability/REPORT.md)
+is complete: 100 fits across 20 fixed repetitions took 639.3 seconds. CatBoost was
+selected in 13 repetitions and logistic regression in 7, showing that model choice
+depends on the development split. Each repetition used separate fitting, screening,
+and assessment rows; repetitions overlap and provide descriptive split variability.
+The service model, frozen threshold, and original validation results are unchanged.
+
+Remaining delivery work is the interview presentation and rehearsals. Cloud work
+and further research are [deferred](NEXT_STEPS.md).
