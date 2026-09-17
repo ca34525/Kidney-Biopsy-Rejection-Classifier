@@ -1,0 +1,30 @@
+{
+  "verified_utc": "2026-09-17T20:50:35.933617+00:00",
+  "successful": true,
+  "runs": [
+    {
+      "run": "results/reproduction/baseline",
+      "manifest_sha256": "884f28f48686a4451fc4cf144f5ed12e29a6e926b88275b06d73160521a19fdb",
+      "verified_artifacts": 25,
+      "failures": []
+    },
+    {
+      "run": "results/reproduction/20260915_shared",
+      "manifest_sha256": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d",
+      "verified_artifacts": 53,
+      "failures": []
+    },
+    {
+      "run": "results/reproduction/20260915_readability",
+      "manifest_sha256": "89b16d60493d091d5d0e2acab18a5053349dbb5c3a65980fef4aacc70b66db8d",
+      "verified_artifacts": 54,
+      "failures": []
+    },
+    {
+      "run": "results/followup/20260915_subtypes",
+      "manifest_sha256": "d8b8180d56a1b1de96d3e1fd41cf1dc4c5060d2c5df91d83a0588d210e3fde13",
+      "verified_artifacts": 35,
+      "failures": []
+    }
+  ]
+}

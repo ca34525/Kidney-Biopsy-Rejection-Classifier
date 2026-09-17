@@ -1,0 +1,82 @@
+{
+  "reason": "Git checkout had converted line endings in historical source snapshots. Restored only byte sequences matching the original immutable manifest, without changing manifests, models or results. Git attributes now preserve source snapshot bytes.",
+  "repairs": [
+    {
+      "file": "results/reproduction/20260915_readability/source/experiments/rejection_public/run.py",
+      "before_sha256": "0a12c498a067e3ad16ae4f8b905e49cdc7c1ef2a1f98f0aeb40fcaa9e06035a1",
+      "restored_sha256": "77d35ad8b3f0f2a306c179245729707cd62c49d1a26d1a78e5c6962fc10fde04",
+      "restored_bytes": 20956,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/pyproject.toml",
+      "before_sha256": "e9f76a0ccbc43f2e365ca546405574ef4a50d4756bbda995885e5d8364e3bc88",
+      "restored_sha256": "e7b67debb9f7dd1d0619cce835231fda7974eb0d54dd53b5b0fda12890967711",
+      "restored_bytes": 843,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/scripts/verify_local_data.py",
+      "before_sha256": "7942ede69ce438ed79870557fd2cf3ce00a51fd850b469453bbdc0d06ad72f5e",
+      "restored_sha256": "57a0ab252a33bbe77e4e84fae6e951e35c1683a05e436c50d586d6a6cfcd9874",
+      "restored_bytes": 2745,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/__init__.py",
+      "before_sha256": "089e6c11615a45a0c4a755daa4872240de4a42f72510227b97dd4fa804abe2e7",
+      "restored_sha256": "0926aa92e36bb57d541c43ddfde79afab43fcae5661b9abbcd53e91fb721d4b0",
+      "restored_bytes": 652,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/__main__.py",
+      "before_sha256": "c13eb66970ae37b8b044f428b309e67868814b90a8bb408806f3316ce4dfbc5b",
+      "restored_sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "restored_bytes": 30,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/api.py",
+      "before_sha256": "97122d970235f490071515f8cf78048d5f6cc847e0347161664b58e5a3854336",
+      "restored_sha256": "632452def2e95a7cf702f0c89274e53ff1f78685b5009dd6601241c71c70093f",
+      "restored_bytes": 12648,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/cli.py",
+      "before_sha256": "e298d06d23155b65cca2ea1bc4dba401661f42af7d7387da87d6999b8ce00521",
+      "restored_sha256": "521097f70b001a8da10d8bf9df378217c1ac112c6b2cd878b40c8508d0a02f29",
+      "restored_bytes": 3012,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/prediction.py",
+      "before_sha256": "5c41ccb9ee22cc3b3a72dcedc7065ae475fea475cd4624bb3e6552351e79c316",
+      "restored_sha256": "0928d9bcc561790f421f095db9abf69a6d70605ebc7523145ba6006875277830",
+      "restored_bytes": 8558,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/preprocessing.py",
+      "before_sha256": "e03d671c5bd8f9c8fbd96145f589c8a454e233b6b51724ee09be33c3ccb5519f",
+      "restored_sha256": "e417c92b89a1c55fe89f1de9f9fd23dfa01a153ecf40f70e9c698467dbec6a14",
+      "restored_bytes": 8652,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/source.py",
+      "before_sha256": "1986e390bf437efcd82da154a60f382089d34daeeeb2289f1198e38802623ec4",
+      "restored_sha256": "9c5281214f61c548c03424db01e43c06d98609f16612ad57dd4e2bccafaeae13",
+      "restored_bytes": 5112,
+      "matches_original_manifest": true
+    },
+    {
+      "file": "results/reproduction/20260915_readability/source/uv.lock",
+      "before_sha256": "43c113f19f304cec37f4b6385f7744127e18e4ca22c67315f7432b17cf742f06",
+      "restored_sha256": "88413f5df28df70a947eed01f7493b114eb73a1a4c56decfbfc49ace1a0e388b",
+      "restored_bytes": 62752,
+      "matches_original_manifest": true
+    }
+  ]
+}

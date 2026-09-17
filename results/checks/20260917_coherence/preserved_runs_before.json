@@ -1,0 +1,106 @@
+{
+  "runs": [
+    {
+      "run": "results/reproduction/baseline",
+      "manifest_sha256": "884f28f48686a4451fc4cf144f5ed12e29a6e926b88275b06d73160521a19fdb",
+      "artifacts": 25,
+      "mismatches": []
+    },
+    {
+      "run": "results/reproduction/20260915_shared",
+      "manifest_sha256": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d",
+      "artifacts": 53,
+      "mismatches": []
+    },
+    {
+      "run": "results/reproduction/20260915_readability",
+      "manifest_sha256": "89b16d60493d091d5d0e2acab18a5053349dbb5c3a65980fef4aacc70b66db8d",
+      "artifacts": 54,
+      "mismatches": [
+        {
+          "file": "results/reproduction/20260915_readability/source/experiments/rejection_public/run.py",
+          "expected_bytes": 20956,
+          "bytes": 21472,
+          "lf_matches": true,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/pyproject.toml",
+          "expected_bytes": 843,
+          "bytes": 882,
+          "lf_matches": true,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/scripts/verify_local_data.py",
+          "expected_bytes": 2745,
+          "bytes": 2815,
+          "lf_matches": true,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/__init__.py",
+          "expected_bytes": 652,
+          "bytes": 668,
+          "lf_matches": true,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/__main__.py",
+          "expected_bytes": 30,
+          "bytes": 33,
+          "lf_matches": true,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/api.py",
+          "expected_bytes": 12648,
+          "bytes": 12961,
+          "lf_matches": false,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/cli.py",
+          "expected_bytes": 3012,
+          "bytes": 3078,
+          "lf_matches": true,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/prediction.py",
+          "expected_bytes": 8558,
+          "bytes": 8762,
+          "lf_matches": true,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/preprocessing.py",
+          "expected_bytes": 8652,
+          "bytes": 8872,
+          "lf_matches": true,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/src/kidney_biopsy/source.py",
+          "expected_bytes": 5112,
+          "bytes": 5222,
+          "lf_matches": true,
+          "crlf_matches": false
+        },
+        {
+          "file": "results/reproduction/20260915_readability/source/uv.lock",
+          "expected_bytes": 62752,
+          "bytes": 63330,
+          "lf_matches": true,
+          "crlf_matches": false
+        }
+      ]
+    },
+    {
+      "run": "results/followup/20260915_subtypes",
+      "manifest_sha256": "d8b8180d56a1b1de96d3e1fd41cf1dc4c5060d2c5df91d83a0588d210e3fde13",
+      "artifacts": 35,
+      "mismatches": []
+    }
+  ]
+}
