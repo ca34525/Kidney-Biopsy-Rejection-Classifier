@@ -1,0 +1,28 @@
+{
+  "verified_utc": "2026-09-17T20:15:19.599537+00:00",
+  "successful": true,
+  "verification": "docker",
+  "errors": [],
+  "bundle_sha256": "9fa72a9d60b480d711518616f458bcdc78f535e762314e117c6f4b38268944a2",
+  "image": {
+    "tag": "kidney-biopsy:ci",
+    "id": "sha256:174c2d1c468966d1f175f9bbec9c027174c224b7e6c3c9c2889d8601cb31ef30",
+    "bytes": 277315317,
+    "user": "10001:10001"
+  },
+  "checks": {
+    "model_version": "synthetic-ci-only",
+    "schema_version": "bhot-v1",
+    "valid_specimens": 1,
+    "invalid_examples_rejected": 1,
+    "maximum_score_difference": 0.0,
+    "score_tolerance": 1e-12,
+    "flags_and_metadata_agree": true,
+    "page_and_assets_served": true,
+    "example_files_agree": true,
+    "evaluation_counts_agree": true,
+    "docker_healthcheck_passed": true,
+    "read_only_container": true
+  },
+  "elapsed_seconds": 3.273
+}

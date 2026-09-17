@@ -92,14 +92,32 @@ responsibilities, and model checks.
 ## Check the software
 
 ```powershell
+uv run --frozen ruff check src scripts tests experiments
+uv run --frozen ruff format --check src scripts tests experiments
 uv run --frozen python scripts/check_project.py
 ```
 
 The [verification guide](docs/VERIFICATION.md) records tests, clean package
 installation, and real HTTP/CLI agreement across all 345 validation specimens.
 The [audit](docs/AUDIT.md) records the defensibility review, implementation fixes,
-and remaining gaps. The GitHub Actions workflow is configured; a hosted pass,
-local container run, and cloud deployment need their own execution evidence.
+and remaining gaps. The GitHub Actions workflow also builds and checks a container
+using a small synthetic model. Hosted CI and cloud deployment require separate run
+records; local checks alone do not establish either.
+
+## Run in Docker
+
+```powershell
+uv run --frozen python scripts/prepare_container.py
+docker build --platform linux/amd64 --tag kidney-biopsy:demo .
+docker run --rm --publish 127.0.0.1:8000:8000 kidney-biopsy:demo
+```
+
+Open [the container demo](http://127.0.0.1:8000). Preparation creates a new
+`build/container` folder from the existing verified model and public examples;
+reuse it if already prepared. See the [container guide](docs/CONTAINERS.md) for
+the automated prediction check and an explanation of each file. The
+[AWS guide](docs/AWS_DEPLOYMENT.md) gives the remaining steps to host that image
+on a small Lightsail container service.
 
 ## Additional analysis
 

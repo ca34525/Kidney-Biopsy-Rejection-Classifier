@@ -59,5 +59,13 @@ A second pass makes the training and prediction workflows explicit, expands dens
 calculations, and gives each chart its own function. Its full 27-fit reproduction
 retains all nine evaluation tables exactly; the service keeps its frozen model.
 
-Remaining project work is the interview presentation and deployment preparation,
-including a local container run and a small cloud demonstration if access permits.
+As of September 17, 2026, [CI and container preparation](CONTAINERS.md) are complete
+locally. Ruff checks basic code mistakes and formatting; CI also builds and checks
+a synthetic CatBoost container. The actual research image passed readiness,
+prediction, invalid-input, and displayed-result checks in a local Linux container.
+The [verification record](../results/checks/20260917_ci_docker/README.md) records
+78 passing tests and both image checks. The [AWS guide](AWS_DEPLOYMENT.md) supplies
+one Lightsail deployment procedure and its configuration files.
+
+Remaining work is the interview presentation, a hosted CI run for this branch,
+and a small cloud demonstration if account access permits.
