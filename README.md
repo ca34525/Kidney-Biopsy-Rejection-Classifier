@@ -117,16 +117,31 @@ has not been performed.
 
 ## Run in Docker
 
+In this populated folder, prepare the existing frozen model and public examples:
+
 ```powershell
 uv run --frozen python scripts/prepare_container.py
+```
+
+After following the clean-checkout and demo steps above, use this preparation
+command instead so the container includes your new run and its examples:
+
+```powershell
+uv run --frozen python scripts/prepare_container.py --results-dir "results/reproduction/$runName" --demo-dir "data/demo/$runName"
+```
+
+Preparation creates `build/container` and refuses to overwrite it. Reuse that
+folder only for the same model and examples; the [container guide](docs/CONTAINERS.md#prepare-build-verify)
+explains how to preserve an existing bundle before preparing another run.
+Then build and start the image:
+
+```powershell
 docker build --platform linux/amd64 --tag kidney-biopsy:demo .
 docker run --rm --publish 127.0.0.1:8000:8000 kidney-biopsy:demo
 ```
 
-Open [the container demo](http://127.0.0.1:8000). Preparation creates a new
-`build/container` folder from the existing verified model and public examples;
-reuse it if already prepared. See the [container guide](docs/CONTAINERS.md) for
-the automated prediction check and an explanation of each file. The
+Open [the container demo](http://127.0.0.1:8000). See the [container guide](docs/CONTAINERS.md)
+for the automated prediction check and an explanation of each file. The
 [AWS guide](docs/AWS_DEPLOYMENT.md) gives the remaining steps to host that image
 on a small Lightsail container service.
 
