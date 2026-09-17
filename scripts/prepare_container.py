@@ -13,7 +13,13 @@ import shutil
 from pathlib import Path, PurePosixPath
 
 from kidney_biopsy.api import MAX_SPECIMENS, MAX_UPLOAD_BYTES
-from kidney_biopsy.prediction import load_predictor, project_path, sha256, verify_artifact
+from kidney_biopsy.prediction import (
+    DEFAULT_RUN,
+    load_predictor,
+    project_path,
+    sha256,
+    verify_artifact,
+)
 from kidney_biopsy.preprocessing import read_counts_csv
 
 
@@ -35,7 +41,7 @@ def _record(root: Path, path: Path) -> dict:
 
 def prepare_bundle(
     project_root: str | Path = ".",
-    run_dir: str = "results/reproduction/20260915_shared",
+    run_dir: str = DEFAULT_RUN,
     demo_dir: str = "data/demo",
     output_dir: str = "build/container",
 ) -> dict:
@@ -149,7 +155,7 @@ def prepare_bundle(
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project-root", default=".")
-    parser.add_argument("--results-dir", default="results/reproduction/20260915_shared")
+    parser.add_argument("--results-dir", default=DEFAULT_RUN)
     parser.add_argument("--demo-dir", default="data/demo")
     parser.add_argument("--output-dir", default="build/container")
     args = parser.parse_args(argv)

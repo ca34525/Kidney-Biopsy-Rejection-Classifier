@@ -18,6 +18,8 @@ import pandas as pd
 
 from .preprocessing import AssaySchema, _validate_identifiers, normalize_counts
 
+DEFAULT_RUN = "results/reproduction/20260915_shared"
+
 
 def project_path(project_root: str | Path, relative: str) -> Path:
     root = Path(project_root).resolve()

@@ -4,6 +4,11 @@ The container runs the same prediction service as the local Python command. It
 contains the selected model, its verified metadata, the observed error counts,
 and the prepared public examples. It starts without training or downloading data.
 
+The [current research-container check](../results/checks/20260917_coherence/container.json)
+also verifies all four public-specimen walkthroughs. See the
+[verification guide](VERIFICATION.md#current-application-checks-september-17-2026)
+for the checked application and accompanying tests.
+
 Run these commands from the project root. Use Python 3.12, uv, and a running
 Docker engine in Linux container mode. On Windows, Docker Desktop provides that
 engine. `docker version` must report both a client and a server.
@@ -43,6 +48,8 @@ then removes that container. It verifies:
 - The page, CSS, JavaScript, public example listing, and example files are available.
 - Model identity, schema, threshold, and displayed error counts match the bundle.
 - All valid examples match local scores within `1e-12`, with identical flags and metadata.
+- Public-example walkthroughs reproduce the IFNG calculation, all 12 housekeeping
+  measurements, and the same prediction when recorded diagnoses are available.
 - The invalid example returns HTTP 422 and a structured explanation.
 
 The JSON record contains image ID/size, model version, aggregate checks, and elapsed
@@ -103,6 +110,9 @@ data downloads or a full research training run. These synthetic results are
 software fixtures and provide no evidence of classifier performance.
 
 CI builds and tests its image; it does not publish it or deploy it to an account.
+The [verified hosted pass](VERIFICATION.md#hosted-ci-verified-september-17-2026)
+identifies the exact earlier revision checked. See [current status](STATUS.md)
+for later local work.
 For the interview deployment, use the real bundle and follow the
 [AWS guide](AWS_DEPLOYMENT.md). That guide supplies the remaining account setup,
 image upload, HTTPS deployment, verification, and cleanup steps.

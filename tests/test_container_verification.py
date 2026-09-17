@@ -1,13 +1,16 @@
 """Deployment checks must catch a changed model or missing presentation evidence."""
 
+import json
 import tempfile
 import unittest
 from dataclasses import replace
 from pathlib import Path
+from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
 from kidney_biopsy.api import create_app
+from kidney_biopsy.walkthrough import describe_specimen
 from scripts.prepare_ci_fixture import prepare_fixture
 from scripts.prepare_container import prepare_bundle
 from scripts.verify_container import check_service
@@ -31,6 +34,7 @@ class ContainerVerificationTests(unittest.TestCase):
         result = self.verify()
         self.assertEqual(result["valid_specimens"], 1)
         self.assertEqual(result["invalid_examples_rejected"], 1)
+        self.assertEqual(result["public_walkthroughs_verified"], 0)
         self.assertLessEqual(result["maximum_score_difference"], 1e-12)
 
     def test_missing_or_changed_displayed_evaluation_fails(self):
@@ -57,6 +61,37 @@ class ContainerVerificationTests(unittest.TestCase):
         self.app.state.predictor.model.set_scale_and_bias(1.0, 10.0)
         with self.assertRaisesRegex(AssertionError, "rejection_score"):
             self.verify()
+
+    def add_walkthrough_metadata(self):
+        # Add label fields to the fixture only to exercise explanation checks.
+        # The fixture remains synthetic, with no evidence about biopsy accuracy.
+        manifest_path = self.bundle_root / "data/demo/manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        extra = {"specimen": "synthetic-001", "recorded_diagnosis": "No Rejection"}
+        manifest["examples"][0].update(extra)
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+        self.app.state.examples["valid"].update(extra)
+
+    def test_prepared_labeled_example_also_verifies_walkthrough(self):
+        self.add_walkthrough_metadata()
+        self.assertEqual(self.verify()["public_walkthroughs_verified"], 1)
+
+    def test_changed_walkthrough_arithmetic_or_model_identity_fails(self):
+        self.add_walkthrough_metadata()
+        for field in ("housekeeping_mean", "normalized_value", "model_version"):
+            with self.subTest(field=field):
+
+                def changed_walkthrough(*args):
+                    payload = describe_specimen(*args)
+                    if field == "model_version":
+                        payload[field] = "different-model"
+                    else:
+                        payload["normalization"][field] += 1.0
+                    return payload
+
+                with patch("kidney_biopsy.api.describe_specimen", side_effect=changed_walkthrough):
+                    with self.assertRaisesRegex(ValueError, "Walkthrough"):
+                        self.verify()
 
 
 if __name__ == "__main__":

@@ -2,6 +2,10 @@
 
 September 15, 2026 · Branch: `audit/defensibility-and-elegance`
 
+This is the dated audit record. See [current status](STATUS.md) for later work:
+the local container and a hosted CI run now have execution evidence. The
+remaining-work list below describes the project on the audit date.
+
 ## Conclusion
 
 The project is defensible as a retrospective research demonstration of agreement

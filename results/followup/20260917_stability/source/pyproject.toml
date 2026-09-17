@@ -1,0 +1,57 @@
+[project]
+name = "kidney-biopsy-rejection-classifier"
+version = "0.1.0"
+description = "Reproducible kidney biopsy rejection classification from public assay data"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "catboost==1.2.10",
+    "fastapi>=0.141.1",
+    "joblib==1.6.0",
+    "matplotlib==3.11.2",
+    "numpy==2.5.3",
+    "pandas==3.0.5",
+    "scikit-learn==1.9.1",
+    "scipy==1.18.1",
+    "uvicorn>=0.53.0",
+]
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+kidney-biopsy-predict = "kidney_biopsy.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+kidney_biopsy = ["static/*.html", "static/*.css", "static/*.js"]
+
+[tool.uv]
+package = true
+cache-dir = ".uv-cache"
+link-mode = "copy"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "ruff==0.16.8",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+# Preserve the source snapshots stored with completed research runs.
+extend-exclude = ["results", "data", "build", "dist", ".uv-cache"]
+force-exclude = true
+
+[tool.ruff.lint]
+# Basic Python mistakes, unused/undefined names, and consistent import order.
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+# These scripts set local import paths or the headless plotting backend first.
+"experiments/rejection_public/download.py" = ["E402"]
+"experiments/rejection_subtypes/run.py" = ["E402"]
+"scripts/analyze_results.py" = ["E402"]

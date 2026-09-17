@@ -25,6 +25,22 @@ clears the previous result. If the configured server model changes while the pag
 is open, the page refuses the mismatched result and asks for a reload so the
 score, threshold, and evaluation counts stay consistent.
 
+### Follow the specimen
+
+For a prepared public example, **Follow the specimen** shows the actual IFNG raw
+count, its `log2(count + 1)`, the mean of the 12 housekeeping log counts, and the
+subtraction used to obtain its normalized value. Expand **See the 12 housekeeping
+measurements** to inspect that mean. The same operation produces all 758 model
+inputs; IFNG is one arithmetic example, not an explanation of the full model's
+decision.
+
+The walkthrough then shows the model score, frozen threshold, research flag,
+and agreement with the specimen's recorded diagnosis. The diagnosis and specimen
+ID are not predictors. This is a discovery-screen example; the displayed
+evaluation error counts describe the separate author technical-validation cohort.
+The route accepts only prepared, valid public examples and rechecks their file,
+specimen, and model identity. Uploaded files use the ordinary prediction path.
+
 Example preparation verifies the raw source manifest and saved split before
 writing five CSV files and a provenance manifest under ignored `data/demo/`. Four
 valid examples are the first accessions in lexical order within each recorded
@@ -55,6 +71,9 @@ artifact is missing, modified, or incompatible with its schema; restart after
 repairing the configured artifacts. Optional example or evaluation files may be
 absent without preventing prediction.
 
+Startup failures log a fixed error category, without specimen values or artifact
+paths. The browser continues to receive the same concise unavailable response.
+
 The application neither writes uploaded counts to files nor logs their contents.
 The launch command disables HTTP access logs. It sends `Cache-Control: no-store`
 for results and examples. Bind to localhost for the demonstration. No cloud
@@ -69,6 +88,7 @@ deployment is established by these local checks.
 | `POST /predict` | Raw UTF-8 CSV body with `Content-Type: text/csv`; returns one versioned prediction per specimen |
 | `GET /demo/examples` | Prepared public example labels and IDs; an empty list if examples have not been prepared |
 | `GET /demo/examples/{id}` | One allowlisted prepared public CSV, checked against its manifest |
+| `GET /demo/walkthrough/{example_id}` | Verified public example, IFNG normalization arithmetic, 12 housekeeping measurements, prediction, and recorded diagnosis |
 
 `POST /predict` accepts at most **16 specimens** and **2 MiB** of uncompressed
 UTF-8 text. The actual streamed body size is checked even if Content-Length is

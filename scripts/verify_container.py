@@ -21,10 +21,64 @@ import numpy as np
 import pandas as pd
 from pandas.testing import assert_frame_equal
 
-from kidney_biopsy.prediction import load_predictor, project_path, sha256, verify_artifact
-from kidney_biopsy.preprocessing import read_counts_csv
+from kidney_biopsy.prediction import (
+    Predictor,
+    load_predictor,
+    project_path,
+    sha256,
+    verify_artifact,
+)
+from kidney_biopsy.preprocessing import DIAGNOSES, normalize_counts, read_counts_csv
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def check_walkthrough(
+    payload: dict, item: dict, counts: pd.DataFrame, predictor: Predictor, predictions: pd.DataFrame
+) -> None:
+    """Check displayed numbers against the source CSV and shared transformation."""
+    expected_identity = {
+        "example_id": item["id"],
+        "specimen": item["specimen"],
+        "recorded_diagnosis": item["recorded_diagnosis"],
+        "recorded_rejection": bool(DIAGNOSES[item["recorded_diagnosis"]]),
+        "model_version": predictor.model_version,
+        "schema_version": predictor.schema.schema_version,
+        "preprocessing_version": predictor.schema.preprocessing_version,
+        "threshold": predictor.threshold,
+        "required_targets": len(predictor.schema.required_targets),
+        "predictor_targets": len(predictor.schema.features),
+    }
+    if len(counts) != 1 or counts.index[0] != item["specimen"]:
+        raise ValueError("Walkthrough requires one matching prepared specimen.")
+    if any(payload.get(key) != value for key, value in expected_identity.items()):
+        raise ValueError(
+            "Walkthrough specimen, diagnosis, or model identity differs from the bundle."
+        )
+    assert_frame_equal(pd.DataFrame([payload["prediction"]]), predictions, atol=1e-12, rtol=0)
+    values = payload["normalization"]
+    log_counts = np.log2(counts + 1).iloc[0]
+    normalized = normalize_counts(counts, predictor.schema)
+    expected_values = {
+        "raw_count": float(counts.iloc[0]["IFNG"]),
+        "log2_count_plus_one": float(log_counts["IFNG"]),
+        "housekeeping_mean": float(log_counts[list(predictor.schema.housekeeping_targets)].mean()),
+        "normalized_value": float(normalized.iloc[0]["IFNG"]),
+    }
+    if values["illustrated_target"] != "IFNG" or any(
+        not np.isclose(values[key], expected, atol=1e-12, rtol=0)
+        for key, expected in expected_values.items()
+    ):
+        raise ValueError("Walkthrough normalization differs from the shared preprocessing.")
+    housekeeping = values["housekeeping"]
+    if [row["target"] for row in housekeeping] != list(predictor.schema.housekeeping_targets):
+        raise ValueError("Walkthrough housekeeping targets differ from the frozen schema.")
+    for row in housekeeping:
+        target = row["target"]
+        if row["raw_count"] != counts.iloc[0][target] or not np.isclose(
+            row["log2_count_plus_one"], log_counts[target], atol=1e-12, rtol=0
+        ):
+            raise ValueError("Walkthrough housekeeping measurements differ from the prepared CSV.")
 
 
 def check_service(client, bundle_root: Path, bundle: dict) -> dict:
@@ -36,6 +90,7 @@ def check_service(client, bundle_root: Path, bundle: dict) -> dict:
     if (
         model["model_version"] != predictor.model_version
         or model["schema_version"] != predictor.schema.schema_version
+        or model["preprocessing_version"] != predictor.schema.preprocessing_version
         or model["threshold"] != predictor.threshold
         or model["required_targets"] != list(predictor.schema.required_targets)
     ):
@@ -78,7 +133,7 @@ def check_service(client, bundle_root: Path, bundle: dict) -> dict:
     ]:
         raise ValueError("Service example listing differs from the prepared bundle.")
 
-    valid_count = invalid_count = 0
+    valid_count = invalid_count = walkthrough_count = 0
     largest_difference = 0.0
     for item in examples:
         expected_bytes = verify_artifact(bundle_root, item).read_bytes()
@@ -100,6 +155,13 @@ def check_service(client, bundle_root: Path, bundle: dict) -> dict:
             difference = np.max(np.abs(actual.rejection_score - expected.rejection_score))
             largest_difference = max(largest_difference, float(difference))
             valid_count += len(counts)
+            # Synthetic CI fixtures have no recorded diagnosis. Prepared public
+            # examples must also expose the same verified explanation as the demo.
+            if "recorded_diagnosis" in item:
+                walkthrough = client.get(f"/demo/walkthrough/{item['id']}")
+                walkthrough.raise_for_status()
+                check_walkthrough(walkthrough.json(), item, counts, predictor, actual)
+                walkthrough_count += 1
         else:
             payload = response.json()
             if (
@@ -117,6 +179,7 @@ def check_service(client, bundle_root: Path, bundle: dict) -> dict:
         "schema_version": predictor.schema.schema_version,
         "valid_specimens": valid_count,
         "invalid_examples_rejected": invalid_count,
+        "public_walkthroughs_verified": walkthrough_count,
         "maximum_score_difference": largest_difference,
         "score_tolerance": 1e-12,
         "flags_and_metadata_agree": True,

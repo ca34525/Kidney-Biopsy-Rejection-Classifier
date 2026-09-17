@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "verified": true,
+  "recorded_utc": "2026-09-17T20:57:36.009898+00:00",
+  "run_manifest": "results/followup/20260917_stability/run_manifest.json",
+  "run_manifest_sha256": "1a78f5d5c9f7d965e6ffa5b0f008f723a9662c363d8e4e75cf878a83a255f9e9",
+  "verified_artifact_hashes": 204,
+  "verified_repetitions": 20,
+  "split_checks": {
+    "unique_discovery_specimens_per_repeat": 1050,
+    "fit_screen_assessment_sizes": [
+      630,
+      210,
+      210
+    ],
+    "disjoint_and_exhaustive": true,
+    "author_validation_specimens_scored": 0
+  },
+  "saved_decisions_match_screening_rank": true,
+  "assessment_error_counts_match_saved_predictions": true,
+  "assessment_thresholds_match_frozen_choices": true,
+  "saved_models_checked_by_reload": 100,
+  "reload_max_absolute_score_difference": 0.0,
+  "reload_tolerance": 1e-12,
+  "largest_chart_stack": 7,
+  "figure_visually_inspected": true,
+  "figure_clipping_observed": false,
+  "validation_method": "One-off read-only Python command checked all recorded hashes, all 20 saved assignments and selection ranks, and assessment counts against saved predictions. The training runner itself checked every saved model after reload. No models were refitted during verification.",
+  "validation_code": "The final aggregate verification command is retained in the task tool transcript, not as a separate script. Consequential procedure tests are retained in tests/test_stability.py."
+}

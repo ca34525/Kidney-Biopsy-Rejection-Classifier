@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1152pt" height="648pt" viewBox="0 0 1152 648" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 648 
+L 1152 648 
+L 1152 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 305.28 476.28 
+L 668.16 476.28 
+L 668.16 152.28 
+L 305.28 152.28 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 305.28 167.007273 
+L 406.08 167.007273 
+L 406.08 224.01607 
+L 305.28 224.01607 
+z
+" clip-path="url(#p198b781500)" style="fill: #b24d3d"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 305.28 285.775601 
+L 438.336 285.775601 
+L 438.336 342.784399 
+L 305.28 342.784399 
+z
+" clip-path="url(#p198b781500)" style="fill: #b24d3d"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 305.28 404.54393 
+L 361.728 404.54393 
+L 361.728 461.552727 
+L 305.28 461.552727 
+z
+" clip-path="url(#p198b781500)" style="fill: #b24d3d"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m4c476614ab" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m4c476614ab" x="305.28" y="476.28" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="305.28" y="496.955781" transform="rotate(-0 305.28 496.955781)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m4c476614ab" x="406.08" y="476.28" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="406.08" y="496.955781" transform="rotate(-0 406.08 496.955781)">25</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m4c476614ab" x="506.88" y="476.28" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="506.88" y="496.955781" transform="rotate(-0 506.88 496.955781)">50</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m4c476614ab" x="607.68" y="476.28" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="607.68" y="496.955781" transform="rotate(-0 607.68 496.955781)">75</text>
+     </g>
+    </g>
+    <g id="text_5">
+     <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="486.72" y="526.957188" transform="rotate(-0 486.72 526.957188)">Specimens</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_5"/>
+     <g id="text_6">
+      <text style="font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: end" x="287.28" y="203.489211" transform="rotate(-0 287.28 203.489211)">CatBoost</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_6"/>
+     <g id="text_7">
+      <text style="font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: end" x="287.28" y="322.258359" transform="rotate(-0 287.28 322.258359)">Logistic regression</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_7"/>
+     <g id="text_8">
+      <text style="font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: end" x="287.28" y="441.026688" transform="rotate(-0 287.28 441.026688)">IFNG alone</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 305.28 476.28 
+L 668.16 476.28 
+" style="fill: none; stroke: #aab5bd; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="414.144" y="202.005812" transform="rotate(-0 414.144 202.005812)">25</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="446.4" y="320.774141" transform="rotate(-0 446.4 320.774141)">33</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="369.792" y="439.542469" transform="rotate(-0 369.792 439.542469)">14</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 22px; font-family: 'DejaVu Sans'" transform="translate(305.28 103.873984)">Missed rejection</text>
+    <text style="font-size: 22px; font-family: 'DejaVu Sans'" transform="translate(305.28 130.28)">(out of 169)</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_7">
+    <path d="M 725.76 476.28 
+L 1088.64 476.28 
+L 1088.64 152.28 
+L 725.76 152.28 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 725.76 167.007273 
+L 758.016 167.007273 
+L 758.016 224.01607 
+L 725.76 224.01607 
+z
+" clip-path="url(#p908314f90b)" style="fill: #146c86"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 725.76 285.775601 
+L 758.016 285.775601 
+L 758.016 342.784399 
+L 725.76 342.784399 
+z
+" clip-path="url(#p908314f90b)" style="fill: #146c86"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 725.76 404.54393 
+L 1028.16 404.54393 
+L 1028.16 461.552727 
+L 725.76 461.552727 
+z
+" clip-path="url(#p908314f90b)" style="fill: #146c86"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_5">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m4c476614ab" x="725.76" y="476.28" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="725.76" y="496.955781" transform="rotate(-0 725.76 496.955781)">0</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m4c476614ab" x="826.56" y="476.28" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="826.56" y="496.955781" transform="rotate(-0 826.56 496.955781)">25</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m4c476614ab" x="927.36" y="476.28" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="927.36" y="496.955781" transform="rotate(-0 927.36 496.955781)">50</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m4c476614ab" x="1028.16" y="476.28" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="1028.16" y="496.955781" transform="rotate(-0 1028.16 496.955781)">75</text>
+     </g>
+    </g>
+    <g id="text_17">
+     <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle" x="907.2" y="526.957188" transform="rotate(-0 907.2 526.957188)">Specimens</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_4">
+     <g id="line2d_12"/>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_13"/>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_14"/>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 725.76 476.28 
+L 1088.64 476.28 
+" style="fill: none; stroke: #aab5bd; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="766.08" y="202.005812" transform="rotate(-0 766.08 202.005812)">8</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="766.08" y="320.774141" transform="rotate(-0 766.08 320.774141)">8</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 25px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="1036.224" y="439.542469" transform="rotate(-0 1036.224 439.542469)">75</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 22px; font-family: 'DejaVu Sans'" transform="translate(725.76 103.873984)">False rejection flags</text>
+    <text style="font-size: 22px; font-family: 'DejaVu Sans'" transform="translate(725.76 130.28)">(out of 176)</text>
+   </g>
+  </g>
+  <g id="text_22">
+   <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="51.84" y="35.64" transform="rotate(-0 51.84 35.64)">Compare the two kinds of error</text>
+  </g>
+  <g id="text_23">
+   <text style="font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="51.84" y="74.52" transform="rotate(-0 51.84 74.52)">345 author technical-validation specimens; each model uses its frozen threshold</text>
+  </g>
+  <g id="text_24">
+   <text style="font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="51.84" y="560.52" transform="rotate(-0 51.84 560.52)">Constant baseline: 0 misses; 176 false flags. It flagged every specimen.</text>
+  </g>
+  <g id="text_25">
+   <text style="font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #243746" x="51.84" y="599.4" transform="rotate(-0 51.84 599.4)">CatBoost's practical advantage over logistic regression remains uncertain.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p198b781500">
+   <rect x="305.28" y="152.28" width="362.88" height="324"/>
+  </clipPath>
+  <clipPath id="p908314f90b">
+   <rect x="725.76" y="152.28" width="362.88" height="324"/>
+  </clipPath>
+ </defs>
+</svg>

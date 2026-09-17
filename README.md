@@ -4,6 +4,9 @@ Can molecular measurements from an existing kidney transplant biopsy classify
 its recorded rejection diagnosis? This project compares models on public
 NanoString B-HOT data and serves the selected model through a small research app.
 
+Start with the [current status and reading order](docs/STATUS.md). It distinguishes
+completed evidence, the frozen service, and the remaining presentation work.
+
 ## Result
 
 All four comparisons use the same 345 technical-validation specimens and fixed
@@ -23,6 +26,9 @@ target was not maintained in technical validation: CatBoost detected 85.2%.
 See the [analysis report](results/analysis/20260915_baseline/REPORT.md) for thresholds,
 uncertainty intervals, error review, and editable charts.
 
+The [presentation figures](results/presentation/20260917_evidence/README.md) show
+the same error counts and score reliability with larger labels and editable text.
+
 The output is a **model score**. This study measures agreement with recorded
 diagnoses; it does not establish clinical benefit, reliable individual probabilities,
 or patient/center independence. File validation does not establish assay quality.
@@ -41,6 +47,10 @@ Open [the local demo](http://127.0.0.1:8765). Choose a public specimen or upload
 raw counts, then try the incomplete-file example. The page shows the score,
 threshold, research flag, and observed error counts. Uploads are processed in
 memory and are not saved or logged.
+
+**Follow the specimen** shows a public example's actual count normalization,
+score, threshold, and agreement with its recorded diagnosis. It illustrates the
+shared prediction path; diagnosis and specimen ID are not model inputs.
 
 If examples have not been prepared, run `uv run --frozen python scripts/prepare_demo.py`
 once before starting the server. Requests accept at most 16 specimens and 2 MiB.
@@ -101,8 +111,9 @@ The [verification guide](docs/VERIFICATION.md) records tests, clean package
 installation, and real HTTP/CLI agreement across all 345 validation specimens.
 The [audit](docs/AUDIT.md) records the defensibility review, implementation fixes,
 and remaining gaps. The GitHub Actions workflow also builds and checks a container
-using a small synthetic model. Hosted CI and cloud deployment require separate run
-records; local checks alone do not establish either.
+using a small synthetic model. The [current status](docs/STATUS.md#evidence-available)
+links the verified hosted pass and identifies its revision. A cloud deployment
+has not been performed.
 
 ## Run in Docker
 
@@ -121,6 +132,12 @@ on a small Lightsail container service.
 
 ## Additional analysis
 
+The [discovery-only stability study](results/followup/20260917_stability/REPORT.md)
+selected CatBoost in 13 of 20 repetitions and logistic regression in 7. Model
+choice changed with the development split, leaving logistic regression a credible
+simpler alternative. These overlapping repetitions are descriptive follow-up
+evidence; the frozen service and original validation results are unchanged.
+
 The [subtype follow-up](results/followup/20260915_subtypes/REPORT.md) compares four-class
 models and separate rejection components. It did not justify replacing the binary
 service model. The [viral-target review](results/analysis/20260915_viral/REPORT.md)
@@ -138,13 +155,9 @@ For another binary run, the subtype script accepts `--benchmark-run` and
 
 ## Project records
 
-| Read | Contents |
-| --- | --- |
-| [Project specification](docs/PROJECT_SPEC.md) | Question, data, evaluation, and required deliverables |
-| [Research context](docs/RESEARCH_CONTEXT.md) | Dataset and source-study methods |
-| [Plan](docs/PLAN.md) | Completed work and remaining delivery tasks |
-| [Presentation specification](docs/PRESENTATION_SPEC.md) and [guide](docs/PRESENTATION_GUIDE.md) | Full 20-minute talk, slides, notes, and rehearsal |
-| [Source manifest](data/manifest.json) | Public download URLs, sizes, and hashes |
+The [current reading order](docs/STATUS.md) links results, checks, and project
+background. [Next steps](docs/NEXT_STEPS.md) records deferred research and product
+ideas. The [source manifest](data/manifest.json) records public input URLs and hashes.
 
 The two raw assay inputs total about 16 MB. Data, models, specimen-level outputs,
 environments, and caches stay local and Git-ignored. Aggregate results and reports

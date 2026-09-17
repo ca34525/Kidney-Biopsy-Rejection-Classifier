@@ -1,0 +1,15 @@
+{
+  "verified_utc": "2026-09-17T20:57:48.887089+00:00",
+  "successful": true,
+  "file": "data/manifest.json",
+  "sha256": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6",
+  "bytes": 697,
+  "previous_git_sha256": "f64eec9d6a509ec427daaecf3cd39d3fada4dc4371d2cfee9352cbab48f74f48",
+  "only_line_endings_differ_from_previous_git_blob": true,
+  "checked_reproduction_manifests": [
+    "results/reproduction/baseline/run_manifest.json",
+    "results/reproduction/20260915_shared/run_manifest.json",
+    "results/reproduction/20260915_readability/run_manifest.json"
+  ],
+  "git_preserves_bytes_with_autocrlf_true_and_false": true
+}
