@@ -1,0 +1,22 @@
+# Start with nothing, then admit only application source and prepared bundles.
+**
+!Dockerfile
+!pyproject.toml
+!uv.lock
+!src/
+!src/kidney_biopsy/
+!src/kidney_biopsy/*.py
+!src/kidney_biopsy/static/
+!src/kidney_biopsy/static/*.html
+!src/kidney_biopsy/static/*.css
+!src/kidney_biopsy/static/*.js
+!scripts/
+!scripts/serve_container.py
+!build/
+!build/container/
+!build/container/**
+!build/ci-fixture/
+!build/ci-fixture/container/
+!build/ci-fixture/container/**
+**/__pycache__/
+**/*.pyc

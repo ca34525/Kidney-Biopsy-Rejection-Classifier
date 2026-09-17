@@ -1,0 +1,8 @@
+{
+  "api": {
+    "image": "REPLACE_WITH_NUMBERED_IMAGE_NAME",
+    "ports": {
+      "8000": "HTTP"
+    }
+  }
+}

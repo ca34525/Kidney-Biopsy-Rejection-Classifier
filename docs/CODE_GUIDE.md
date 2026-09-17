@@ -99,6 +99,12 @@ The [verification guide](VERIFICATION.md) covers the test suite, CI, and a fresh
 noneditable installation. `scripts/verify_http_service.py` starts a real local
 server and compares all 345 validation predictions with the CLI and saved scores.
 
+The [container guide](CONTAINERS.md) explains the deployment path: verify and copy
+the serving artifacts, build the image, then check a running service against the
+local model. Its file table is the reading order for that work. CI uses the same
+path with a tiny synthetic CatBoost model; the real deployment image contains the
+selected research model and prepared public examples.
+
 ## Development record: September 15, 2026
 
 Codex assisted with extracting the package, writing the analysis and checks,

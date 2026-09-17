@@ -7,27 +7,63 @@ check record uses a new destination so earlier results remain available.
 
 ```powershell
 uv sync --frozen
+uv run --no-sync ruff check src scripts tests experiments
+uv run --no-sync ruff format --check src scripts tests experiments
 $checkName = Get-Date -Format 'yyyyMMdd-HHmmss'
 uv run --no-sync python scripts/check_project.py --output "results/checks/$checkName/checks.json"
 ```
 
-The command checks Python syntax, parses the project and lock TOML files, checks
-the local package and its HTML/CSS/JavaScript assets, and runs the test suite.
+Ruff checks for basic Python mistakes, unused or undefined names, and import order.
+Its formatter gives the source a consistent layout, with a target line length of
+100 characters. The pinned development version and small rule list are in
+`pyproject.toml`. The two commands above report problems without changing files.
+To apply import fixes and formatting while editing, run:
+
+```powershell
+uv run --no-sync ruff check --fix src scripts tests experiments
+uv run --no-sync ruff format src scripts tests experiments
+```
+
+Review the diff after applying fixes. The configuration excludes `results`,
+`data`, build output, and caches, including when a preserved file is named
+explicitly. Completed runs keep their original source snapshots. Three research
+scripts allow imports after their local-path or plotting setup; this is the only
+file-specific lint exception. Ruff is not a static type checker. Its
+[configuration](https://docs.astral.sh/ruff/configuration/) and
+[rule reference](https://docs.astral.sh/ruff/rules/) explain the selected checks.
+
+The final command checks Python syntax, parses the project and lock TOML files,
+checks the local package and its HTML/CSS/JavaScript assets, and runs the test suite.
 Tests use small generated fixtures and require no public downloads or trained
 research model. The JSON records source hashes, package versions, test counts,
-failures, and elapsed time. This is a syntax check and consequential test suite;
-it is not a style linter or a static type checker.
+failures, and elapsed time. Lint and formatting results appear separately in the
+terminal and CI log so a failed check is easy to identify.
 
 The [CI workflow](../.github/workflows/checks.yml) runs the same checks after
-`uv sync --frozen --no-editable` on Python 3.12. The noneditable installation builds
-and installs the package, so missing packaged web assets fail the check. CI saves
-the small JSON evidence as an artifact. Full model training stays outside CI.
+`uv sync --locked --no-editable` on Python 3.12. `--locked` fails if dependency
+declarations disagree with the lockfile. The noneditable installation builds
+and installs the package, so missing packaged web assets fail the check. Lint and
+format checks run before tests. CI saves the small JSON evidence as an artifact.
+The workflow then builds a container with a tiny synthetic CatBoost model and
+checks readiness, predictions, displayed error counts, and invalid input over
+HTTP. Both JSON check records are retained. Full research model training stays
+outside CI. See the [container guide](CONTAINERS.md) for the same commands locally.
 
 The workflow uses the documented interfaces for [checkout](https://github.com/actions/checkout),
 [setup-uv](https://github.com/astral-sh/setup-uv), and
 [upload-artifact](https://github.com/actions/upload-artifact), checked on
 September 15, 2026. The workflow is configured locally; an actual hosted CI pass
 requires a repository push and a completed GitHub Actions run.
+
+## CI and container checks: September 17, 2026
+
+The [verification record](../results/checks/20260917_ci_docker/README.md) contains
+78 passing tests and successful runs of both the real research image and the
+synthetic CatBoost image used in CI. Four public examples matched local research
+scores exactly, and the invalid example was rejected. Both images served the
+expected page, examples, and evaluation counts with an unprivileged user and a
+read-only filesystem. See [container setup](CONTAINERS.md) and the prepared
+[AWS deployment steps](AWS_DEPLOYMENT.md). No AWS deployment has been performed.
 
 ## Fresh environment and application check
 

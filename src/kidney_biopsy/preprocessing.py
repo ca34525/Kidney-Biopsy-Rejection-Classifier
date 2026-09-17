@@ -4,6 +4,7 @@ All invalid batches fail as a whole. Extra targets are rejected when a frozen
 schema is supplied, including diagnosis or batch metadata. Reordered targets are
 accepted by name. Numeric validation cannot verify the assay's origin.
 """
+
 from __future__ import annotations
 
 import csv
@@ -106,15 +107,12 @@ def _validate_identifiers(frame: pd.DataFrame) -> None:
     if not frame.index.is_unique or frame.index.isna().any():
         raise ValueError("Specimen IDs must be present and unique.")
     if any(
-        not isinstance(specimen_id, str) or not specimen_id.strip()
-        for specimen_id in frame.index
+        not isinstance(specimen_id, str) or not specimen_id.strip() for specimen_id in frame.index
     ):
         raise ValueError("Specimen IDs must be nonempty strings.")
 
 
-def validate_counts(
-    counts: pd.DataFrame, schema: AssaySchema | None = None
-) -> pd.DataFrame:
+def validate_counts(counts: pd.DataFrame, schema: AssaySchema | None = None) -> pd.DataFrame:
     """Validate a complete raw-count batch, returning numeric counts unchanged in order."""
     _validate_identifiers(counts)
     required_targets = set(schema.required_targets if schema else HOUSEKEEPING_TARGETS)
@@ -149,9 +147,7 @@ def validate_counts(
     return numeric_counts
 
 
-def normalize_counts(
-    counts: pd.DataFrame, schema: AssaySchema | None = None
-) -> pd.DataFrame:
+def normalize_counts(counts: pd.DataFrame, schema: AssaySchema | None = None) -> pd.DataFrame:
     """log2(count + 1) minus mean log2(count + 1) over the 12 housekeeping targets.
 
     There is no fitted state and no cross-specimen information. Without a schema,
@@ -191,9 +187,7 @@ def read_counts_csv(
         rows = []
         for row in reader:
             if len(row) != len(header):
-                raise ValueError(
-                    "Each CSV row must have the same number of fields as its header."
-                )
+                raise ValueError("Each CSV row must have the same number of fields as its header.")
             rows.append(row)
             if len(rows) > max_specimens:
                 raise ValueError(f"CSV exceeds the {max_specimens}-specimen batch limit.")

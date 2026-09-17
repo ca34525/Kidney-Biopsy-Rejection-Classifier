@@ -1,10 +1,11 @@
 """Check malformed source files cannot silently change the training matrix."""
+
 import gzip
 import io
-from pathlib import Path
 import tarfile
 import tempfile
 import unittest
+from pathlib import Path
 
 import pandas as pd
 
@@ -26,7 +27,10 @@ class GeoMetadataTests(unittest.TestCase):
         self.temp.cleanup()
 
     def write_matrix(self, metadata):
-        text = "\n".join(metadata) + '\n!series_matrix_table_begin\n"ID_REF"\t"a"\t"b"\n"IFNG"\t1\t2\n!series_matrix_table_end\n'
+        text = (
+            "\n".join(metadata)
+            + '\n!series_matrix_table_begin\n"ID_REF"\t"a"\t"b"\n"IFNG"\t1\t2\n!series_matrix_table_end\n'
+        )
         self.path.write_bytes(gzip.compress(text.encode()))
 
     def test_metadata_retains_source_labels_and_matches_expression_specimens(self):
@@ -34,7 +38,9 @@ class GeoMetadataTests(unittest.TestCase):
         expression, metadata = read_geo_matrix(self.path)
         self.assertEqual(list(expression.index), list(metadata.index))
         self.assertEqual(metadata.histology_diagnosis.tolist(), ["No Rejection", "Mixed Rejection"])
-        self.assertEqual(metadata.cohort.tolist(), ["Discovery cohort sample", "Validation cohort sample"])
+        self.assertEqual(
+            metadata.cohort.tolist(), ["Discovery cohort sample", "Validation cohort sample"]
+        )
 
     def test_duplicate_metadata_cannot_silently_replace_labels_or_cohorts(self):
         for duplicate in (
@@ -43,13 +49,19 @@ class GeoMetadataTests(unittest.TestCase):
             '!Sample_title\t"Changed A"\t"Changed B"',
         ):
             self.write_matrix([*self.metadata, duplicate])
-            with self.subTest(row=duplicate), self.assertRaisesRegex(ValueError, "Duplicate GEO metadata"):
+            with (
+                self.subTest(row=duplicate),
+                self.assertRaisesRegex(ValueError, "Duplicate GEO metadata"),
+            ):
                 read_geo_matrix(self.path)
 
     def test_missing_or_duplicate_accession_rows_fail_clearly(self):
         for metadata in (self.metadata[1:], [*self.metadata, self.metadata[0]]):
             self.write_matrix(metadata)
-            with self.subTest(rows=len(metadata)), self.assertRaisesRegex(ValueError, "exactly one"):
+            with (
+                self.subTest(rows=len(metadata)),
+                self.assertRaisesRegex(ValueError, "exactly one"),
+            ):
                 read_geo_matrix(self.path)
 
 
@@ -65,8 +77,16 @@ class RawSourceTests(unittest.TestCase):
     def write_archive(self, specimens):
         with tarfile.open(self.path, "w") as archive:
             for filename, targets in specimens:
-                table = pd.DataFrame({"CodeClass": ["Housekeeping" if name in HOUSEKEEPING_TARGETS else "Endogenous" for name in targets],
-                                      "Name": targets, "Count": 10})
+                table = pd.DataFrame(
+                    {
+                        "CodeClass": [
+                            "Housekeeping" if name in HOUSEKEEPING_TARGETS else "Endogenous"
+                            for name in targets
+                        ],
+                        "Name": targets,
+                        "Count": 10,
+                    }
+                )
                 body = "Date,2020-01-01\nCartridgeID,test\nScannerID,scanner\n<Code_Summary>\n"
                 body += table.to_csv(index=False) + "</Code_Summary>\n"
                 payload = gzip.compress(body.encode())

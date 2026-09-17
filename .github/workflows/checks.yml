@@ -11,7 +11,7 @@ permissions:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
         with:
@@ -22,14 +22,26 @@ jobs:
           python-version: "3.12"
           enable-cache: true
       - name: Install the locked environment and packaged application
-        run: uv sync --frozen --no-editable
+        run: uv sync --locked --no-editable
+      - name: Check Python mistakes and import order
+        run: uv run --no-sync ruff check src scripts tests experiments
+      - name: Check Python formatting
+        run: uv run --no-sync ruff format --check src scripts tests experiments
       - name: Run tests and check Python syntax and installed assets
         run: uv run --no-sync python scripts/check_project.py --require-installed --output results/checks/ci/checks.json
+      - name: Prepare a synthetic model for the container check
+        run: |
+          uv run --no-sync python scripts/prepare_ci_fixture.py
+          uv run --no-sync python scripts/prepare_container.py --project-root build/ci-fixture --results-dir results/ci --output-dir container
+      - name: Build the container with the synthetic model
+        run: docker build --build-arg BUNDLE_DIR=build/ci-fixture/container --tag kidney-biopsy:ci .
+      - name: Check container readiness, predictions, and invalid input
+        run: uv run --no-sync python scripts/verify_container.py --image kidney-biopsy:ci --bundle-dir build/ci-fixture/container --output results/checks/ci/container.json
       - name: Preserve the check record
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: software-checks
-          path: results/checks/ci/checks.json
+          path: results/checks/ci/*.json
           if-no-files-found: warn
           retention-days: 14

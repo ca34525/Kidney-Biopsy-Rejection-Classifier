@@ -4,19 +4,20 @@ Run from the project root after uv sync --frozen. JSON evidence is written to a
 new path even when a check fails. CI installs a wheel with --no-editable and also
 requires package imports and static assets to come from that environment.
 """
+
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import importlib.metadata
 import importlib.resources
 import json
-from pathlib import Path
 import platform
 import sys
 import time
 import tomllib
 import unittest
+from datetime import datetime, timezone
+from pathlib import Path
 
 from verify_local_data import ROOT, local_path, sha256
 
@@ -25,8 +26,12 @@ STATIC_ASSETS = ("index.html", "style.css", "app.js")
 
 
 def python_sources() -> list[Path]:
-    return sorted(path for folder in SOURCE_DIRS for path in (ROOT / folder).rglob("*.py")
-                  if "__pycache__" not in path.parts)
+    return sorted(
+        path
+        for folder in SOURCE_DIRS
+        for path in (ROOT / folder).rglob("*.py")
+        if "__pycache__" not in path.parts
+    )
 
 
 def check_environment(require_installed: bool) -> dict:
@@ -46,7 +51,10 @@ def check_environment(require_installed: bool) -> dict:
     for name in STATIC_ASSETS:
         if not assets.joinpath(name).is_file() or not assets.joinpath(name).read_bytes():
             raise ValueError(f"Missing or empty packaged application asset: {name}")
-        if assets.joinpath(name).read_bytes() != (ROOT / "src/kidney_biopsy/static" / name).read_bytes():
+        if (
+            assets.joinpath(name).read_bytes()
+            != (ROOT / "src/kidney_biopsy/static" / name).read_bytes()
+        ):
             raise ValueError(f"Installed application asset differs from this source: {name}")
     return {
         "python": platform.python_version(),
@@ -54,9 +62,20 @@ def check_environment(require_installed: bool) -> dict:
         "package": package_path.relative_to(ROOT).as_posix(),
         "installed_package_required": require_installed,
         "static_assets": list(STATIC_ASSETS),
-        "package_versions": {name: importlib.metadata.version(name) for name in (
-            "kidney-biopsy-rejection-classifier", "numpy", "pandas", "scikit-learn",
-            "catboost", "fastapi", "uvicorn", "httpx")},
+        "package_versions": {
+            name: importlib.metadata.version(name)
+            for name in (
+                "kidney-biopsy-rejection-classifier",
+                "numpy",
+                "pandas",
+                "scikit-learn",
+                "catboost",
+                "fastapi",
+                "uvicorn",
+                "httpx",
+                "ruff",
+            )
+        },
     }
 
 
@@ -70,15 +89,26 @@ def main() -> None:
     if output.exists():
         raise ValueError("Check record already exists; choose a new --output path.")
     started = time.perf_counter()
-    record = {"verified_utc": datetime.now(timezone.utc).isoformat(),
-              "successful": False, "errors": [], "checks": {}}
+    record = {
+        "verified_utc": datetime.now(timezone.utc).isoformat(),
+        "successful": False,
+        "errors": [],
+        "checks": {},
+    }
     try:
         files = python_sources()
-        evidence_files = [*files, ROOT / "pyproject.toml", ROOT / "uv.lock",
-                          ROOT / ".github/workflows/checks.yml",
-                          *(ROOT / "src/kidney_biopsy/static" / name for name in STATIC_ASSETS)]
-        record["sources"] = [{"file": path.relative_to(ROOT).as_posix(), "sha256": sha256(path)}
-                             for path in evidence_files if path.is_file()]
+        evidence_files = [
+            *files,
+            ROOT / "pyproject.toml",
+            ROOT / "uv.lock",
+            ROOT / ".github/workflows/checks.yml",
+            *(ROOT / "src/kidney_biopsy/static" / name for name in STATIC_ASSETS),
+        ]
+        record["sources"] = [
+            {"file": path.relative_to(ROOT).as_posix(), "sha256": sha256(path)}
+            for path in evidence_files
+            if path.is_file()
+        ]
         for path in files:
             compile(path.read_bytes(), path.relative_to(ROOT).as_posix(), "exec")
         for name in ("pyproject.toml", "uv.lock"):

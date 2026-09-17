@@ -5,15 +5,16 @@ then all frozen assay targets and 12 housekeeping targets. Extra columns are
 rejected. The caller must supply compatible assay measurements. CSV batches are
 limited to 1,000 specimens and 20 MiB; invalid batches return no predictions.
 """
+
 from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
-from .preprocessing import read_counts_csv
 from .prediction import load_predictor, project_path, verify_artifact
+from .preprocessing import read_counts_csv
 from .source import read_geo_matrix, read_rcc_archive
 
 MAX_UPLOAD_BYTES = 20 * 1024 * 1024
@@ -46,9 +47,7 @@ def main(argv=None) -> None:
                 verify_artifact(root, item)
             raw_dir = root / "data/raw/rejection_public"
             _, metadata = read_geo_matrix(raw_dir / "GSE212160_series_matrix.txt.gz")
-            counts, _ = read_rcc_archive(
-                raw_dir / "GSE212160_RAW.tar", specimen_ids=metadata.index
-            )
+            counts, _ = read_rcc_archive(raw_dir / "GSE212160_RAW.tar", specimen_ids=metadata.index)
             counts = counts.loc[metadata["cohort"].eq("Validation cohort sample")]
         else:
             counts_path = project_path(root, args.counts_csv)
