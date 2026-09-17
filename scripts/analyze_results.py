@@ -9,8 +9,8 @@ import argparse
 import importlib.metadata
 import json
 import os
-from pathlib import Path
 import platform
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 os.environ.setdefault("MPLCONFIGDIR", str(ROOT / ".uv-cache" / "matplotlib"))
@@ -19,13 +19,19 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
 import numpy as np
 import pandas as pd
-from sklearn.metrics import average_precision_score, precision_recall_curve, roc_auc_score, roc_curve
+from matplotlib.ticker import PercentFormatter
+from sklearn.metrics import (
+    average_precision_score,
+    precision_recall_curve,
+    roc_auc_score,
+    roc_curve,
+)
 
+from kidney_biopsy.prediction import project_path as checked_project_path
+from kidney_biopsy.prediction import sha256
 from kidney_biopsy.preprocessing import DIAGNOSES, map_diagnoses
-from kidney_biopsy.prediction import project_path as checked_project_path, sha256
 
 SHORT_DIAGNOSES = [
     "No rejection\n(false flags)",
@@ -39,8 +45,17 @@ SEED = 20260915
 BOOTSTRAPS = 2000
 COLORS = ["#176D8A", "#D37B21", "#7B58A3", "#737D85"]
 METRICS = [
-    "sensitivity", "specificity", "ppv", "npv", "roc_auc", "average_precision",
-    "accuracy", "brier", "mean_score", "fn", "fp",
+    "sensitivity",
+    "specificity",
+    "ppv",
+    "npv",
+    "roc_auc",
+    "average_precision",
+    "accuracy",
+    "brier",
+    "mean_score",
+    "fn",
+    "fp",
 ]
 DIFFERENCES = ["sensitivity", "specificity", "roc_auc", "brier", "fn", "fp"]
 
@@ -62,7 +77,9 @@ def unique_index(frame: pd.DataFrame, name: str) -> None:
         raise ValueError(f"{name} has empty, missing, or duplicate specimen IDs")
 
 
-def align_predictions(frame: pd.DataFrame, reference: pd.DataFrame, threshold: float) -> pd.DataFrame:
+def align_predictions(
+    frame: pd.DataFrame, reference: pd.DataFrame, threshold: float
+) -> pd.DataFrame:
     """Require exactly the evaluation rows, their labels, and frozen decisions."""
     unique_index(frame, "Predictions")
     unique_index(reference, "Evaluation split")
@@ -134,7 +151,7 @@ def wilson(successes: int, n: int) -> tuple[float, float]:
     denominator = 1 + z * z / n
     center = (p + z * z / (2 * n)) / denominator
     radius = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / denominator
-    return max(0., center - radius), min(1., center + radius)
+    return max(0.0, center - radius), min(1.0, center + radius)
 
 
 def reliability(y: np.ndarray, score: np.ndarray, model: str) -> list[dict]:
@@ -146,18 +163,20 @@ def reliability(y: np.ndarray, score: np.ndarray, model: str) -> list[dict]:
         n = int(mask.sum())
         positives = int(y[mask].sum())
         lower, upper = wilson(positives, n)
-        records.append({
-            "model": model,
-            "bin": bin_index + 1,
-            "lower_edge": bin_index / 10,
-            "upper_edge": (bin_index + 1) / 10,
-            "n": n,
-            "positives": positives,
-            "mean_score": float(score[mask].mean()) if n else np.nan,
-            "observed_fraction": ratio(positives, n),
-            "wilson_lower": lower,
-            "wilson_upper": upper,
-        })
+        records.append(
+            {
+                "model": model,
+                "bin": bin_index + 1,
+                "lower_edge": bin_index / 10,
+                "upper_edge": (bin_index + 1) / 10,
+                "n": n,
+                "positives": positives,
+                "mean_score": float(score[mask].mean()) if n else np.nan,
+                "observed_fraction": ratio(positives, n),
+                "wilson_lower": lower,
+                "wilson_upper": upper,
+            }
+        )
     return records
 
 
@@ -188,15 +207,17 @@ def paired_bootstrap(
         for column, metric in enumerate(METRICS):
             draws = values[:, column]
             valid = draws[np.isfinite(draws)]
-            lower, upper = np.quantile(valid, [.025, .975]) if len(valid) else (np.nan, np.nan)
-            intervals.append({
-                "model": name,
-                "metric": metric,
-                "estimate": point[name][metric],
-                "lower": lower,
-                "upper": upper,
-                "valid_replicates": len(valid),
-            })
+            lower, upper = np.quantile(valid, [0.025, 0.975]) if len(valid) else (np.nan, np.nan)
+            intervals.append(
+                {
+                    "model": name,
+                    "metric": metric,
+                    "estimate": point[name][metric],
+                    "lower": lower,
+                    "upper": upper,
+                    "valid_replicates": len(valid),
+                }
+            )
 
     selected = next(iter(scores))
     differences = []
@@ -207,16 +228,18 @@ def paired_bootstrap(
             column = METRICS.index(metric)
             paired_difference = samples[selected][:, column] - samples[other][:, column]
             valid = paired_difference[np.isfinite(paired_difference)]
-            lower, upper = np.quantile(valid, [.025, .975]) if len(valid) else (np.nan, np.nan)
-            differences.append({
-                "model": selected,
-                "minus_model": other,
-                "metric": metric,
-                "estimate": point[selected][metric] - point[other][metric],
-                "lower": lower,
-                "upper": upper,
-                "valid_replicates": len(valid),
-            })
+            lower, upper = np.quantile(valid, [0.025, 0.975]) if len(valid) else (np.nan, np.nan)
+            differences.append(
+                {
+                    "model": selected,
+                    "minus_model": other,
+                    "metric": metric,
+                    "estimate": point[selected][metric] - point[other][metric],
+                    "lower": lower,
+                    "upper": upper,
+                    "valid_replicates": len(valid),
+                }
+            )
     return point, pd.DataFrame(intervals), pd.DataFrame(differences)
 
 
@@ -243,8 +266,10 @@ def load_run(run: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict, dict, list[Pa
     frozen = json.loads(frozen_path.read_text())
     selected = result["selected_model"]
     evaluation_results = result["author_validation"]
-    if (frozen["selected_model"] != selected
-            or frozen["threshold"] != evaluation_results[selected]["threshold"]):
+    if (
+        frozen["selected_model"] != selected
+        or frozen["threshold"] != evaluation_results[selected]["threshold"]
+    ):
         raise ValueError("Frozen model metadata and saved results disagree")
     evaluation = split.loc[split.split == "author_validation"].copy()
     y = binary_labels(evaluation.histology).to_numpy()
@@ -260,7 +285,7 @@ def load_run(run: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict, dict, list[Pa
         thresholds[name] = threshold
     training_labels = binary_labels(split.loc[split.split == "train", "histology"])
     scores["training_prevalence"] = np.full(len(evaluation), training_labels.mean())
-    thresholds["training_prevalence"] = .5
+    thresholds["training_prevalence"] = 0.5
     for name, score in scores.items():
         computed = metrics(y, score, thresholds[name])
         saved = evaluation_results[name]
@@ -287,7 +312,9 @@ def load_run(run: Path) -> tuple[pd.DataFrame, pd.DataFrame, dict, dict, list[Pa
 
 
 def grouped_errors(
-    evaluation: pd.DataFrame, scores: dict, thresholds: dict,
+    evaluation: pd.DataFrame,
+    scores: dict,
+    thresholds: dict,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Keep specimen outcomes alongside diagnosis and assay-group summaries."""
     y = binary_labels(evaluation.histology).to_numpy()
@@ -310,61 +337,66 @@ def grouped_errors(
             n = int(mask.sum())
             errors = int(np.sum(predicted[mask] != target))
             lower, upper = wilson(errors, n)
-            subtype.append({
-                "model": name,
-                "histology": diagnosis,
-                "error_type": "missed_rejection" if target else "false_flag",
-                "errors": errors,
-                "n": n,
-                "error_rate": ratio(errors, n),
-                "wilson_lower": lower,
-                "wilson_upper": upper,
-            })
+            subtype.append(
+                {
+                    "model": name,
+                    "histology": diagnosis,
+                    "error_type": "missed_rejection" if target else "false_flag",
+                    "errors": errors,
+                    "n": n,
+                    "error_rate": ratio(errors, n),
+                    "wilson_lower": lower,
+                    "wilson_upper": upper,
+                }
+            )
 
         for field in METADATA:
             for value, group in evaluation.groupby(field, sort=True, dropna=False):
                 mask = evaluation.index.isin(group.index)
                 row = metrics(y[mask], score[mask], thresholds[name])
                 diagnosis_counts = {
-                    diagnosis: int(group.histology.eq(diagnosis).sum())
-                    for diagnosis in DIAGNOSES
+                    diagnosis: int(group.histology.eq(diagnosis).sum()) for diagnosis in DIAGNOSES
                 }
                 miss_lower, miss_upper = wilson(row["fn"], row["positives"])
                 flag_lower, flag_upper = wilson(row["fp"], row["negatives"])
-                grouped.append({
-                    "model": name,
-                    "field": field,
-                    "group": value,
-                    **row,
-                    **diagnosis_counts,
-                    "miss_rate": ratio(row["fn"], row["positives"]),
-                    "false_flag_rate": ratio(row["fp"], row["negatives"]),
-                    "miss_wilson_lower": miss_lower,
-                    "miss_wilson_upper": miss_upper,
-                    "false_flag_wilson_lower": flag_lower,
-                    "false_flag_wilson_upper": flag_upper,
-                })
+                grouped.append(
+                    {
+                        "model": name,
+                        "field": field,
+                        "group": value,
+                        **row,
+                        **diagnosis_counts,
+                        "miss_rate": ratio(row["fn"], row["positives"]),
+                        "false_flag_rate": ratio(row["fp"], row["negatives"]),
+                        "miss_wilson_lower": miss_lower,
+                        "miss_wilson_upper": miss_upper,
+                        "false_flag_wilson_lower": flag_lower,
+                        "false_flag_wilson_upper": flag_upper,
+                    }
+                )
     return cases, pd.DataFrame(subtype), pd.DataFrame(grouped)
 
 
 def error_overlap(cases: pd.DataFrame, model_names: list[str]) -> pd.DataFrame:
     rows = []
     for i, first in enumerate(model_names):
-        for second in model_names[i + 1:]:
+        for second in model_names[i + 1 :]:
             for error, target in [("missed_rejection", 1), ("false_flag", 0)]:
                 eligible = cases.y == target
                 first_wrong = cases[f"{first}_outcome"] == error
                 second_wrong = cases[f"{second}_outcome"] == error
-                rows.append({
-                    "model_a": first,
-                    "model_b": second,
-                    "error_type": error,
-                    "eligible_n": int(eligible.sum()),
-                    "both_error": int((first_wrong & second_wrong).sum()),
-                    "a_only_error": int((first_wrong & ~second_wrong).sum()),
-                    "b_only_error": int((~first_wrong & second_wrong).sum()),
-                    "neither_error": int((eligible & ~first_wrong & ~second_wrong).sum()),
-                })
+                rows.append(
+                    {
+                        "model_a": first,
+                        "model_b": second,
+                        "error_type": error,
+                        "eligible_n": int(eligible.sum()),
+                        "both_error": int((first_wrong & second_wrong).sum()),
+                        "a_only_error": int((first_wrong & ~second_wrong).sum()),
+                        "b_only_error": int((~first_wrong & second_wrong).sum()),
+                        "neither_error": int((eligible & ~first_wrong & ~second_wrong).sum()),
+                    }
+                )
     return pd.DataFrame(rows)
 
 
@@ -373,14 +405,16 @@ def composition(split: pd.DataFrame) -> pd.DataFrame:
     for cohort, group in split.groupby("split", sort=False):
         for field in ["histology", *METADATA]:
             for value, count in group[field].value_counts().items():
-                rows.append({
-                    "split": cohort,
-                    "field": field,
-                    "group": value,
-                    "n": int(count),
-                    "split_n": len(group),
-                    "fraction": count / len(group),
-                })
+                rows.append(
+                    {
+                        "split": cohort,
+                        "field": field,
+                        "group": value,
+                        "n": int(count),
+                        "split_n": len(group),
+                        "fraction": count / len(group),
+                    }
+                )
     return pd.DataFrame(rows)
 
 
@@ -398,7 +432,10 @@ def label(name: str) -> str:
 def savefig(fig, out: Path, name: str) -> None:
     for extension in ["svg", "png"]:
         fig.savefig(
-            out / f"{name}.{extension}", dpi=180, bbox_inches="tight", facecolor="white",
+            out / f"{name}.{extension}",
+            dpi=180,
+            bbox_inches="tight",
+            facecolor="white",
             metadata={"Date": None} if extension == "svg" else None,
         )
     plt.close(fig)
@@ -414,15 +451,17 @@ def plots(
     reliability_table: pd.DataFrame,
 ) -> None:
     """Apply shared style, then draw the six figures in report order."""
-    plt.rcParams.update({
-        "font.family": "DejaVu Sans",
-        "font.size": 10,
-        "axes.titlesize": 12,
-        "axes.spines.top": False,
-        "axes.spines.right": False,
-        "svg.fonttype": "none",
-        "svg.hashsalt": "kidney-analysis-20260915",
-    })
+    plt.rcParams.update(
+        {
+            "font.family": "DejaVu Sans",
+            "font.size": 10,
+            "axes.titlesize": 12,
+            "axes.spines.top": False,
+            "axes.spines.right": False,
+            "svg.fonttype": "none",
+            "svg.hashsalt": "kidney-analysis-20260915",
+        }
+    )
     y = binary_labels(evaluation.histology).to_numpy()
     model_names = list(scores)
     colors = dict(zip(scores, COLORS))
@@ -436,7 +475,11 @@ def plots(
 
 
 def plot_ranking_curves(
-    out: Path, y: np.ndarray, scores: dict, point: dict, colors: dict,
+    out: Path,
+    y: np.ndarray,
+    scores: dict,
+    point: dict,
+    colors: dict,
 ) -> None:
     """Draw ROC and precision–recall curves, including frozen operating points."""
     fig, axes = plt.subplots(1, 2, figsize=(11.8, 4.8), layout="constrained")
@@ -445,34 +488,46 @@ def plot_ranking_curves(
         fpr, tpr, _ = roc_curve(y, score)
         precision, recall, _ = precision_recall_curve(y, score)
         roc_axis.plot(
-            fpr, tpr, color=colors[name],
+            fpr,
+            tpr,
+            color=colors[name],
             label=f"{label(name)}: AUC {point[name]['roc_auc']:.3f}",
         )
         if name != "training_prevalence":
             precision_axis.step(
-                recall, precision, where="post", color=colors[name],
+                recall,
+                precision,
+                where="post",
+                color=colors[name],
                 label=f"{label(name)}: AP {point[name]['average_precision']:.3f}",
             )
         roc_axis.scatter(
-            1 - point[name]["specificity"], point[name]["sensitivity"],
-            color=colors[name], s=30, zorder=3,
+            1 - point[name]["specificity"],
+            point[name]["sensitivity"],
+            color=colors[name],
+            s=30,
+            zorder=3,
         )
     precision_axis.axhline(
-        y.mean(), color=COLORS[3], linestyle="--",
+        y.mean(),
+        color=COLORS[3],
+        linestyle="--",
         label=f"Constant / prevalence: {y.mean():.1%}",
     )
     roc_axis.set(
-        xlabel="False-positive rate (1 − specificity)", ylabel="Sensitivity",
+        xlabel="False-positive rate (1 − specificity)",
+        ylabel="Sensitivity",
         title="ROC: ranking rejection above no rejection",
     )
     precision_axis.set(
-        xlabel="Recall (sensitivity)", ylabel="Precision",
+        xlabel="Recall (sensitivity)",
+        ylabel="Precision",
         title="Precision–recall: AP is average precision",
     )
     for ax in axes:
-        ax.set(xlim=(-.02, 1.02), ylim=(-.02, 1.03))
+        ax.set(xlim=(-0.02, 1.02), ylim=(-0.02, 1.03))
         ax.legend(loc="lower left", fontsize=8)
-        ax.grid(alpha=.15)
+        ax.grid(alpha=0.15)
     fig.suptitle(
         f"Technical validation: {len(y)} specimens · {int(y.sum())} rejection · "
         f"{int((y == 0).sum())} no rejection\nROC dots mark discovery-selected thresholds",
@@ -482,7 +537,10 @@ def plot_ranking_curves(
 
 
 def plot_confusion_matrices(
-    out: Path, specimen_count: int, point: dict, thresholds: dict,
+    out: Path,
+    specimen_count: int,
+    point: dict,
+    thresholds: dict,
 ) -> None:
     """Draw the four outcomes at each model's frozen threshold."""
     fig, axes = plt.subplots(2, 2, figsize=(10.5, 8.1), layout="constrained")
@@ -496,13 +554,21 @@ def plot_confusion_matrices(
         for i in range(2):
             for j in range(2):
                 ax.text(
-                    j, i, f"{matrix[i, j]}\n{words[i][j]}", ha="center", va="center",
-                    color="white" if matrix[i, j] > specimen_count / 3 else "#152536", fontsize=11,
+                    j,
+                    i,
+                    f"{matrix[i, j]}\n{words[i][j]}",
+                    ha="center",
+                    va="center",
+                    color="white" if matrix[i, j] > specimen_count / 3 else "#152536",
+                    fontsize=11,
                 )
         ax.set(
-            xticks=[0, 1], xticklabels=["No flag", "Flag"],
-            yticks=[0, 1], yticklabels=["No rejection", "Rejection"],
-            xlabel="Model decision", ylabel="Recorded diagnosis",
+            xticks=[0, 1],
+            xticklabels=["No flag", "Flag"],
+            yticks=[0, 1],
+            yticklabels=["No rejection", "Rejection"],
+            xlabel="Model decision",
+            ylabel="Recorded diagnosis",
             title=f"{label(name)} · threshold {thresholds[name]:.4f}",
         )
     fig.suptitle("What each fixed threshold got right and wrong", fontsize=14)
@@ -510,7 +576,10 @@ def plot_confusion_matrices(
 
 
 def plot_error_counts(
-    out: Path, y: np.ndarray, model_names: list[str], point: dict,
+    out: Path,
+    y: np.ndarray,
+    model_names: list[str],
+    point: dict,
 ) -> None:
     """Compare missed rejection and false-flag counts at the frozen thresholds."""
     fig, ax = plt.subplots(figsize=(9.6, 4.2), layout="constrained")
@@ -518,18 +587,26 @@ def plot_error_counts(
     misses = [point[name]["fn"] for name in model_names]
     flags = [point[name]["fp"] for name in model_names]
     bars = ax.barh(
-        positions - .18, misses, .34,
-        label=f"Missed rejection (of {int(y.sum())})", color="#B44F3F",
+        positions - 0.18,
+        misses,
+        0.34,
+        label=f"Missed rejection (of {int(y.sum())})",
+        color="#B44F3F",
     )
     ax.bar_label(bars, padding=3)
     bars = ax.barh(
-        positions + .18, flags, .34,
-        label=f"False flags (of {int((y == 0).sum())})", color="#176D8A",
+        positions + 0.18,
+        flags,
+        0.34,
+        label=f"False flags (of {int((y == 0).sum())})",
+        color="#176D8A",
     )
     ax.bar_label(bars, padding=3)
     ax.set(
-        yticks=positions, yticklabels=[label(name) for name in model_names],
-        xlabel="Specimens", xlim=(0, max(flags + misses) * 1.15),
+        yticks=positions,
+        yticklabels=[label(name) for name in model_names],
+        xlabel="Specimens",
+        xlim=(0, max(flags + misses) * 1.15),
         title="Error counts show the threshold tradeoff",
     )
     ax.invert_yaxis()
@@ -538,7 +615,10 @@ def plot_error_counts(
 
 
 def plot_errors_by_diagnosis(
-    out: Path, model_names: list[str], subtype: pd.DataFrame, colors: dict,
+    out: Path,
+    model_names: list[str],
+    subtype: pd.DataFrame,
+    colors: dict,
 ) -> None:
     """Draw error rates within each recorded diagnosis, with Wilson intervals."""
     fig, axes = plt.subplots(1, 4, figsize=(13, 4.9), sharey=True, layout="constrained")
@@ -554,20 +634,31 @@ def plot_errors_by_diagnosis(
                 [max(0, row.wilson_upper - row.error_rate)],
             ]
             ax.errorbar(
-                i, row.error_rate, yerr=error_bars,
-                fmt="o", color=colors[name], capsize=4, markersize=7,
+                i,
+                row.error_rate,
+                yerr=error_bars,
+                fmt="o",
+                color=colors[name],
+                capsize=4,
+                markersize=7,
             )
             ax.annotate(
-                f"{int(row.errors)}/{int(row.n)}", (i, row.wilson_upper),
-                xytext=(0, 7), textcoords="offset points", ha="center", fontsize=9,
+                f"{int(row.errors)}/{int(row.n)}",
+                (i, row.wilson_upper),
+                xytext=(0, 7),
+                textcoords="offset points",
+                ha="center",
+                fontsize=9,
             )
         ax.set(
-            xticks=range(len(model_names)), xticklabels=short_model_names,
-            title=title, ylim=(-.035, 1.17),
+            xticks=range(len(model_names)),
+            xticklabels=short_model_names,
+            title=title,
+            ylim=(-0.035, 1.17),
         )
         ax.tick_params(axis="x", rotation=55)
         ax.yaxis.set_major_formatter(PercentFormatter(1))
-        ax.grid(axis="y", alpha=.15)
+        ax.grid(axis="y", alpha=0.15)
     axes[0].set_ylabel("Error rate within recorded diagnosis")
     fig.suptitle(
         "Errors by original diagnosis · counts / diagnosis total · 95% Wilson intervals",
@@ -577,23 +668,34 @@ def plot_errors_by_diagnosis(
 
 
 def plot_score_distributions(
-    out: Path, y: np.ndarray, scores: dict, thresholds: dict,
+    out: Path,
+    y: np.ndarray,
+    scores: dict,
+    thresholds: dict,
 ) -> None:
     """Draw score distributions by recorded diagnosis, with frozen thresholds."""
     fig, axes = plt.subplots(2, 2, figsize=(10.6, 7.3), layout="constrained")
     for ax, (name, score) in zip(axes.flat, scores.items()):
         ax.hist(
-            [score[y == 0], score[y == 1]], bins=np.linspace(0, 1, 21),
-            histtype="step", linewidth=2, color=["#176D8A", "#B44F3F"],
+            [score[y == 0], score[y == 1]],
+            bins=np.linspace(0, 1, 21),
+            histtype="step",
+            linewidth=2,
+            color=["#176D8A", "#B44F3F"],
             label=[f"No rejection (n={int((y == 0).sum())})", f"Rejection (n={int(y.sum())})"],
         )
         ax.axvline(
-            thresholds[name], color="#202A34", linestyle="--", linewidth=1.3,
+            thresholds[name],
+            color="#202A34",
+            linestyle="--",
+            linewidth=1.3,
             label=f"Threshold {thresholds[name]:.4f}",
         )
         ax.set(
-            xlabel="Model score", ylabel="Specimens per 0.05 score bin",
-            title=label(name), xlim=(0, 1),
+            xlabel="Model score",
+            ylabel="Specimens per 0.05 score bin",
+            title=label(name),
+            xlim=(0, 1),
         )
         ax.legend(fontsize=8)
     fig.suptitle("Score distributions and frozen thresholds", fontsize=14)
@@ -601,8 +703,12 @@ def plot_score_distributions(
 
 
 def plot_score_reliability(
-    out: Path, prevalence: float, model_names: list[str], point: dict,
-    reliability_table: pd.DataFrame, colors: dict,
+    out: Path,
+    prevalence: float,
+    model_names: list[str],
+    point: dict,
+    reliability_table: pd.DataFrame,
+    colors: dict,
 ) -> None:
     """Compare mean scores with observed fractions in the fixed score bins."""
     fig, axes = plt.subplots(2, 2, figsize=(10.6, 9.2), layout="constrained")
@@ -615,22 +721,31 @@ def plot_score_reliability(
             np.maximum(0, rows.wilson_upper - observed),
         ]
         ax.errorbar(
-            rows.mean_score, observed, yerr=error_bars,
-            fmt="o-", color=colors[name], capsize=3, linewidth=1,
+            rows.mean_score,
+            observed,
+            yerr=error_bars,
+            fmt="o-",
+            color=colors[name],
+            capsize=3,
+            linewidth=1,
         )
         for row in rows.itertuples():
             # Counts are at fixed bin centers, independent of observed fraction.
             bin_center = (row.lower_edge + row.upper_edge) / 2
-            ax.text(bin_center, -.1, str(row.n), ha="center", va="center", fontsize=8)
-        ax.text(-.02, -.1, "n", ha="right", va="center", fontsize=9)
+            ax.text(bin_center, -0.1, str(row.n), ha="center", va="center", fontsize=8)
+        ax.text(-0.02, -0.1, "n", ha="right", va="center", fontsize=9)
         ax.set(
-            xlim=(-.02, 1.02), ylim=(-.16, 1.05),
-            xlabel="Mean score in bin (counts below axis)", ylabel="Observed rejection fraction",
-            title=(f"{label(name)} · Brier {point[name]['brier']:.3f}\n"
-                   f"Mean score {point[name]['mean_score']:.1%} · observed {prevalence:.1%}"),
+            xlim=(-0.02, 1.02),
+            ylim=(-0.16, 1.05),
+            xlabel="Mean score in bin (counts below axis)",
+            ylabel="Observed rejection fraction",
+            title=(
+                f"{label(name)} · Brier {point[name]['brier']:.3f}\n"
+                f"Mean score {point[name]['mean_score']:.1%} · observed {prevalence:.1%}"
+            ),
         )
         ax.set_yticks(np.linspace(0, 1, 6))
-        ax.grid(alpha=.13)
+        ax.grid(alpha=0.13)
     fig.suptitle(
         "Do scores match observed fractions?\n"
         "Ten fixed bins of width 0.1; 95% Wilson bars; empty bins omitted",
@@ -652,7 +767,9 @@ def clean_json(value):
 
 
 def write_json(path: Path, value) -> None:
-    path.write_text(json.dumps(clean_json(value), indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(clean_json(value), indent=2, allow_nan=False) + "\n", encoding="utf-8"
+    )
 
 
 def percent(value: float) -> str:
@@ -711,9 +828,9 @@ def report(
             f"Logistic regression missed {logistic['fn']} with {logistic['fp']} false flags; IFNG "
             f"missed {ifng['fn']} with {ifng['fp']} false flags. "
             f"At these frozen thresholds, {label(selected)} detected "
-            f"{logistic['fn']-selected_row['fn']} more rejection cases than logistic regression. "
-            f"Compared with IFNG, it produced {ifng['fp']-selected_row['fp']} fewer false flags and "
-            f"{selected_row['fn']-ifng['fn']} more misses."
+            f"{logistic['fn'] - selected_row['fn']} more rejection cases than logistic regression. "
+            f"Compared with IFNG, it produced {ifng['fp'] - selected_row['fp']} fewer false flags and "
+            f"{selected_row['fn'] - ifng['fn']} more misses."
         ),
         "",
         "| Model | Threshold | Misses / rejection | False flags / no rejection | Sensitivity (95% "
@@ -797,8 +914,10 @@ def report(
             estimate = f"{row.estimate:+.4f}"
             limits = f"{row.lower:+.4f} to {row.upper:+.4f}"
         metric_label = {
-            "fn": "Missed rejection", "fp": "False flags",
-            "roc_auc": "ROC-AUC", "brier": "Brier score",
+            "fn": "Missed rejection",
+            "fp": "False flags",
+            "roc_auc": "ROC-AUC",
+            "brier": "Brier score",
         }.get(row.metric, row.metric.capitalize())
         add_table_row(label(row.minus_model), metric_label, estimate, limits)
 
@@ -822,8 +941,7 @@ def report(
         "",
         (
             "The point estimates favor CatBoost over logistic regression in this cohort, but the "
-            "paired intervals show how much the comparison can vary. "
-            + auc_interpretation
+            "paired intervals show how much the comparison can vary. " + auc_interpretation
         ),
         "",
         "## Missed rejection and false flags",
@@ -857,8 +975,11 @@ def report(
     ]
     for row in selected_overlap.itertuples():
         add_table_row(
-            label(row.model_b), row.error_type.replace("_", " "),
-            str(row.both_error), str(row.a_only_error), str(row.b_only_error),
+            label(row.model_b),
+            row.error_type.replace("_", " "),
+            str(row.both_error),
+            str(row.a_only_error),
+            str(row.b_only_error),
         )
     lines += [
         "",
@@ -902,7 +1023,7 @@ def report(
         "",
         (
             f"The selected model's average score differs from the observed fraction by "
-            f"{(selected_row['mean_score']-selected_row['prevalence'])*100:+.1f} percentage points. "
+            f"{(selected_row['mean_score'] - selected_row['prevalence']) * 100:+.1f} percentage points. "
             f"Among its bins with at least 10 specimens, the largest score-versus-observation gap is "
             f"in [{example.lower_edge:.1f}, "
             f"{example.upper_edge:.1f}{']' if example.upper_edge == 1 else ')'}: "
@@ -937,7 +1058,9 @@ def report(
     for cohort in SPLITS:
         group = split.loc[split.split == cohort]
         counts = [str(int(group.histology.eq(diagnosis).sum())) for diagnosis in DIAGNOSES]
-        add_table_row(cohort, str(len(group)), f"{binary_labels(group.histology).mean():.1%}", *counts)
+        add_table_row(
+            cohort, str(len(group)), f"{binary_labels(group.histology).mean():.1%}", *counts
+        )
     lines += [
         "",
         "| Metadata field | Discovery groups | Validation groups | Groups shared across cohorts |",
@@ -946,7 +1069,9 @@ def report(
     for field in METADATA:
         discovery = set(split.loc[split.split != "author_validation", field])
         validation = set(split.loc[split.split == "author_validation", field])
-        add_table_row(field, str(len(discovery)), str(len(validation)), str(len(discovery & validation)))
+        add_table_row(
+            field, str(len(discovery)), str(len(validation)), str(len(discovery & validation))
+        )
     lines += [
         "",
         "| Validation scanner | Specimens | Rejection | Misses / rejection | False flags / no rejection |",
@@ -955,8 +1080,11 @@ def report(
     selected_groups = grouped.loc[grouped.model == selected]
     for row in selected_groups.loc[selected_groups.field == "ScannerID"].itertuples():
         add_table_row(
-            str(row.group), str(row.n), f"{row.prevalence:.1%}",
-            f"{row.fn} / {row.positives}", f"{row.fp} / {row.negatives}",
+            str(row.group),
+            str(row.n),
+            f"{row.prevalence:.1%}",
+            f"{row.fn} / {row.positives}",
+            f"{row.fp} / {row.negatives}",
         )
     lines += [
         "",
@@ -966,8 +1094,11 @@ def report(
     ]
     for row in selected_groups.loc[selected_groups.field == "Date"].itertuples():
         add_table_row(
-            str(row.group), str(row.n), f"{row.prevalence:.1%}",
-            f"{row.fn} / {row.positives}", f"{row.fp} / {row.negatives}",
+            str(row.group),
+            str(row.n),
+            f"{row.prevalence:.1%}",
+            f"{row.fn} / {row.positives}",
+            f"{row.fp} / {row.negatives}",
         )
     lines += [
         "",
@@ -1050,7 +1181,9 @@ def analyze_run(run: Path, out: Path, case_dir: Path, n_bootstrap: int, seed: in
         raise ValueError("Per-specimen tables must be under ignored data/processed")
     for destination in [out, case_dir]:
         if destination.exists():
-            raise ValueError(f"Output destination already exists; choose a new directory: {relative(destination)}")
+            raise ValueError(
+                f"Output destination already exists; choose a new directory: {relative(destination)}"
+            )
 
     split, evaluation, scores, thresholds, inputs, result = load_run(run)
     configuration = {
@@ -1102,8 +1235,20 @@ def analyze_run(run: Path, out: Path, case_dir: Path, n_bootstrap: int, seed: in
     selected_errors.to_csv(case_dir / "selected_model_errors.csv", index_label="sample")
     plots(figures, evaluation, scores, thresholds, point, subtype, bins)
     report(
-        out, run, case_dir, split, point, intervals, differences,
-        subtype, grouped, overlap, bins, n_bootstrap, seed, result,
+        out,
+        run,
+        case_dir,
+        split,
+        point,
+        intervals,
+        differences,
+        subtype,
+        grouped,
+        overlap,
+        bins,
+        n_bootstrap,
+        seed,
+        result,
     )
 
     # Write the manifest last, after every output is complete.
@@ -1113,12 +1258,18 @@ def analyze_run(run: Path, out: Path, case_dir: Path, n_bootstrap: int, seed: in
     outputs.extend([case_dir / "specimen_review.csv", case_dir / "selected_model_errors.csv"])
     write_analysis_manifest(out, run, configuration, input_records, outputs, selected)
     print(f"Analysis complete: {relative(out / 'REPORT.md')}")
-    print(f"{len(evaluation)} matched specimens; {n_bootstrap} paired bootstrap replicates; {len(scores)} fixed models")
+    print(
+        f"{len(evaluation)} matched specimens; {n_bootstrap} paired bootstrap replicates; {len(scores)} fixed models"
+    )
 
 
 def write_analysis_manifest(
-    out: Path, run: Path, configuration: dict, input_records: list[dict],
-    outputs: list[Path], selected: str,
+    out: Path,
+    run: Path,
+    configuration: dict,
+    input_records: list[dict],
+    outputs: list[Path],
+    selected: str,
 ) -> None:
     source_paths = [
         Path(__file__),

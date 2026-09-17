@@ -1,10 +1,11 @@
 """Verify public input hashes and local paths without third-party packages or Git."""
+
 from __future__ import annotations
 
 import hashlib
 import json
-from pathlib import Path, PurePosixPath
 import sys
+from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "data/manifest.json"
@@ -13,7 +14,13 @@ MANIFEST = ROOT / "data/manifest.json"
 def local_path(relative: str) -> Path:
     """Reject absolute paths, traversal, and filesystem links outside this folder."""
     pure = PurePosixPath(relative)
-    if not relative or "\\" in relative or ":" in relative or pure.is_absolute() or ".." in pure.parts:
+    if (
+        not relative
+        or "\\" in relative
+        or ":" in relative
+        or pure.is_absolute()
+        or ".." in pure.parts
+    ):
         raise ValueError(f"Expected a local relative path: {relative!r}")
     path = ROOT.joinpath(*pure.parts)
     for component in [path, *path.parents]:
@@ -39,7 +46,9 @@ def records() -> list[dict]:
     for item in entries:
         if item["gse"] != "GSE212160":
             raise ValueError("Only GSE212160 belongs to this project.")
-        if not item["url"].startswith("https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/"):
+        if not item["url"].startswith(
+            "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/"
+        ):
             raise ValueError("Unexpected public input URL.")
         local_path(item["file"])
     return entries
@@ -47,7 +56,9 @@ def records() -> list[dict]:
 
 def verify(path: Path, item: dict) -> None:
     if not path.is_file():
-        raise FileNotFoundError(f"Missing {item['file']}; run experiments/rejection_public/download.py.")
+        raise FileNotFoundError(
+            f"Missing {item['file']}; run experiments/rejection_public/download.py."
+        )
     if path.stat().st_size != item["bytes"]:
         raise ValueError(f"Size mismatch: {item['file']}")
     if sha256(path) != item["sha256"]:
@@ -59,7 +70,9 @@ def main() -> None:
     for item in entries:
         verify(local_path(item["file"]), item)
         print(f"Verified {item['file']}: {item['bytes']:,} bytes")
-    print(f"PASS: {len(entries)} physical local inputs; {sum(item['bytes'] for item in entries):,} bytes.")
+    print(
+        f"PASS: {len(entries)} physical local inputs; {sum(item['bytes'] for item in entries):,} bytes."
+    )
 
 
 if __name__ == "__main__":

@@ -1,12 +1,13 @@
 """Public-source readers shared by training and local source-data prediction."""
+
 from __future__ import annotations
 
 import csv
 import gzip
 import io
-from pathlib import Path
 import re
 import tarfile
+from pathlib import Path
 
 import pandas as pd
 
@@ -65,9 +66,7 @@ def read_geo_matrix(path: str | Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     return expression, metadata
 
 
-def read_rcc_archive(
-    path: str | Path, specimen_ids=None
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+def read_rcc_archive(path: str | Path, specimen_ids=None) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Read endogenous/housekeeping counts without extracting archive files to disk."""
     specimen_counts = {}
     specimen_batches = {}
@@ -77,9 +76,7 @@ def read_rcc_archive(
                 continue
             specimen_id = Path(member.name).name.split("_")[0]
             if not specimen_id or specimen_id in specimen_counts:
-                raise ValueError(
-                    "Raw assay archive contains missing or duplicate specimen IDs."
-                )
+                raise ValueError("Raw assay archive contains missing or duplicate specimen IDs.")
             stream = archive.extractfile(member)
             if stream is None:
                 raise ValueError("Cannot read a raw assay archive member.")
@@ -89,9 +86,7 @@ def read_rcc_archive(
             table = pd.read_csv(io.StringIO(code_summary))
             table = table[table.CodeClass.isin(["Endogenous", "Housekeeping"])]
             if table.Name.isna().any() or table.Name.duplicated().any():
-                raise ValueError(
-                    f"Raw assay has missing or duplicate targets for {specimen_id}."
-                )
+                raise ValueError(f"Raw assay has missing or duplicate targets for {specimen_id}.")
             specimen_counts[specimen_id] = dict(zip(table.Name, table.Count))
             specimen_batches[specimen_id] = dict(
                 re.findall(r"^(Date|CartridgeID|ScannerID),([^\r\n]*)", text, flags=re.M)

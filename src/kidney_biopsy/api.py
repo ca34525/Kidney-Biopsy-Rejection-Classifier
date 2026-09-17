@@ -3,14 +3,15 @@
 The /predict route checks the HTTP request, reads a complete CSV batch, and calls
 Predictor.predict. Models and optional examples come only from local settings.
 """
+
 from __future__ import annotations
 
-from contextlib import asynccontextmanager
 import io
 import json
 import os
-from pathlib import Path
 import re
+from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
@@ -40,9 +41,7 @@ def create_app(
     demo_dir: str | None = None,
 ) -> FastAPI:
     """Configure trusted local artifacts in process settings, never in a request."""
-    root = Path(
-        project_root or os.environ.get("KIDNEY_BIOPSY_PROJECT_ROOT", ".")
-    ).resolve()
+    root = Path(project_root or os.environ.get("KIDNEY_BIOPSY_PROJECT_ROOT", ".")).resolve()
     selected_run = run_dir or os.environ.get("KIDNEY_BIOPSY_RESULTS_DIR", DEFAULT_RUN)
     selected_demo = demo_dir or os.environ.get("KIDNEY_BIOPSY_DEMO_DIR", "data/demo")
 
@@ -196,7 +195,9 @@ def create_app(
     def example(example_id: str):
         item = application.state.examples.get(example_id)
         if item is None:
-            return failure(404, "example_unavailable", "That prepared public example is unavailable.")
+            return failure(
+                404, "example_unavailable", "That prepared public example is unavailable."
+            )
         try:
             path = verify_artifact(root, item)
             body = path.read_bytes()
@@ -234,9 +235,7 @@ def _check_upload_headers(request: Request) -> JSONResponse | None:
 
     content_type = request.headers.get("content-type", "").split(";", 1)[0].strip().lower()
     if content_type not in {"text/csv", "application/csv"}:
-        return failure(
-            415, "unsupported_media_type", "Send raw CSV with Content-Type: text/csv."
-        )
+        return failure(415, "unsupported_media_type", "Send raw CSV with Content-Type: text/csv.")
     if "content-length" in request.headers:
         try:
             length = int(request.headers["content-length"])
@@ -293,8 +292,7 @@ def _load_demo_examples(root: Path, demo_dir: str) -> dict:
             if not re.fullmatch(r"[a-z0-9-]{1,40}", example_id) or example_id in examples:
                 raise ValueError("Invalid example manifest.")
             description_is_valid = all(
-                isinstance(item[key], str) and item[key].strip()
-                for key in ("label", "description")
+                isinstance(item[key], str) and item[key].strip() for key in ("label", "description")
             )
             if not description_is_valid or not isinstance(item["valid"], bool):
                 raise ValueError("Invalid example description.")

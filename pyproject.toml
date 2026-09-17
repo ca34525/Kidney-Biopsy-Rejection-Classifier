@@ -36,4 +36,22 @@ link-mode = "copy"
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
+    "ruff==0.16.8",
 ]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+# Preserve the source snapshots stored with completed research runs.
+extend-exclude = ["results", "data", "build", "dist", ".uv-cache"]
+force-exclude = true
+
+[tool.ruff.lint]
+# Basic Python mistakes, unused/undefined names, and consistent import order.
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+# These scripts set local import paths or the headless plotting backend first.
+"experiments/rejection_public/download.py" = ["E402"]
+"experiments/rejection_subtypes/run.py" = ["E402"]
+"scripts/analyze_results.py" = ["E402"]

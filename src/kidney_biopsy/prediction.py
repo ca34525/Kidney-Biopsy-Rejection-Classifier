@@ -3,11 +3,12 @@
 joblib artifacts are trusted project files, never caller uploads. Manifest hashes
 detect changed files; they are not authentication for an untrusted manifest.
 """
+
 from __future__ import annotations
 
-from dataclasses import dataclass
 import hashlib
 import json
+from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -47,11 +48,7 @@ def sha256(path: Path) -> str:
 
 def verify_artifact(project_root: str | Path, item: dict) -> Path:
     path = project_path(project_root, item["file"])
-    if (
-        not path.is_file()
-        or path.stat().st_size != item["bytes"]
-        or sha256(path) != item["sha256"]
-    ):
+    if not path.is_file() or path.stat().st_size != item["bytes"] or sha256(path) != item["sha256"]:
         raise ValueError(f"Artifact differs from its recorded manifest: {item['file']}")
     return path
 
@@ -160,9 +157,7 @@ def load_predictor(
         if requested_directory != recorded_directory:
             raise ValueError("Model directory does not match the selected training run.")
 
-    model_path = (
-        project_path(root, configured_model_dir) / "any_rejection_selected_model.joblib"
-    )
+    model_path = project_path(root, configured_model_dir) / "any_rejection_selected_model.joblib"
     frozen_path = results_dir / "any_rejection_frozen.json"
     artifacts_by_path = {item["file"]: item for item in manifest["artifacts"]}
     if len(artifacts_by_path) != len(manifest["artifacts"]):
@@ -170,9 +165,7 @@ def load_predictor(
     for path in (frozen_path, model_path):
         relative_path = path.relative_to(root).as_posix()
         if relative_path not in artifacts_by_path:
-            raise ValueError(
-                "Model and frozen metadata must be recorded in the training manifest."
-            )
+            raise ValueError("Model and frozen metadata must be recorded in the training manifest.")
         verify_artifact(root, artifacts_by_path[relative_path])
 
     frozen = json.loads(frozen_path.read_text(encoding="utf-8"))
@@ -185,10 +178,7 @@ def load_predictor(
     for field in ("schema_version", "preprocessing_version"):
         if field in frozen and frozen[field] != getattr(schema, field):
             raise ValueError(f"Frozen {field} is incompatible with the assay schema.")
-    if (
-        "required_targets" in frozen
-        and frozen["required_targets"] != list(schema.required_targets)
-    ):
+    if "required_targets" in frozen and frozen["required_targets"] != list(schema.required_targets):
         raise ValueError("Frozen required targets disagree with the assay schema.")
 
     model = joblib.load(model_path)

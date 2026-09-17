@@ -3,17 +3,18 @@
 Uses project-controlled raw inputs and model artifacts. Writes aggregate evidence
 and keeps specimen outputs in ignored local data. The server is stopped on exit.
 """
+
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import json
 import os
-from pathlib import Path
 import socket
 import subprocess
 import sys
 import time
+from datetime import datetime, timezone
+from pathlib import Path
 
 import httpx
 import numpy as np
@@ -61,11 +62,24 @@ def main():
         raise ValueError("Validation and saved prediction specimen sets differ.")
     expected = expected.loc[counts.index]
     cli_path = case_dir / "cli.csv"
-    subprocess.run([
-        sys.executable, "-m", "kidney_biopsy", "--project-root", str(ROOT),
-        "--geo-validation", "--results-dir", args.run_dir,
-        "--output", cli_path.relative_to(ROOT).as_posix(),
-    ], cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "kidney_biopsy",
+            "--project-root",
+            str(ROOT),
+            "--geo-validation",
+            "--results-dir",
+            args.run_dir,
+            "--output",
+            cli_path.relative_to(ROOT).as_posix(),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
     cli = pd.read_csv(cli_path, dtype={"specimen": str}).set_index("specimen").loc[counts.index]
     with socket.socket() as probe:
         probe.bind(("127.0.0.1", 0))
@@ -77,11 +91,26 @@ def main():
     checks = []
     with (case_dir / "server.log").open("w", encoding="utf-8") as log:
         try:
-            server = subprocess.Popen([
-                sys.executable, "-m", "uvicorn", "kidney_biopsy.api:app",
-                "--host", "127.0.0.1", "--port", str(port), "--no-access-log",
-            ], cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT)
-            with httpx.Client(base_url=f"http://127.0.0.1:{port}", timeout=30, trust_env=False) as client:
+            server = subprocess.Popen(
+                [
+                    sys.executable,
+                    "-m",
+                    "uvicorn",
+                    "kidney_biopsy.api:app",
+                    "--host",
+                    "127.0.0.1",
+                    "--port",
+                    str(port),
+                    "--no-access-log",
+                ],
+                cwd=ROOT,
+                env=env,
+                stdout=log,
+                stderr=subprocess.STDOUT,
+            )
+            with httpx.Client(
+                base_url=f"http://127.0.0.1:{port}", timeout=30, trust_env=False
+            ) as client:
                 deadline = time.monotonic() + 30
                 while True:
                     if server.poll() is not None:
@@ -94,7 +123,7 @@ def main():
                         pass
                     if time.monotonic() > deadline:
                         raise RuntimeError("Local HTTP server did not become ready.")
-                    time.sleep(.2)
+                    time.sleep(0.2)
                 checks.append("real_http_server_ready")
                 model_response = client.get("/model")
                 model_response.raise_for_status()
@@ -108,30 +137,52 @@ def main():
                 batches = []
                 for start in range(0, len(counts), 16):
                     # Reverse the columns to verify the HTTP path honors target names.
-                    csv_text = counts.iloc[start:start + 16, ::-1].to_csv(index_label="specimen")
-                    response = client.post("/predict", content=csv_text.encode(), headers={"Content-Type": "text/csv"})
+                    csv_text = counts.iloc[start : start + 16, ::-1].to_csv(index_label="specimen")
+                    response = client.post(
+                        "/predict", content=csv_text.encode(), headers={"Content-Type": "text/csv"}
+                    )
                     response.raise_for_status()
                     batches.extend(response.json()["predictions"])
                 actual = pd.DataFrame(batches).set_index("specimen")
                 if not actual.index.is_unique or set(actual.index) != set(counts.index):
                     raise ValueError("HTTP predictions have missing or duplicate specimen IDs.")
                 actual = actual.loc[counts.index]
-                np.testing.assert_allclose(actual.rejection_score, cli.rejection_score, rtol=0, atol=1e-12)
-                np.testing.assert_allclose(actual.rejection_score, expected.probability, rtol=0, atol=1e-12)
+                np.testing.assert_allclose(
+                    actual.rejection_score, cli.rejection_score, rtol=0, atol=1e-12
+                )
+                np.testing.assert_allclose(
+                    actual.rejection_score, expected.probability, rtol=0, atol=1e-12
+                )
                 np.testing.assert_array_equal(actual.rejection_flag, expected.predicted)
                 np.testing.assert_array_equal(actual.rejection_flag, cli.rejection_flag)
                 np.testing.assert_allclose(actual.threshold, predictor.threshold, rtol=0, atol=0)
-                if set(actual.model_version) != {predictor.model_version} or set(actual.input_check) != {"passed"}:
+                if set(actual.model_version) != {predictor.model_version} or set(
+                    actual.input_check
+                ) != {"passed"}:
                     raise ValueError("HTTP version or input checks differ across results.")
                 checks.append("all_345_http_cli_saved_predictions_agree_with_reordered_columns")
                 bad = counts.iloc[:2].drop(columns="IFNG").to_csv(index_label="specimen")
-                invalid = client.post("/predict", content=bad.encode(), headers={"Content-Type": "text/csv"})
-                if invalid.status_code != 422 or "error" not in invalid.json() or "predictions" in invalid.json():
-                    raise ValueError("Invalid HTTP input did not fail as a whole with a structured error.")
+                invalid = client.post(
+                    "/predict", content=bad.encode(), headers={"Content-Type": "text/csv"}
+                )
+                if (
+                    invalid.status_code != 422
+                    or "error" not in invalid.json()
+                    or "predictions" in invalid.json()
+                ):
+                    raise ValueError(
+                        "Invalid HTTP input did not fail as a whole with a structured error."
+                    )
                 checks.append("invalid_http_batch_rejected_without_predictions")
-                oversize_batch = client.post("/predict", content=counts.iloc[:17].to_csv(index_label="specimen").encode(),
-                                            headers={"Content-Type": "text/csv"})
-                if oversize_batch.status_code not in (413, 422) or "predictions" in oversize_batch.json():
+                oversize_batch = client.post(
+                    "/predict",
+                    content=counts.iloc[:17].to_csv(index_label="specimen").encode(),
+                    headers={"Content-Type": "text/csv"},
+                )
+                if (
+                    oversize_batch.status_code not in (413, 422)
+                    or "predictions" in oversize_batch.json()
+                ):
                     raise ValueError("HTTP specimen batch limit was not enforced.")
                 checks.append("http_batch_limit_enforced")
                 actual.to_csv(case_dir / "http.csv", index_label="specimen")
@@ -144,17 +195,27 @@ def main():
                     server.kill()
                     server.wait(timeout=10)
     summary = {
-        "verified_utc": datetime.now(timezone.utc).isoformat(), "successful": True,
-        "run_dir": args.run_dir, "model_version": predictor.model_version,
+        "verified_utc": datetime.now(timezone.utc).isoformat(),
+        "successful": True,
+        "run_dir": args.run_dir,
+        "model_version": predictor.model_version,
         "run_manifest_sha256": sha256(run_dir / "run_manifest.json"),
-        "specimens": len(actual), "http_requests_for_predictions": (len(actual) + 15) // 16,
+        "specimens": len(actual),
+        "http_requests_for_predictions": (len(actual) + 15) // 16,
         "numeric_tolerance": 1e-12,
-        "max_http_cli_score_difference": float(np.max(np.abs(actual.rejection_score - cli.rejection_score))),
-        "max_http_saved_score_difference": float(np.max(np.abs(actual.rejection_score - expected.probability))),
-        "checks": checks, "script_sha256": sha256(Path(__file__)),
-        "source_hashes": {path.relative_to(ROOT).as_posix(): sha256(path)
-                          for path in sorted((ROOT / "src/kidney_biopsy").rglob("*"))
-                          if path.is_file() and path.suffix in {".py", ".html", ".css", ".js"}},
+        "max_http_cli_score_difference": float(
+            np.max(np.abs(actual.rejection_score - cli.rejection_score))
+        ),
+        "max_http_saved_score_difference": float(
+            np.max(np.abs(actual.rejection_score - expected.probability))
+        ),
+        "checks": checks,
+        "script_sha256": sha256(Path(__file__)),
+        "source_hashes": {
+            path.relative_to(ROOT).as_posix(): sha256(path)
+            for path in sorted((ROOT / "src/kidney_biopsy").rglob("*"))
+            if path.is_file() and path.suffix in {".py", ".html", ".css", ".js"}
+        },
         "case_directory": args.case_dir,
     }
     (output_dir / "http.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
