@@ -3,3 +3,9 @@
 results/** -text
 # Run manifests also record the exact bytes of the public input manifest.
 data/manifest.json -text
+# Presentation provenance records these deliverables and source documents exactly.
+presentation/** -text
+presentation/*.pdf binary
+presentation/*.pptx binary
+docs/PRESENTATION_GUIDE.md -text
+docs/RESEARCH_CONTEXT.md -text

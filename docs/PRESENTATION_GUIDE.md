@@ -4,6 +4,8 @@
 
 Prepare a **20-minute presentation** for the UNOS Associate Data Scientist interview about this kidney biopsy gene-expression classifier. The user confirmed that the full 20 minutes is presentation time. Questions come separately.
 
+The user's September 18, 2026 instruction puts all spoken text and delivery cues in a **separate HTML speaking script**. Do not use PowerPoint notes. The [current draft](../presentation/README.md) has 14 main slides, 6 backup slides, and a complete script planned for 20 minutes. The draft files are available; real timed rehearsals remain pending.
+
 This guide uses external sources published in **2007–2014**, with a cutoff before 2020 for the requested guidance predating modern generative-AI presentation tools. Publication dates come from the papers themselves or their publishers. Source summaries appear below. The project standards that follow apply those ideas to this interview.
 
 ## What the sources support
@@ -29,6 +31,7 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 ### Build the argument before the slides
 
 - Assume a mixed audience of data scientists and transplant-domain colleagues until the panel composition is known. Explain the prediction target before introducing model terminology.
+- Define biopsy, RNA, assay, and panel in plain language before explaining the measurements. Give only the biological context needed to understand the data and label.
 - Draft the central question in one sentence. State what information the model receives, what label it predicts, and which biopsy population the analysis covers.
 - Organize around the work: why the question matters, what the data contain, how the evaluation works, what happened, and what the result permits us to conclude.
 - Explain decisions through concrete examples. For example, show why a missing assay target causes the service to reject an input instead of producing a misleading score.
@@ -39,7 +42,7 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 
 - Give each substantive slide one job. Write a short sentence title when the evidence supports a conclusion. Use a direct question when the slide introduces something still unresolved.
 - Under that title, show the relevant evidence. A cohort flow diagram explains exclusions. A split diagram explains evaluation. A result chart explains a comparison.
-- Put the explanation for delivery in speaker notes. The visible slide should contain the words needed to understand its evidence.
+- Put the explanation for delivery in the separate HTML speaking script, with spoken text visibly separated from delivery cues. Keep PowerPoint notes empty. The visible slide should contain the words needed to understand its evidence.
 - Choose a few consistent type sizes and a restrained color palette. As a starting point, use roughly 28–32 point body text and 36–44 point titles. These are project defaults, not scientifically established thresholds.
 - Test readability at the actual display size. Enlarge chart labels separately from the slide text. Move secondary detail to an appendix when it cannot remain readable.
 - Use the same class names, colors, and model names throughout. Add labels or marker shapes so color is not the only distinction.
@@ -80,7 +83,7 @@ Before accepting a draft, check these points:
 | A title claims the model is accurate before results exist | State the question or use a clearly marked result placeholder during drafting. Remove placeholders before delivery. |
 | The deck lists tools and job-description keywords | Show a decision, the work that supports it, and its consequence. |
 | Every slide uses the same three-box layout | Choose the layout from the information the slide needs to explain. |
-| Dense paragraphs repeat the speaker notes | Keep only essential labels and the evidence needed on screen. |
+| Dense paragraphs repeat the HTML speaking script | Keep only essential labels and the evidence needed on screen. |
 | A figure looks polished but lacks sample counts or a comparison | Add the missing information and verify it against the saved analysis. |
 | Words such as “transformative,” “robust,” or “actionable” substitute for a finding | State the measured result or the specific action the evidence supports. |
 | A kidney image or diagram appears to be measured evidence | Label the illustration and replace it when actual study evidence is required. |
@@ -93,6 +96,7 @@ Before accepting a draft, check these points:
 - [ ] Claims have supporting evidence or an explicit label describing their uncertainty.
 - [ ] Figures remain readable at presentation size, with no clipped labels or crowded annotations.
 - [ ] The candidate can explain each methodological choice without reading the slide.
+- [ ] The separate HTML speaking script contains the complete spoken text and delivery cues, and PowerPoint notes are empty.
 - [ ] The planned presentation fills 20 minutes, and final rehearsal times are recorded.
 - [ ] A local deck, PDF, and any demonstration backup open successfully.
 - [ ] Source acknowledgments and backup slides are complete.

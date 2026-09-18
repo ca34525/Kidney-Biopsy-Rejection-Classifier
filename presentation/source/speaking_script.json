@@ -1,0 +1,531 @@
+{
+  "title": "Kidney biopsy rejection classifier — speaking script",
+  "status": "Draft for aloud rehearsal; timing is planned, not measured.",
+  "delivery": "Spoken text belongs in the separate HTML deliverable. PowerPoint notes must remain empty.",
+  "planned_seconds": 1200,
+  "rehearsal": {
+    "status": "Pending",
+    "required": [
+      "Two complete timed rehearsals with the demonstration",
+      "One interruption and demonstration-fallback rehearsal"
+    ],
+    "guidance": "Read the paragraphs aloud; actions are stage directions and should not be read. Adjust wording after measuring delivery time. Do not claim a completed rehearsal from a word-count estimate."
+  },
+  "slides": [
+    {
+      "id": 1,
+      "title": "Classifying rejection from kidney biopsy RNA",
+      "seconds": 45,
+      "paragraphs": [
+        "This project asks a specific question: once a kidney transplant biopsy has been collected, can its molecular measurements classify the rejection diagnosis recorded for that tissue?",
+        "The strongest result in the main comparison missed 25 of 169 rejection specimens and falsely flagged 8 of 176 specimens recorded as no rejection. A simpler model missed eight more rejection specimens, with the same number of false flags.",
+        "I'll explain what these measurements represent, how the comparison was made, and what those errors mean. Then I'll follow one public specimen through the working research application."
+      ],
+      "actions": [
+        "Pause after the two error counts so the audience can read the denominators."
+      ],
+      "sources": [
+        {
+          "label": "Frozen primary analysis",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Kidney biopsy and transplant rejection",
+      "seconds": 105,
+      "paragraphs": [
+        "First, the minimum biology we need. A kidney transplant gives a person a kidney from a donor. The recipient's immune system can recognize that kidney as foreign and attack it. That immune response is what we mean here by rejection.",
+        "A biopsy is a small tissue sample taken from the kidney. A specialist can examine thin sections under a microscope to look for patterns of injury and inflammation. Histology means studying tissue in this way. In this dataset, the recorded histological diagnosis provides the answer the classifier is trained to recognize.",
+        "The study distinguishes antibody-mediated rejection, T-cell-mediated rejection, mixed rejection, and no rejection. Antibodies are proteins made by the immune system; T cells are immune cells. Those two forms of rejection describe different immune processes, and the mixed category includes both. For today's main question, all three rejection categories count as rejection.",
+        "The proposed research user is a transplant pathology or molecular laboratory team studying agreement between tissue measurements and these recorded diagnoses. The tissue has already been collected. The question is about the condition recorded in that specimen at that time. Keeping that sequence clear tells us exactly what information the model can use and what its result describes."
+      ],
+      "actions": [
+        "Trace the sequence: transplanted kidney, tissue sample, recorded diagnosis.",
+        "Explain each biological term once; allow time to look at the diagram."
+      ],
+      "sources": [
+        {
+          "label": "NIDDK: Kidney biopsy",
+          "url": "https://www.niddk.nih.gov/health-information/diagnostic-tests/kidney-biopsy"
+        },
+        {
+          "label": "NIDDK: Kidney transplant",
+          "url": "https://www.niddk.nih.gov/health-information/kidney-disease/kidney-failure/kidney-transplant"
+        },
+        {
+          "label": "Project research context",
+          "path": "docs/RESEARCH_CONTEXT.md"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "An assay measures specified molecules",
+      "seconds": 105,
+      "paragraphs": [
+        "An assay is a laboratory test that measures specified molecules. Here, the assay measures RNA in the biopsy tissue. RNA includes the messages cells make when genes are expressed. Measuring those messages gives us a view of which genes are active and how much of their RNA is present in the sampled tissue.",
+        "The technology is called NanoString nCounter, using a panel called B-HOT. A panel is a fixed list of targets the test is designed to measure. Molecular probes recognize the selected RNA targets, and identifying barcodes let the instrument count their signals. The result is a table of numeric counts for each specimen.",
+        "The analysis starts with 770 measurements: 758 assay targets and 12 reference targets called housekeeping targets. Some of the assay targets measure viral signals, so calling every input a human gene would be inaccurate.",
+        "These are measurements across a piece of tissue. A high count can reflect more RNA within particular cells, a different mixture of cells in that sample, or both. The model does not see a picture of the biopsy or a separate measurement for every cell. It receives a collection of tissue-level counts, which need a consistent preparation step before comparison."
+      ],
+      "actions": [
+        "Point to one target and its count, then to the full panel.",
+        "Treat any tissue-and-barcode diagram as an explanatory illustration, not a measured result."
+      ],
+      "sources": [
+        {
+          "label": "GSE212160 public study deposit",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160"
+        },
+        {
+          "label": "Bruker: nCounter technology and molecular barcodes",
+          "url": "https://brukerspatialbiology.com/support/knowledgebase/ncounterkb/"
+        },
+        {
+          "label": "B-HOT panel consensus",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7496585/"
+        },
+        {
+          "label": "Project data contract",
+          "path": "docs/PROJECT_SPEC.md"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "One row describes one biopsy specimen",
+      "seconds": 75,
+      "paragraphs": [
+        "The public dataset contains 1,395 biopsy specimens. One observation is one specimen, identified by its study accession. The raw measurement file and the diagnosis record are joined by that identifier. The checks account for every specimen: all 1,395 are included, with no exclusions and no duplicate normalized profiles across the splits.",
+        "The prediction question has two possible answers. No rejection maps to zero. Antibody-mediated, T-cell-mediated, and mixed rejection all map to one. The original four diagnoses are retained so the error review can show where mistakes occur.",
+        "The diagnosis is a reference label, kept separate from the measured inputs. It is not supplied to the model when a specimen is scored. The same is true of the accession number and cohort name.",
+        "These are specimen counts. The accessible metadata does not establish how many independent patients or centers these specimens represent, so the presentation does not treat 1,395 specimens as 1,395 independent patients."
+      ],
+      "actions": [
+        "Read the binary mapping once, then point to the separation between inputs and label."
+      ],
+      "sources": [
+        {
+          "label": "Data audit and class counts",
+          "path": "results/reproduction/20260915_shared/data_audit.json"
+        },
+        {
+          "label": "Research context and cohort limits",
+          "path": "docs/RESEARCH_CONTEXT.md"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Normalization uses each specimen’s reference targets",
+      "seconds": 105,
+      "paragraphs": [
+        "Raw counts need consistent preparation. This project first adds one to each count and takes its base-two logarithm. Adding one allows a zero count to be transformed. The logarithm compresses the range, so very large counts do not dominate simply because of their scale.",
+        "Next, it takes the average of those transformed counts for the specimen's 12 housekeeping targets. These are reference measurements used for normalization. That average is subtracted from each transformed assay count. Each target is therefore expressed relative to the reference level in its own specimen.",
+        "The arithmetic uses only the specimen being scored. It does not need the diagnosis, the other specimens in an incoming batch, or the evaluation cohort. After this step, the 12 housekeeping targets are removed, leaving 758 model inputs in a fixed named order.",
+        "Any additional learned preparation, such as scaling for logistic regression, is fitted using training data only. Diagnosis, cohort, specimen identifiers, assay date, cartridge, and scanner are excluded as predictors.",
+        "That separation matters in the application. A new file must contain the complete expected assay panel. The software matches target names, checks the numbers, and applies exactly the same transformation used during training. We'll see one actual calculation in the demonstration."
+      ],
+      "actions": [
+        "Walk through count, log transform, housekeeping mean, subtraction, and 758 inputs in order.",
+        "Keep the full formula available in backup; do not read code aloud."
+      ],
+      "sources": [
+        {
+          "label": "Shared normalization implementation",
+          "path": "src/kidney_biopsy/preprocessing.py"
+        },
+        {
+          "label": "Project preprocessing specification",
+          "path": "docs/PROJECT_SPEC.md"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Model choice and thresholds use discovery data",
+      "seconds": 105,
+      "paragraphs": [
+        "The authors supplied two cohorts: 1,050 discovery specimens and 345 technical-validation specimens. This project preserves that division. Within discovery, a saved, reproducible split assigns 787 specimens to training and 263 to screening, keeping the original diagnosis proportions similar.",
+        "Training fits the models. Screening chooses among candidates and sets the threshold that turns each score into a rejection flag. The rule is to retain at least 90 percent of recorded rejection cases on screening, then make as few false flags as possible. That 90 percent is an experimental choice. It is not a clinical requirement or a promise about new specimens.",
+        "The comparison includes a constant score based on the training rejection fraction; a model using only IFNG, one RNA target; regularized logistic regression using the panel; and CatBoost. Regularization limits how large the logistic model's weights can become. CatBoost combines decision trees and can represent more complicated relationships.",
+        "The selected model and its threshold stay together. They are not refitted before evaluation. All four models are then compared on the same 345 author technical-validation specimens. This makes the error counts directly comparable, while keeping the model-selection decisions within discovery. Later investigations are clearly labeled as follow-up analyses."
+      ],
+      "actions": [
+        "Trace discovery into training and screening before pointing to the untouched primary evaluation branch.",
+        "Say 'author technical-validation cohort'; do not call it an independent patient or center cohort."
+      ],
+      "sources": [
+        {
+          "label": "Saved primary configuration",
+          "path": "results/reproduction/20260915_shared/configuration.json"
+        },
+        {
+          "label": "Frozen primary analysis",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Several measurements reduced false flags",
+      "seconds": 120,
+      "paragraphs": [
+        "Here are the main results. Among these 345 specimens, 169 have recorded rejection and 176 have no recorded rejection. A missed rejection is a recorded rejection case whose score stays below the threshold. A false flag is a no-rejection case whose score crosses it.",
+        "The constant model flags every specimen. It misses none of the rejection cases, but it falsely flags all 176 no-rejection cases. That result makes a useful point: finding every rejection case is easy if we are willing to flag everyone.",
+        "The IFNG-only model misses 14 of 169 rejection cases and falsely flags 75 of 176 no-rejection cases. It detects many rejection cases, but the number of false flags is substantial.",
+        "The full-panel logistic model misses 33 rejection cases and makes eight false flags. CatBoost misses 25 and also makes eight false flags. At these frozen thresholds, CatBoost detects eight more rejection specimens than logistic regression, with the same false-flag count.",
+        "Compared with IFNG, CatBoost makes 67 fewer false flags but misses 11 more rejection cases. That is the tradeoff the summary accuracy number would hide.",
+        "The multivariable models provide a useful comparison because they ask whether combining measurements improves this task. The practical difference between them is smaller than their difference from IFNG. We'll look at its uncertainty in a moment; the observed eight-case advantage alone does not settle which model is preferable in another dataset."
+      ],
+      "actions": [
+        "Explain the two error categories before walking through the model rows.",
+        "Pause on logistic versus CatBoost; keep denominators visible.",
+        "Do not describe the error differences as clinical outcomes."
+      ],
+      "sources": [
+        {
+          "label": "Same-specimen error comparison",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        },
+        {
+          "label": "Editable presentation evidence",
+          "path": "results/presentation/20260917_evidence/README.md"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Most CatBoost misses were T-cell rejection",
+      "seconds": 105,
+      "paragraphs": [
+        "Breaking those 25 misses down by the original diagnosis gives us a more useful error review. CatBoost misses six of 56 antibody-mediated specimens, 18 of 95 T-cell-mediated specimens, and one of 18 mixed specimens.",
+        "The largest number of misses is in the T-cell-mediated group. That group is also the largest rejection group, so the denominators matter. Its missed fraction is about 19 percent, compared with about 11 percent for antibody-mediated rejection. The mixed group contains only 18 specimens, so one observed miss gives limited evidence about its expected error rate elsewhere.",
+        "Across all rejection specimens, 144 of 169 are detected. That is 85.2 percent sensitivity. Sensitivity simply means the fraction of the recorded rejection cases that the model flags. On screening, the selected threshold reached 90.2 percent; on technical validation it fell below the planned 90 percent target.",
+        "That shortfall is part of the result. The chosen threshold does not guarantee the same detection rate when the specimens change. Also, these errors are disagreements with recorded diagnoses. Without reviewing the tissue and clinical records, this analysis cannot tell us whether the molecular result or the recorded diagnosis better represents an individual case."
+      ],
+      "actions": [
+        "Point to each numerator with its denominator.",
+        "Pause on 85.2% versus the screening target; make the shortfall explicit."
+      ],
+      "sources": [
+        {
+          "label": "Errors by original diagnosis and screening comparison",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "The advantage over logistic regression is uncertain",
+      "seconds": 75,
+      "paragraphs": [
+        "Two checks help put the CatBoost result in perspective. First, resampling the evaluation specimens gives an interval for its detection advantage over logistic regression that includes zero. The practical advantage is therefore uncertain. These intervals hold the fitted models fixed, and specimen resampling does not establish patient independence.",
+        "Second, a discovery-only follow-up repeats the development process with 20 different saved splits. Each repetition has separate fitting, screening, and assessment specimens. The selection rule chooses CatBoost in 13 repetitions and logistic regression in seven.",
+        "Those repetitions reuse many of the same specimens, so they are not 20 independent validation studies. They show that the choice changes with the development split. The frozen demonstration still uses CatBoost, but the evidence supports keeping logistic regression as a credible simpler alternative. Choosing a more complicated model needs a practical benefit that persists beyond one favorable split."
+      ],
+      "actions": [
+        "Keep the two checks distinct: fixed-model evaluation uncertainty and repeated development splits."
+      ],
+      "sources": [
+        {
+          "label": "Paired uncertainty analysis",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        },
+        {
+          "label": "Discovery-only stability follow-up",
+          "path": "results/followup/20260917_stability/REPORT.md"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Training and serving share the same preprocessing",
+      "seconds": 75,
+      "paragraphs": [
+        "The software makes the research procedure usable and inspectable. A CSV file enters through either the command line or the small web application. Both use the same code to read counts, check the required targets, normalize each specimen, and call the configured model.",
+        "The response includes the specimen identifier, a model score, the frozen threshold, a rejection flag, and the model version. The flag means the score crossed that research threshold. The output remains a model score because the reliability analysis does not establish that each value is a trustworthy individual probability.",
+        "The service loads only its configured project model. A caller cannot upload a replacement model. Missing targets, duplicate names, negative counts, and non-finite numbers cause an explicit error. The application does not fill gaps and continue scoring. That behavior connects the research assumptions to the input contract a user actually encounters."
+      ],
+      "actions": [
+        "Follow the left-to-right request path.",
+        "Keep version, threshold, and score visually distinct."
+      ],
+      "sources": [
+        {
+          "label": "Application and API contract",
+          "path": "docs/API.md"
+        },
+        {
+          "label": "Shared prediction implementation",
+          "path": "src/kidney_biopsy/prediction.py"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "One public specimen through the service",
+      "seconds": 120,
+      "paragraphs": [
+        "This is a public discovery-screen specimen, GSM6510425, recorded as no rejection. The prepared examples were selected by accession order within diagnosis, without using their scores. They demonstrate software behavior; the evaluation counts come from the separate technical-validation cohort.",
+        "I'll request its research score. The page identifies the model version and the frozen threshold, approximately 0.876588. This specimen receives a score of about 0.275, below the threshold, so its rejection flag is false.",
+        "Under 'Follow the specimen,' IFNG has a raw count of four. Its transformed count is 2.322. Subtracting the housekeeping average of 7.900 gives minus 5.578. The same operation prepares all 758 inputs. This one calculation explains preparation, not the full model decision.",
+        "Now I'll try the incomplete file. It is the same public example with IFNG removed. The application clears the earlier result and identifies the missing target. No score is returned. The user receives a specific problem they can correct before submitting the file again."
+      ],
+      "actions": [
+        "0:00–0:15: Switch to the already-running local application; select the public No Rejection example.",
+        "0:15–0:35: Click Get research score. Point to model version 20260915_shared:any_rejection:catboost_all_depth4 and threshold 0.8765880870219778, allowing the displayed rounding.",
+        "0:35–1:20: Show Follow the specimen and the IFNG calculation. Briefly expand See the 12 housekeeping measurements, then return to the result.",
+        "1:20–1:45: Click Try an incomplete file. Show Missing required assay targets: IFNG and the cleared previous result.",
+        "1:45–2:00: Return to the presentation.",
+        "Fallback: if the local application is unavailable, use the supplied static capture of these same valid and invalid requests. State that it is a captured run, then follow the same explanation. Do not troubleshoot during the talk."
+      ],
+      "sources": [
+        {
+          "label": "Public example provenance",
+          "path": "data/demo/manifest.json"
+        },
+        {
+          "label": "Demo behavior and exact invalid-input response",
+          "path": "docs/API.md"
+        },
+        {
+          "label": "Recorded browser arithmetic and score check",
+          "path": "results/checks/20260917_coherence/browser_review.json"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "The service reproduces all 345 saved scores",
+      "seconds": 60,
+      "paragraphs": [
+        "The checks focus on failures that could change a result or mislead a user. Reordering valid columns must preserve the score. Missing or duplicate targets must fail. An incompatible model and input definition must prevent scoring.",
+        "The September seventeenth local check record reports 94 passing tests. A real HTTP comparison checked all 345 validation specimens: the API, command line, and saved results agreed, with a maximum score difference of about one times ten to the minus sixteen and identical flags.",
+        "The local research container also served the public examples and rejected the invalid one. These checks establish consistency of the software and packaging. Clinical performance would require separate evidence. A cloud deployment has not been completed."
+      ],
+      "actions": [
+        "Reference the dated verification record, not a claim that every later edit has been tested.",
+        "Avoid reading the full list of tools or test names."
+      ],
+      "sources": [
+        {
+          "label": "Current local verification record",
+          "path": "results/checks/20260917_coherence/README.md"
+        },
+        {
+          "label": "HTTP score agreement",
+          "path": "results/checks/20260917_coherence/http/http.json"
+        },
+        {
+          "label": "Research container checks",
+          "path": "results/checks/20260917_coherence/container.json"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "The result applies to one deposited study",
+      "seconds": 60,
+      "paragraphs": [
+        "The supported claim is agreement with recorded diagnoses in one deposited study. Patient and center independence are unverified, and the available assay groups are tied to cohort membership. Input validation checks file structure and numbers; it does not establish that a laboratory assay passed its quality controls.",
+        "A useful next step is a new, well-described cohort with patient and center identifiers and documented assay quality. The model and threshold would be specified before evaluation. That would test whether the error counts persist when the study setting changes.",
+        "Within the current project, the simpler logistic model remains part of that comparison. Further calibration or model changes would need their own development and evaluation. The completed application supports research inspection, with its limitations visible alongside the score."
+      ],
+      "actions": [
+        "Distinguish proposed work from completed work."
+      ],
+      "sources": [
+        {
+          "label": "Research context and assay-quality limits",
+          "path": "docs/RESEARCH_CONTEXT.md"
+        },
+        {
+          "label": "Primary evaluation limits",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        },
+        {
+          "label": "Deferred research questions",
+          "path": "docs/NEXT_STEPS.md"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Molecular counts can classify recorded rejection",
+      "seconds": 45,
+      "paragraphs": [
+        "The main finding is a concrete tradeoff: the frozen CatBoost model missed 25 of 169 rejection specimens and made eight false flags among 176 no-rejection specimens. Its advantage over logistic regression remains uncertain.",
+        "The project also provides a shared prediction path, explicit input errors, and saved evidence that another person can inspect and reproduce.",
+        "The public data come from Zhang and colleagues. AI assisted with drafting and producing this presentation, and its quantitative claims are tied to the project's saved runs. The next step is testing the fixed comparison on a new cohort. Thank you."
+      ],
+      "actions": [
+        "Pause before thanking the panel.",
+        "Before the interview, ensure the spoken contribution statement accurately reflects the presenter's own role in all earlier code and analysis work. Do not imply sole authorship of AI-assisted work.",
+        "Questions begin after the planned 20-minute presentation."
+      ],
+      "sources": [
+        {
+          "label": "Original study",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
+        },
+        {
+          "label": "Frozen primary analysis",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        },
+        {
+          "label": "Project verification evidence",
+          "path": "docs/VERIFICATION.md"
+        }
+      ]
+    }
+  ],
+  "backups": [
+    {
+      "id": "B1",
+      "title": "Backup: complete primary comparison",
+      "seconds": 0,
+      "paragraphs": [
+        "CatBoost has ROC-AUC 0.969, average precision 0.972, sensitivity 85.2 percent, specificity 95.5 percent, and accuracy 90.4 percent. Logistic regression has ROC-AUC 0.956, average precision 0.958, sensitivity 80.5 percent, specificity 95.5 percent, and accuracy 88.1 percent. Both are evaluated on the same 345 specimens.",
+        "IFNG has ROC-AUC 0.842 and average precision 0.794. The constant baseline has ROC-AUC 0.500 and average precision 0.490, matching the 49 percent evaluation rejection fraction. It makes no negative predictions, so its negative predictive value is undefined. Ranking metrics summarize behavior across possible thresholds; the error counts describe the specific frozen operating rules.",
+        "The reported bootstrap intervals use 2,000 resamples of the 345 specimens, using the same sampled positions for every model. They describe evaluation-sample uncertainty with models held fixed. They do not include model-fitting uncertainty or establish independent patients."
+      ],
+      "actions": [
+        "Answer the requested metric question; do not read the whole table."
+      ],
+      "sources": [
+        {
+          "label": "Full metrics and uncertainty",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        }
+      ]
+    },
+    {
+      "id": "B2",
+      "title": "Backup: normalization and threshold selection",
+      "seconds": 0,
+      "paragraphs": [
+        "For each specimen, the normalized target equals log base two of its raw count plus one, minus the mean log base two of housekeeping counts plus one. All 12 named housekeeping targets are required. The transformation uses no cohort averages. Reordered valid columns are matched by name, then arranged in the saved feature order.",
+        "Each candidate's screening threshold is the highest score retaining at least 90 percent of screening rejection specimens. Model selection favors screening specificity, then ROC-AUC. The frozen binary CatBoost threshold is 0.8765880870219778. A score at or above it receives a rejection flag. The selected fitted model is retained; its threshold is not transferred to a newly refitted model."
+      ],
+      "actions": [
+        "Use the formula only if asked about preparation; use the screening diagram if asked about selection."
+      ],
+      "sources": [
+        {
+          "label": "Normalization implementation",
+          "path": "src/kidney_biopsy/preprocessing.py"
+        },
+        {
+          "label": "Frozen model metadata",
+          "path": "results/reproduction/20260915_shared/any_rejection_frozen.json"
+        },
+        {
+          "label": "Selection specification",
+          "path": "docs/PROJECT_SPEC.md"
+        }
+      ]
+    },
+    {
+      "id": "B3",
+      "title": "Backup: ranking does not guarantee calibrated scores",
+      "seconds": 0,
+      "paragraphs": [
+        "The reliability analysis compares mean scores with observed rejection fractions in ten fixed score ranges. CatBoost's mean score is 52.7 percent while the observed rejection fraction is 49.0 percent. Its Brier score is 0.078; that measures squared score error and reflects more than calibration alone.",
+        "In the 0.8 to 0.9 range, the mean score is 84.7 percent, while seven of 16 specimens have recorded rejection. That range was highlighted after inspecting the plot, and its small denominator matters. Good ranking does not establish reliable probabilities in every score range. No calibration model was fitted on validation data. The application therefore calls the output a model score."
+      ],
+      "actions": [
+        "Keep the bin count visible when describing a gap.",
+        "Do not interpret 0.876588 as a proven 87.7 percent individual risk."
+      ],
+      "sources": [
+        {
+          "label": "Score reliability analysis",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        }
+      ]
+    },
+    {
+      "id": "B4",
+      "title": "Backup: subtype follow-up retained the binary service",
+      "seconds": 0,
+      "paragraphs": [
+        "A follow-up compared four-class CatBoost, four-class logistic regression, and separate antibody and T-cell component models. Four-class CatBoost correctly named 281 of 345 diagnoses, logistic 283, and the separate components 284. These are four-diagnosis results and should not be compared directly with binary accuracy.",
+        "For mixed rejection, the models correctly named seven, ten, and ten of the 18 specimens, respectively. When converted to an any-rejection decision using discovery-selected rules, four-class CatBoost missed 29 with eight false flags, and four-class logistic missed 28 with ten false flags. The binary benchmark missed 25 with eight false flags. This supplied no reason to replace the frozen binary service. The cohort had already been examined, so these are follow-up results requiring independent confirmation."
+      ],
+      "actions": [
+        "Explain the prediction task before quoting a percentage or comparing methods."
+      ],
+      "sources": [
+        {
+          "label": "Subtype follow-up",
+          "path": "results/followup/20260915_subtypes/REPORT.md"
+        }
+      ]
+    },
+    {
+      "id": "B5",
+      "title": "Backup: study, assay and deployment limits",
+      "seconds": 0,
+      "paragraphs": [
+        "Discovery and technical validation have different assay dates and cartridges but share one scanner. Those groups are tied to cohort membership, so these data do not isolate a batch effect from changes in specimen composition. The recorded metadata does not confirm patient or transplant-center independence.",
+        "The panel includes BK viral targets, and their importance prompted a descriptive review. A small upper tail in both signals occurred among no-rejection specimens. This may reflect the composition of that group; feature importance does not establish causation or diagnose infection. No viral-target removal experiment was performed.",
+        "The software verifies required targets and usable numeric counts. The project did not independently repeat control-probe, imaging, or binding-density quality checks for the deposited cohort. Compatible assay measurements and completed laboratory quality checks remain requirements for a meaningful research input."
+      ],
+      "actions": [
+        "Keep diagnosis, cohort, batch, and assay-quality questions distinct."
+      ],
+      "sources": [
+        {
+          "label": "Assay-group analysis",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        },
+        {
+          "label": "Viral-target review",
+          "path": "results/analysis/20260915_viral/REPORT.md"
+        },
+        {
+          "label": "Assay-quality scope",
+          "path": "docs/RESEARCH_CONTEXT.md"
+        }
+      ]
+    },
+    {
+      "id": "B6",
+      "title": "Backup: sources and contributions",
+      "seconds": 0,
+      "paragraphs": [
+        "Zhang and colleagues supplied the public study and GSE212160 deposit. This project uses those raw measurements for its own binary analysis; it does not reconstruct their published classifier. The B-HOT panel consensus and the manufacturer's documentation supply assay context. NIDDK supplies introductory kidney biopsy and transplant context.",
+        "The presentation structure follows the repository guide, including Bourne on audience and rehearsal, Kosslyn and colleagues on presentation flaws, Garner and Alley on evidence-led slide structure, and Rougier and colleagues on clear figures. AI assisted with preparing this presentation. Saved configurations, input hashes, run reports, source code, and verification records make the quantitative claims inspectable."
+      ],
+      "actions": [
+        "Describe the presenter's actual contribution when asked; do not infer earlier personal work from repository authorship.",
+        "Keep full linked references available in the HTML speaking guide."
+      ],
+      "sources": [
+        {
+          "label": "Zhang et al., 2024",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
+        },
+        {
+          "label": "GSE212160",
+          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160"
+        },
+        {
+          "label": "B-HOT panel consensus",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7496585/"
+        },
+        {
+          "label": "Presentation guide and dated references",
+          "path": "docs/PRESENTATION_GUIDE.md"
+        },
+        {
+          "label": "Project source manifest",
+          "path": "data/manifest.json"
+        }
+      ]
+    }
+  ]
+}

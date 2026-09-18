@@ -33,6 +33,16 @@ The output is a **model score**. This study measures agreement with recorded
 diagnoses; it does not establish clinical benefit, reliable individual probabilities,
 or patient/center independence. File validation does not establish assay quality.
 
+## Presentation
+
+The draft includes [editable slides](presentation/unos_kidney_biopsy.pptx), a
+[PDF backup](presentation/unos_kidney_biopsy.pdf), and the separate
+[HTML speaking script](presentation/speaking_script.html). It has 14 main slides
+and 6 backup slides, with 20 minutes of planned delivery. All spoken text is in
+the HTML file; PowerPoint notes are empty. See the
+[presentation guide](presentation/README.md) for source files and the demo fallback.
+Full timed rehearsals remain pending.
+
 ## Run the demo
 
 Use Python 3.12 and uv. Run all commands from this project's root. In this populated

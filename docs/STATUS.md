@@ -1,6 +1,6 @@
 # Current project status
 
-Updated September 17, 2026. Start here for the current reading order; dated run
+Updated September 18, 2026. Start here for the current reading order; dated run
 reports and verification records remain evidence of what was checked at the time.
 
 ## Read the project in this order
@@ -28,11 +28,14 @@ reports and verification records remain evidence of what was checked at the time
 4. **Checks:** The [verification guide](VERIFICATION.md) separates local tests,
    agreement across interfaces, container checks, and hosted CI. See the dated
    evidence below; a previous passing revision is not a test of later edits.
-5. **Remaining delivery:** The [presentation specification](PRESENTATION_SPEC.md)
-   still requires an editable deck, matching PDF, notes, demo fallback, and timed
-   rehearsals. The [AWS guide](AWS_DEPLOYMENT.md) is a procedure; a cloud deployment
-   has not been performed. [Next steps](NEXT_STEPS.md) records deferred research
-   questions and product ideas without adding them to the current implementation.
+5. **Presentation draft:** The [presentation package](../presentation/README.md)
+   contains the editable deck, matching PDF, separate HTML speaking script, and
+   static demonstration fallback. It has 14 main slides and 6 backup slides, with
+   a full script planned for 20 minutes. PowerPoint notes are not used. Two full
+   timed rehearsals and one interruption/fallback rehearsal remain pending.
+   The [AWS guide](AWS_DEPLOYMENT.md) is a procedure; a cloud deployment has not
+   been performed. [Next steps](NEXT_STEPS.md) records deferred research questions
+   and product ideas without adding them to the current implementation.
 
 ## Evidence available
 
@@ -47,8 +50,9 @@ reports and verification records remain evidence of what was checked at the time
 | [Hosted Software checks #8](https://github.com/ca34525/Kidney-Biopsy-Rejection-Classifier/actions/runs/35270209322) | Installed package, lint, tests, and synthetic-container checks succeeded | PR #2 head `ce34d4c79442098308c89ca4ccb34542c4010216`; previous revision |
 | [Subtype follow-up](../results/followup/20260915_subtypes/REPORT.md) | Four-class comparisons did not justify replacing the binary service | Follow-up on an already examined validation cohort |
 | [Viral-target review](../results/analysis/20260915_viral/REPORT.md) | Describes BK signals and study composition | No viral-feature removal or independent assay-QC experiment |
+| [Presentation draft](../presentation/README.md) | Editable slides, PDF backup, separate HTML speaking script, and static demo fallback | 20-minute timing is planned; real rehearsals remain pending |
 
-The current branch is `codex/coherent-demo-and-stability`. It adds a walkthrough
+The September 17 application work added a walkthrough
 of a prepared public specimen, a bounded discovery-only stability comparison,
 larger evidence figures, and consistency fixes. The
 [current local check record](../results/checks/20260917_coherence/README.md) is

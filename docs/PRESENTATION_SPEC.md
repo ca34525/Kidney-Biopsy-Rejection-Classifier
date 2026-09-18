@@ -8,8 +8,14 @@ results, and software. Questions follow the presentation. Plan approximately
 is a planning choice; preserve the 20-minute content budget when revising it.
 
 Deliver an editable `presentation/unos_kidney_biopsy.pptx`, a matching PDF backup,
-speaker notes, and the presentation source files. These are planned deliverables,
-not files already produced by this specification.
+a separate `presentation/speaking_script.html`, and the presentation source files.
+All spoken text and delivery cues belong in the HTML file. **Do not use PowerPoint
+notes.** This follows the user's September 18, 2026 delivery instruction.
+
+The [current draft](../presentation/README.md) contains 14 main slides and 6 backup
+slides, with a complete HTML speaking script planned for 20 minutes. The deck,
+PDF, and static demonstration fallback are available. Actual timed rehearsals
+remain pending; planned timing does not establish measured delivery time.
 
 Follow [Presentation guide](PRESENTATION_GUIDE.md), which draws on external sources
 published from 2007 through 2014. Use the project's own run outputs for every result.
@@ -20,6 +26,7 @@ Assume a mixed Product and Tech interview panel. Define the biopsy prediction ta
 before naming the algorithm. Explain enough transplant context for a technical
 interviewer without presenting a clinical lecture. Show the candidate's choices,
 what the models did, and how the result becomes usable software.
+Define biopsy, RNA, assay, and panel before using them to explain the model inputs.
 
 The main point should emerge from the actual results. A possible structure is:
 several molecular measurements can help classify recorded rejection, the chosen
@@ -28,6 +35,11 @@ reproducible and usable in a research application. Revise that claim if the resu
 support a different conclusion.
 
 ## Content and time budget
+
+This is the original planning outline. The [current draft](../presentation/README.md)
+expands the biological context and divides the material across 14 main slides,
+while retaining the full 20-minute budget. Its HTML script gives the current
+slide-by-slide and cumulative timing.
 
 | Slide | Subject | Evidence or visual | Minutes |
 | ---: | --- | --- | ---: |
@@ -69,7 +81,8 @@ should occupy only the space needed to understand the result.
 Give each slide one main purpose. Use real charts and clear diagrams. Avoid generic
 stock imagery, decorative medical imagery, dense dashboard cards, and lists of
 tools that take space away from evidence. Keep charts and required tables editable.
-Put citations beside externally sourced claims or in the speaker notes as appropriate.
+Put concise citations beside externally sourced claims and full linked references
+in the HTML speaking script. Keep PowerPoint notes empty.
 
 Verify the exported deck and PDF for readable labels, clipping, contrast, and
 consistent numeric values. Keep a static screenshot or short local recording of
