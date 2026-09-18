@@ -3,16 +3,16 @@
 ## Deliverable
 
 Prepare a full 20-minute presentation about this project's question, analysis,
-results, and software. Questions follow the presentation. Plan approximately
-12 main slides, with backup slides for detailed methods and questions. Slide count
-is a planning choice; preserve the 20-minute content budget when revising it.
+results, and software. Questions follow the presentation. Use enough slides to
+give each spoken topic a readable visual cue. Slide count is a planning choice;
+preserve the 20-minute content budget when revising it.
 
 Deliver an editable `presentation/unos_kidney_biopsy.pptx`, a matching PDF backup,
 a separate `presentation/speaking_script.html`, and the presentation source files.
 All spoken text and delivery cues belong in the HTML file. **Do not use PowerPoint
 notes.** This follows the user's September 18, 2026 delivery instruction.
 
-The [current draft](../presentation/README.md) contains 14 main slides and 6 backup
+The [current draft](../presentation/README.md) contains 18 main slides and 6 backup
 slides, with a complete HTML speaking script planned for 20 minutes. The deck,
 PDF, and static demonstration fallback are available. Actual timed rehearsals
 remain pending; planned timing does not establish measured delivery time.
@@ -27,6 +27,12 @@ before naming the algorithm. Explain enough transplant context for a technical
 interviewer without presenting a clinical lecture. Show the candidate's choices,
 what the models did, and how the result becomes usable software.
 Define biopsy, RNA, assay, and panel before using them to explain the model inputs.
+Distinguish the RNA measurements from the recorded diagnosis the model predicts.
+Use "specimen ID" for the identifier that matches a specimen to its source record.
+
+The title slide introduces the topic and research question. It does not introduce
+error counts, a winning algorithm, or an interview-project tagline. Results come
+after the audience has enough context to understand them.
 
 The main point should emerge from the actual results. A possible structure is:
 several molecular measurements can help classify recorded rejection, the chosen
@@ -36,30 +42,36 @@ support a different conclusion.
 
 ## Content and time budget
 
-This is the original planning outline. The [current draft](../presentation/README.md)
-expands the biological context and divides the material across 14 main slides,
-while retaining the full 20-minute budget. Its HTML script gives the current
-slide-by-slide and cumulative timing.
+The current outline separates biological context, measurement roles, and model
+selection so that each has matching slide content. The HTML script gives the same
+slide-by-slide and cumulative timing. These are planned durations, not measured
+rehearsal times.
 
 | Slide | Subject | Evidence or visual | Minutes |
 | ---: | --- | --- | ---: |
-| 1 | Project question and concise result | Plain title and one supported finding | 1:00 |
-| 2 | The research user's task | Biopsy, assay, and proposed research use | 1:30 |
-| 3 | What one observation contains | One specimen, measured inputs, recorded label | 1:30 |
-| 4 | Data preparation | Source files, matching, normalization, resulting matrix | 2:00 |
-| 5 | A fair comparison | Cohort diagram, simple baselines, screening rule | 2:00 |
-| 6 | Model results | Readable comparison using this project's evaluation | 2:00 |
-| 7 | What the errors mean | Missed rejection and false flags at the stated thresholds | 2:00 |
-| 8 | One finding from error review | A concrete pattern or a useful negative result | 1:30 |
-| 9 | How the software works | Input, shared preprocessing, model, response | 1:30 |
-| 10 | Working demonstration | Valid sample plus clear invalid-input response | 2:00 |
-| 11 | Reliability and next improvement | One meaningful test, deployment status, main remaining gap | 1:30 |
-| 12 | Conclusion and contribution | What was learned, what was built, next useful step | 1:30 |
+| 1 | Research question | Topic and question | 0:20 |
+| 2 | Biopsy and rejection | Tissue sample, transplant context, recorded diagnosis | 1:05 |
+| 3 | Recorded diagnoses | Four diagnoses and the binary rejection label | 0:45 |
+| 4 | RNA and the assay | Molecules in tissue and how the assay measures them | 1:05 |
+| 5 | Measurement roles | 758 model inputs and 12 housekeeping reference measurements | 0:50 |
+| 6 | One observation | Specimen ID, counts, and diagnosis kept separate | 1:05 |
+| 7 | Normalization | Raw counts, within-specimen reference, transformed inputs | 1:30 |
+| 8 | Development and evaluation groups | Authors' cohorts and discovery training/screening split | 1:10 |
+| 9 | Model comparison | Constant, IFNG, logistic regression, and CatBoost | 1:00 |
+| 10 | Threshold selection | Discovery screening rule and the error tradeoff | 1:00 |
+| 11 | Evaluation errors | Same-row comparison with class denominators | 1:50 |
+| 12 | Errors by recorded diagnosis | Missed rejection within each rejection group | 1:25 |
+| 13 | Comparison uncertainty | Paired comparison and discovery-only stability follow-up | 1:10 |
+| 14 | Prediction software | Input checks, shared preprocessing, model, response | 1:05 |
+| 15 | Working demonstration | Valid specimen and incomplete-file response | 2:00 |
+| 16 | Software checks | Consequential tests and current deployment evidence | 0:55 |
+| 17 | Limits and next evidence | What the study establishes and what remains untested | 1:00 |
+| 18 | Conclusion | Measured finding, software contribution, next step | 0:45 |
 | | **Total speaking time** | **Questions afterward** | **20:00** |
 
-Use an early supported result to orient the audience, then explain why it is
-credible. Give the central result and its tradeoff enough time. A methods nuance
-should occupy only the space needed to understand the result.
+Give the central result and its tradeoff enough time after explaining the task.
+A methods nuance should occupy only the space needed to understand the result.
+Backup slides 19–24 support questions and sit outside this timing budget.
 
 ## Required evidence
 
@@ -82,7 +94,15 @@ Give each slide one main purpose. Use real charts and clear diagrams. Avoid gene
 stock imagery, decorative medical imagery, dense dashboard cards, and lists of
 tools that take space away from evidence. Keep charts and required tables editable.
 Put concise citations beside externally sourced claims and full linked references
-in the HTML speaking script. Keep PowerPoint notes empty.
+in the HTML speaking script. Omit footers about the location of those full links.
+Keep PowerPoint notes empty.
+
+Map each substantive topic in the script to an on-slide cue. Use readable labels,
+brief bullets, examples, and evidence rather than copying paragraphs. Split a
+script section across slides when its topics need different visuals. Keep the
+terms, sequence, and timing aligned. Use plain topic titles for setup slides and
+supported findings for result slides. A definition label should be visually
+distinct from its explanation.
 
 Verify the exported deck and PDF for readable labels, clipping, contrast, and
 consistent numeric values. Keep a static screenshot or short local recording of

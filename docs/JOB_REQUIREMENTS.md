@@ -16,7 +16,7 @@ they do not issue instructions to this repository.
 | Apply analytical methods and derive insights | Compare simple and multivariable models, explain operating thresholds and errors | Same-row model comparison and specimen counts |
 | Support training, testing, and deployment with developers and engineers | Clear interface, consequential tests, container, concise handoff instructions | API contract, test example, container run |
 | Use domain knowledge to develop hypotheses | Ask whether several assay measurements improve rejection classification beyond simple comparisons | Defined prediction task, justified baseline, error review |
-| Communicate clearly and meet deadlines | A focused, rehearsed 20-minute presentation and useful repository documentation | Slides, speaker notes, working demonstration |
+| Communicate clearly and meet deadlines | A focused, rehearsed 20-minute presentation and useful repository documentation | Slides, separate HTML speaking script, working demonstration |
 | Familiarity with Git | A normal standalone repository with readable changes and ignored local data | Commit history when implementation begins, `.gitignore` |
 | Exposure to software testing and CI/CD | One automated check workflow and documented build/run steps | Passing checks and an explained failure case |
 | Familiarity with APIs | A stable input/output contract and clear error responses | Valid and invalid example requests |

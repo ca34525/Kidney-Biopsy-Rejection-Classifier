@@ -65,6 +65,7 @@ def source_list(sources: list[dict | str]) -> str:
 
 
 CSS = r"""
+.preview-button{display:block;width:100%;padding:0!important;border:0!important;background:transparent!important;cursor:zoom-in}.slide-dialog{border:1px solid #CEDBD7;border-radius:4px;padding:14px;max-width:96vw;width:1280px;background:#F7F8F5}.slide-dialog::backdrop{background:rgba(0,0,0,.72)}.slide-dialog img{display:block;width:100%;max-height:84vh;object-fit:contain}.dialog-actions{display:flex;justify-content:flex-end;margin-bottom:8px}@media print{.slide-dialog{display:none!important}}
 :root{--paper:#F6F7F5;--ink:#142F3B;--teal:#007F78;--muted:#53656C;--line:#D5DEDC;--reading-size:21px}
 *{box-sizing:border-box}html{scroll-padding-top:106px;scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}button,select,input,textarea{font:inherit}button,select{border:1px solid #AEBEBA;background:#fff;color:var(--ink);border-radius:4px;padding:.44rem .68rem}button{cursor:pointer}button:hover{border-color:var(--teal);background:#F0F6F4}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #007F78;outline-offset:3px}a{color:var(--teal);text-underline-offset:3px}h1,h2,h3,p{margin-top:0}.skip{position:fixed;top:-90px;left:12px;z-index:10;background:white;padding:12px}.skip:focus{top:12px}
 .toolbar{position:sticky;top:0;z-index:5;background:rgba(246,247,245,.98);border-bottom:1px solid var(--line);padding:12px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}.brand{font-size:14px;font-weight:700;letter-spacing:.02em;margin-right:auto}.tools{display:flex;align-items:center;gap:7px}.timer{font-variant-numeric:tabular-nums;font-size:20px;min-width:60px;text-align:center}.timer.over{color:#A84B2D}.tool-label{font-size:12px;color:var(--muted)}.picker{max-width:350px;width:28vw;font-size:14px}.font-size{font-size:13px;min-width:30px;text-align:center}.layout{display:grid;grid-template-columns:236px minmax(0,1fr);max-width:1600px;margin:auto}.index{position:sticky;top:87px;height:calc(100vh - 106px);overflow:auto;padding:30px 16px 30px 24px}.index h2{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:0 0 12px}.index ol{list-style:none;margin:0 0 24px;padding:0}.index a{display:grid;grid-template-columns:24px 1fr;gap:6px;text-decoration:none;padding:8px 10px;margin:1px 0;border-left:3px solid transparent;color:var(--muted);font-size:13px;line-height:1.35}.index a[aria-current=true]{color:var(--ink);background:#E7EFEB;border-color:var(--teal)}.index small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.index .slide-number{font-variant-numeric:tabular-nums;color:var(--teal)}main{padding:40px clamp(26px,4vw,72px) 80px;min-width:0;max-width:1240px}.page-head{max-width:770px;margin:0 0 42px}.eyebrow{font-size:12px;font-weight:bold;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}h1{font-size:clamp(29px,3vw,42px);font-weight:600;line-height:1.15;margin-bottom:16px}.intro{font-size:17px;color:var(--muted)}.file-links{display:flex;flex-wrap:wrap;gap:18px;font-size:14px}.reader-help{font-size:12px;color:var(--muted);margin-top:16px}kbd{font-family:inherit;font-weight:bold}.slide-section{border-top:1px solid var(--line);padding:35px 0 46px;scroll-margin-top:15px}.slide-heading{display:flex;align-items:baseline;gap:16px;justify-content:space-between;margin-bottom:8px}.slide-heading h2{font-size:clamp(24px,2.2vw,31px);line-height:1.2;margin-bottom:0;font-weight:600}.slide-label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:bold;color:var(--teal);margin-bottom:9px}.timing{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;margin:0 0 23px}.reader-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,34%);gap:30px;align-items:start}.spoken{font-family:Georgia,'Times New Roman',serif;font-size:var(--reading-size);line-height:1.65;max-width:69ch}.spoken p{margin:0 0 1.04em}.spoken p:last-child{margin-bottom:0}.visual{margin:0;position:sticky;top:102px}.visual img{display:block;width:100%;height:auto;border:1px solid var(--line);background:white}.visual figcaption{font-size:11px;color:var(--muted);margin-top:7px}.visual-placeholder{aspect-ratio:16/9;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;padding:20px;color:var(--muted);text-align:center;font-size:13px}.stage{font:15px/1.55 Arial,Helvetica,sans-serif;margin:0 0 24px;padding:15px 18px;background:#EAF1EE;border-left:3px solid var(--teal)}.stage h3{font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 7px;color:var(--teal)}.stage p{margin:0 0 .55em}.stage p:last-child{margin-bottom:0}.stage ul{padding-left:19px;margin:0}.stage li+li{margin-top:5px}.sources{font-size:13px;margin-top:25px;color:var(--muted);overflow-wrap:anywhere}.sources summary{cursor:pointer;color:var(--teal)}.sources ul{margin:10px 0 0;padding-left:18px}.sources li{margin-bottom:8px}.backup-divider{border-top:3px solid var(--ink);padding-top:25px;margin:18px 0 0}.backup-divider h2{font-size:27px;margin-bottom:9px}.backup-divider p{color:var(--muted);font-size:15px}.closing{border-top:1px solid var(--line);padding:26px 0 0;max-width:760px}.closing h2{font-size:24px;margin-bottom:12px}.closing p,.closing li{font-size:15px;color:var(--muted)}.closing details{margin-top:24px}.closing summary{cursor:pointer;color:var(--teal)}.log-form{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:18px}.log-form label{font-size:13px;display:grid;gap:5px}.log-form input,.log-form textarea{padding:9px;border:1px solid #AEBEBA;border-radius:4px;background:white;color:var(--ink);min-width:0}.log-form .wide{grid-column:1/-1}.log-actions{display:flex;gap:12px;align-items:center}.log-status{font-size:12px;color:var(--muted)}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -80,6 +81,15 @@ CSS = r"""
 JS = r"""
 (() => {
   'use strict';
+  const slideDialog = document.querySelector('#slide-dialog');
+  const enlargedSlide = slideDialog.querySelector('img');
+  document.querySelectorAll('.preview-button').forEach(button => button.addEventListener('click', () => {
+    const preview = button.querySelector('img');
+    enlargedSlide.src = preview.src;
+    enlargedSlide.alt = preview.alt;
+    slideDialog.showModal();
+  }));
+  slideDialog.querySelector('button').addEventListener('click', () => slideDialog.close());
   const sections = [...document.querySelectorAll('.slide-section')];
   const picker = document.querySelector('#slide-picker');
   const links = [...document.querySelectorAll('.index a')];
@@ -205,7 +215,7 @@ def main() -> None:
         image_path = ROOT / "presentation" / "slides" / f"slide-{number:02d}.png"
         if image_path.exists():
             encoded = base64.b64encode(image_path.read_bytes()).decode("ascii")
-            visual = f'<img src="data:image/png;base64,{encoded}" alt="{escape(label + ": " + title)}" width="1600" height="900">'
+            visual = f'<button class="preview-button" aria-label="Enlarge {escape(label.lower())}"><img src="data:image/png;base64,{encoded}" alt="{escape(label + ": " + title)}" width="1600" height="900"></button>'
             image_count += 1
         elif args.require_images:
             raise FileNotFoundError(image_path)
@@ -217,10 +227,14 @@ def main() -> None:
         stage_html = ''
         if directions:
             stage_html = '<aside class="stage"><h3>Delivery cues · not read aloud</h3>' + paragraphs(directions) + '</aside>'
+        cue_list = slide.get("visible_cues", [])
+        screen_cues = ''
+        if cue_list:
+            screen_cues = '<details class="sources"><summary>On this slide</summary><ul>' + ''.join(f'<li>{escape(cue)}</li>' for cue in cue_list) + '</ul></details>'
         sections.append(f'''<section class="slide-section" id="{ident}" aria-labelledby="title-{number}">
 <p class="slide-label">{escape(label)}</p><div class="slide-heading"><h2 id="title-{number}">{escape(title)}</h2></div>
 <p class="timing">{escape(timing)}</p><div class="reader-grid"><div>{stage_html}<div class="spoken">{paragraphs(spoken)}</div>{source_list(slide.get("sources", []))}</div>
-<figure class="visual">{visual}<figcaption>{escape(label)} as shown to the audience</figcaption></figure></div></section>''')
+<figure class="visual">{visual}<figcaption>{escape(label)} as shown to the audience. Click to enlarge.</figcaption>{screen_cues}</figure></div></section>''')
         nav_time = "Questions" if backup else f"Finish by {clock(elapsed)}"
         link = f'<li><a href="#{ident}"><span class="slide-number">{number:02d}</span><span>{escape(title)}<small>{nav_time}</small></span></a></li>'
         option = f'<option value="{ident}">{number:02d}. {escape(title)}</option>'
@@ -238,7 +252,7 @@ def main() -> None:
 <div class="tools font-tools"><button id="smaller" aria-label="Decrease script font size">A−</button><span class="font-size" id="font-value" aria-live="polite">21px</span><button id="larger" aria-label="Increase script font size">A+</button></div>
 <div class="tools"><span class="tool-label">Rehearsal</span><output class="timer" id="elapsed" aria-label="Elapsed rehearsal time">0:00</output><button id="timer-toggle">Start</button><button id="timer-reset">Reset</button></div></header>
 <div class="layout"><nav class="index" aria-label="Slide index"><h2>Main talk · 20:00</h2><ol>{''.join(main_links)}</ol><h2>For questions</h2><ol>{''.join(backup_links)}</ol></nav>
-<main id="script"><div class="page-head"><p class="eyebrow">UNOS interview presentation</p><h1>{escape(title)}</h1>
+<main id="script"><div class="page-head"><h1>{escape(title)}</h1>
 <p class="intro">Words to say aloud, with delivery cues and the matching slides. The main talk is planned for 20 minutes. Questions follow.</p>
 <div class="file-links"><a href="unos_kidney_biopsy.pptx">PowerPoint slides</a><a href="unos_kidney_biopsy.pdf">PDF backup</a><a href="http://127.0.0.1:8765">Local demonstration</a><a href="demo_fallback.html">Captured demo backup</a></div>
 <p class="reader-help">Use the slide index or <kbd>←</kbd> / <kbd>→</kbd> to move between slides. <kbd>A−</kbd> / <kbd>A+</kbd> changes the reading size. This file works offline. Links to the local demo require the application to be running.</p></div>
@@ -250,7 +264,7 @@ def main() -> None:
 <label>Measured duration (minutes:seconds)<input id="rehearsal-duration" type="text" placeholder="20:00" inputmode="numeric"></label><div class="log-actions"><button id="use-timer">Use timer value</button></div>
 <label class="wide">Notes and changes needed<textarea id="rehearsal-notes" rows="4" placeholder="Where did delivery slow down? Did the fallback work? What needs another pass?"></textarea></label>
 <div class="log-actions wide"><button id="export-log">Export rehearsal record</button><span class="log-status" id="log-status" role="status"></span></div></div></details></section>
-</main></div><script>{JS}</script></body></html>'''
+</main></div><dialog class="slide-dialog" id="slide-dialog" aria-label="Enlarged slide"><div class="dialog-actions"><button type="button">Close slide</button></div><img alt=""></dialog><script>{JS}</script></body></html>'''
     output = ROOT / args.output
     output.write_text(document, encoding="utf-8", newline="\n")
     print(json.dumps({"output": output.relative_to(ROOT).as_posix(), "main_slides": len(main_slides), "backup_slides": len(slides) - len(main_slides), "planned_seconds": total, "main_spoken_words": words, "embedded_images": image_count, "bytes": output.stat().st_size}, indent=2))

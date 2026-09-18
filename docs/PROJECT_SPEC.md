@@ -33,7 +33,7 @@ accuracy score or a new scientific discovery. The detailed mapping is in
 | Required | Research prediction service | Validated input produces a versioned score and flag through a documented API |
 | Required | Small demonstration | A simple page shows a valid example and explains an invalid input without a traceback |
 | Required | Software checks | Meaningful tests, one CI workflow, a local container run, and an understandable setup guide |
-| Required | Interview package | Editable slides, PDF backup, speaker notes, source references, and a rehearsed 20-minute delivery |
+| Required | Interview package | Editable slides, PDF backup, separate HTML speaking script, source references, and a rehearsed 20-minute delivery |
 | Target if access permits | Cloud demonstration | One small deployment to AWS, Azure, or Google Cloud, with actual run evidence and cleanup instructions |
 | Optional | Further research | External cohort, published-model reconstruction, or a justified sensitivity analysis after the core works |
 

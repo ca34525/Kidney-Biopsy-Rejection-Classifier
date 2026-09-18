@@ -14,7 +14,7 @@ presentation time if implementation takes longer than expected.
 | 3 | Extract shared preprocessing and prediction | A repeatable command-line prediction path, model metadata, meaningful input and consistency tests |
 | 4 | Build the small API and demonstration page | Valid and invalid requests work through the same prediction code |
 | 5 | Check packaging and prepare the first complete talk | Local container and CI; cloud attempt if access permits; all main slides drafted |
-| 6 | Refine the presentation using actual results | Editable deck, notes, PDF, demo fallback, first complete timed rehearsal |
+| 6 | Refine the presentation using actual results | Editable deck, separate HTML speaking script, PDF, demo fallback, first complete timed rehearsal |
 | 7 | Rehearse and resolve only material issues | Full 20-minute delivery, checked files, working local demonstration, backup answers |
 
 ## Work to protect

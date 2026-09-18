@@ -16,12 +16,12 @@ with zipfile.ZipFile(OUT / "unos_kidney_biopsy.pptx") as archive:
     slides = [name for name in parts if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)]
     charts = [name for name in parts if re.search(r"/charts/chart\d+\.xml$", name)]
     workbooks = [name for name in parts if name.endswith(".xlsx")]
-    assert len(slides) == 20
+    assert len(slides) == len(data['slides']) + len(data['backups'])
     assert not any("notes" in name.lower() for name in parts)
     assert len(charts) == 2 and len(workbooks) == 2
     ns = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
     tables = sum(len(ET.fromstring(archive.read(name)).findall(".//a:tbl", ns)) for name in slides)
-assert len(PdfReader(OUT / "unos_kidney_biopsy.pdf").pages) == 20
+assert len(PdfReader(OUT / "unos_kidney_biopsy.pdf").pages) == len(slides)
 assert sum(slide["seconds"] for slide in data["slides"]) == 1200
 sources = [
     "results/analysis/20260915_baseline/model_metrics.csv",
@@ -44,8 +44,9 @@ def sha(file: Path) -> str:
 
 manifest = {
     "created": "2026-09-18",
-    "main_slides": 14,
-    "backup_slides": 6,
+    "revision": "second pass",
+    "main_slides": len(data['slides']),
+    "backup_slides": len(data['backups']),
     "planned_seconds": 1200,
     "main_spoken_words": sum(len(" ".join(s["paragraphs"]).split()) for s in data["slides"]),
     "powerpoint_notes_parts": 0,

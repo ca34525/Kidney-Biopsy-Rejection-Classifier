@@ -30,9 +30,11 @@ reports and verification records remain evidence of what was checked at the time
    evidence below; a previous passing revision is not a test of later edits.
 5. **Presentation draft:** The [presentation package](../presentation/README.md)
    contains the editable deck, matching PDF, separate HTML speaking script, and
-   static demonstration fallback. It has 14 main slides and 6 backup slides, with
-   a full script planned for 20 minutes. PowerPoint notes are not used. Two full
-   timed rehearsals and one interruption/fallback rehearsal remain pending.
+   static demonstration fallback. The second pass has 18 main slides and 6 backup
+   slides, with a full script planned for 20 minutes. PowerPoint notes are not used. Two full
+   timed rehearsals and one interruption/fallback rehearsal remain pending. The
+   revised sequence introduces the biology and measurement roles before results,
+   with visible cues for the topics covered in the script.
    The [AWS guide](AWS_DEPLOYMENT.md) is a procedure; a cloud deployment has not
    been performed. [Next steps](NEXT_STEPS.md) records deferred research questions
    and product ideas without adding them to the current implementation.

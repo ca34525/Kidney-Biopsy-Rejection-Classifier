@@ -29,7 +29,7 @@ const log=metrics.find(x=>x.model==='logistic_all');
 const ifng=metrics.find(x=>x.model==='single_gene_IFNG');
 const constant=metrics.find(x=>x.model==='training_prevalence');
 const bins=(await csv('results/analysis/20260915_baseline/reliability_bins.csv')).filter(x=>x.model===cat.model);
-const analysis='Source: frozen primary analysis, 15 Sep 2026. Same 345 author technical-validation specimens.';
+const analysis='Source: frozen primary evaluation, 15 Sep 2026. Same 345 specimens.';
 function text(s, value, x, y, w, h, size=34, color=C.ink, bold=false, align='left') {
   if (typeof color === 'boolean') { bold=color; color=C.ink; }
   const sh=s.shapes.add({geometry:'textbox',position:{left:x,top:y,width:w,height:h},fill:'none',line:{fill:'none',width:0}});
@@ -42,7 +42,7 @@ function slide(title,source='',dark=false){
   const s=p.slides.add(); const i=p.slides.items?.length || sources.length+1;
   s.background.fill=dark?C.ink:C.bg;
   if(title)text(s,title,64,43,1152,105,46,dark?C.white:C.ink,true);
-  if(source)text(s,source,64,657,1090,38,15,dark?'#D6E8E5':C.muted);
+  if(source)text(s,source,64,657,1090,38,18,dark?'#D6E8E5':C.muted);
   text(s,String(i).padStart(2,'0'),1167,662,48,30,18,dark?'#D6E8E5':C.muted,false,'right');
   sources.push({slide:i,title,source}); return s;
 }
@@ -67,132 +67,196 @@ function chart(s,type,config){const ch=s.charts.add(type,config);applyPresentati
 const axisText={typeface:FONT,fontSize:24,fill:C.ink};
 const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
 
-// 1. Question and an early, bounded finding.
+// Main sequence. Each script topic has a corresponding label or visual.
+// 1. Title and research question only.
 {
- const s=slide('', 'Independent research project for the UNOS Associate Data Scientist interview',true);
- text(s,'Classifying rejection\nfrom kidney biopsy RNA',64,108,1120,190,66,C.white,true);
- text(s,'Can molecular measurements classify\nthe recorded biopsy diagnosis?',68,330,1080,115,39,'#CDE6DF');
- text(s,'25 missed rejection cases and 8 false flags',68,504,1120,56,39,C.white,true);
- text(s,'CatBoost on 345 author technical-validation specimens',68,566,1100,42,27,'#CDE6DF');
+ const s=slide('', '',true);
+ text(s,'Classifying rejection\nfrom kidney biopsy RNA',64,156,1136,194,68,C.white,true);
+ text(s,'Can molecular measurements classify\nthe recorded biopsy diagnosis?',68,416,1100,121,42,'#CDE6DF');
  sources[0].title='Classifying rejection from kidney biopsy RNA';
 }
-// 2. Editable conceptual diagram makes input versus reference label explicit.
+// 2. Tissue provides measurements and a recorded diagnosis.
 {
- const s=slide('Kidney biopsy and transplant rejection','Sources: NIDDK, Kidney Transplant and Kidney Biopsy; Zhang et al., 2024. Full links in the HTML script.');
- text(s,'Rejection: the recipient’s immune system attacks the donated kidney.',64,160,1152,86,36);
- const a=node(s,'Biopsy tissue\nA small tissue sample',64,318,328,150,{size:34});
- const b=node(s,'Microscopic examination\nRecorded diagnosis',531,265,650,123,{size:33});
- const c=node(s,'RNA measurements\nInputs to this model',531,448,650,123,{size:33});
+ const s=slide('Kidney biopsy and transplant rejection','Sources: NIDDK, Kidney Transplant and Kidney Biopsy; Zhang et al. (2024)');
+ text(s,'Rejection: the recipient’s immune system attacks the donated kidney.',64,150,1152,85,36);
+ const a=node(s,'',64,302,336,154);
+ text(s,'Biopsy tissue:',80,323,304,47,36,C.ink,true,'center');
+ text(s,'A small sample\nfrom the kidney',80,375,304,65,31,C.ink,false,'center');
+ const b=node(s,'',535,255,681,127);
+ text(s,'Microscopic examination (histology)',552,272,647,42,32,C.ink,true,'center');
+ text(s,'Recorded diagnosis',552,320,647,42,34,C.ink,false,'center');
+ const c=node(s,'',535,422,681,127);
+ text(s,'Molecular measurements',552,438,647,42,34,C.ink,true,'center');
+ text(s,'Inputs to the model',552,485,647,42,32,C.ink,false,'center');
  connect(s,a,b);connect(s,a,c);
- text(s,'The prediction concerns this existing specimen.',64,596,1140,43,30,C.teal,true);
+ text(s,'Research use: compare measurements with the diagnosis\nof tissue already collected.',64,568,1152, 72,30,C.teal,true);
 }
-// 3. Lab terms are defined before the machine-learning vocabulary.
+// 3. Give the biological labels their own visual explanation.
 {
- const s=slide('An assay measures specified molecules','Sources: GSE212160; Bruker nCounter technology documentation. This project uses the deposited raw RNA counts.');
- text(s,'RNA is made as genes are expressed.\nThe assay counts signals for selected RNA targets.',64,167,1130,99,37);
- const a=node(s,'RNA from\nbiopsy tissue',64,319,300,124);
- const b=node(s,'Target-specific\nbarcoded probes',491,319,300,124);
- const c=node(s,'Digital counts\nfor each target',918,319,300,124);
+ const s=slide('Recorded diagnoses','Source: Zhang et al. (2024), GSE212160; project diagnosis mapping');
+ table(s,[['Recorded diagnosis','Meaning','Model label'],['Antibody-mediated rejection','Antibodies: immune proteins','Rejection'],['T-cell-mediated rejection','T cells: immune cells','Rejection'],['Mixed rejection','Both rejection processes','Rejection'],['No rejection','No recorded rejection','No rejection']],{y:181,h:367,widths:[485,407,260],size:28});
+ text(s,'The main question combines all three forms of rejection.',64,566,1152,43,33,C.teal,true);
+ text(s,'“No rejection” does not mean an otherwise healthy biopsy.',64,611,1152,34,27);
+}
+// 4. Define the laboratory vocabulary in the order it is used.
+{
+ const s=slide('Measuring RNA in biopsy tissue','Sources: Bruker nCounter documentation; GSE212160');
+ text(s,'RNA includes messages cells make when genes are active.',64,151,1152,65,36);
+ text(s,'Assay: a laboratory test     Panel: a fixed list of molecules to measure',64,225,1152,62,31);
+ const a=node(s,'RNA from\nbiopsy tissue',64,331,305,126,{size:34});
+ const b=node(s,'Probes recognize\nspecific RNA',487,331,305,126,{size:32});
+ const c=node(s,'Barcodes identify\nsignals to count',910,331,305,126,{size:32});
  connect(s,a,b);connect(s,b,c);
- text(s,'770 measured targets',66,500,560,61,48,C.teal,true);
- text(s,'758 model inputs + 12 housekeeping targets',66,573,1140,46,32);
+ text(s,'NanoString nCounter, using the B-HOT panel',64,488,1152,53,36,C.teal,true);
+ text(s,'Example output: IFNG count = 4 in one public specimen',64,568,1152,51,32);
 }
-// 4. Observation and target definition.
+// 5. Separate what is measured from what is predicted.
 {
- const s=slide('One row describes one biopsy specimen','Source: project data audit and diagnosis mapping. “No rejection” does not mean an otherwise healthy biopsy.');
- text(s,'1,395 archived kidney transplant biopsies',64,159,1152,58,42,C.teal,true);
- table(s,[['Recorded diagnosis','Binary label'],['No rejection','0'],['Antibody-mediated rejection','1'],['T-cell-mediated rejection','1'],['Mixed rejection','1']],{y:252,h:310,widths:[878,274],size:31});
- text(s,'Inputs: assay counts     Reference label: recorded diagnosis',64,592,1152,48,29);
+ const s=slide('The measurements used by the model','Sources: GSE212160; B-HOT panel consensus (2020); project data contract');
+ text(s,'770 RNA measurements per specimen',64,155,1152,75,48,C.teal,true);
+ text(s,'758',64,250,470,91,70,C.teal,true);
+ text(s,'Measurements used as model inputs\nIncludes some viral RNA signals',64,349,648,90,32);
+ text(s,'12',807,250,409,91,70,C.teal,true);
+ text(s,'Housekeeping references\nPrepare the other counts',807,349,409,90,30);
+ line(s,64,469,1152);
+ text(s,'Assay “target”: a molecule a probe recognizes',64,485,1152,45,31);
+ text(s,'Counts reflect gene activity and the mixture of cells in the tissue.',64,541,1152,51,33);
+ text(s,'The 12 reference measurements are removed after normalization.',64,606,1152,37,28);
 }
-// 5. Actual arithmetic from a prepared public specimen.
+// 6. Explain the identifier by showing what it joins.
 {
- const s=slide('Normalization uses each specimen’s reference targets','Source: shared preprocessing and public specimen GSM6510425. Rounded values shown; computation uses full precision.');
- text(s,'Housekeeping targets provide a within-specimen reference.',64,164,1152,70,34);
- table(s,[['IFNG in this specimen','Value'],['Raw count','4'],['log₂(count + 1)','2.322'],['Mean of 12 housekeeping log counts','7.900'],['Normalized input: 2.322 − 7.900','−5.578']],{y:259,h:293,widths:[891,261],size:29});
- text(s,'Apply to all 758 inputs. Fit later learned steps on training data.',64,577,1152,47,29,C.teal,true);
+ const s=slide('One row describes one biopsy specimen','Source: project data audit, 15 Sep 2026');
+ text(s,'1,395 specimens included. No exclusions.',64,156,1152,65,43,C.teal,true);
+ text(s,'Specimen ID: GSM6510425',64,243,1152,53,35,true);
+ const a=node(s,'RNA count record\nIFNG = 4, …',64,332,330,125,{size:32});
+ const b=node(s,'Match the same\nspecimen ID',487,332,306,125,{size:32});
+ const c=node(s,'Diagnosis record\nNo rejection',886,332,330,125,{size:32});
+ connect(s,a,b);connect(s,b,c);
+ text(s,'Only the prepared RNA measurements enter the model.',64,487,1152,51,34,C.teal,true);
+ text(s,'IDs, diagnosis and cohort stay separate. No duplicate normalized profiles.',64,547,1152,42,28);
+ text(s,'Specimen counts do not establish the number of independent patients.',64,598,1152,43,28);
 }
-// 6. Cohort and development split, retained from the authors.
+// 7. One concrete example, with the reason for each preparation step.
 {
- const s=slide('Model choice and thresholds use discovery data','Source: saved split, seed 20260915. Cohorts follow the authors; patient and center independence are unverified.');
- const disc=node(s,'Discovery cohort\n1,050 specimens',64,176,670,95,{size:32});
- const train=node(s,'Training\n787 specimens',64,341,306,104);
- const screen=node(s,'Screening\n263 specimens',428,341,306,104);
+ const s=slide('Preparing counts for the model','Source: shared preprocessing; public specimen GSM6510425. Values rounded for display.');
+ text(s,'Add 1 to allow zero counts. Take log₂ to compress the range.',64,153,1152,64,34);
+ table(s,[['IFNG in this specimen','Value'],['Raw count','4'],['log₂(count + 1)','2.322'],['Mean of 12 housekeeping log counts','7.900'],['Normalized input: 2.322 − 7.900','−5.578']],{y:247,h:287,widths:[891,261],size:30});
+ text(s,'Each specimen supplies its own reference. Keep 758 prepared inputs.',64,553,1152,44,30,C.teal,true);
+ text(s,'Fit any later learned scaling on training specimens only.',64,606,1152,36,29);
+}
+// 8. Cohort names and their jobs, before discussing model choices.
+{
+ const s=slide('Development and evaluation specimens','Source: authors’ cohorts and saved project split, seed 20260915');
+ const disc=node(s,'Development: 1,050 specimens\nAuthors’ discovery cohort',64,178,699,107,{size:34});
+ const train=node(s,'Training: 787\nFit the models',64,370,316,119,{size:32});
+ const screen=node(s,'Screening: 263\nChoose model + threshold',430,370,333,119,{size:30});
  connect(s,disc,train,'bottom','top');connect(s,disc,screen,'bottom','top');
- node(s,'Author technical validation\n345 specimens\nEvaluate frozen choices',805,176,411,269,{fill:C.ink,color:C.white,size:32});
- text(s,'Screening rule',64,488,430,43,30,C.teal,true);
- text(s,'Retain at least 90% of rejection cases, then minimize false flags.',64,536,1152,66,34);
+ node(s,'Evaluation: 345\nAuthors’ technical validation\n\nCompare frozen choices',820,178,396,311,{fill:C.ink,color:C.white,size:30});
+ text(s,'The saved split keeps the original diagnosis proportions similar.',64,533,1152,45,31,C.teal,true);
+ text(s,'Patient and center independence are unverified.',64,598,1152,42,31);
 }
-// 7. Native chart data come directly from the preserved analysis CSV.
+// 9. Model names now come with an explanation.
 {
- const s=slide('Several measurements reduced false flags','Source: frozen primary analysis. Each learned model retains its discovery-selected threshold; constant cutoff is 0.5.');
- text(s,'Same 345 specimens: 169 rejection and 176 no rejection',64,155,1152,46,30);
- chart(s,'bar',{position:{left:56,top:223,width:1170,height:350},categories:['IFNG only','Logistic regression','CatBoost'],series:[{name:'Missed rejection / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'False flags / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:23}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
- text(s,`Constant baseline: ${constant.fn} misses and ${constant.fp} false flags. It flags every specimen.`,64,589,1152,47,29);
+ const s=slide('Four model comparisons','Source: frozen primary configuration and analysis, 15 Sep 2026');
+ table(s,[['Model','What it learns'],['Constant baseline','One score: the training rejection fraction'],['IFNG only','A relationship using one RNA measurement'],['Logistic regression','A weighted combination of 758 measurements'],['CatBoost','A combination of decision trees']],{y:185,h:351,widths:[354,798],size:30});
+ text(s,'Logistic regularization limits how large the weights can become.',64,551,1152,43,30);
+ text(s,'Same specimen preparation. Same evaluation specimens.',64,607,1152,38,32,C.teal,true);
 }
-// 8. Denominators and the threshold shortfall remain visible.
+// 10. Define the decision and error vocabulary before reporting results.
 {
- const s=slide('Most CatBoost misses were T-cell rejection',analysis);
- text(s,'144 / 169',64,186,450,91,70,C.teal,true);
- text(s,'rejection cases detected',64,285,464,46,32);
- text(s,'85.2%',64,365,460,70,58,C.orange,true);
- text(s,'Below the 90%\nscreening target',64,452,455,92,31);
- table(s,[['Recorded rejection','Missed / total'],['Antibody-mediated','6 / 56'],['T-cell-mediated','18 / 95'],['Mixed','1 / 18']],{x:558,y:195,w:658,h:344,widths:[420,238],size:29});
- text(s,'Errors mean disagreement with the recorded diagnosis.',64,590,1152,44,30);
+ const s=slide('Turning a score into a rejection flag','Source: discovery screening rule and frozen model metadata');
+ const a=node(s,'Model score',64,171,330, 80,{size:34});
+ const b=node(s,'Compare with threshold',482,171,376,80,{size:32});
+ const c=node(s,'Rejection flag',946,171,270,80,{size:32});
+ connect(s,a,b);connect(s,b,c);
+ text(s,'Missed rejection',64,292,530,42,33,C.orange,true);
+ text(s,'Recorded rejection, score below threshold',64,344,535,75,30);
+ text(s,'False flag',686,292,530,42,33,C.teal,true);
+ text(s,'Recorded no rejection, score at or above threshold',686,344,530,75,30);
+ line(s,64,446,1152);
+ text(s,'Screening: detect at least 90% of rejection, then minimize false flags.',64,465,1152,75,34);
+ text(s,'Freeze the model and threshold together. CatBoost cutoff: 0.876588',64,548,1152,44,30,C.teal,true);
+ text(s,'90% is an experiment choice. A score is not a calibrated probability.',64,604,1152,40,28);
 }
-// 9. Candid practical comparison, with descriptive follow-up separated.
+// 11. Editable data and explicit denominators.
 {
- const s=slide('The advantage over logistic regression is uncertain','Sources: paired bootstrap analysis (2,000 specimen resamples); discovery-only stability follow-up, 17 Sep 2026.');
- text(s,'8 fewer misses',64,182,1110,84,64,C.teal,true);
- text(s,'Same 8 false flags. The paired miss-difference interval includes zero.',64,279,1138,93,33);
- text(s,'Model selected across 20 discovery splits',64,408,1110,52,34,true);
- table(s,[['CatBoost','Logistic regression'],['13 selections','7 selections']],{y:477,h:122,widths:[576,576],size:30});
- text(s,'Overlapping repetitions describe split variability.',64,606,1130,38,26,C.muted);
+ const s=slide('Several measurements reduced false flags','Source: frozen primary evaluation, 15 Sep 2026. Each model keeps its chosen threshold.');
+ text(s,'Same 345 specimens: 169 rejection and 176 no rejection',64,145,1152,48,32);
+ chart(s,'bar',{position:{left:56,top:202,width:1170,height:327},categories:['IFNG only','Logistic regression','CatBoost'],series:[{name:'Missed rejection / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'False flags / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:25}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
+ text(s,`Constant: ${constant.fn} / 169 missed, ${constant.fp} / 176 false flags. It flags everyone.`,64,541,1152,42,29);
+ text(s,'CatBoost versus IFNG: 67 fewer false flags, 11 more misses.',64,599,1152,45,33,C.teal,true);
 }
-// 10. Editable software diagram.
+// 12. Group counts and detection shortfall.
 {
- const s=slide('Training and serving share the same preprocessing','Source: src/kidney_biopsy/preprocessing.py and prediction.py; CLI and FastAPI use the shared Predictor.');
- const labels=['Read counts','Check targets\nand numbers','Normalize\n758 inputs','Score with\nfrozen model'];
- let prev;labels.forEach((v,i)=>{const n=node(s,v,64+i*298,245,256,150,{size:32});if(prev)connect(s,prev,n);prev=n;});
- text(s,'CSV input',64,180,380,49,34,C.teal,true);
- text(s,'Versioned score + threshold flag',64,459,1152,62,43,C.teal,true);
- text(s,'Diagnosis, specimen ID, cohort and assay batch stay out of the predictors.',64,553,1152,66,31);
+ const s=slide('Most CatBoost misses were T-cell rejection','Source: frozen primary evaluation and screening results, 15 Sep 2026');
+ text(s,'144 / 169',64,177,450,86,70,C.teal,true);
+ text(s,'rejection cases detected',64,269,470,43,32);
+ text(s,'85.2% sensitivity',64,337,470,56,43,C.orange,true);
+ text(s,'Screening: 157 / 174 (90.2%)\nEvaluation falls below\nthe 90% selection target',64,424,470,142,30);
+ table(s,[['Recorded rejection','Missed / total'],['Antibody-mediated','6 / 56'],['T-cell-mediated','18 / 95'],['Mixed','1 / 18']],{x:558,y:183,w:658,h:357,widths:[420,238],size:29});
+ text(s,'Errors describe disagreements with recorded diagnoses.',64,592,1152,49,32);
 }
-// 11. Exact measured output, editable, backed by saved browser captures.
+// 13. Keep both sources of uncertainty visible and distinct.
 {
- const s=slide('One public specimen through the service','Discovery-screen example GSM6510425, recorded no rejection. Demonstrates software; it adds no new validation evidence.');
- text(s,'Public example: GSM6510425',64,166,1140,51,37,C.teal,true);
- table(s,[['Model score','Frozen threshold','Result'],['0.274934','0.876588','Below threshold']],{y:248,h:154,widths:[347,366,439],size:33});
- text(s,'Remove IFNG from the same file',64,455,1140,53,33,true);
- text(s,'“Missing required assay targets: IFNG”',64,521,1140,48,37,C.orange,true);
- text(s,'Model: 20260915_shared:any_rejection:catboost_all_depth4',64,602,1140,35,23,C.muted);
+ const s=slide('The advantage over logistic regression is uncertain','Sources: paired bootstrap analysis; discovery stability follow-up, 17 Sep 2026');
+ text(s,'Fixed models, same evaluation specimens',64,155,1152,46,32,C.teal,true);
+ text(s,'8 fewer misses among 169 rejection specimens',64,214,1152,68,44,true);
+ text(s,'Both make 8 / 176 false flags. The 95% interval for the\ndetection advantage includes zero (2,000 specimen resamples).',64,289,1152,88,31);
+ line(s,64,400,1152);
+ text(s,'Model choice across 20 development splits',64,407,1152,49,33,C.teal,true);
+ table(s,[['CatBoost','Logistic regression'],['13 selections','7 selections']],{y:465,h:128,widths:[576,576],size:30});
+ text(s,'The repetitions overlap. Logistic regression remains a simpler alternative.',64,611,1152,38,29);
 }
-// 12. Measured software evidence, with dated scope.
+// 14. Shared implementation and failures that stop scoring.
 {
- const s=slide('The service reproduces all 345 saved scores','Source: local application checks, 17 Sep 2026. Score agreement is a software check, not new classifier validation.');
- text(s,'345 / 345',64,174,1120,92,76,C.teal,true);
- text(s,'API, command line and saved evaluation agree\nwithin a tolerance of 10⁻¹².',64,292,1120,105,37);
- line(s,64,429,1152);
- text(s,'94 tests passed',64,465,575,67,42,true);
- text(s,'Local research container checked',650,468,566,99,36,true);
- text(s,'Missing targets stop scoring. Incompatible model metadata stops loading.',64,579,1152,61,29);
+ const s=slide('Training and serving share the same preprocessing','Source: shared preprocessing and Predictor; application contract');
+ text(s,'CSV through the command line or web application',64,155,1152,54,35,C.teal,true);
+ const labels=['Read counts','Check names\nand numbers','Normalize\n758 inputs','Score with\nfrozen model'];
+ let prev;labels.forEach((v,i)=>{const n=node(s,v,64+i*298,253,256,130,{size:31});if(prev)connect(s,prev,n);prev=n;});
+ text(s,'Response: specimen ID, score, threshold, flag and model version',64,409,1152,65,33,C.teal,true);
+ text(s,'Missing or duplicate names, negative or non-finite counts: stop scoring.',64,499,1152,72,30);
+ text(s,'Only the configured model can load. Scores remain research scores.',64,594,1152,44,29);
 }
-// 13. One measured scope and one next research step.
+// 15. The slide also works when the presenter uses the static fallback.
 {
- const s=slide('The result applies to one deposited study','Sources: GSE212160; study and assay review in docs/RESEARCH_CONTEXT.md; primary analysis limitations.');
- text(s,'Established',64,176,500,54,34,C.teal,true);
- text(s,'Agreement with recorded diagnoses\nfor existing transplant biopsies',64,248,1100,97,43);
- line(s,64,374,1152);
- text(s,'Next evidence needed',64,415,700,53,34,C.teal,true);
- text(s,'An independent cohort with known patient and center IDs,\nand documented laboratory quality checks',64,485,1137,105,36);
+ const s=slide('One public specimen through the service','Source: public discovery-screen example and saved application checks');
+ text(s,'GSM6510425: recorded no rejection',64,148,1152,51,36,C.teal,true);
+ table(s,[['Model score','Frozen threshold','Rejection flag'],['0.274934','0.876588','False (below cutoff)']],{y:216,h:133,widths:[346,366,440],size:31});
+ text(s,'IFNG: log₂(4 + 1) = 2.322. Housekeeping reference: 7.900',64,367,1152,45,30);
+ text(s,'Normalized input = −5.578',64,416,1152,42,33,C.teal,true);
+ text(s,'Remove IFNG: “Missing required assay targets: IFNG”',64,474,1152,59,32,C.orange,true);
+ text(s,'Previous result clears. No new score returns.',64,535,1152,41,30);
+ text(s,'Model: 20260915_shared:any_rejection:catboost_all_depth4',64,592,1152,34,25,C.muted);
 }
-// 14. Clean closing slide, Q&A follows the full talk.
+// 16. Consistency, input failures, and the actual deployment status.
 {
- const s=slide('Molecular counts can classify recorded rejection','This presentation was drafted with AI assistance. Public data and study methods are credited in the backup slides.',true);
- text(s,'25 / 169 misses. 8 / 176 false flags.',64,194,1145,87,57,C.white,true);
- text(s,'Logistic regression remains a credible simpler alternative.',64,329,1135,101,39,'#CDE6DF');
- text(s,'The same preprocessing powers a tested research service.',64,478,1135,99,39,'#CDE6DF');
+ const s=slide('The service reproduces all 345 saved scores','Source: local verification, 17 Sep 2026. Software consistency check.');
+ text(s,'345 / 345',64,158,1120,90, 76,C.teal,true);
+ text(s,'API, command line and saved evaluation agree within 10⁻¹².',64,256,1152,78,35);
+ line(s,64,359,1152);
+ text(s,'94 tests passed',64,386,1152,57,42,true);
+ text(s,'Reordered columns: same score. Invalid counts: no score.\nIncompatible model metadata: model does not load.',64,452,1152,89,31);
+ text(s,'Local research container checked. Cloud deployment remains deferred.',64,580,1152,63,31,C.teal,true);
 }
-// 15-20. Backup material is outside the 20-minute plan.
+// 17. Each limitation named in the script is visible here.
+{
+ const s=slide('The result applies to one deposited study','Sources: GSE212160; project research context and primary analysis');
+ text(s,'Established: agreement with recorded biopsy diagnoses',64,155,1152,62,38,C.teal,true);
+ text(s,'Patient and center independence: unverified\nAssay groups: tied to cohort membership\nFile checks: do not establish laboratory assay quality',64,246,1152,176,34);
+ line(s,64,444,1152);
+ text(s,'Next: a new cohort with known patient and center IDs,\nand documented laboratory quality checks',64,464,1152,107,36,C.teal,true);
+ text(s,'Specify models and thresholds first. Keep logistic in the comparison.',64,600,1152,44,29);
+}
+// 18. Results belong here, after the question and evidence.
+{
+ const s=slide('Molecular counts can classify recorded rejection','Public data: Zhang et al. (2024), GSE212160. Presentation prepared with AI assistance.',true);
+ text(s,'CatBoost, 345 evaluation specimens',64,156,1152,43,31,'#CDE6DF');
+ text(s,'25 / 169 misses. 8 / 176 false flags.',64,219,1152,84,56,C.white,true);
+ text(s,'Logistic regression remains a credible simpler alternative.',64,330,1152,87,37,'#CDE6DF');
+ text(s,'Shared preprocessing supports a tested research service.',64,448,1152,81,37,'#CDE6DF');
+ text(s,'Next: test the fixed comparison on a new cohort.',64,562,1152,61,35,'#CDE6DF');
+}
+// 19-24. Backup material is outside the 20-minute plan.
 {
  const s=slide('Backup: complete primary comparison',analysis);
  const names=['CatBoost','Logistic','IFNG only','Constant'];
@@ -201,9 +265,9 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
 }
 {
  const s=slide('Backup: normalization and threshold selection','Sources: preprocessing.py; saved configuration and screening results in results/reproduction/baseline.');
- text(s,'Normalized target = log₂(raw count + 1)\n− mean of the 12 housekeeping log₂(count + 1) values',64,173,1140,120,36,C.teal,true);
+ text(s,'Normalized measurement = log₂(raw count + 1)\n− mean of the 12 housekeeping log₂(count + 1) values',64,173,1140,120,36,C.teal,true);
  text(s,'Logistic: scaling fitted on training rows; regularization C = 0.1.\nCatBoost: 300 trees, depth 4, learning rate 0.04.',64,332,1140,109,32);
- text(s,'Both detected 157 / 174 screening rejection cases.\nCatBoost made 5 false flags; logistic made 6.',64,478,1140,95,34);
+ text(s,'Both detected 157 / 174 screening rejection cases.\nFalse flags: CatBoost 5 / 89, logistic 6 / 89.',64,478,1140,95,34);
  text(s,'Flag when score ≥ 0.8765880870219778 for the frozen service.',64,599,1140,39,26,C.muted);
 }
 {
@@ -218,15 +282,15 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
 {
  const s=slide('Backup: subtype follow-up retained the binary service','Source: subtype follow-up, 15 Sep 2026. Reuses an already examined validation cohort; independent confirmation remains needed.');
  table(s,[['Model','Any-rejection misses','False flags'],['Binary CatBoost','25 / 169','8 / 176'],['Four-class CatBoost','29 / 169','8 / 176'],['Four-class logistic','28 / 169','10 / 176'],['Separate component models','24 / 169','15 / 176']],{y:200,h:325,widths:[532,342,278],size:28});
- text(s,'Four-class logistic recognized 10 / 18 mixed diagnoses,\nwith 5 false mixed calls.',64,555,1140,80,30);
+ text(s,'Four-class logistic recognized 10 / 18 mixed diagnoses,\nwith 5 false mixed calls among 327 non-mixed specimens.',64,555,1140,80,30);
 }
 {
  const s=slide('Backup: study, assay and deployment limits','Sources: primary analysis, research context, and current verification guide.');
- table(s,[['Question','What the project establishes'],['Independent patients / centers?','Independence not verified'],['Laboratory assay quality?','File and numeric checks; assay QC not repeated'],['Individual probabilities?','Calibration remains limited'],['Cloud deployment?','Local container tested; cloud work deferred']],{y:194,h:379,widths:[456,696],size:27});
+ table(s,[['Question','What the project establishes'],['Patient / center independence?','Independence not verified'],['Laboratory assay quality?','File checks only; lab quality unverified'],['Individual probabilities?','Calibration remains limited'],['Cloud deployment?','Local container tested; cloud work deferred']],{y:179,h:390,widths:[456,696],size:27});
  text(s,'Biopsy-level resampling may understate uncertainty if specimens are related.',64,588,1152,48,27);
 }
 {
- const s=slide('Backup: sources and contributions','Full URLs and repository evidence paths appear beside each slide in the HTML speaking script.');
+ const s=slide('Backup: sources and contributions','');
  text(s,'Public study',64,166,340,43,30,C.teal,true);
  text(s,'Zhang et al., Laboratory Investigation (2024)\nGSE212160 raw NanoString B-HOT measurements',64,218,1140,91,33);
  text(s,'This project',64,343,340,43,30,C.teal,true);
@@ -252,6 +316,6 @@ for(let i=0;i<sources.length;i++){
  await fs.writeFile(path.join(build,`slide-${i+1}.layout.json`),await layout.text());
  console.log(`Rendered ${i+1}/${sources.length}`);
 }
-const finalPath=path.join(out,process.env.DECK_FILENAME||'unos_kidney_biopsy.pptx');
+const finalPath=path.join(out,process.env.DECK_FILENAME||'unos_kidney_biopsy_second_pass.pptx');
 const result=await finalizePresentation({workspaceDir:root,candidatePath,finalPath,pythonExecutable:process.env.RUNTIME_PYTHON,integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-bullet-geometry','--validate-heading-fit',...[...new Set(nativeTables)].flatMap(n=>['--require-native-table-slide',String(n)])],requiredNativeTableOwnerSlides:[...new Set(nativeTables)],requiredNativeChartOwnerSlides:[...new Set(nativeCharts)],materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:[FONT]},verifyArtifactToolImport:true,receiptPath:path.join(build,`${path.basename(finalPath)}.${Date.now()}.validation.json`)});
 console.log(JSON.stringify(result));

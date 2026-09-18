@@ -1,6 +1,6 @@
 # Interview presentation
 
-First complete draft, September 18, 2026. The talk has **14 main slides** with a
+Second pass, September 18, 2026. The talk has **18 main slides** with a
 **20:00 speaking plan**, followed by **6 backup slides** for questions.
 
 - [Editable PowerPoint](unos_kidney_biopsy.pptx)
@@ -10,6 +10,7 @@ First complete draft, September 18, 2026. The talk has **14 main slides** with a
 
 Open the HTML script in a browser. It contains the spoken text, matching slide
 previews, separate delivery cues, source links, and planned cumulative timings.
+Click a slide preview to enlarge it. Expand “On this slide” to review its topic cues.
 The text and images work offline. The sidebar, previous/next controls, reading-size
 controls, and rehearsal timer help with practice. Printing includes the full script.
 Repository source links require keeping the file in this folder.
@@ -21,19 +22,26 @@ belongs in the HTML file, following the user's September 18 instruction.
 
 | Slides | Subject | End time |
 | --- | --- | ---: |
-| 1 | Question and early result | 0:45 |
-| 2–3 | Biopsy, rejection, RNA and the assay | 4:15 |
-| 4–6 | Observations, preparation and fair comparison | 9:00 |
-| 7–9 | Errors, diagnosis groups and comparison uncertainty | 14:00 |
-| 10–12 | Shared software, demonstration and checks | 18:15 |
-| 13–14 | Limits, next evidence and conclusion | 20:00 |
-| 15–20 | Backup material | Questions afterward |
+| 1 | Topic and research question | 0:20 |
+| 2–5 | Biopsy, recorded diagnoses, RNA assay, and measurement roles | 4:05 |
+| 6–10 | One observation, normalization, cohorts, models, and threshold | 9:50 |
+| 11–13 | Evaluation errors, diagnosis groups, and comparison uncertainty | 14:15 |
+| 14–16 | Shared software, demonstration, and checks | 18:15 |
+| 17–18 | Limits, next evidence, and conclusion | 20:00 |
+| 19–24 | Backup material | Questions afterward |
 
-The 2,244-word main script includes a two-minute demonstration and time for
-pauses. These are planned allocations, not measured rehearsal results. Complete
+The 2,361-word main script includes a two-minute demonstration and time for pauses.
+These are planned allocations, not measured rehearsal results. Complete
 two full aloud rehearsals and one fallback rehearsal before the interview. The
 HTML page can export a measured rehearsal record. The candidate should also
 review the account of personal contributions before presenting.
+
+The opening states the question. Results follow the biological context, data,
+and evaluation procedure. Each substantive spoken topic has an on-slide cue,
+with the longer explanation in the script. Measurement roles and the predicted
+diagnosis have separate labels. The [presentation specification](../docs/PRESENTATION_SPEC.md)
+records the slide-by-slide time budget, and the [guide](../docs/PRESENTATION_GUIDE.md)
+records the standards for keeping the script and slides aligned.
 
 ## Demonstration
 
@@ -72,10 +80,9 @@ full precision. The PDF is a static rendering of the final slide pages.
   and rehearsal references.
 - [Source and output hashes](manifest.json) identify this draft.
 
-The deck was rendered and visually reviewed, its package and native evidence
-checked, and the HTML navigation and reading controls exercised in a browser.
-The live valid/invalid demonstration was replayed. No aloud rehearsal or
-PowerPoint-desktop presentation test is claimed.
+The demonstration captures come from the first draft's valid and invalid local
+requests. The revised slide sequence does not change the service or its model.
+No aloud rehearsal or PowerPoint-desktop presentation test is claimed.
 
 ## Source files
 
@@ -94,9 +101,11 @@ ReportLab. Set `PRESENTATION_SKILL_DIR`, `RUNTIME_PYTHON`, and
 packages through `build/presentation/node_modules`. Use a new `DECK_FILENAME`
 when preserving a later revision. The finalizer refuses to overwrite a deck.
 
-The current final filename is used by `render_final.mjs`, the PDF builder, and
-the HTML links. Update those together when publishing a differently named revision.
-After a slide edit, render the final deck, rebuild the PDF, and rebuild the HTML.
+The canonical filename is used by `render_final.mjs`, the PDF builder, and the
+HTML links. After the finalizer validates a new revision, copy that PPTX to
+`presentation/unos_kidney_biopsy.pptx`, preserving the prior draft in the private
+build directory. Render the canonical deck, rebuild the PDF, and rebuild the HTML.
+The rendering and package checks derive the slide count from the deck and script.
 After a script-only edit:
 
 ```powershell
