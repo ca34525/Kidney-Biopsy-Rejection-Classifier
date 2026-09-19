@@ -47,7 +47,7 @@ def sha(file: Path) -> str:
 
 manifest = {
     "created": "2026-09-19",
-    "revision": "study-source pass: revised sequence, examples, error definitions and verified study population",
+    "revision": "study-source pass with clarified labels, housekeeping explanation and first-person singular presentation voice",
     "main_slides": len(data['slides']),
     "backup_slides": len(data['backups']),
     "planned_seconds": 1200,

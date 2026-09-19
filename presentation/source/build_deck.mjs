@@ -123,9 +123,10 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
 datasetSlide();
 // Give the biological labels their own visual explanation.
 {
- const s=slide('Outcome: rejection versus no rejection','Source: Zhang et al. (2024), GSE212160; project diagnosis mapping');
- table(s,[['Recorded diagnosis','Meaning','Model label'],['Antibody-mediated rejection','Antibodies: immune proteins','Rejection'],['T-cell-mediated rejection','T cells: immune cells','Rejection'],['Mixed rejection','Both rejection processes','Rejection'],['No rejection','No recorded rejection','No rejection']],{y:181,h:367,widths:[485,407,260],size:28});
- text(s,'The main question combines all three forms of rejection.',64,585,1152,60,32,C.teal);
+ const s=slide('Outcome: rejection versus no rejection','Sources: Zhang et al. (2024), Tables 5–6 and Discussion, p. 11; project diagnosis mapping');
+ text(s,'The model combines the three rejection categories included in this study.',64,166,1152,70,32,C.teal);
+ table(s,[['Recorded diagnosis','Meaning','Model label'],['Antibody-mediated rejection','Antibodies: immune proteins','Rejection'],['T-cell-mediated rejection','T cells: immune cells','Rejection'],['Mixed rejection','Both rejection processes','Rejection'],['No rejection','No recorded rejection','No rejection']],{y:255,h:325,widths:[485,407,260],size:28});
+ text(s,'Some diagnostic categories were excluded from the study.',64,598,1152,44,26,C.muted);
 }
 // Define the laboratory vocabulary in the order it is used.
 function assaySlide(){
@@ -143,10 +144,10 @@ function assaySlide(){
  text(s,'770 RNA counts per specimen, one for each RNA type measured.',64,170,1152,81,34,C.teal);
  text(s,'758',64,285,535,80,64,C.ink,true);
  text(s,'Model measurements',64,369,535,49,34,C.ink,true);
- bullets(s,['Normalized counts are the model inputs.','Include human and viral RNA.','Signals depend on gene activity and the cell mixture.'],64,430,540,200,29,C.ink,12);
+ bullets(s,['Include human and viral RNA.','Signals depend on gene activity and the cell mixture.'],64,430,540,200,29,C.ink,12);
  text(s,'12',687,285,529,80,64,C.ink,true);
  text(s,'Housekeeping references',687,369,529,49,34,C.ink,true);
- bullets(s,['12 different reference RNAs.','Used to normalize the other counts.','Excluded as separate model inputs.'],687,430,529,200,29,C.ink,12);
+ bullets(s,['12 different reference RNAs.','Used to adjust for differences in how much RNA each specimen supplies.'],687,430,529,200,29,C.ink,12);
 }
 // Explain the identifier by showing what it joins.
 function datasetSlide(){
@@ -165,12 +166,11 @@ function datasetSlide(){
 {
  const s=slide('Preparing counts for the model','Source: shared preprocessing; public specimen GSM6510425. Values rounded for display.');
  table(s,[['For each of the 758 RNA counts','IFNG example'],['1. Start with the raw count','4'],['2. Calculate log₂(count + 1)','2.322'],['3. Average log₂(count + 1) for the 12 reference RNAs','7.900'],['4. Subtract that reference','2.322 − 7.900 = −5.578']],{y:183,h:333,widths:[806,346],size:29});
- text(s,'Housekeeping RNAs help account for differences in how much RNA a specimen supplies.',64,557,1152,89,30,C.teal);
 }
 // Cohort names and their jobs, before discussing model choices.
 {
  const s=slide('Development and evaluation specimens','Sources: Zhang et al. (2024), Methods; saved project split, seed 20260915');
- bullets(s,['We use the authors’ two study groups: discovery and validation cohorts.','Our training / screening split keeps diagnosis proportions similar.'],64,166,1152,126,31,C.ink,13);
+ bullets(s,['I use the authors’ two study groups: discovery and validation cohorts.','My training / screening split keeps diagnosis proportions similar.'],64,166,1152,126,31,C.ink,13);
  const disc=node(s,'Discovery Cohort\n1,050 specimens',64,322,699,103,{size:33});
  const train=node(s,'Training: 787\nFit the models',64,496,316,110,{size:31});
  const screen=node(s,'Screening: 263\nChoose model and threshold',430,496,333,110,{size:29});
@@ -301,7 +301,7 @@ assaySlide();
 {
  const s=slide('Backup: UNOS research connection','Source: UNOS, Using AI to identify kidney anatomy issues (2 Jun 2026)');
  bullets(s,['UNOS researchers studied anatomical issues in donor kidney photographs.','Labels came from records of transplantation or refusal because of anatomy concerns.','The intended use is to support clinical assessment and improve consistency.','The connection: use recorded assessments to develop additional evidence for specialists.'],64,178,1152,377,33,C.ink,21);
- text(s,'This is a different clinical task and does not validate our classifier.',94,590,1122,46,28);
+ text(s,'This is a different clinical task and does not validate my classifier.',94,590,1122,46,28);
 }
 
 await fs.mkdir(build,{recursive:true});await fs.mkdir(path.join(out,'slides'),{recursive:true});

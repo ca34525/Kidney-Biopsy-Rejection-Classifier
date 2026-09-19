@@ -82,8 +82,8 @@ laboriously optimizing estimates.
 | 3 | Possible Use: Molecular Second Opinion for Ambiguous Biopsies | Matching boxes labelled Hypothetical Example, before and after a possible molecular assessment |
 | 4 | Evidence for a molecular second opinion | Banff guidance and B-HOT research, with the project's scope given visual emphasis |
 | 5 | What the dataset contains | Two analysis-table schemas linked by specimen ID; 1,193 transplant biopsies and 202 native-kidney controls |
-| 6 | Outcome: rejection versus no rejection | Four diagnoses and the binary rejection label |
-| 7 | The measurements used to build the features | 770 RNA counts, with 758 model measurements and 12 housekeeping references |
+| 6 | Outcome: rejection versus no rejection | Colored summary above the diagnosis table; binary mapping of the included categories and a short exclusion note |
+| 7 | The measurements used to build the features | 758 model measurements and 12 housekeeping references used to adjust for differences in RNA quantity |
 | 8 | Normalization | Compact numbered calculation and example for each of the 758 counts |
 | 9 | Development and evaluation groups | Authors' discovery/validation division, this project's training/screening split, and an asterisk for undocumented patient and referring-center separation |
 | 10 | Model comparison | Constant, IFNG, logistic regression, and CatBoost; each produces a rejection score |

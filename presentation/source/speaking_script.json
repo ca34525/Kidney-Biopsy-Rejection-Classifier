@@ -91,7 +91,7 @@
         "The first box gives a hypothetical example. A biopsy shows mild inflammation, but the microscopic findings do not clearly establish rejection. That leaves the specialist with an uncertain interpretation of tissue already collected.",
         "Histology shows tissue appearance. RNA messages provide information about gene activity in that tissue. Because they describe different things, a molecular assessment could add useful evidence for specialist review.",
         "This project tests how well RNA measurements classify recorded rejection diagnoses and builds software that can score further specimens. In the second hypothetical box, the RNA pattern receives a high rejection score. In a validated application, that could give the specialist additional evidence when reviewing the uncertain biopsy.",
-        "The example explains the proposed use. Our current evaluation does not establish that the score resolves this uncertainty. The next study would compare assessment with and without the molecular score in difficult cases."
+        "The example explains the proposed use. My current evaluation does not establish that the score resolves this uncertainty. The next study would compare assessment with and without the molecular score in difficult cases."
       ],
       "actions": [
         "Read the first hypothetical example, explain the project question, then continue the example in the matching box."
@@ -151,10 +151,10 @@
       "title": "What the dataset contains",
       "seconds": 55,
       "paragraphs": [
-        "The public data come in two downloads: a metadata file and an archive containing 1,395 individual count files. Our code assembles them into the two tables shown here.",
+        "The public data come in two downloads: a metadata file and an archive containing 1,395 individual count files. My code assembles them into the two tables shown here.",
         "The count table has one row per biopsy specimen and a column for each of the 770 RNA counts. The specimen-information table contains the recorded diagnosis and the study group assigned by the authors.",
         "Specimen ID is unique in each table and matches the rows one to one. GSM6510425 is the same specimen in both. This pairs the measurements with the diagnosis used for training and evaluation.",
-        "The 1,395 specimens include 1,193 transplant biopsies and 202 native-kidney controls. All enter our comparison. The article reports those control counts, but the public specimen metadata do not identify which no-rejection rows are native kidneys."
+        "The 1,395 specimens include 1,193 transplant biopsies and 202 native-kidney controls. All enter my comparison. The article reports those control counts, but the public specimen metadata do not identify which no-rejection rows are native kidneys."
       ],
       "actions": [
         "Read the selected columns in each table and point to specimen ID as their shared key."
@@ -192,19 +192,20 @@
       "seconds": 40,
       "paragraphs": [
         "The study records four diagnoses. Antibody-mediated rejection involves antibodies, proteins made by the immune system. T-cell-mediated rejection involves T cells, a type of immune cell. Mixed rejection includes both processes.",
-        "Those three diagnoses all count as rejection in this project. The fourth category, no rejection, supplies the comparison group. This produces the two-category question the model will answer.",
-        "We also retain the original diagnoses. That will let us see whether the missed cases are concentrated in a particular kind of rejection."
+        "Those three diagnoses all count as rejection. The fourth category, no rejection, includes normal tissue and other kidney diseases. Some diagnostic categories were excluded from the study rather than assigned to no rejection. I predict these recorded labels.",
+        "I also retain the original diagnoses. That will let me see whether the missed cases are concentrated in a particular kind of rejection."
       ],
       "actions": [
         "Read down the diagnosis table and show how the three rejection diagnoses share one label."
       ],
       "visible_cues": [
+        "The model combines the three rejection categories included in this study.",
         "Recorded diagnosis / meaning / model label",
         "Antibody-mediated rejection: antibodies are immune proteins",
         "T-cell-mediated rejection: T cells are immune cells",
         "Mixed rejection: both rejection processes",
         "No rejection: no recorded rejection",
-        "The main question combines all three forms of rejection."
+        "Some diagnostic categories were excluded from the study."
       ],
       "sources": [
         {
@@ -224,8 +225,8 @@
           "path": "results/reproduction/20260915_shared/data_audit.json"
         },
         {
-          "label": "Research context and cohort limits",
-          "path": "docs/RESEARCH_CONTEXT.md"
+          "label": "Full-study review: label definitions and excluded categories",
+          "path": "docs/references/STUDY_AUDIT_20260919.md"
         }
       ]
     },
@@ -235,18 +236,18 @@
       "seconds": 45,
       "paragraphs": [
         "Each specimen has 770 RNA counts, one for each RNA type measured. Each count summarizes signals from that type of RNA. There are two roles for those measurements.",
-        "The 758 on the left become the model inputs after normalization. Some measure viral RNA, so this is more than a list of human genes. The counts describe the tissue as a whole. A higher signal can reflect more activity within cells, a different mixture of cells, or both.",
-        "The other 12 count different housekeeping RNAs. These provide a reference for normalization, which I will show in a moment. After that calculation, we remove those 12 reference measurements. The model receives the 758 normalized values."
+        "The 758 on the left include human and viral RNA measurements. The counts describe the tissue as a whole. A higher signal can reflect more activity within cells, a different mixture of cells, or both.",
+        "The other 12 measure housekeeping RNAs selected to provide a relatively stable reference. I use them to adjust for differences in how much measurable RNA each specimen supplies. The next slide shows that adjustment."
       ],
       "actions": [
         "Use the 758 and 12 groups to explain the role of each set of counts."
       ],
       "visible_cues": [
         "770 RNA counts per specimen, one for each RNA type measured.",
-        "758 model measurements: normalized counts are the inputs",
+        "758 model measurements",
         "Human and viral RNA; signals depend on gene activity and the cell mixture",
         "12 housekeeping references: 12 different reference RNAs",
-        "Used to normalize the other counts; excluded as separate model inputs"
+        "Used to adjust for differences in how much RNA each specimen supplies."
       ],
       "sources": [
         {
@@ -280,9 +281,9 @@
       "title": "Preparing counts for the model",
       "seconds": 70,
       "paragraphs": [
-        "For each of the 758 counts, we use the same four steps. The right side follows IFNG in our public example, starting with its raw count of four.",
+        "For each of the 758 counts, I use the same four steps. The right side follows IFNG in my public example, starting with its raw count of four.",
         "Add one and take the base-two logarithm. Adding one allows zero counts, and the logarithm compresses the range. For IFNG, log base two of five is about 2.322.",
-        "Next, do that same transformation for each of the 12 housekeeping counts and average them. They measure different RNAs selected to provide a relatively stable reference. Their average helps account for differences in how much measurable RNA a specimen supplies. In this specimen, the reference is about 7.900.",
+        "Next, do that same transformation for each of the 12 housekeeping counts and average them. In this specimen, the reference is about 7.900.",
         "Subtract that reference from each transformed count. For IFNG, 2.322 minus 7.900 gives minus 5.578. So the final value describes the target's signal relative to the reference level. The same raw count can produce a different normalized value in a specimen with a different reference. Those 758 normalized values are the model inputs."
       ],
       "actions": [
@@ -293,8 +294,7 @@
         "1. Start with the raw count: 4",
         "2. Calculate log2(count + 1): 2.322",
         "3. Average log2(count + 1) for the 12 reference RNAs: 7.900",
-        "4. Subtract that reference: 2.322 − 7.900 = −5.578",
-        "Housekeeping RNAs help account for differences in how much RNA a specimen supplies."
+        "4. Subtract that reference: 2.322 − 7.900 = −5.578"
       ],
       "sources": [
         {
@@ -330,15 +330,15 @@
       "paragraphs": [
         "The authors supplied two groups, or cohorts. Discovery has 1,050 specimens and validation has 345. This project preserves that division for model development and the final comparison.",
         "Within discovery, a saved split assigns 787 specimens to training and 263 to screening, keeping the four diagnosis proportions similar. Training fits the models. Screening compares candidates and chooses the threshold for a rejection flag.",
-        "We then evaluate the selected model and threshold on the same 345 validation specimens used by every comparison model. The authors call this technical validation.",
+        "I then evaluate the selected model and threshold on the same 345 validation specimens used by every comparison model. The authors call this technical validation.",
         "The full study does not document patient or referring-center separation across the groups. It reports referrals from several regions, but all specimens were processed at Arkana Laboratories. Geographic breadth does not establish separation by patient or referring center."
       ],
       "actions": [
         "Follow discovery into training and screening, then move to the separate validation box."
       ],
       "visible_cues": [
-        "We use the authors' two study groups: discovery and validation cohorts.",
-        "Our training / screening split keeps diagnosis proportions similar.",
+        "I use the authors' two study groups: discovery and validation cohorts.",
+        "My training / screening split keeps diagnosis proportions similar.",
         "Discovery cohort: 1,050 specimens",
         "Training: 787; fit the models",
         "Screening: 263; choose model and threshold",
@@ -377,11 +377,11 @@
       "title": "Models compared",
       "seconds": 60,
       "paragraphs": [
-        "Each model produces a score for rejection versus no rejection. The models estimate probabilities, but calibration has not established reliable individual probabilities here. We therefore call the output a model score.",
+        "Each model produces a score for rejection versus no rejection. The models estimate probabilities, but calibration has not established reliable individual probabilities here. I therefore call the output a model score.",
         "The constant model uses the training rejection fraction for everyone. It shows what happens without RNA measurements.",
-        "IFNG encodes interferon gamma, an immune-signalling protein. The study associates it with T-cell-mediated rejection. It is an understandable one-measurement benchmark, fixed in our starting recipe. We did not establish it as the best individual predictor.",
+        "IFNG encodes interferon gamma, an immune-signalling protein. The study associates it with T-cell-mediated rejection. It is an understandable one-measurement benchmark, fixed in my starting recipe. I did not establish it as the best individual predictor.",
         "Logistic regression combines the 758 measurements using learned weights. Regularization limits those weights to reduce overfitting. CatBoost combines decision trees, allowing more complicated relationships between measurements and diagnoses.",
-        "The models use the same specimens. The RNA models start with the same normalization. We can ask whether combining measurements helps and whether CatBoost improves enough over logistic regression to justify its complexity."
+        "The models use the same specimens. The RNA models start with the same normalization. I can ask whether combining measurements helps and whether CatBoost improves enough over logistic regression to justify its complexity."
       ],
       "actions": [
         "Explain each model in table order."
@@ -424,7 +424,7 @@
         "A threshold turns a model score into a rejection flag. Recall is the proportion of recorded rejection cases detected. False negatives are missed cases. Precision is the proportion of positive flags with recorded rejection. False positives are incorrect flags.",
         "On screening specimens, first retain thresholds with at least 90 percent recall. Among those choices, minimize false positives. Keep the chosen model and threshold together for evaluation. Minimizing false positives here maximizes specificity. It does not mean maximizing precision.",
         "This gives priority to detecting rejection, then reduces incorrect flags. The 90 percent target is an experiment choice. It is not an established clinical requirement or a guarantee on new data.",
-        "The clinical tradeoff depends on what follows the score. The source study highlights infection controls because mistaking infection for rejection could lead to harmful additional immunosuppression. False positives therefore matter as well as misses. Our project has not measured those downstream consequences.",
+        "The clinical tradeoff depends on what follows the score. The source study highlights infection controls because mistaking infection for rejection could lead to harmful additional immunosuppression. False positives therefore matter as well as misses. My project has not measured those downstream consequences.",
         "Threshold selection also does not calibrate scores. The saved threshold appears in the demonstration."
       ],
       "actions": [
@@ -479,13 +479,13 @@
       "title": "Validation results",
       "seconds": 120,
       "paragraphs": [
-        "Here are the results on the same 345 validation specimens. False negatives are missed cases among the 169 specimens recorded as rejection. False positives are incorrect flags among the 176 recorded as no rejection. The count labels let us compare both errors directly.",
+        "Here are the results on the same 345 validation specimens. False negatives are missed cases among the 169 specimens recorded as rejection. False positives are incorrect flags among the 176 recorded as no rejection. The count labels let me compare both errors directly.",
         "The constant model flags every specimen at its selected threshold. It has zero false negatives out of 169 rejection specimens, but 176 false positives out of 176 no-rejection specimens. That shows why finding every rejection case alone does not make a useful classifier.",
         "The IFNG-only model has 14 false negatives and 75 false positives. It detects many rejection cases, but also produces many incorrect positive flags.",
         "Logistic regression uses all 758 normalized measurements. It has 33 false negatives and eight false positives. CatBoost has 25 false negatives and also eight false positives.",
         "Compared with IFNG, CatBoost makes 67 fewer false positives but 11 more false negatives. Its validation recall is 85.2 percent, below the 90 percent screening target. The criterion used during development gives a different result in this evaluation group.",
-        "If the intended use prioritizes avoiding missed rejection, those additional false negatives matter. We cannot settle the preferred tradeoff from total error counts alone. We would need to know how specialists act on the score and what those actions change.",
-        "Compared with logistic regression, CatBoost detects eight more rejection specimens with the same false-positive count. Combining measurements reduces false positives here. The smaller difference between the two models using all measurements needs closer examination before we treat it as a dependable advantage."
+        "If the intended use prioritizes avoiding missed rejection, those additional false negatives matter. I cannot settle the preferred tradeoff from total error counts alone. I would need to know how specialists act on the score and what those actions change.",
+        "Compared with logistic regression, CatBoost detects eight more rejection specimens with the same false-positive count. Combining measurements reduces false positives here. The smaller difference between the two models using all measurements needs closer examination before I treat it as a dependable advantage."
       ],
       "actions": [
         "State both denominators before comparing the bars. Pause on the IFNG tradeoff, the recall shortfall, and the eight-case difference from logistic regression."
@@ -515,9 +515,9 @@
       "title": "Most CatBoost misses were T-cell rejection",
       "seconds": 75,
       "paragraphs": [
-        "The original diagnoses help us examine CatBoost's 25 misses. It missed six of 56 antibody-mediated specimens, 18 of 95 T-cell-mediated specimens, and one of 18 mixed specimens.",
+        "The original diagnoses help me examine CatBoost's 25 misses. It missed six of 56 antibody-mediated specimens, 18 of 95 T-cell-mediated specimens, and one of 18 mixed specimens.",
         "T-cell rejection accounts for most misses and is also the largest rejection group. About 19 percent of that group was missed, compared with about 11 percent of the antibody-mediated group. One miss among only 18 mixed specimens gives limited evidence about what to expect elsewhere.",
-        "Overall, the model detects 144 of 169 rejection specimens, or 85.2 percent. This is recall, also called sensitivity. On screening, it detected 157 of 174, or 90.2 percent. The validation result is below the 90 percent requirement we used to choose the threshold.",
+        "Overall, the model detects 144 of 169 rejection specimens, or 85.2 percent. This is recall, also called sensitivity. On screening, it detected 157 of 174, or 90.2 percent. The validation result is below the 90 percent requirement I used to choose the threshold.",
         "So the screening rule cannot guarantee performance on new specimens. These errors describe disagreements with the recorded diagnoses. Resolving individual disagreements would require review of the tissue and clinical records."
       ],
       "actions": [
@@ -545,7 +545,7 @@
       "seconds": 60,
       "paragraphs": [
         "CatBoost detects eight more of the 169 rejection specimens than logistic regression. Each makes eight false flags among 176 no-rejection specimens. How dependable is that difference?",
-        "The first comparison holds the fitted models fixed. We repeatedly resample the validation specimens, allowing a specimen to appear more than once. Both models use the same draws. The 95 percent interval for their difference in detection includes zero, so these results do not establish a clear advantage for CatBoost.",
+        "The first comparison holds the fitted models fixed. I repeatedly resample the validation specimens, allowing a specimen to appear more than once. Both models use the same draws. The 95 percent interval for their difference in detection includes zero, so these results do not establish a clear advantage for CatBoost.",
         "The second comparison asks how the development choice changes with a different split. This follow-up repeats development with 20 saved discovery splits. Each separates fitting, screening, and assessment. The selection rule chooses CatBoost in 13 repetitions and logistic regression in seven.",
         "Those repetitions overlap, so they describe variation with the split. The demonstration retains the selected CatBoost model. Logistic regression remains a credible simpler option to compare in a new cohort."
       ],
@@ -607,7 +607,7 @@
       "title": "One public specimen through the service",
       "seconds": 120,
       "paragraphs": [
-        "This is public specimen GSM6510425, recorded as no rejection. It comes from the discovery screening group and demonstrates software behavior. Our evaluation results came from the separate validation group.",
+        "This is public specimen GSM6510425, recorded as no rejection. It comes from the discovery screening group and demonstrates software behavior. My evaluation results came from the separate validation group.",
         "I will request its research score. The page identifies the model version and the threshold, approximately 0.876588. This specimen receives a score of about 0.275. That is below the threshold, so its rejection flag is false, agreeing with its recorded diagnosis.",
         "Now I will try the incomplete file. It contains the same public example with IFNG removed. The application clears the previous result and identifies the missing measurement. The error message calls it an assay target. No score is returned. The user has to correct the file before submitting it again."
       ],
@@ -646,7 +646,7 @@
       "seconds": 50,
       "paragraphs": [
         "The table shows checks for failures that could change results. Reordering valid columns must preserve scores. Missing or duplicate measurements, negative counts, and non-finite values must produce errors. An incompatible model and input definition must stop model loading.",
-        "We also compared the service with the saved analysis on all 345 validation specimens. The HTTP API, command line, and saved scores agreed within one times ten to the minus twelve, and every rejection flag matched.",
+        "I also compared the service with the saved analysis on all 345 validation specimens. The HTTP API, command line, and saved scores agreed within one times ten to the minus twelve, and every rejection flag matched.",
         "The September seventeenth verification record reports 94 passing tests. A local research container served the public examples and rejected invalid input. These checks establish that the software reproduces the saved results and handles the tested input errors."
       ],
       "actions": [
@@ -681,7 +681,7 @@
       "title": "Testing the proposed use in ambiguous biopsies",
       "seconds": 60,
       "paragraphs": [
-        "Our current evidence is agreement with recorded diagnoses in one deposited study. The next evaluation needs to test the proposed use in ambiguous transplant biopsies.",
+        "My current evidence is agreement with recorded diagnoses in one deposited study. The next evaluation needs to test the proposed use in ambiguous transplant biopsies.",
         "First, evaluate new transplant biopsies with patient and center identifiers and documented laboratory quality checks. This would address the current inclusion of native-kidney controls and the unknown separation between patients and centers. Choose models and thresholds before examining those results, keeping logistic regression in the comparison.",
         "The original study excluded some diagnostic categories, including borderline acute T-cell-mediated rejection. A study of ambiguous cases should include the difficult interpretations the proposed tool is meant to support.",
         "Compare usual assessment with assessment that includes the molecular score. Independent expert review and follow-up outcomes could help judge whether the extra evidence improves interpretation. The classifier and scoring software provide a starting point for that evaluation."
@@ -771,7 +771,7 @@
       "title": "Backup: measuring biopsy RNA with NanoString nCounter",
       "seconds": 0,
       "paragraphs": [
-        "RNA includes messages cells make when genes are active. Measuring those messages gives us information about activity in the biopsy tissue.",
+        "RNA includes messages cells make when genes are active. Measuring those messages gives me information about activity in the biopsy tissue.",
         "An assay is a laboratory test. NanoString nCounter is the measurement system used in this study. B-HOT is the panel: the fixed list of RNA types selected for measurement. An assay target means the type of RNA that a probe recognizes.",
         "The laboratory extracts RNA from preserved tissue. Probes recognize selected RNAs, and NanoString nCounter counts their identifying barcodes. Each resulting count is a number associated with a named RNA measurement.",
         "For example, IFNG is one of the measurements. Its raw count is four in the public specimen used in the preparation example and application demonstration."
@@ -884,7 +884,7 @@
       "paragraphs": [
         "This plot groups the 345 validation specimens into ten fixed CatBoost score ranges. Within each range, it compares the average score with the fraction of specimens recorded as rejection. The diagonal shows where the model score and observed fraction would match.",
         "In the highlighted range from 0.8 to 0.9, the mean score is 0.847. Seven of the 16 specimens have recorded rejection, or 43.8 percent. The displayed 95 percent interval for that fraction runs from 23.1 to 66.8 percent. The group is small, and this range was highlighted after inspecting the plot.",
-        "A model can rank specimens well while its numerical scores differ from the observed rejection fractions. We did not fit a calibration model on these validation specimens. The application therefore calls its output a model score."
+        "A model can rank specimens well while its numerical scores differ from the observed rejection fractions. I did not fit a calibration model on these validation specimens. The application therefore calls its output a model score."
       ],
       "actions": [
         "Keep the 16-specimen count visible when explaining the highlighted range."
@@ -914,7 +914,7 @@
         "This follow-up compared models trained on the four diagnoses with the original model trained on rejection versus no rejection. The table converts each result to the same any-rejection question using rules selected in discovery, so these error counts are comparable.",
         "The original binary CatBoost model misses 25 of 169 rejection specimens with eight false flags among 176 no-rejection specimens. Four-class CatBoost misses 29 with eight false flags. Four-class logistic regression misses 28 with ten false flags. Separate antibody and T-cell component models miss 24 with 15 false flags. That last approach detects one additional rejection specimen while adding seven false flags.",
         "For the separate subtype question, four-class logistic regression correctly identifies ten of 18 mixed diagnoses and makes five false mixed calls among 327 non-mixed specimens.",
-        "The follow-up supplied no reason to replace the binary service. Because we had already examined this validation group, the findings need confirmation in a new cohort."
+        "The follow-up supplied no reason to replace the binary service. Because I had already examined this validation group, the findings need confirmation in a new cohort."
       ],
       "actions": [
         "Explain the common any-rejection comparison before discussing the separate mixed-diagnosis result."
@@ -941,7 +941,7 @@
       "seconds": 0,
       "paragraphs": [
         "The full article and supplements do not document the number of unique patients, a rule for repeat biopsies, or allocation that separates patients and referring centers between groups. All specimens were processed at Arkana Laboratories. Specimen-level uncertainty intervals could be too narrow if some observations are related.",
-        "The evaluated dataset includes 202 native-kidney controls: 191 in discovery and 11 in validation. The public specimen metadata do not map those controls to individual records, so our current validation counts cannot be presented as a transplant-only evaluation.",
+        "The evaluated dataset includes 202 native-kidney controls: 191 in discovery and 11 in validation. The public specimen metadata do not map those controls to individual records, so my current validation counts cannot be presented as a transplant-only evaluation.",
         "The study excluded borderline acute T-cell-mediated rejection, chronic inactive antibody-mediated rejection, and chronic active T-cell-mediated rejection with mild or minimal inflammation, defined as an i score below two. These specific exclusions limit evidence for those difficult categories. They do not establish that every ambiguous biopsy was excluded.",
         "The software checks required measurements and usable numeric counts. The project did not independently repeat laboratory quality checks such as control-probe or imaging checks. Meaningful inputs still require a compatible assay and completed laboratory quality checks.",
         "The score analysis does not establish reliable individual probabilities. The service labels its output a model score. The local research container has been tested, while cloud deployment remains deferred."
@@ -1027,7 +1027,7 @@
       "paragraphs": [
         "UNOS researchers have studied whether artificial intelligence can identify anatomical issues from donor-kidney photographs. They used historical transplant and refusal records to label the images. Their stated aim includes supporting clinical decisions and making anatomical assessment more consistent.",
         "The connection is the research approach: learn from existing assessments to develop an additional source of evidence for transplant professionals. Here, the inputs are RNA measurements and the question concerns rejection in biopsy tissue.",
-        "These are different clinical tasks. The UNOS example provides context for the approach. It does not endorse this project or establish that our classifier improves clinical decisions."
+        "These are different clinical tasks. The UNOS example provides context for the approach. It does not endorse this project or establish that my classifier improves clinical decisions."
       ],
       "actions": [
         "Explain the different inputs and clinical questions before drawing the research connection."
@@ -1037,7 +1037,7 @@
         "Labels came from records of transplantation or refusal because of anatomy concerns.",
         "The intended use is to support clinical assessment and improve consistency.",
         "The connection: use recorded assessments to develop additional evidence for specialists.",
-        "This is a different clinical task and does not validate our classifier."
+        "This is a different clinical task and does not validate my classifier."
       ],
       "sources": [
         {
