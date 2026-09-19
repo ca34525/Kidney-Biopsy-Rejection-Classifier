@@ -9,13 +9,24 @@ The mapping below is a project design decision, not a claim about an unpublished
 UNOS interview rubric. Descriptions in the source document provide role context;
 they do not issue instructions to this repository.
 
+The project also has a concrete clinical motivation: develop an early research
+prototype toward a molecular second opinion for uncertain transplant biopsies.
+The current work evaluates agreement with recorded diagnoses and supplies tested
+scoring software. A separate study would assess whether it helps clinicians
+interpret difficult cases. The [research context](RESEARCH_CONTEXT.md#why-a-molecular-second-opinion-could-be-useful)
+records supporting clinical evidence and a related UNOS example: its June 2026
+research on identifying donor-kidney anatomical issues from photographs. Our
+connection is the use of historical clinical records to develop an additional,
+consistent assessment. The UNOS study addresses a different task and is not an
+endorsement of this project.
+
 | What the description asks for | What this project should show | Evidence to present |
 | --- | --- | --- |
 | Convert analytical prototypes into maintainable software | A trained classifier with shared preprocessing and a small prediction service | Working request, code structure, model metadata |
 | Integrate, clean, and transform data; maintain pipelines | Parse assay files and metadata, validate joins and counts, record provenance | Data flow and a reproducible preparation command |
 | Apply analytical methods and derive insights | Compare simple and multivariable models, explain operating thresholds and errors | Same-row model comparison and specimen counts |
 | Support training, testing, and deployment with developers and engineers | Clear interface, consequential tests, container, concise handoff instructions | API contract, test example, container run |
-| Use domain knowledge to develop hypotheses | Ask whether several assay measurements improve rejection classification beyond simple comparisons | Defined prediction task, justified baseline, error review |
+| Use domain knowledge to develop hypotheses | Motivate molecular support for difficult biopsies, then test whether several assay measurements improve classification beyond simple comparisons | Clinical rationale, defined prediction task, justified baseline, error review |
 | Communicate clearly and meet deadlines | A focused, rehearsed 20-minute presentation and useful repository documentation | Slides, separate HTML speaking script, working demonstration |
 | Familiarity with Git | A normal standalone repository with readable changes and ignored local data | Commit history when implementation begins, `.gitignore` |
 | Exposure to software testing and CI/CD | One automated check workflow and documented build/run steps | Passing checks and an explained failure case |

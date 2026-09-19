@@ -4,11 +4,11 @@
 
 Prepare a **20-minute presentation** for the UNOS Associate Data Scientist interview about this kidney biopsy gene-expression classifier. The user confirmed that the full 20 minutes is presentation time. Questions come separately.
 
-The user's September 18, 2026 instruction puts all spoken text and delivery cues in a **separate HTML speaking script**. Do not use PowerPoint notes. The [current draft](../presentation/README.md) has 18 main slides, 6 backup slides, and a complete script planned for 20 minutes. Real timed rehearsals remain pending.
+The user's September 18, 2026 instruction puts all spoken text and delivery cues in a **separate HTML speaking script**. Do not use PowerPoint notes. The [current draft](../presentation/README.md) has 20 main slides, 7 backup slides, and a complete script planned for 20 minutes. Real timed rehearsals remain pending.
 
-The user's second-pass feedback sets the order and level of explanation: open with the topic and research question, establish the biological and data context, then present methods and results. Give every substantive spoken topic a visible cue. These are the user's presentation preferences, separate from the external guidance summarized below.
+The user's feedback sets the order and level of explanation: open with the topic and research question, explain the biopsy, and immediately explain why another assessment of that tissue could help. Establish the clinical rationale before expanding the biological and data context, then present methods and results. Give every substantive spoken topic a visible cue. These are the user's presentation preferences, separate from the external guidance summarized below.
 
-This guide uses external sources published in **2007–2014**, with a cutoff before 2020 for the requested guidance predating modern generative-AI presentation tools. Publication dates come from the papers themselves or their publishers. Source summaries appear below. The project standards that follow apply those ideas to this interview.
+The presentation-design guidance uses external sources published in **2007–2014**, with a cutoff before 2020 for the requested guidance predating modern generative-AI presentation tools. Publication dates come from the papers themselves or their publishers. Source summaries appear below. This cutoff applies to design advice. The clinical rationale uses newer evidence and current Banff guidance, documented in [Research context](RESEARCH_CONTEXT.md).
 
 ## What the sources support
 
@@ -34,6 +34,8 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 
 - Assume a mixed audience of data scientists and transplant-domain colleagues until the panel composition is known. Explain the prediction target before introducing model terminology.
 - Define biopsy, RNA, assay, and panel in plain language before explaining the measurements. Give only the biological context needed to understand the data and label.
+- Immediately after explaining the biopsy, state the intended use: a molecular second opinion could give specialists additional evidence when a transplant biopsy is uncertain or conflicts with other findings. Explain that tissue appearance and gene activity provide different information from the existing tissue.
+- Make the positive case with its evidence. Current Banff guidance considers validated molecular tests in difficult cases, and research using the B-HOT panel supports investigating information beyond the initial microscopic diagnosis. Then identify the contribution here: a reproducible classifier and software for further evaluation. Added benefit in uncertain cases remains the next research question.
 - Keep the title slide to the topic and research question, with light context only if needed. Introduce the model comparison and error counts after the audience understands the specimens, diagnoses, and evaluation groups. Omit the interview-project tagline.
 - Draft the central question in one sentence. State what information the model receives, what label it predicts, and which biopsy population the analysis covers.
 - Organize around the work: why the question matters, what the data contain, how the evaluation works, what happened, and what the result permits us to conclude.
@@ -73,7 +75,8 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 - Explain consequential errors using actual counts or de-identified examples from the evaluation. Keep hypothetical examples clearly labeled.
 - Retain units, denominators, axis labels, and relevant baselines. If simplifying a chart for the talk, preserve the values and comparisons.
 - Describe a gene's model contribution as an association. A useful predictor does not by itself establish a biological cause.
-- State the limits of retrospective public-data evaluation before discussing possible clinical use. Claims about diagnosis or clinical benefit require evidence beyond this interview project.
+- Introduce the plausible use before the methods, with a brief qualification that this prototype tests classification of recorded diagnoses. Later, explain how a study of uncertain biopsies could test whether adding the molecular score improves assessment. Keep the distinction clear without letting a list of limitations replace the project's purpose.
+- Keep external clinical evidence separate from this project's results. Rosales et al. studied signals associated with later chronic active antibody-mediated rejection; this classifier does not forecast future rejection. The UNOS kidney-photo study illustrates research toward supporting expert assessment in a different task and does not establish endorsement of this project.
 - Generate quantitative figures from saved analysis outputs. Every reported number must match a reproducible result. Never use generated images to depict results, observations, or diagnostic performance.
 
 These evidence requirements are project choices. The presentation sources above support clear communication, but do not prescribe this classifier's methods or establish medical claims.
@@ -97,6 +100,7 @@ Before accepting a draft, check these points:
 | --- | --- |
 | The opening gives a model name or error counts before explaining the task | Keep the title slide to the topic and research question. Move results after the relevant context and show denominators. |
 | A spoken topic has no visible counterpart | Add a short cue or give the topic its own slide, then align the script and timing. |
+| The biopsy explanation leaves the audience asking why another assessment is needed | Put the molecular-second-opinion use case immediately after it, then show the external evidence and the part this project tests. |
 | A technical label has several possible meanings | Define it with ordinary words and use the same term on the slide and in the script. |
 | The deck lists tools and job-description keywords | Show a decision, the work that supports it, and its consequence. |
 | Every slide uses the same three-box layout | Choose the layout from the information the slide needs to explain. |
@@ -110,6 +114,7 @@ Before accepting a draft, check these points:
 
 - [ ] The argument is understandable without specialist gene-expression knowledge.
 - [ ] The title slide introduces the topic and question without premature results or an interview tagline.
+- [ ] The slide immediately after the biopsy explanation states who could use molecular evidence and when it could help. External support and the project's measured contribution are distinguishable.
 - [ ] Every substantive spoken topic has a readable on-slide cue, and the slide order matches the script.
 - [ ] RNA measurements, reference measurements, specimen IDs, and recorded diagnoses have distinct, explained roles.
 - [ ] The visible results match saved outputs, including cohort counts and metric definitions.
@@ -121,4 +126,5 @@ Before accepting a draft, check these points:
 - [ ] A local deck, PDF, and any demonstration backup open successfully.
 - [ ] Source acknowledgments and backup slides are complete.
 
-Source verification date: September 15, 2026.
+Presentation-design source verification date: September 15, 2026. Clinical-rationale
+sources and their review date are recorded in [Research context](RESEARCH_CONTEXT.md).

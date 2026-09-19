@@ -8,6 +8,12 @@ question is whether molecular measurements from an existing transplant biopsy
 can classify its recorded rejection diagnosis. The project should demonstrate
 sound analysis and the ability to turn a model into understandable, tested software.
 
+The clinical motivation is a molecular second opinion for specialists interpreting
+uncertain transplant biopsies. Explain why RNA could add useful evidence from tissue
+already collected, using the sources in `docs/RESEARCH_CONTEXT.md`. Present this
+purpose positively and distinguish it from the current project's evidence of
+classification performance. Added value in uncertain cases needs direct evaluation.
+
 Read `docs/PROJECT_SPEC.md`, `docs/JOB_REQUIREMENTS.md`, and `docs/PLAN.md` before
 substantial implementation. For presentation work, also read
 `docs/PRESENTATION_SPEC.md` and `docs/PRESENTATION_GUIDE.md`.
@@ -83,7 +89,10 @@ Do not reopen the search for a different project unless the user requests it.
 Use the dated external sources in `docs/PRESENTATION_GUIDE.md`. The talk lasts
 20 full minutes, with questions afterward. Slides are a required project deliverable.
 They must show the project's own results and working software, with editable
-evidence and speaker notes. Put secondary methods and detailed tables in backup slides.
+evidence and a separate HTML speaking script. Keep PowerPoint notes empty. After
+the biopsy explanation on slide 2, explain the molecular second-opinion purpose
+on slide 3, then show the supporting research. Put secondary methods and detailed
+tables in backup slides.
 
 Use plain English and a human voice. Prefer one concrete point over jargon,
 buzzwords, abstract claims, and keyword lists. Use literal wording instead of

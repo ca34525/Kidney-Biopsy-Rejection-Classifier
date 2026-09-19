@@ -4,6 +4,15 @@ Can molecular measurements from an existing kidney transplant biopsy classify
 its recorded rejection diagnosis? This project compares models on public
 NanoString B-HOT data and serves the selected model through a small research app.
 
+The clinical motivation is a **molecular second opinion for uncertain transplant
+biopsies**. RNA measurements could provide additional evidence when microscopic
+findings are borderline or conflict with other clinical information. This tested,
+reproducible prototype is an early step toward that use: it evaluates agreement
+with recorded diagnoses and makes scoring available for further research. Its
+added benefit in difficult cases remains to be evaluated. The
+[research context](docs/RESEARCH_CONTEXT.md#why-a-molecular-second-opinion-could-be-useful)
+records the supporting Banff guidance, B-HOT study, and related UNOS research.
+
 Start with the [current status and reading order](docs/STATUS.md). It distinguishes
 completed evidence, the frozen service, and the remaining presentation work.
 
@@ -37,8 +46,8 @@ or patient/center independence. File validation does not establish assay quality
 
 The draft includes [editable slides](presentation/unos_kidney_biopsy.pptx), a
 [PDF backup](presentation/unos_kidney_biopsy.pdf), and the separate
-[HTML speaking script](presentation/speaking_script.html). It has 18 main slides
-and 6 backup slides, with 20 minutes of planned delivery. All spoken text is in
+[HTML speaking script](presentation/speaking_script.html). It has 20 main slides
+and 7 backup slides, with 20 minutes of planned delivery. All spoken text is in
 the HTML file; PowerPoint notes are empty. See the
 [presentation guide](presentation/README.md) for source files and the demo fallback.
 Full timed rehearsals remain pending.

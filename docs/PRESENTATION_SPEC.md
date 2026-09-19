@@ -12,13 +12,15 @@ a separate `presentation/speaking_script.html`, and the presentation source file
 All spoken text and delivery cues belong in the HTML file. **Do not use PowerPoint
 notes.** This follows the user's September 18, 2026 delivery instruction.
 
-The [current draft](../presentation/README.md) contains 18 main slides and 6 backup
+The [current draft](../presentation/README.md) contains 20 main slides and 7 backup
 slides, with a complete HTML speaking script planned for 20 minutes. The deck,
 PDF, and static demonstration fallback are available. Actual timed rehearsals
 remain pending; planned timing does not establish measured delivery time.
 
-Follow [Presentation guide](PRESENTATION_GUIDE.md), which draws on external sources
-published from 2007 through 2014. Use the project's own run outputs for every result.
+Follow [Presentation guide](PRESENTATION_GUIDE.md), whose design advice draws on
+sources published from 2007 through 2014. The newer clinical-rationale sources
+are documented in [Research context](RESEARCH_CONTEXT.md). Use the project's own
+run outputs for every project result.
 
 ## Audience and purpose
 
@@ -34,44 +36,56 @@ The title slide introduces the topic and research question. It does not introduc
 error counts, a winning algorithm, or an interview-project tagline. Results come
 after the audience has enough context to understand them.
 
-The main point should emerge from the actual results. A possible structure is:
-several molecular measurements can help classify recorded rejection, the chosen
-threshold has a measurable error tradeoff, and a shared pipeline makes the result
-reproducible and usable in a research application. Revise that claim if the results
-support a different conclusion.
+Immediately after the biopsy explanation, explain the intended use: a molecular
+second opinion could give specialists additional evidence when a transplant
+biopsy is uncertain or conflicts with other findings. Histology examines tissue
+appearance, while RNA measurements describe gene activity. Current Banff guidance
+and B-HOT research support investigating this role.
+
+The project develops and evaluates an early research prototype for that purpose.
+Its measurements classify recorded rejection with a measurable error tradeoff,
+and its shared pipeline supports reproducible scoring of further specimens.
+Testing added benefit for uncertain biopsies is the next research step. Present
+this qualification alongside the intended use, then return to it when explaining
+the next study. The UNOS kidney-photo research connection belongs in a backup
+slide as an example of research toward supporting expert assessment in a
+different task.
 
 ## Content and time budget
 
-The current outline separates biological context, measurement roles, and model
-selection so that each has matching slide content. The HTML script gives the same
+The current outline puts the purpose immediately after the biopsy explanation,
+then separates supporting evidence, measurement roles, and model selection so
+each has matching slide content. The HTML script gives the same
 slide-by-slide and cumulative timing. These are planned durations, not measured
 rehearsal times.
 
 | Slide | Subject | Evidence or visual | Minutes |
 | ---: | --- | --- | ---: |
 | 1 | Research question | Topic and question | 0:20 |
-| 2 | Biopsy and rejection | Tissue sample, transplant context, recorded diagnosis | 1:05 |
-| 3 | Recorded diagnoses | Four diagnoses and the binary rejection label | 0:45 |
-| 4 | RNA and the assay | Molecules in tissue and how the assay measures them | 1:05 |
-| 5 | Measurement roles | 758 model inputs and 12 housekeeping reference measurements | 0:50 |
-| 6 | One observation | Specimen ID, counts, and diagnosis kept separate | 1:05 |
-| 7 | Normalization | Raw counts, within-specimen reference, transformed inputs | 1:30 |
-| 8 | Development and evaluation groups | Authors' cohorts and discovery training/screening split | 1:10 |
-| 9 | Model comparison | Constant, IFNG, logistic regression, and CatBoost | 1:00 |
-| 10 | Threshold selection | Discovery screening rule and the error tradeoff | 1:00 |
-| 11 | Evaluation errors | Same-row comparison with class denominators | 1:50 |
-| 12 | Errors by recorded diagnosis | Missed rejection within each rejection group | 1:25 |
-| 13 | Comparison uncertainty | Paired comparison and discovery-only stability follow-up | 1:10 |
-| 14 | Prediction software | Input checks, shared preprocessing, model, response | 1:05 |
-| 15 | Working demonstration | Valid specimen and incomplete-file response | 2:00 |
-| 16 | Software checks | Consequential tests and current deployment evidence | 0:55 |
-| 17 | Limits and next evidence | What the study establishes and what remains untested | 1:00 |
-| 18 | Conclusion | Measured finding, software contribution, next step | 0:45 |
+| 2 | Biopsy and rejection | Tissue sample, transplant context, recorded diagnosis | 0:55 |
+| 3 | Molecular support for uncertain biopsies | Additional evidence for specialist review of existing tissue | 1:00 |
+| 4 | Evidence for a molecular second opinion | Banff guidance and B-HOT research, with their scope | 0:55 |
+| 5 | Recorded diagnoses | Four diagnoses and the binary rejection label | 0:40 |
+| 6 | RNA and the assay | Molecules in tissue and how the assay measures them | 0:55 |
+| 7 | Measurement roles | 758 model inputs and 12 housekeeping reference measurements | 0:45 |
+| 8 | One observation | Specimen ID, counts, and diagnosis kept separate | 0:55 |
+| 9 | Normalization | Raw counts, within-specimen reference, transformed inputs | 1:10 |
+| 10 | Development and evaluation groups | Authors' cohorts and discovery training/screening split | 1:00 |
+| 11 | Model comparison | Constant, IFNG, logistic regression, and CatBoost | 0:50 |
+| 12 | Threshold selection | Discovery screening rule and the error tradeoff | 0:55 |
+| 13 | Evaluation errors | Same-row comparison with class denominators | 1:50 |
+| 14 | Errors by recorded diagnosis | Missed rejection within each rejection group | 1:15 |
+| 15 | Comparison uncertainty | Paired comparison and discovery-only stability follow-up | 1:00 |
+| 16 | Prediction software | Input checks, shared preprocessing, model, response | 1:00 |
+| 17 | Working demonstration | Valid specimen and incomplete-file response | 2:00 |
+| 18 | Software checks | Consequential tests and current deployment evidence | 0:50 |
+| 19 | Next evidence for a molecular second opinion | New cohort, laboratory checks, and a direct test of added benefit | 1:00 |
+| 20 | Conclusion | Intended use, measured contribution, next step | 0:45 |
 | | **Total speaking time** | **Questions afterward** | **20:00** |
 
 Give the central result and its tradeoff enough time after explaining the task.
 A methods nuance should occupy only the space needed to understand the result.
-Backup slides 19–24 support questions and sit outside this timing budget.
+Backup slides 21–27 support questions and sit outside this timing budget.
 
 ## Required evidence
 
@@ -83,8 +97,9 @@ Backup slides 19–24 support questions and sit outside this timing budget.
   Do not compare accuracy percentages across different prediction tasks.
 - Show the model version and threshold in the demonstration. Use only public
   study examples with no invented clinical history.
-- Explain current use and the main limitation in plain language. Keep extra
-  methodological detail and secondary targets in backup slides.
+- Explain the intended clinical role and the measured research contribution in
+  plain language. Distinguish external evidence from this project's results.
+  Keep extra methodological detail and secondary targets in backup slides.
 - Describe work actually completed, including the candidate's decisions and
   appropriate disclosure of AI assistance. Present proposed work as proposed.
 
@@ -119,4 +134,6 @@ shrinking every slide or speaking faster.
 Prepare concise answers with supporting slides for label mapping, preprocessing,
 the full model comparison, threshold choice, calibration, secondary rejection
 components, study limitations, testing, deployment, and what would change at a
-larger data volume. Backups do not count toward the planned 20 minutes.
+larger data volume. Include the UNOS kidney-photo research connection with its
+source and the difference in clinical task. Backups do not count toward the
+planned 20 minutes.

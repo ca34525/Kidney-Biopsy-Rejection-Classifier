@@ -5,9 +5,12 @@ reports and verification records remain evidence of what was checked at the time
 
 ## Read the project in this order
 
-1. **Question:** Can molecular measurements from an existing kidney transplant
-   biopsy classify its recorded rejection diagnosis? The [README](../README.md)
-   states the input, comparison, and limits. This is a retrospective research task.
+1. **Purpose and question:** A molecular second opinion could give specialists
+   additional evidence when a kidney transplant biopsy is uncertain. The
+   [research context](RESEARCH_CONTEXT.md) documents the Banff guidance and B-HOT
+   research supporting this intended use. This project tests an early step:
+   can molecular measurements from existing tissue classify its recorded
+   rejection diagnosis? The [README](../README.md) states the input and comparison.
 2. **Primary result:** The [frozen analysis](../results/analysis/20260915_baseline/REPORT.md)
    compares the same 345 specimens. CatBoost missed 25 of 169 rejection cases and
    falsely flagged 8 of 176 no-rejection cases. Logistic regression missed 33 with
@@ -30,11 +33,13 @@ reports and verification records remain evidence of what was checked at the time
    evidence below; a previous passing revision is not a test of later edits.
 5. **Presentation draft:** The [presentation package](../presentation/README.md)
    contains the editable deck, matching PDF, separate HTML speaking script, and
-   static demonstration fallback. The second pass has 18 main slides and 6 backup
+   static demonstration fallback. The revised talk has 20 main slides and 7 backup
    slides, with a full script planned for 20 minutes. PowerPoint notes are not used. Two full
    timed rehearsals and one interruption/fallback rehearsal remain pending. The
-   revised sequence introduces the biology and measurement roles before results,
-   with visible cues for the topics covered in the script.
+   revised sequence places the molecular-second-opinion purpose immediately after
+   the biopsy explanation, then presents its supporting evidence before data and
+   methods. The UNOS kidney-photo research connection has a cited backup slide.
+   Visible cues match the topics covered in the script.
    The [AWS guide](AWS_DEPLOYMENT.md) is a procedure; a cloud deployment has not
    been performed. [Next steps](NEXT_STEPS.md) records deferred research questions
    and product ideas without adding them to the current implementation.
@@ -64,11 +69,13 @@ original manifests. The frozen service model and threshold are unchanged.
 
 ## Keep the main story short
 
-The data question, fair comparison, observed errors, and working prediction path
-form the main talk. Keep the subtype follow-up, detailed reliability tables,
-assay-group tables, and implementation history available for questions. No
-external-cohort study, calibration fit, or clinical-use claim is established by
-the completed work.
+The intended use, data question, fair comparison, observed errors, and working
+prediction path form the main talk. Keep the subtype follow-up, detailed
+reliability tables, assay-group tables, and implementation history available for
+questions. The completed work supplies a reproducible prototype for further
+evaluation. A direct comparison of usual assessment with and without molecular
+scores in uncertain biopsies would test its added benefit. Independent-cohort
+evaluation and laboratory quality checks would strengthen that study.
 
 Background: [project specification](PROJECT_SPEC.md), [research context](RESEARCH_CONTEXT.md),
 [job requirements](JOB_REQUIREMENTS.md), [plan](PLAN.md), [presentation guide](PRESENTATION_GUIDE.md),

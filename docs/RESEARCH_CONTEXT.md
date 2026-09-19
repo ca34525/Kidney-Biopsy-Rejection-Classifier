@@ -1,6 +1,44 @@
 # Research context
 
-Public-source context captured on 2026-09-15. This document defines the research question; model findings must come from runs performed in this project.
+Public-source context first captured on 2026-09-15; clinical rationale updated
+2026-09-18. This document defines the research question and its motivation. Model
+findings must come from runs performed in this project.
+
+## Why a molecular second opinion could be useful
+
+The intended application is to support the review of kidney transplant biopsies
+whose conventional interpretation is uncertain. Histology examines tissue
+appearance; RNA measurements describe gene activity within that tissue. A molecular
+assessment could supply additional evidence when microscopic findings are
+borderline, incomplete, or inconsistent with other clinical information. The
+practical aim is to get more useful information from tissue already collected.
+
+This project develops an early research prototype for that application. It tests
+whether molecular measurements identify recorded rejection diagnoses, compares
+models, and provides tested software for reproducible scoring. Agreement with
+established diagnoses is a useful development step before studying difficult
+cases. Showing that the score improves interpretation in those cases requires a
+separate evaluation: compare the standard assessment with and without molecular
+information, using independent case review or outcomes to judge added value.
+
+The sources below support this motivation. They do not validate this project's
+classifier for clinical use.
+
+### Evidence supporting the application
+
+All three sources were checked on **2026-09-18**.
+
+| Source and date | What it supports | Scope of the evidence |
+| --- | --- | --- |
+| Banff Foundation, [Current Reference Guide to the Banff Classification](https://banfffoundation.org/central-repository-for-banff-classification-resources-3/), version Banff-Kidney-2024-3, updated April 20, 2026 | The current diagnostic framework includes thoroughly validated biopsy transcript tests for antibody-mediated rejection/microvascular inflammation and discusses their use in complex cases. | A recognized role for molecular evidence, conditional on validation for the stated purpose. This living reference supersedes older meeting reports; the source dataset's diagnoses were rescored under Banff 2019. |
+| Rosales et al., [Banff Human Organ Transplant Transcripts Correlate with Renal Allograft Pathology and Outcome: Importance of Capillaritis and Subpathologic Rejection](https://pubmed.ncbi.nlm.nih.gov/36450597/), *JASN*, December 2022; published online August 31, 2022 | This study used the NanoString B-HOT panel on 326 archived biopsies. Among 108 patients without histological chronic active antibody-mediated rejection, 23 developed it within five years; that group had higher initial antibody-mediated rejection pathway scores. | Evidence that measurements from this panel can contain information not captured by the initial histological category. These were different scores in a separate study; this project's classifier does not test future rejection prediction. |
+| Thoreson and Stuart, UNOS, [Using AI to identify kidney anatomy issues](https://unos.org/news/using-ai-to-identify-kidney-anatomy-issues/), June 2, 2026 | UNOS researchers trained an image model using donor-kidney photographs and labels derived from transplantation or refusal for anatomical concerns. They describe supporting clinical decisions and improving consistency as potential benefits. | A related research approach in transplantation. The connection to this project is our interpretation: existing clinical records can support development of an additional assessment. It is a different task and provides no UNOS endorsement of this classifier. |
+
+The strongest supported project claim is therefore: **a reproducible molecular
+classifier is an early step toward a molecular second opinion for uncertain
+transplant biopsies**. The present evaluation establishes classification performance
+against recorded diagnoses; the proposed benefit in difficult cases remains the
+next research question.
 
 ## What is being classified?
 

@@ -1,7 +1,7 @@
 # Interview presentation
 
-Second pass, September 18, 2026. The talk has **18 main slides** with a
-**20:00 speaking plan**, followed by **6 backup slides** for questions.
+Revised September 18, 2026. The talk has **20 main slides** with a
+**20:00 speaking plan**, followed by **7 backup slides** for questions.
 
 - [Editable PowerPoint](unos_kidney_biopsy.pptx)
 - [Separate HTML speaking script](speaking_script.html)
@@ -23,21 +23,26 @@ belongs in the HTML file, following the user's September 18 instruction.
 | Slides | Subject | End time |
 | --- | --- | ---: |
 | 1 | Topic and research question | 0:20 |
-| 2–5 | Biopsy, recorded diagnoses, RNA assay, and measurement roles | 4:05 |
-| 6–10 | One observation, normalization, cohorts, models, and threshold | 9:50 |
-| 11–13 | Evaluation errors, diagnosis groups, and comparison uncertainty | 14:15 |
-| 14–16 | Shared software, demonstration, and checks | 18:15 |
-| 17–18 | Limits, next evidence, and conclusion | 20:00 |
-| 19–24 | Backup material | Questions afterward |
+| 2–4 | Biopsy, molecular-second-opinion purpose, and supporting evidence | 3:10 |
+| 5–7 | Recorded diagnoses, RNA assay, and measurement roles | 5:30 |
+| 8–12 | One observation, normalization, cohorts, models, and threshold | 10:20 |
+| 13–15 | Evaluation errors, diagnosis groups, and comparison uncertainty | 14:25 |
+| 16–18 | Shared software, demonstration, and checks | 18:15 |
+| 19–20 | Next evidence for a molecular second opinion and conclusion | 20:00 |
+| 21–27 | Backup material, including the UNOS research connection | Questions afterward |
 
-The 2,361-word main script includes a two-minute demonstration and time for pauses.
+The main script includes a two-minute demonstration and time for pauses.
 These are planned allocations, not measured rehearsal results. Complete
 two full aloud rehearsals and one fallback rehearsal before the interview. The
 HTML page can export a measured rehearsal record. The candidate should also
 review the account of personal contributions before presenting.
 
-The opening states the question. Results follow the biological context, data,
-and evaluation procedure. Each substantive spoken topic has an on-slide cue,
+The opening states the question. Immediately after the biopsy explanation, the
+talk explains why a molecular second opinion could help specialists assess
+uncertain biopsies. Banff guidance and B-HOT research support this motivation.
+The project's measured contribution is a reproducible classifier and working
+software. Testing added benefit in uncertain cases is the next research step.
+Results follow the biological context, data, and evaluation procedure. Each substantive spoken topic has an on-slide cue,
 with the longer explanation in the script. Measurement roles and the predicted
 diagnosis have separate labels. The [presentation specification](../docs/PRESENTATION_SPEC.md)
 records the slide-by-slide time budget, and the [guide](../docs/PRESENTATION_GUIDE.md)
@@ -76,6 +81,11 @@ full precision. The PDF is a static rendering of the final slide pages.
 - Basic biology: NIDDK's kidney transplant and biopsy pages. Assay context: the
   original study and Bruker's nCounter documentation. Exact links accompany the
   relevant passages in the speaking script.
+- Clinical rationale: current Banff guidance and Rosales et al. (2022), documented
+  in [Research context](../docs/RESEARCH_CONTEXT.md). The later-outcome association
+  in that B-HOT study motivates further research and is not a forecast produced
+  by this classifier. A backup slide cites UNOS's June 2026 kidney-photo study
+  as an example of research toward supporting expert assessment in another task.
 - [Presentation guide](../docs/PRESENTATION_GUIDE.md) supplies the dated design
   and rehearsal references.
 - [Source and output hashes](manifest.json) identify this draft.

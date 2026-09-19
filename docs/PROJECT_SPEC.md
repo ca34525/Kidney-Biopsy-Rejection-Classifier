@@ -1,21 +1,31 @@
 # Kidney biopsy rejection classifier project specification
 
-Specification date: September 15, 2026. Planning horizon: one week. Presentation:
+Specification date: September 15, 2026; clinical rationale updated September 18,
+2026. Planning horizon: one week. Presentation:
 20 full minutes, with questions outside that time. The exact interview date has
 not been supplied.
 
 ## Objective
 
-Build a reproducible research classifier that uses molecular measurements from
-an already collected kidney transplant biopsy to predict its recorded rejection
-diagnosis. Package it as a small, tested application and explain the work in a
-20-minute interview presentation.
+Develop an early research prototype toward a **molecular second opinion for
+uncertain kidney transplant biopsies**. RNA measurements could add evidence when
+microscopic findings are borderline, incomplete, or inconsistent with other
+clinical information. The aim is to get more useful information from tissue
+already collected. The dated clinical sources and related UNOS research are
+recorded in [Research context](RESEARCH_CONTEXT.md#why-a-molecular-second-opinion-could-be-useful).
+
+The analysis objective is to build a reproducible classifier that uses molecular
+measurements from an already collected kidney transplant biopsy to predict its
+recorded rejection diagnosis. Package it as a small, tested application and explain
+the work in a 20-minute interview presentation.
 
 The intended research user is a transplant pathology or molecular laboratory team
-studying agreement between assay measurements and recorded biopsy diagnoses. A
-useful demonstration shows an assay-compatible specimen, its model score, the
-chosen threshold, and the kinds of errors observed in evaluation. This project
-does not establish that the score should determine care.
+developing an additional assessment for difficult biopsies. This project's current
+contribution is to test agreement with recorded diagnoses and make the scoring
+procedure reproducible. A useful demonstration shows an assay-compatible specimen,
+its model score, the chosen threshold, and the kinds of errors observed in
+evaluation. Added benefit in uncertain cases would require a separate comparison
+of standard assessment with and without molecular information.
 
 The role emphasizes developing data products and taking analytical prototypes
 toward maintainable software. Success therefore means a credible analysis, working
