@@ -23,12 +23,12 @@ belongs in the HTML file, following the user's September 18 instruction.
 
 | Slides | Subject | Approximate time |
 | --- | --- | ---: |
-| 1–4 | Title, transplant context, possible use, and supporting evidence | 3½ minutes |
-| 5–8 | Dataset, outcome, measurements, and normalization | 3½ minutes |
-| 9–11 | Study groups, models, and threshold | 3¼ minutes |
+| 1–4 | Title, transplant context, possible use, and supporting evidence | 3¾ minutes |
+| 5–8 | Dataset, outcome, measurements, and normalization | 3¾ minutes |
+| 9–11 | Study groups, models, and threshold | 2¾ minutes |
 | 12–14 | Validation errors, diagnosis groups, and comparison uncertainty | 4¼ minutes |
 | 15–17 | Shared software, demonstration, and checks | 3¾ minutes |
-| 18–19 | Next evidence for a molecular second opinion and conclusion | 1¾ minutes |
+| 18–19 | Possible extensions and project accomplishments | 1¾ minutes |
 | 20–27 | Backup material, starting with assay details | Questions afterward |
 
 The main script includes about two minutes for the demonstration and room for
@@ -44,14 +44,22 @@ research question aloud. Immediately after the biopsy explanation, the
 talk explains why a molecular second opinion could help specialists assess
 uncertain biopsies. Banff guidance and B-HOT research support this motivation.
 The project's measured contribution is a reproducible classifier and working
-software. Testing added benefit in uncertain cases is the next research step.
+software. Testing added benefit in uncertain cases is a possible extension
+requiring clinical collaborators. Slide 4 explains why an incorrect rejection
+diagnosis could lead to harmful unnecessary treatment, without claiming that this
+project improves care. The [biopsy-care review](../docs/references/BIOPSY_CARE_20260919.md)
+records the supporting research.
 The main sequence then introduces the dataset, the outcome, and the measurements
 before explaining evaluation. Slide 2 uses bold definitions with evidence
 sub-bullets. Slide 3 uses two matching hypothetical-example boxes. Slide 5 shows
-two linked analysis tables, with their assembly explained in the script.
+two linked analysis tables, with their assembly explained in the script. The
+patient and referring-center separation note sits beneath the dataset counts.
 "Cohort" first appears with the study groups on slide 9. Detailed assay terminology
 is on backup slide 20. Recall and precision introduce the error terms before the
-validation chart compares false negatives and false positives. Substantive topics
+validation chart compares false negatives and false positives. Slide 11 uses
+word fractions for those metrics. Slide 15 introduces the service and demo,
+slide 18 presents hypothetical extensions, and slide 19 separates the completed
+model comparison from the software demonstration. Substantive topics
 have visible support, with spoken elaboration in the script.
 The [presentation specification](../docs/PRESENTATION_SPEC.md)
 records the outline and approximate section budget, and the [guide](../docs/PRESENTATION_GUIDE.md)

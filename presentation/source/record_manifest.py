@@ -37,6 +37,7 @@ sources = [
     "docs/PRESENTATION_GUIDE.md",
     "docs/PRESENTATION_SPEC.md",
     "docs/references/STUDY_AUDIT_20260919.md",
+    "docs/references/BIOPSY_CARE_20260919.md",
     "docs/references/rejection_source_manifest.json",
 ]
 
@@ -47,7 +48,7 @@ def sha(file: Path) -> str:
 
 manifest = {
     "created": "2026-09-19",
-    "revision": "study-source pass with clarified labels, housekeeping explanation and first-person singular presentation voice",
+    "revision": "consistent definition spacing, clinical context for incorrect flags, word fractions, service transition and a modest conclusion separating modeling from the demo",
     "main_slides": len(data['slides']),
     "backup_slides": len(data['backups']),
     "planned_seconds": 1200,

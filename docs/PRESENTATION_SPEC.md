@@ -48,9 +48,10 @@ and B-HOT research support investigating this role.
 The project develops and evaluates an early research prototype for that purpose.
 Its measurements classify recorded rejection with a measurable error tradeoff,
 and its shared pipeline supports reproducible scoring of further specimens.
-Testing added benefit for uncertain biopsies is the next research step. Present
-this qualification alongside the intended use, then return to it when explaining
-the next study. Do not claim ambiguous specimens were absent from training without
+Testing added benefit for uncertain biopsies is a possible extension requiring
+clinical collaborators. Present this qualification alongside the intended use,
+then frame later suggestions as hypothetical extensions of this personal project.
+Do not claim ambiguous specimens were absent from training without
 evidence. The UNOS kidney-photo research connection belongs in a backup
 slide as an example of research toward supporting expert assessment in a
 different task.
@@ -67,35 +68,35 @@ laboriously optimizing estimates.
 
 | Slides | Section | Approximate time |
 | --- | --- | ---: |
-| 1–4 | Question, transplant context, possible use, and supporting research | 3½ minutes |
-| 5–8 | Dataset, outcome, measurements, and normalization | 3½ minutes |
-| 9–11 | Study groups, models, and threshold | 3¼ minutes |
+| 1–4 | Question, transplant context, possible use, and supporting research | 3¾ minutes |
+| 5–8 | Dataset, outcome, measurements, and normalization | 3¾ minutes |
+| 9–11 | Study groups, models, and threshold | 2¾ minutes |
 | 12–14 | Validation errors and comparison uncertainty | 4¼ minutes |
 | 15–17 | Prediction software, demonstration, and checks | 3¾ minutes |
-| 18–19 | Further evidence and conclusion | 1¾ minutes |
+| 18–19 | Possible extensions and project accomplishments | 1¾ minutes |
 | | **Total, with questions afterward** | **20 minutes** |
 
 | Slide | Subject | Evidence or visual |
 | ---: | --- | --- |
 | 1 | Classifying Kidney Transplant Rejection from Biopsy RNA | Title only |
-| 2 | Transplant rejection and kidney biopsy | Bold definition labels, with histology and RNA counts as biopsy-evidence sub-bullets |
+| 2 | Transplant rejection and kidney biopsy | Bold definition labels and indented biopsy-evidence sub-bullets, with consistent gaps between the visible text blocks |
 | 3 | Possible Use: Molecular Second Opinion for Ambiguous Biopsies | Matching boxes labelled Hypothetical Example, before and after a possible molecular assessment |
-| 4 | Evidence for a molecular second opinion | Banff guidance and B-HOT research, with the project's scope given visual emphasis |
-| 5 | What the dataset contains | Two analysis-table schemas linked by specimen ID; 1,193 transplant biopsies and 202 native-kidney controls |
+| 4 | Evidence for a molecular second opinion | Banff guidance, B-HOT research, and why unnecessary rejection treatment can worsen infection; keep the project's scope visible |
+| 5 | What the dataset contains | Two analysis-table schemas linked by specimen ID; matching bullets at the same font size for the specimen counts and the patient/referring-center separation note directly underneath, without an asterisk |
 | 6 | Outcome: rejection versus no rejection | Colored summary above the diagnosis table; binary mapping of the included categories and a short exclusion note |
 | 7 | The measurements used to build the features | 758 model measurements and 12 housekeeping references used to adjust for differences in RNA quantity |
 | 8 | Normalization | Compact numbered calculation and example for each of the 758 counts |
-| 9 | Development and evaluation groups | Authors' discovery/validation division, this project's training/screening split, and an asterisk for undocumented patient and referring-center separation |
+| 9 | Development and evaluation groups | Authors' discovery/validation division and this project's training/screening split |
 | 10 | Model comparison | Constant, IFNG, logistic regression, and CatBoost; each produces a rejection score |
-| 11 | Threshold selection | Recall and precision definitions, then the discovery-screening selection rule |
+| 11 | Threshold selection | Recall and precision as stacked fractions with words in the numerator and denominator, then the screening selection rule |
 | 12 | Validation results | False negatives and false positives on the same rows, with class denominators |
 | 13 | Errors by recorded diagnosis | False negatives within each rejection group |
 | 14 | Comparison uncertainty | Paired comparison and discovery-only stability follow-up |
-| 15 | Prediction software | Input checks, shared preprocessing, model, response |
+| 15 | Prediction service and demonstration | Transition into software, with input checks, shared preprocessing, model and response |
 | 16 | Working demonstration | Valid specimen and incomplete-file response |
 | 17 | Software checks | Consequential tests and current deployment evidence |
-| 18 | Next evidence for a molecular second opinion | New transplant biopsies, laboratory checks, and a direct test of added benefit |
-| 19 | Conclusion | Intended use, measured contribution, next step |
+| 18 | Possible next steps | Hypothetical extensions of a personal project: another dataset and a possible study with clinical collaborators |
+| 19 | What this project accomplished | Separate model-comparison and service/demo sections; error percentages with counts and denominators; no next-step bullet |
 
 Give the central result and its tradeoff enough time after explaining the task.
 A methods nuance should occupy only the space needed to understand the result.
@@ -104,9 +105,10 @@ contains the assay explanation moved from the main talk.
 
 ## Required evidence
 
-- Use absolute counts and denominators alongside percentages. Define recall as
-  the proportion of recorded rejection cases detected, and precision as the
-  proportion of positive flags with recorded rejection. Explain false negatives
+- Use absolute counts and denominators alongside percentages. Show recall as
+  recorded rejection cases detected divided by all recorded rejection cases,
+  and precision as flags with recorded rejection divided by all positive flags.
+  Use stacked word fractions on slide 11. Explain false negatives
   as missed cases and false positives as incorrect flags. The selection procedure
   requires at least 90% screening recall, then minimizes false positives. This
   second criterion maximizes specificity, not precision. State that the 90% target

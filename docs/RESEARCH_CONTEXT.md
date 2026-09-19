@@ -94,6 +94,13 @@ Keep that limitation separate from the biological rationale established here.
 
 ## What this project reproduces
 
+The [September 19 biopsy-care review](references/BIOPSY_CARE_20260919.md)
+documents how biopsy findings can inform treatment, including an observational
+study using molecular biopsy testing. It also explains why unnecessary rejection
+treatment can be harmful and why this project's reduction in false flags does
+not establish better patient care. These findings support presentation context;
+they do not change the saved models or evaluation.
+
 The reproducible procedure is this project's own analysis. It uses raw RCC counts
 and a specimen-level housekeeping transform. It does not reconstruct the authors'
 complete preprocessing or published LASSO classifier. The

@@ -116,19 +116,20 @@
     {
       "id": 4,
       "title": "Evidence for a molecular second opinion",
-      "seconds": 55,
+      "seconds": 70,
       "paragraphs": [
-        "There is a clinical research basis for this proposal. Banff guidance supports the classification of transplant biopsy findings and considers validated molecular tests in selected difficult cases.",
-        "Rosales and colleagues used B-HOT, the same fixed panel of RNA measurements used here. Patients who later developed chronic active antibody-mediated rejection had higher initial rejection-related molecular scores as a group, despite lacking that diagnosis on the initial biopsy. Antibody-mediated rejection is a form involving immune proteins called antibodies.",
-        "That study supports investigating information beyond the initial tissue diagnosis. Its later-outcome finding belongs to that external study. This project measures agreement with recorded diagnoses. Its value in ambiguous biopsies needs direct evaluation."
+        "Banff guidance considers validated molecular tests in selected difficult biopsy interpretations. This supports investigating RNA as additional evidence when the microscopic findings leave uncertainty.",
+        "Rosales and colleagues used B-HOT, the same fixed panel of RNA measurements used here. Patients who later developed chronic active antibody-mediated rejection had higher initial rejection-related molecular scores as a group, despite lacking that diagnosis on the initial biopsy. Antibody-mediated rejection involves immune proteins called antibodies. That later-outcome finding belongs to their study.",
+        "There is also a practical reason to avoid incorrect rejection calls. A rejection diagnosis can lead to medicines that suppress the immune system. If the problem is an infection, extra treatment can weaken the body’s defenses and make the infection worse. This is a reason to examine incorrect flags as well as missed rejection. It does not establish which model makes the best treatment decisions.",
+        "My project measures agreement with recorded diagnoses. It has not measured changes in care or patient outcomes, and its value in ambiguous biopsies needs direct evaluation."
       ],
       "actions": [
-        "Explain the two evidence rows, then connect them to the project question."
+        "Explain the two research findings, then the treatment consequence of an incorrect rejection call. Finish with what this project actually measures."
       ],
       "visible_cues": [
         "Banff guidance, 2026: considers validated molecular tests for difficult biopsy interpretations",
-        "B-HOT study, Rosales, 2022",
-        "Higher initial molecular scores in patients who later developed chronic active antibody-mediated rejection, despite no initial diagnosis of it",
+        "B-HOT study, Rosales, 2022: higher initial molecular scores before later chronic active antibody-mediated rejection",
+        "Why incorrect rejection calls matter: unnecessary rejection treatment can weaken the body’s defenses and worsen an infection",
         "This project measures agreement with recorded diagnoses. Its value in ambiguous biopsies needs direct evaluation."
       ],
       "sources": [
@@ -143,18 +144,31 @@
         {
           "label": "Project research context",
           "path": "docs/RESEARCH_CONTEXT.md"
+        },
+        {
+          "label": "KDIGO transplant-recipient guideline (2009), recommendations 6.1 and 6.3, summarized in the clinical guide",
+          "url": "https://kdigo.org/wp-content/uploads/2017/02/KDIGO_TX_NephsTool-Managing-Kidney-Transplant-Recipients.pdf"
+        },
+        {
+          "label": "Second International Consensus Guidelines on BK Polyomavirus (2024), Pathology and Management",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11335089/"
+        },
+        {
+          "label": "September 19 research note: biopsy findings, care decisions, and the model tradeoff",
+          "path": "docs/references/BIOPSY_CARE_20260919.md"
         }
       ]
     },
     {
       "id": 5,
       "title": "What the dataset contains",
-      "seconds": 55,
+      "seconds": 70,
       "paragraphs": [
         "The public data come in two downloads: a metadata file and an archive containing 1,395 individual count files. My code assembles them into the two tables shown here.",
         "The count table has one row per biopsy specimen and a column for each of the 770 RNA counts. The specimen-information table contains the recorded diagnosis and the study group assigned by the authors.",
         "Specimen ID is unique in each table and matches the rows one to one. GSM6510425 is the same specimen in both. This pairs the measurements with the diagnosis used for training and evaluation.",
-        "The 1,395 specimens include 1,193 transplant biopsies and 202 native-kidney controls. All enter my comparison. The article reports those control counts, but the public specimen metadata do not identify which no-rejection rows are native kidneys."
+        "The 1,395 specimens include 1,193 transplant biopsies and 202 native-kidney controls. All enter my comparison. The article reports those control counts, but the public specimen metadata do not identify which no-rejection rows are native kidneys.",
+        "The full study does not document separation by patient or referring center between study groups. It reports referrals from several regions, but all specimens were processed at Arkana Laboratories. Geographic breadth does not establish separation by patient or referring center."
       ],
       "actions": [
         "Read the selected columns in each table and point to specimen ID as their shared key."
@@ -165,7 +179,8 @@
         "Specimen information: specimen ID (key), recorded diagnosis, study group, other details",
         "GSM6510425: no rejection; Discovery",
         "Same ID: 1 : 1",
-        "Includes 1,193 transplant biopsies and 202 native-kidney controls."
+        "Includes 1,193 transplant biopsies and 202 native-kidney controls.",
+        "The study does not document separation by patient or referring center between study groups."
       ],
       "sources": [
         {
@@ -177,7 +192,7 @@
           "path": "docs/RESEARCH_CONTEXT.md"
         },
         {
-          "label": "Zhang et al., 2024, Tables 5 and 6, page 10: 191 discovery and 11 validation native-kidney controls",
+          "label": "Zhang et al., 2024, Methods, pages 2–3, and Tables 5 and 6, page 10: laboratory, study groups, and native-kidney controls",
           "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
         },
         {
@@ -326,12 +341,11 @@
     {
       "id": 9,
       "title": "Development and evaluation specimens",
-      "seconds": 60,
+      "seconds": 45,
       "paragraphs": [
         "The authors supplied two groups, or cohorts. Discovery has 1,050 specimens and validation has 345. This project preserves that division for model development and the final comparison.",
         "Within discovery, a saved split assigns 787 specimens to training and 263 to screening, keeping the four diagnosis proportions similar. Training fits the models. Screening compares candidates and chooses the threshold for a rejection flag.",
-        "I then evaluate the selected model and threshold on the same 345 validation specimens used by every comparison model. The authors call this technical validation.",
-        "The full study does not document patient or referring-center separation across the groups. It reports referrals from several regions, but all specimens were processed at Arkana Laboratories. Geographic breadth does not establish separation by patient or referring center."
+        "I then evaluate the selected model and threshold on the same 345 validation specimens used by every comparison model. The authors call this technical validation."
       ],
       "actions": [
         "Follow discovery into training and screening, then move to the separate validation box."
@@ -342,8 +356,7 @@
         "Discovery cohort: 1,050 specimens",
         "Training: 787; fit the models",
         "Screening: 263; choose model and threshold",
-        "Validation cohort: 345 specimens; evaluate the selected model and threshold",
-        "*Patient and referring-center separation are not documented in the study."
+        "Validation cohort: 345 specimens; evaluate the selected model and threshold"
       ],
       "sources": [
         {
@@ -419,20 +432,19 @@
     {
       "id": 11,
       "title": "Choosing a rejection threshold",
-      "seconds": 70,
+      "seconds": 55,
       "paragraphs": [
-        "A threshold turns a model score into a rejection flag. Recall is the proportion of recorded rejection cases detected. False negatives are missed cases. Precision is the proportion of positive flags with recorded rejection. False positives are incorrect flags.",
+        "A threshold turns a model score into a rejection flag. The fractions show what I count. Recall divides the recorded rejection cases detected by all recorded rejection cases. False negatives are the missed cases. Precision divides flags with recorded rejection by all positive flags. False positives are the incorrect flags.",
         "On screening specimens, first retain thresholds with at least 90 percent recall. Among those choices, minimize false positives. Keep the chosen model and threshold together for evaluation. Minimizing false positives here maximizes specificity. It does not mean maximizing precision.",
         "This gives priority to detecting rejection, then reduces incorrect flags. The 90 percent target is an experiment choice. It is not an established clinical requirement or a guarantee on new data.",
-        "The clinical tradeoff depends on what follows the score. The source study highlights infection controls because mistaking infection for rejection could lead to harmful additional immunosuppression. False positives therefore matter as well as misses. My project has not measured those downstream consequences.",
         "Threshold selection also does not calibrate scores. The saved threshold appears in the demonstration."
       ],
       "actions": [
-        "Define recall and precision through their associated errors, then explain the screening rule and why its 90 percent target is an experiment choice."
+        "Read each fraction from numerator to denominator, then explain the screening rule and why its 90 percent target is an experiment choice."
       ],
       "visible_cues": [
-        "Recall: proportion of recorded rejection cases detected (false negatives are missed cases).",
-        "Precision: proportion of positive flags with recorded rejection (false positives are incorrect flags).",
+        "Recall = recorded rejection cases detected / all recorded rejection cases. False negatives are missed cases.",
+        "Precision = flags with recorded rejection / all positive flags. False positives are incorrect flags.",
         "Selection using screening specimens",
         "1. Detect at least 90% of recorded rejection cases.*",
         "2. Among qualifying choices, minimize false positives.",
@@ -574,10 +586,10 @@
     },
     {
       "id": 15,
-      "title": "Training and prediction use the same preparation",
+      "title": "Prediction service and demonstration",
       "seconds": 60,
       "paragraphs": [
-        "Training and prediction use the same preparation code. The service reads a CSV, checks the required counts, and normalizes them into 758 model inputs. It then scores those inputs with the saved model.",
+        "I will now turn to the software and demonstration. Training and prediction use the same preparation code. The service reads a CSV, checks the required counts, and normalizes them into 758 model inputs. It then scores those inputs with the saved model.",
         "The command line and the web application both use this code. This matters because a difference in preparation between analysis and the application could change the results.",
         "The response contains specimen ID, model score, threshold, rejection flag, and model version. The version identifies the saved model. The flag records whether the score crossed its threshold.",
         "The service loads the model controlled by this project. The caller supplies the count file. Missing measurements, duplicate names, negative counts, and non-finite values produce an error and stop scoring. The next slide shows both a valid request and a missing-measurement error."
@@ -587,6 +599,7 @@
       ],
       "visible_cues": [
         "CSV input through the command line or web application",
+        "Training and prediction share the preparation code.",
         "Read counts / check names and numbers / normalize 758 inputs / score with saved model",
         "Valid request: specimen ID, model score, threshold, flag, and model version",
         "Missing or duplicate measurements, negative counts, or non-finite values stop scoring."
@@ -678,25 +691,25 @@
     },
     {
       "id": 18,
-      "title": "Testing the proposed use in ambiguous biopsies",
+      "title": "Possible next steps",
       "seconds": 60,
       "paragraphs": [
-        "My current evidence is agreement with recorded diagnoses in one deposited study. The next evaluation needs to test the proposed use in ambiguous transplant biopsies.",
-        "First, evaluate new transplant biopsies with patient and center identifiers and documented laboratory quality checks. This would address the current inclusion of native-kidney controls and the unknown separation between patients and centers. Choose models and thresholds before examining those results, keeping logistic regression in the comparison.",
-        "The original study excluded some diagnostic categories, including borderline acute T-cell-mediated rejection. A study of ambiguous cases should include the difficult interpretations the proposed tool is meant to support.",
-        "Compare usual assessment with assessment that includes the molecular score. Independent expert review and follow-up outcomes could help judge whether the extra evidence improves interpretation. The classifier and scoring software provide a starting point for that evaluation."
+        "These are ideas for extending my personal project. So far, I have compared models against recorded diagnoses in one public dataset. I would want to learn whether those results hold on other transplant biopsies.",
+        "One possible extension would test the saved models and thresholds on another dataset, retaining logistic regression as a comparison. Patient and center identifiers would allow checks for overlap, and laboratory quality records would help assess assay consistency. A transplant-only dataset would also avoid mixing in native-kidney controls.",
+        "A separate question is whether RNA adds useful evidence when a biopsy is difficult to interpret. Investigating that would require clinical collaborators and examples of the uncertain diagnoses this project has not directly evaluated.",
+        "One possible approach would compare specialist assessment with and without the RNA score, using independent review and follow-up outcomes to examine any changes in interpretation or care. These are possible research questions beyond the analysis and demonstration I completed here."
       ],
       "actions": [
-        "Connect each proposed comparison to the question it would answer."
+        "Present these as hypothetical extensions of a personal project. Explain the separate questions about another dataset and added clinical information."
       ],
       "visible_cues": [
-        "This project establishes classification performance in one deposited study.",
-        "Does performance hold in a new study?",
-        "New transplant biopsies with patient and center IDs and laboratory quality records",
-        "Keep models and thresholds unchanged, including logistic regression.",
-        "Does the score help with ambiguous biopsies?",
-        "Compare usual assessment with assessment plus the molecular score.",
-        "Judge added value using independent review and follow-up outcomes."
+        "Ideas for extending this personal project",
+        "Would the results hold in another dataset?",
+        "Test the saved models and thresholds on new transplant biopsies",
+        "Record patient, center and lab quality information",
+        "Would RNA help with uncertain biopsies?",
+        "With clinical collaborators, compare assessment with and without the RNA score",
+        "Review decisions and follow-up outcomes"
       ],
       "sources": [
         {
@@ -731,22 +744,27 @@
     },
     {
       "id": 19,
-      "title": "Molecular counts can classify recorded rejection",
+      "title": "What this project accomplished",
       "seconds": 45,
       "paragraphs": [
-        "CatBoost missed 25 of 169 rejection specimens and made eight false flags among 176 no-rejection specimens. Its advantage over logistic regression remains uncertain, so the simpler model remains a useful alternative.",
-        "The project also provides tested software that uses the same preparation as the analysis and reports input errors clearly. The next step is to evaluate whether the molecular score adds useful evidence when biopsy interpretation is ambiguous.",
+        "The project has two completed parts: a reproducible model comparison and a working prediction service.",
+        "For modeling, CatBoost missed 14.8 percent of the 169 recorded rejection specimens: 25 cases. It incorrectly flagged 4.5 percent of the 176 no-rejection specimens: eight cases. Compared with IFNG, it made fewer false flags but more misses. Its advantage over logistic regression remains uncertain.",
+        "For software, the shared preparation and scoring code reproduced all 345 saved evaluation scores. The demonstration shows a valid specimen being scored and a clear error when required input is missing.",
         "Zhang and colleagues supplied the public study. AI assisted with this presentation, and the quantitative claims trace to saved project runs. Thank you."
       ],
       "actions": [
-        "Pause after the next step, thank the panel, and take questions."
+        "Summarize the modeling section, then the service and demo section. Thank the panel and take questions."
       ],
       "visible_cues": [
+        "Model comparison",
         "CatBoost, 345 evaluation specimens",
-        "25 / 169 misses; 8 / 176 false flags",
-        "Logistic regression remains a credible simpler alternative.",
-        "The project provides a reproducible classifier and a tested prediction service.",
-        "Next: test added value in ambiguous biopsies in a new study.",
+        "14.8% missed: 25 of 169 recorded rejection specimens",
+        "4.5% false flags: 8 of 176 recorded no-rejection specimens",
+        "Fewer false flags than IFNG, but more misses",
+        "Advantage over logistic regression remains uncertain",
+        "Prediction service and demo",
+        "Shared preparation code reproduced all 345 saved scores",
+        "Working demo with valid input and clear error messages",
         "Public data: Zhang et al. (2024), GSE212160; presentation prepared with AI assistance"
       ],
       "sources": [
