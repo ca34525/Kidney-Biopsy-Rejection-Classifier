@@ -1,8 +1,8 @@
 # Interview presentation
 
 Revised September 19, 2026. **Classifying Kidney Transplant Rejection from Biopsy
-RNA** has **20 main slides** planned for a full **20-minute talk**, followed by
-**7 backup slides** for questions.
+RNA** has **19 main slides** planned for a full **20-minute talk**, followed by
+**8 backup slides** for questions.
 
 - [Editable PowerPoint](unos_kidney_biopsy.pptx)
 - [Separate HTML speaking script](speaking_script.html)
@@ -23,13 +23,13 @@ belongs in the HTML file, following the user's September 18 instruction.
 
 | Slides | Subject | Approximate time |
 | --- | --- | ---: |
-| 1–4 | Title, transplant context, possible use, and supporting evidence | 3 minutes |
-| 5–7 | Recorded diagnoses, RNA assay, and measurement roles | 2½ minutes |
-| 8–12 | Data tables, normalization, study groups, models, and threshold | 5 minutes |
-| 13–15 | Evaluation errors, diagnosis groups, and comparison uncertainty | 4 minutes |
-| 16–18 | Shared software, demonstration, and checks | 4 minutes |
-| 19–20 | Next evidence for a molecular second opinion and conclusion | 1½ minutes |
-| 21–27 | Backup material, including the UNOS research connection | Questions afterward |
+| 1–4 | Title, transplant context, possible use, and supporting evidence | 3½ minutes |
+| 5–8 | Dataset, outcome, measurements, and normalization | 3½ minutes |
+| 9–11 | Study groups, models, and threshold | 3¼ minutes |
+| 12–14 | Validation errors, diagnosis groups, and comparison uncertainty | 4¼ minutes |
+| 15–17 | Shared software, demonstration, and checks | 3¾ minutes |
+| 18–19 | Next evidence for a molecular second opinion and conclusion | 1¾ minutes |
+| 20–27 | Backup material, starting with assay details | Questions afterward |
 
 The main script includes about two minutes for the demonstration and room for
 pauses. These are approximate allocations, not measured rehearsal results.
@@ -45,14 +45,25 @@ talk explains why a molecular second opinion could help specialists assess
 uncertain biopsies. Banff guidance and B-HOT research support this motivation.
 The project's measured contribution is a reproducible classifier and working
 software. Testing added benefit in uncertain cases is the next research step.
-Results follow the biological context, data, and evaluation procedure. Substantive
-topics have visible support, with spoken elaboration in the script. Ordinary dark
-bullets show parallel points. Explanations sit beside the numbers, examples, or
-diagrams they describe. Slide 6 uses bullets for the assay explanation; slide 8
-shows two linked analysis tables assembled from the public files. "Cohort" first
-appears with the study groups on slide 10. The [presentation specification](../docs/PRESENTATION_SPEC.md)
+The main sequence then introduces the dataset, the outcome, and the measurements
+before explaining evaluation. Slide 2 uses bold definitions with evidence
+sub-bullets. Slide 3 uses two matching hypothetical-example boxes. Slide 5 shows
+two linked analysis tables, with their assembly explained in the script.
+"Cohort" first appears with the study groups on slide 9. Detailed assay terminology
+is on backup slide 20. Recall and precision introduce the error terms before the
+validation chart compares false negatives and false positives. Substantive topics
+have visible support, with spoken elaboration in the script.
+The [presentation specification](../docs/PRESENTATION_SPEC.md)
 records the outline and approximate section budget, and the [guide](../docs/PRESENTATION_GUIDE.md)
 records the September 19 feedback and standards for future edits.
+
+The supplied full article and supplements clarify the study population. The
+1,395 specimens include 1,193 transplant biopsies and 202 native-kidney controls.
+All specimens were processed at one laboratory. Patient and referring-center
+separation are not documented. Some difficult diagnostic categories, including
+borderline acute T-cell-mediated rejection, were excluded. The slides and script
+reflect those findings. Exact pages and supporting details are in the
+[full-study review](../docs/references/STUDY_AUDIT_20260919.md).
 
 ## Demonstration
 
@@ -87,6 +98,10 @@ full precision. The PDF is a static rendering of the final slide pages.
 - Basic biology: NIDDK's kidney transplant and biopsy pages. Assay context: the
   original study and Bruker's nCounter documentation. Exact links accompany the
   relevant passages in the speaking script.
+- Full-study evidence: the [September 19 review](../docs/references/STUDY_AUDIT_20260919.md)
+  of the supplied article and supplements supports the population, cohort,
+  IFNG-benchmark, and error-tradeoff explanations. The reported evaluation still
+  uses every deposited specimen and the preserved model and threshold.
 - Clinical rationale: current Banff guidance and Rosales et al. (2022), documented
   in [Research context](../docs/RESEARCH_CONTEXT.md). The later-outcome association
   in that B-HOT study motivates further research and is not a forecast produced

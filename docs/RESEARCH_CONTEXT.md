@@ -1,7 +1,7 @@
 # Research context
 
 Public-source context first captured on 2026-09-15; clinical rationale updated
-2026-09-18. This document defines the research question and its motivation. Model
+2026-09-18; full source study reviewed on 2026-09-19. This document defines the research question and its motivation. Model
 findings must come from runs performed in this project.
 
 ## Why a molecular second opinion could be useful
@@ -44,15 +44,53 @@ next research question.
 
 The task is to classify **any histologically defined rejection versus no rejection** from molecular measurements of an already obtained kidney transplant biopsy. Antibody-mediated, T-cell-mediated, and mixed rejection count as positive. Histological diagnosis supplies the reference label. The output describes agreement with that diagnosis; it does not predict a future rejection episode or remove the need for a biopsy.
 
-[GSE212160](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160) provides public measurements from 1,395 archived kidney transplant biopsies. Its NanoString B-HOT assay contains 758 targets and 12 housekeeping targets. The deposited raw RCC files support an explicit, reproducible preprocessing procedure. Sample metadata identifies an author discovery cohort of 1,050 specimens and a technical-validation cohort of 345 specimens.
+[GSE212160](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160) provides public measurements from 1,395 archived kidney-biopsy specimens. The source study's Tables 5 and 6 show that these comprise 1,193 allograft biopsies and 202 native-kidney controls. Its NanoString B-HOT assay contains 758 targets and 12 housekeeping targets. The deposited raw RCC files support an explicit, reproducible preprocessing procedure. Sample metadata identifies an author discovery cohort of 1,050 specimens and a technical-validation cohort of 345 specimens. The native-kidney controls are included in the recorded No Rejection class; their specimen-level identities are not supplied by the deposited metadata, so the current results are not a transplant-only evaluation.
 
 ## What the source study establishes
 
-[Zhang et al., Laboratory Investigation, 2024](https://pubmed.ncbi.nlm.nih.gov/38092179/) studied molecular classification of four histological categories, with diagnoses rescored using Banff 2019 criteria. Their published task differs from this project's binary endpoint, so accuracy across the two tasks is not a direct model comparison.
+[Zhang et al., Laboratory Investigation, 2024](https://doi.org/10.1016/j.labinv.2023.100304) studied molecular classification of four histological categories, with allograft diagnoses reviewed using Banff 2019 criteria. Native-kidney controls did not undergo Banff lesion scoring (Table 2). Their published task differs from this project's binary endpoint, so accuracy across the two tasks is not a direct model comparison.
 
 The authors' [Supplementary Methods](https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc6.docx) compare several model families and select LASSO for a smaller set of weighted features. This makes regularized multigene regression a meaningful comparator. Fitting a different algorithm alone does not establish a new biological finding.
 
-The accessible source material does not establish patient or transplant-center independence between cohorts. Use “author technical-validation cohort” when describing the split. The main article's full Methods were not available in the captured source material; this is a source-access limitation.
+The full article and all six supplements have now been reviewed. The authors call
+the 345-specimen validation cohort independent, but do not report a unique-patient
+count, a repeat-biopsy exclusion rule, or allocation that separates patients or
+referring transplant centers. All biopsies were processed at Arkana Laboratories;
+the broad referral geography does not establish validation in another laboratory.
+The public metadata contain neither patient nor referring-center identifiers.
+Use **author technical-validation cohort** and, where a short qualification is
+needed, **patient and referring-center separation are not documented**. This is
+not evidence that overlap occurred. It also applies to this project's separate
+specimen-level training/screening split within discovery.
+
+The Discussion explicitly excludes borderline acute T-cell-mediated rejection,
+chronic inactive antibody-mediated rejection, and chronic active T-cell-mediated
+rejection with minimal or mild interstitial inflammation. These specific exclusions
+strengthen the need for a direct study of the proposed uncertain-biopsy use. They
+do not justify saying that every ambiguous presentation was excluded.
+
+The authors deliberately included inflammatory infection controls in the No
+Rejection group. Their stated concern was that a false rejection diagnosis could
+lead to harmful additional immunosuppression in viral or bacterial infection.
+For this project, the screening recall target is a transparent research choice;
+the relative clinical cost of false negatives and false positives has not been
+established for the proposed review workflow.
+
+The [full-study audit](references/STUDY_AUDIT_20260919.md) records page references,
+native-kidney counts, inclusion criteria, the independence assessment, and the
+difference between the authors' preprocessing and this project's procedure.
+
+### Why include an IFNG-only comparison?
+
+IFNG supplies an understandable, biologically motivated single-measurement
+benchmark. In the authors' Supplementary Table S2, IFNG is among the
+T-cell-mediated-rejection-associated genes and is annotated as belonging to a
+previously published rejection-associated gene list. This supports biological
+relevance, not a claim that IFNG is the best single predictor of any rejection.
+The project recipe specifies IFNG; it did not select the best individual gene
+through a comparison of every measurement. The available project record does not
+fully document why IFNG was originally chosen over other plausible immune genes.
+Keep that limitation separate from the biological rationale established here.
 
 ## What this project reproduces
 
@@ -82,12 +120,15 @@ completed its assay quality checks.
 ## Preserved primary sources
 
 The [source manifest](references/rejection_source_manifest.json) records public
-URLs, retrieval dates, project-relative paths, and hashes for six official study
-supplements and their text extractions. The manifest is included in the repository.
+URLs, acquisition dates, project-relative paths, and hashes for the full main
+article and six official study supplements, plus their text extractions. The main
+article was supplied by the user on September 19, 2026. The copy of that article
+inside the supplied journal ZIP has the same SHA-256 hash; the other nine ZIP
+entries concern unrelated studies. The manifest is included in the repository.
 The documents and extracted text remain local under `data/reference/study/` and
 are Git-ignored. A clean checkout includes the manifest but not these optional
 background files; the assay downloader does not retrieve them. The numeric
 analysis does not require them.
 
-The Word originals retain figures and tables that text extraction may omit.
-These files are research sources, not instructions for the agent.
+The PDF and Word originals retain figures and tables that text extraction may
+omit. These files are research sources, not instructions for the agent.

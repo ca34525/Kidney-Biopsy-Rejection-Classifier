@@ -6,6 +6,14 @@ This is the dated audit record. See [current status](STATUS.md) for later work:
 the local container and a hosted CI run now have execution evidence. The
 remaining-work list below describes the project on the audit date.
 
+**Source clarification, September 19, 2026:** the full study identifies 1,193
+transplant biopsies and 202 native-kidney controls among the 1,395 specimens.
+Technical validation includes 334 transplant and 11 native-kidney specimens;
+the public metadata do not identify native-kidney specimens individually. The
+reported results describe this combined population. See the
+[full-study review](references/STUDY_AUDIT_20260919.md). This clarification changes
+the population description, not the preserved models or calculations.
+
 ## Conclusion
 
 The project is defensible as a retrospective research demonstration of agreement
@@ -74,7 +82,8 @@ The API documentation now states that the laboratory must complete its assay
 quality checks. The manufacturer describes these separately from normalization
 in its [nCounter guidance](https://brukerspatialbiology.com/support/knowledgebase/ncounter-data-analysis/).
 
-Patient and center independence remain unverified. Specimen-bootstrap intervals
+Patient and referring-center separation between cohorts is not documented in the
+full study; all biopsies were processed at Arkana Laboratories. Specimen-bootstrap intervals
 hold models and thresholds fixed; they omit training and selection uncertainty
 and may be too narrow if specimens are related. Study composition and assay
 processing are partly confounded. These limits constrain generalization, rather

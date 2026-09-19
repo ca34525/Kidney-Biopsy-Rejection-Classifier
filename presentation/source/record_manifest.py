@@ -35,6 +35,9 @@ sources = [
     "results/checks/20260917_coherence/http/http.json",
     "docs/RESEARCH_CONTEXT.md",
     "docs/PRESENTATION_GUIDE.md",
+    "docs/PRESENTATION_SPEC.md",
+    "docs/references/STUDY_AUDIT_20260919.md",
+    "docs/references/rejection_source_manifest.json",
 ]
 
 
@@ -44,7 +47,7 @@ def sha(file: Path) -> str:
 
 manifest = {
     "created": "2026-09-19",
-    "revision": "full presentation revision: clearer grouping, bullets and explanations",
+    "revision": "study-source pass: revised sequence, examples, error definitions and verified study population",
     "main_slides": len(data['slides']),
     "backup_slides": len(data['backups']),
     "planned_seconds": 1200,

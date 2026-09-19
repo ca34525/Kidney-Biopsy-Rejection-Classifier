@@ -52,5 +52,19 @@
     "sha256": "c298c3b3a051fb5c3b7ee9738c428e76790e8cfacdbee43e527b7d99a7ca374d",
     "extracted_text_path": "data/reference/study/rejection_supplement_6.txt",
     "extracted_text_sha256": "dca2da0b72bdf34863f6598a559e93fec621714185d00ed261415dec6a1fc6af"
+  },
+  {
+    "url": "https://doi.org/10.1016/j.labinv.2023.100304",
+    "retrieved": "2026-09-19",
+    "local_path": "data/reference/study/rejection_main_article.pdf",
+    "bytes": 2641311,
+    "sha256": "e8a500c496834e3fc0af9a0baf5d694fa9be31ba06b03f7edd441202c78218a8",
+    "extracted_text_path": "data/reference/study/rejection_main_article.txt",
+    "extracted_text_sha256": "ec178bc89e16ab99ab36a3f3c3cddb41473442b9007e91f7e6d35dbf3c4f985b",
+    "acquisition": "User-supplied publisher PDF; identical article also present in user-supplied Laboratory Investigation_20260919.zip",
+    "supplied_filename": "PIIS0023683723002477.pdf",
+    "archive_entry": "Development-and-Validation-of-a-Multiclass-Model-D.pdf",
+    "doi": "10.1016/j.labinv.2023.100304",
+    "pdf_pages": 16
   }
 ]

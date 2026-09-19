@@ -44,6 +44,19 @@ function bullets(s, items, x=64, y=165, w=1152, h=110, size=32, color=C.ink, gap
   sh.text.style={typeface:FONT,fontSize:size,color,autoFit:'none',verticalAlignment:'top',wrap:true};
   return sh;
 }
+function definition(s, label, body, y, {nested=false,h=100}={}) {
+  const x=nested?111:64, w=nested?1105:1152;
+  const sh=bullets(s,[label+body],x,y,w,h,nested?32:34);
+  const paragraph=makeNativeBulletParagraphs([label+body],{marginLeftPoints:22,hangingPoints:12,spaceAfterPoints:0})[0];
+  paragraph.runs=[{run:label,textStyle:{bold:true}},body];
+  sh.text=[paragraph];
+  return sh;
+}
+function example(s,label,body,y,h) {
+  s.shapes.add({geometry:'rect',position:{left:94,top:y,width:1122,height:h},fill:C.light,line:{fill:C.rule,width:1}});
+  text(s,label,113,y+9,1084,37,28,C.teal,true);
+  text(s,body,113,y+48,1084,h-55,30);
+}
 function slide(title,source='',dark=false,number=true){
   const s=p.slides.add(); const i=p.slides.items?.length || sources.length+1;
   s.background.fill=dark?C.ink:C.bg;
@@ -81,30 +94,21 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  text(s,'Classifying Kidney\nTransplant Rejection\nfrom Biopsy RNA',64,181,1152,318,70,C.white,true);
  sources[0].title='Classifying Kidney Transplant Rejection from Biopsy RNA';
 }
-// Tissue provides measurements and a recorded diagnosis.
+// Definitions and the two forms of biopsy evidence.
 {
- const s=slide('Transplant rejection and kidney biopsy: key concepts','Sources: NIDDK, Kidney Transplant and Kidney Biopsy; Zhang et al. (2024)');
- bullets(s,['Rejection: the recipient’s immune system attacks the donated kidney.','Two kinds of evidence from tissue already collected:'],64,170,1152,139,33);
- const a=node(s,'',94,400,330,150);
- text(s,'Biopsy tissue',110,419,298,47,35,C.ink,true,'center');
- text(s,'A small sample\nfrom the kidney',110,468,298,65,30,C.ink,false,'center');
- const b=node(s,'',554,337,662,120);
- text(s,'Microscopic examination (histology)',570,350,630,42,31,C.ink,true,'center');
- text(s,'Recorded diagnosis',570,400,630,42,32,C.ink,false,'center');
- const c=node(s,'',554,492,662,120);
- text(s,'Molecular measurements',570,505,630,42,33,C.ink,true,'center');
- text(s,'Inputs to the model',570,555,630,42,32,C.ink,false,'center');
- connect(s,a,b);connect(s,a,c);
+ const s=slide('Transplant rejection and kidney biopsy','Sources: NIDDK, Kidney Transplant and Kidney Biopsy; Zhang et al. (2024)');
+ definition(s,'Rejection: ','The recipient’s immune system attacks the donated kidney.',177,{h:87});
+ definition(s,'Kidney biopsy: ','A small tissue sample collected from the kidney for examination.',296,{h:88});
+ definition(s,'Histology: ','Microscopic examination reveals injury and inflammation and supports the recorded diagnosis.',419,{nested:true,h:92});
+ definition(s,'Molecular measurements: ','Counts of selected RNA types provide the model’s inputs.',548,{nested:true,h:87});
 }
-// Address the purpose immediately after the biopsy diagram.
+// A clearly hypothetical case illustrates the proposed purpose.
 {
  const s=slide('Possible Use: Molecular Second Opinion for Ambiguous Biopsies','Source: Banff reference guide (updated Apr 2026).');
- bullets(s,['Sometimes the microscopic findings are borderline or conflict with other clinical evidence.'],64,178,1152,101,33);
- const a=node(s,'Histology\nTissue appearance',94,313,426,99,{size:33});
- const b=node(s,'RNA measurements\nGene activity',94,448,426,99,{size:33});
- const c=node(s,'Specialist review\nAdditional molecular evidence',778,361,438,150,{size:31});
- connect(s,a,c);connect(s,b,c);
- bullets(s,['This project tests how well RNA classifies recorded rejection diagnoses.'],64,583,1152,65,30);
+ bullets(s,['Sometimes the microscopic findings are borderline or conflict with other clinical evidence.'],64,172,1152,86,31);
+ example(s,'Hypothetical Example:','A biopsy shows mild inflammation, but the microscopic findings do not clearly establish rejection.',270,135);
+ bullets(s,['This project tests how well RNA classifies recorded rejection diagnoses.'],64,425,1152,71,31);
+ example(s,'Hypothetical Example, continued:','A high rejection score could add evidence for specialist review of this biopsy. That use needs direct validation.',507,135);
 }
 {
  const s=slide('Evidence for a molecular second opinion');
@@ -114,30 +118,29 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  text(s,'B-HOT study\nRosales, 2022',64,322,274,90,31,C.ink,true);
  text(s,'Higher initial molecular scores in patients who\nlater developed chronic active antibody-mediated\nrejection, despite no initial diagnosis of it',365,311,851,140,31);
  line(s,64,480,1152);
- text(s,'RNA can add information beyond the initial tissue diagnosis.',64,507,1152,63,33,C.ink,true);
- text(s,'This project tests recorded diagnoses. Added value in ambiguous cases needs testing.',64,582,1152,52,26);
+ text(s,'This project measures agreement with recorded diagnoses.\nIts value in ambiguous biopsies needs direct evaluation.',64,514,1152,114,33,C.teal,true);
 }
+datasetSlide();
 // Give the biological labels their own visual explanation.
 {
- const s=slide('Recorded diagnoses','Source: Zhang et al. (2024), GSE212160; project diagnosis mapping');
+ const s=slide('Outcome: rejection versus no rejection','Source: Zhang et al. (2024), GSE212160; project diagnosis mapping');
  table(s,[['Recorded diagnosis','Meaning','Model label'],['Antibody-mediated rejection','Antibodies: immune proteins','Rejection'],['T-cell-mediated rejection','T cells: immune cells','Rejection'],['Mixed rejection','Both rejection processes','Rejection'],['No rejection','No recorded rejection','No rejection']],{y:181,h:367,widths:[485,407,260],size:28});
- bullets(s,['The main question combines all three forms of rejection.'],64,585,1152,60,32);
+ text(s,'The main question combines all three forms of rejection.',64,585,1152,60,32,C.teal);
 }
 // Define the laboratory vocabulary in the order it is used.
-{
- const s=slide('Measuring biopsy RNA with NanoString nCounter','Sources: Bruker nCounter documentation; GSE212160');
+function assaySlide(){
+ const s=slide('Backup: measuring biopsy RNA with NanoString nCounter','Sources: Zhang et al. (2024), Methods; Bruker nCounter documentation; GSE212160');
  bullets(s,[
   'RNA includes messages cells make when genes are active.',
-  'An assay is a laboratory test. This study uses the B-HOT panel, a fixed list of RNA molecules to measure.',
-  'NanoString nCounter uses probes to recognize those molecules and counts their identifying barcodes.'
+  'An assay is a laboratory test. B-HOT is the fixed panel of RNA types measured in this study.',
+  'The laboratory extracts RNA from preserved tissue. Probes recognize selected RNAs, and NanoString nCounter counts their identifying barcodes.'
  ],64,179,1152,372,34,C.ink,22);
  text(s,'Example: IFNG count = 4 in one public specimen',94,548,1122,58,34,C.ink,true);
 }
 // Separate what is measured from what is predicted.
 {
- const s=slide('The measurements used by the model','Sources: GSE212160; B-HOT panel consensus (2020); project data contract');
- bullets(s,['770 RNA counts per specimen, one for each named assay target.'],64,170,1152,65,34);
- text(s,'A target is the RNA molecule a probe recognizes.',94,236,1122,45,30);
+ const s=slide('The measurements used to build the features','Sources: GSE212160; B-HOT panel consensus (2020); project data contract');
+ text(s,'770 RNA counts per specimen, one for each RNA type measured.',64,170,1152,81,34,C.teal);
  text(s,'758',64,285,535,80,64,C.ink,true);
  text(s,'Model measurements',64,369,535,49,34,C.ink,true);
  bullets(s,['Normalized counts are the model inputs.','Include human and viral RNA.','Signals depend on gene activity and the cell mixture.'],64,430,540,200,29,C.ink,12);
@@ -146,66 +149,66 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  bullets(s,['12 different reference RNAs.','Used to normalize the other counts.','Excluded as separate model inputs.'],687,430,529,200,29,C.ink,12);
 }
 // Explain the identifier by showing what it joins.
-{
- const s=slide('What the dataset contains','Sources: GSE212160 raw count archive and sample metadata; project data reader');
- bullets(s,['1,395 biopsy specimens, with one row per specimen in each table.'],64,165,1152,62,33);
- text(s,'Two linked tables assembled from the public files',94,231,1122,43,30);
- text(s,'RNA counts',64,292,502,47,34,C.ink,true);
- text(s,'Specimen information',716,292,500,47,34,C.ink,true);
+function datasetSlide(){
+ const s=slide('What the dataset contains','Sources: GSE212160; Zhang et al. (2024), Tables 5–6; project data reader');
+ text(s,'1,395 biopsy specimens, with one row per specimen in each table.',64,165,1152,81,33,C.teal);
+ text(s,'RNA counts',64,276,502,47,34,C.ink,true);
+ text(s,'Specimen information',716,276,500,47,34,C.ink,true);
  table(s,[['Column','Example'],['Specimen ID (key)','GSM6510425'],['IFNG','4'],['GUSB (reference)','260'],['Other RNA counts','…']],{x:64,y:350,w:502,h:239,widths:[265,237],size:25,padY:6});
  table(s,[['Column','Example'],['Specimen ID (key)','GSM6510425'],['Recorded diagnosis','No rejection'],['Study group','Discovery'],['Other details','…']],{x:716,y:350,w:500,h:239,widths:[270,230],size:25,padY:6});
  line(s,566,422,150,C.muted);
  text(s,'1 : 1',574,380,134,34,25,C.ink,true,'center');
  text(s,'Same ID',574,430,134,35,24,C.ink,false,'center');
- text(s,'Specimen counts do not establish the number of independent patients.',64,625,1152,32,26);
+ text(s,'Includes 1,193 transplant biopsies and 202 native-kidney controls.',64,610,1152,39,27);
 }
 // One concrete example, with the reason for each preparation step.
 {
  const s=slide('Preparing counts for the model','Source: shared preprocessing; public specimen GSM6510425. Values rounded for display.');
  table(s,[['For each of the 758 RNA counts','IFNG example'],['1. Start with the raw count','4'],['2. Calculate log₂(count + 1)','2.322'],['3. Average log₂(count + 1) for the 12 reference RNAs','7.900'],['4. Subtract that reference','2.322 − 7.900 = −5.578']],{y:183,h:333,widths:[806,346],size:29});
- bullets(s,['Housekeeping RNAs help account for differences in how much RNA a specimen supplies.'],64,557,1152,89,30);
+ text(s,'Housekeeping RNAs help account for differences in how much RNA a specimen supplies.',64,557,1152,89,30,C.teal);
 }
 // Cohort names and their jobs, before discussing model choices.
 {
- const s=slide('Development and evaluation specimens','Source: authors’ cohorts and saved project split, seed 20260915');
+ const s=slide('Development and evaluation specimens','Sources: Zhang et al. (2024), Methods; saved project split, seed 20260915');
  bullets(s,['We use the authors’ two study groups: discovery and validation cohorts.','Our training / screening split keeps diagnosis proportions similar.'],64,166,1152,126,31,C.ink,13);
  const disc=node(s,'Discovery Cohort\n1,050 specimens',64,322,699,103,{size:33});
  const train=node(s,'Training: 787\nFit the models',64,496,316,110,{size:31});
  const screen=node(s,'Screening: 263\nChoose model and threshold',430,496,333,110,{size:29});
  connect(s,disc,train,'bottom','top');connect(s,disc,screen,'bottom','top');
  node(s,'Validation Cohort\n345 specimens\n\nEvaluate the selected\nmodel and threshold',820,322,396,284,{fill:C.ink,color:C.white,size:30});
- text(s,'Patient and center independence are unverified.',64,614,1152,36,27);
+ text(s,'*Patient and referring-center separation are not documented in the study.',64,614,1152,36,26);
 }
 // Model names now come with an explanation.
 {
- const s=slide('Models compared','Source: primary configuration and analysis, 15 Sep 2026');
- bullets(s,['Same RNA preparation and the same evaluation specimens.'],64,165,1152,61,33);
- table(s,[['Model','What it learns'],['Constant baseline','One score: the training rejection fraction'],['IFNG only','A relationship using one RNA measurement'],['Logistic regression','A weighted combination of 758 measurements.\nRegularization limits the size of the weights.'],['CatBoost','A combination of decision trees']],{y:254,h:355,widths:[354,798],size:29});
+ const s=slide('Models compared','Sources: primary configuration and analysis, 15 Sep 2026; Zhang et al., Supplementary Table S2');
+ text(s,'Each model produces a score for rejection versus no rejection.',64,165,1152,75,33,C.teal);
+ table(s,[['Model','What it learns'],['Constant baseline','One score: the training rejection fraction'],['IFNG only','One immune-related RNA measurement\nas a simple benchmark'],['Logistic regression','A weighted combination of 758 measurements.\nRegularization limits the size of the weights.'],['CatBoost','A combination of decision trees']],{y:254,h:372,rowHeights:[53,61,78,110,70],widths:[354,798],size:29});
 }
 // Define the decision and error vocabulary before reporting results.
 {
  const s=slide('Choosing a rejection threshold','Source: discovery screening rule and selected model metadata');
- bullets(s,['Flag rejection when the model score is at or above the threshold.'],64,163,1152,66,33);
- text(s,'Missed rejection',94,247,512,45,32,C.orange,true);
- text(s,'Recorded rejection,\nscore below the threshold',94,299,512,82,30);
- text(s,'False flag',704,247,512,45,32,C.teal,true);
- text(s,'Recorded no rejection,\nscore at or above the threshold',704,299,512,82,30);
- text(s,'Selection using screening specimens',64,383,1152,40,32,C.ink,true);
- table(s,[['Step','Rule'],['1','Detect at least 90% of recorded rejection cases.'],['2','Among qualifying choices, minimize false flags.'],['3','Keep the chosen model and threshold for evaluation.']],{y:434,h:170,widths:[112,1040],size:26,padY:4});
- text(s,'CatBoost cutoff: 0.876588. The 90% target is an experiment choice.',64,625,1152,28,24);
+ text(s,'Recall',64,167,544,45,35,C.orange,true);
+ text(s,'Proportion of recorded rejection\ncases detected',64,224,544,81,30);
+ text(s,'(False negatives are missed cases.)',64,323,544,67,28,C.orange);
+ text(s,'Precision',704,167,512,45,35,C.teal,true);
+ text(s,'Proportion of positive flags\nwith recorded rejection',704,224,512,81,30);
+ text(s,'(False positives are incorrect flags.)',704,323,512,67,28,C.teal);
+ text(s,'Selection using screening specimens',64,420,1152,40,32,C.ink,true);
+ table(s,[['Step','Rule'],['1','Detect at least 90% of recorded rejection cases.*'],['2','Among qualifying choices, minimize false positives.'],['3','Keep the chosen model and threshold for evaluation.']],{y:473,h:151,rowHeights:[37,38,38,38],widths:[112,1040],size:25,padY:2});
+ text(s,'*90% is an experimental target.',64,632,1152,27,23,C.muted);
 }
 // Editable data and explicit denominators.
 {
- const s=slide('Several measurements reduced false flags','Source: primary evaluation, 15 Sep 2026. Each model keeps its chosen threshold.');
+ const s=slide('Validation results','Source: primary evaluation, 15 Sep 2026. Errors are against recorded diagnoses.');
  text(s,'Same 345 specimens: 169 rejection and 176 no rejection',64,145,1152,48,32);
- chart(s,'bar',{position:{left:56,top:202,width:1170,height:327},categories:['IFNG only','Logistic regression','CatBoost'],series:[{name:'Missed rejection / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'False flags / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:25}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
- bullets(s,[`Constant baseline: ${constant.fn} / 169 missed and ${constant.fp} / 176 false flags. It flags everyone.`,'CatBoost versus IFNG: 67 fewer false flags, 11 more misses.'],64,546,1152,103,29,C.ink,11);
+ chart(s,'bar',{position:{left:56,top:202,width:1170,height:327},categories:['IFNG only','Logistic regression','CatBoost'],series:[{name:'False negatives / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'False positives / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:25}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
+ bullets(s,[`Constant baseline: ${constant.fn} false negatives, ${constant.fp} false positives. It flags everyone.`,'CatBoost versus IFNG: 67 fewer false positives, 11 more false negatives.'],64,546,1152,103,29,C.ink,11);
 }
 // Group counts and detection shortfall.
 {
  const s=slide('Most CatBoost misses were T-cell rejection','Source: primary evaluation and screening results, 15 Sep 2026');
  text(s,'144 / 169 detected',64,190,490,70,47,C.ink,true);
- text(s,'85.2% sensitivity in evaluation',64,273,490,84,33);
+ text(s,'85.2% recall (sensitivity)\nin evaluation',64,273,490,84,33);
  bullets(s,['Screening: 157 / 174 detected (90.2%).','Evaluation falls below the 90% selection target.'],64,393,474,180,30,C.ink,18);
  text(s,'Misses by recorded diagnosis',595,175,621,48,31,C.ink,true);
  table(s,[['Recorded rejection','Missed / total'],['Antibody-mediated','6 / 56'],['T-cell-mediated','18 / 95'],['Mixed','1 / 18']],{x:595,y:250,w:621,h:325,widths:[397,224],size:28});
@@ -247,7 +250,7 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
 {
  const s=slide('Testing the proposed use in ambiguous biopsies','Sources: project research context; primary analysis; Banff work plan (2024). Proposed evaluation.');
  bullets(s,['This project establishes classification performance in one deposited study.'],64,167,1152,85,32);
- table(s,[['Question','Proposed evaluation'],['Does performance hold in a new study?','New biopsies with patient and center IDs and lab quality records.\nUse the chosen models and thresholds.'],['Does the score help with ambiguous biopsies?','Compare usual assessment with and without the molecular score.\nUse independent review and follow-up outcomes.']],{y:270,h:320,rowHeights:[54,140,126],widths:[427,725],size:28,padY:8});
+ table(s,[['Question','Proposed evaluation'],['Does performance hold in a new study?','New transplant biopsies with patient and center IDs and lab quality records.\nUse the chosen models and thresholds.'],['Does the score help with ambiguous biopsies?','Compare usual assessment with and without the molecular score.\nUse independent review and follow-up outcomes.']],{y:270,h:320,rowHeights:[54,140,126],widths:[427,725],size:28,padY:8});
 }
 // Results belong here, after the question and evidence.
 {
@@ -257,6 +260,7 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  bullets(s,['Logistic regression remains a credible simpler alternative.','The project provides a reproducible classifier and a tested prediction service.','Next: test added value in ambiguous biopsies in a new study.'],64,355,1152,255,34,C.white,25);
 }
 // Backup material is outside the 20-minute plan.
+assaySlide();
 {
  const s=slide('Backup: complete primary comparison',analysis);
  const names=['CatBoost','Logistic','IFNG only','Constant'];
@@ -282,8 +286,8 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  bullets(s,['Four-class logistic recognized 10 / 18 mixed diagnoses, with 5 false mixed calls among 327 non-mixed specimens.'],64,555,1152,88,30);
 }
 {
- const s=slide('Backup: study, assay and deployment limits','Sources: primary analysis, research context, and current verification guide.');
- table(s,[['Question','What the project establishes'],['Patient / center independence?','Unverified. Related specimens could make uncertainty look smaller than it is.'],['Laboratory assay quality?','File checks were tested. Laboratory quality was not independently assessed.'],['Individual probabilities?','Score calibration remains limited.'],['Cloud deployment?','Local container tested. Cloud work deferred.']],{y:190,h:419,widths:[438,714],size:27});
+ const s=slide('Backup: study, assay and deployment limits','Sources: Zhang et al. (2024), Methods and Tables 5–6; primary analysis; verification guide.');
+ table(s,[['Question','Evidence and remaining limits'],['Patient / center separation?','Not documented. All specimens were processed at one laboratory.'],['Study population?','Includes 202 native-kidney controls.\nSelected ambiguous diagnoses were excluded.'],['Laboratory assay quality?','File checks were tested. Laboratory quality was not independently reassessed.'],['Individual probabilities?','Score calibration remains limited.'],['Cloud deployment?','Local container tested. Cloud work deferred.']],{y:179,h:453,rowHeights:[49,85,94,101,62,62],widths:[385,767],size:26,padY:7});
 }
 {
  const s=slide('Backup: sources and contributions','');

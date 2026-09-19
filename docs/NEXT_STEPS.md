@@ -39,9 +39,16 @@ change to the frozen classifier or the current implementation scope.
 ### An independent comparison
 
 The current author technical-validation cohort is held out from this project's
-model selection, but it is part of the same deposited study. Patient and center
-independence are unverified. Repeating discovery splits measures a different
+model selection, but it is part of the same deposited study. All biopsies were
+processed at Arkana Laboratories; patient and referring-center separation between
+cohorts is not documented. Repeating discovery splits measures a different
 uncertainty: dependence on the development specimens.
+
+The [September 19 source review](references/STUDY_AUDIT_20260919.md) also establishes
+that the dataset includes 202 native-kidney controls alongside 1,193 transplant
+biopsies. Eleven native-kidney controls are in technical validation. Obtaining the
+specimen-level mapping would allow a separate assessment restricted to transplant
+biopsies; the public metadata do not currently supply that mapping.
 
 The next useful preparation would be a feasibility check for another public
 cohort with compatible raw targets, labels, and preprocessing. Fix the inclusion
@@ -104,5 +111,5 @@ discusses monitoring, calibration, and population limits. Those sources motivate
 clear model documentation and future maintenance questions; they do not establish
 the current implementation of UNOS systems or a requirement to copy their tools.
 
-Existing source context was reviewed September 15–17, 2026. Recheck methods and
+Existing source context was reviewed September 15–19, 2026. Recheck methods and
 service documentation before implementing any deferred work.

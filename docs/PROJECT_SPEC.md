@@ -1,7 +1,7 @@
 # Kidney biopsy rejection classifier project specification
 
 Specification date: September 15, 2026; clinical rationale updated September 18,
-2026. Planning horizon: one week. Presentation:
+2026; source-population clarification September 19, 2026. Planning horizon: one week. Presentation:
 20 full minutes, with questions outside that time. The exact interview date has
 not been supplied.
 
@@ -15,7 +15,7 @@ already collected. The dated clinical sources and related UNOS research are
 recorded in [Research context](RESEARCH_CONTEXT.md#why-a-molecular-second-opinion-could-be-useful).
 
 The analysis objective is to build a reproducible classifier that uses molecular
-measurements from an already collected kidney transplant biopsy to predict its
+measurements from an already collected kidney biopsy to predict its
 recorded rejection diagnosis. Package it as a small, tested application and explain
 the work in a 20-minute interview presentation.
 
@@ -55,10 +55,19 @@ for a paid service, a public clinical endpoint, or a production platform.
 ## Data and prediction contract
 
 Use public [GSE212160](https://ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160):
-1,395 biopsy specimens measured on the NanoString B-HOT panel. The source describes
-770 measurements, including 12 housekeeping targets and 758 assay targets.
+1,395 kidney-biopsy specimens measured on the NanoString B-HOT panel: 1,193
+transplant biopsies and 202 native-kidney controls. The controls include diseased
+native kidneys. The source describes 770 measurements, including 12 housekeeping
+targets and 758 assay targets.
 These tissue-level RNA measurements reflect both activity within cells and the
 mixture of cell types in the specimen.
+
+The discovery cohort contains 859 transplant and 191 native-kidney specimens;
+technical validation contains 334 transplant and 11 native-kidney specimens.
+The public metadata do not map native-kidney status to individual specimens, so
+the existing results describe the combined population. The
+[September 19 source review](references/STUDY_AUDIT_20260919.md) records these
+counts from the full study. Completed runs retain their original inputs and outputs.
 
 **Unit of observation:** one biopsy specimen. **Prediction time:** after biopsy
 tissue has been collected and the compatible molecular assay is available.
@@ -106,6 +115,9 @@ Preserve the authors' 1,050-specimen discovery cohort and 345-specimen technical
 validation cohort. Split discovery into 787 training and 263 screening specimens,
 stratified by the original four diagnoses, with seed `20260915`. Save the actual
 assignments. Check joins, cross-split duplicate records, and class counts.
+All biopsies were processed at Arkana Laboratories. The study does not document
+unique recipient counts, repeated biopsies, or patient and referring-center
+separation between cohorts; specimen-level splitting does not establish those properties.
 
 Train the baseline models and a bounded set of candidates. The starting recipe
 includes CatBoost with 300 trees, depths 4 and 6, learning rate 0.04, and seed 2026;

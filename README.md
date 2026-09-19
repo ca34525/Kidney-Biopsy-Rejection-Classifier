@@ -1,6 +1,6 @@
 # Kidney biopsy rejection classifier
 
-Can molecular measurements from an existing kidney transplant biopsy classify
+Can molecular measurements from an existing kidney biopsy classify
 its recorded rejection diagnosis? This project compares models on public
 NanoString B-HOT data and serves the selected model through a small research app.
 
@@ -20,6 +20,11 @@ completed evidence, the frozen service, and the remaining presentation work.
 
 All four comparisons use the same 345 technical-validation specimens and fixed
 thresholds. Antibody-mediated, T-cell-mediated, and mixed rejection count as rejection.
+The source dataset includes 1,193 transplant biopsies and 202 native-kidney
+controls; validation includes 334 transplant biopsies and 11 native-kidney controls.
+These results therefore describe the combined study population. The public
+metadata do not identify the native-kidney specimens individually. See the
+[September 19 source review](docs/references/STUDY_AUDIT_20260919.md).
 
 | Model | Missed rejection / 169 | False flags / 176 |
 | --- | ---: | ---: |
@@ -39,15 +44,17 @@ The [presentation figures](results/presentation/20260917_evidence/README.md) sho
 the same error counts and score reliability with larger labels and editable text.
 
 The output is a **model score**. This study measures agreement with recorded
-diagnoses; it does not establish clinical benefit, reliable individual probabilities,
-or patient/center independence. File validation does not establish assay quality.
+diagnoses; it does not establish clinical benefit or reliable individual probabilities.
+Patient and referring-center separation between cohorts is not documented; all
+biopsies were processed at Arkana Laboratories. File validation does not establish
+assay quality.
 
 ## Presentation
 
 The draft includes [editable slides](presentation/unos_kidney_biopsy.pptx), a
 [PDF backup](presentation/unos_kidney_biopsy.pdf), and the separate
-[HTML speaking script](presentation/speaking_script.html). It has 20 main slides
-and 7 backup slides, with 20 minutes of planned delivery. All spoken text is in
+[HTML speaking script](presentation/speaking_script.html). It has 19 main slides
+and 8 backup slides, with 20 minutes of planned delivery. All spoken text is in
 the HTML file; PowerPoint notes are empty. See the
 [presentation guide](presentation/README.md) for source files and the demo fallback.
 Full timed rehearsals remain pending.

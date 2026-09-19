@@ -4,7 +4,7 @@
 
 Prepare a full 20-minute presentation about this project's question, analysis,
 results, and software. Questions follow the presentation. Preserve the current
-20 main slides and 7 backup slides for this revision. Give substantive topics
+19 main slides and 8 backup slides for this revision. Give substantive topics
 readable visual support without adding a cue for every spoken elaboration.
 
 Deliver an editable `presentation/unos_kidney_biopsy.pptx`, a matching PDF backup,
@@ -12,7 +12,7 @@ a separate `presentation/speaking_script.html`, and the presentation source file
 All spoken text and delivery cues belong in the HTML file. **Do not use PowerPoint
 notes.** This follows the user's September 18, 2026 delivery instruction.
 
-The [current draft](../presentation/README.md) contains 20 main slides and 7 backup
+The [current draft](../presentation/README.md) contains 19 main slides and 8 backup
 slides, with a complete HTML speaking script planned for 20 minutes. The deck,
 PDF, and static demonstration fallback are available. Actual timed rehearsals
 remain pending; planned timing does not establish measured delivery time.
@@ -28,10 +28,11 @@ Assume a mixed Product and Tech interview panel. Define the biopsy prediction ta
 before naming the algorithm. Explain enough transplant context for a technical
 interviewer without presenting a clinical lecture. Show the candidate's choices,
 what the models did, and how the result becomes usable software.
-Define biopsy, RNA, assay, and panel before using them to explain the model inputs.
+Define biopsy and RNA before explaining the model inputs. Keep the assay,
+instrument, and panel terminology in the first backup slide.
 Distinguish the RNA measurements from the recorded diagnosis the model predicts.
 Use "specimen ID" for the identifier that matches a specimen to its source record.
-Introduce "cohort" on slide 10 alongside the discovery and validation groups.
+Introduce "cohort" on slide 9 alongside the discovery and validation groups.
 
 The title slide contains only **Classifying Kidney Transplant Rejection from
 Biopsy RNA**, following the user's September 19, 2026 selection. State the research
@@ -57,7 +58,8 @@ different task.
 ## Content and time budget
 
 The outline puts the purpose immediately after the biopsy explanation, then
-separates supporting evidence, measurement roles, and model selection. Use the
+presents supporting evidence, the dataset, the outcome, and the measurements.
+Keep detailed assay terminology in the appendix. Use the
 following approximate section allocations to plan a full 20-minute talk. The
 HTML's per-slide and cumulative times are rough pacing aids, not measured rehearsal
 times or deadlines for each slide. Refine pacing from actual delivery rather than
@@ -65,45 +67,54 @@ laboriously optimizing estimates.
 
 | Slides | Section | Approximate time |
 | --- | --- | ---: |
-| 1–4 | Question, transplant context, possible use, and supporting research | 3 minutes |
-| 5–7 | Recorded diagnoses, RNA assay, and measurement roles | 2½ minutes |
-| 8–12 | Data tables, normalization, study groups, models, and threshold | 5 minutes |
-| 13–15 | Evaluation errors and comparison uncertainty | 4 minutes |
-| 16–18 | Prediction software, demonstration, and checks | 4 minutes |
-| 19–20 | Further evidence and conclusion | 1½ minutes |
+| 1–4 | Question, transplant context, possible use, and supporting research | 3½ minutes |
+| 5–8 | Dataset, outcome, measurements, and normalization | 3½ minutes |
+| 9–11 | Study groups, models, and threshold | 3¼ minutes |
+| 12–14 | Validation errors and comparison uncertainty | 4¼ minutes |
+| 15–17 | Prediction software, demonstration, and checks | 3¾ minutes |
+| 18–19 | Further evidence and conclusion | 1¾ minutes |
 | | **Total, with questions afterward** | **20 minutes** |
 
 | Slide | Subject | Evidence or visual |
 | ---: | --- | --- |
 | 1 | Classifying Kidney Transplant Rejection from Biopsy RNA | Title only |
-| 2 | Transplant rejection and kidney biopsy | Two context bullets, with the diagram directly under its evidence label |
-| 3 | Possible Use: Molecular Second Opinion for Ambiguous Biopsies | Full-sentence bullets and the proposed-use diagram |
-| 4 | Evidence for a molecular second opinion | Banff guidance and B-HOT research, concise scope qualification, sources beside evidence |
-| 5 | Recorded diagnoses | Four diagnoses and the binary rejection label |
-| 6 | Measuring biopsy RNA | Bullets explaining RNA, NanoString nCounter, B-HOT, and an example |
-| 7 | Measurement roles | 758 target counts and 12 housekeeping reference counts, with explanations grouped under each |
-| 8 | What the dataset contains | Two condensed analysis-table schemas linked one-to-one by specimen ID |
-| 9 | Normalization | Compact numbered calculation and example for each of the 758 target counts |
-| 10 | Development and evaluation groups | Authors' discovery/validation division, then this project's training/screening split |
-| 11 | Model comparison | Constant, IFNG, logistic regression, and CatBoost |
-| 12 | Threshold selection | Discovery screening rule and the error tradeoff |
-| 13 | Evaluation errors | Same-row comparison with class denominators |
-| 14 | Errors by recorded diagnosis | Missed rejection within each rejection group |
-| 15 | Comparison uncertainty | Paired comparison and discovery-only stability follow-up |
-| 16 | Prediction software | Input checks, shared preprocessing, model, response |
-| 17 | Working demonstration | Valid specimen and incomplete-file response |
-| 18 | Software checks | Consequential tests and current deployment evidence |
-| 19 | Next evidence for a molecular second opinion | New cohort, laboratory checks, and a direct test of added benefit |
-| 20 | Conclusion | Intended use, measured contribution, next step |
+| 2 | Transplant rejection and kidney biopsy | Bold definition labels, with histology and RNA counts as biopsy-evidence sub-bullets |
+| 3 | Possible Use: Molecular Second Opinion for Ambiguous Biopsies | Matching boxes labelled Hypothetical Example, before and after a possible molecular assessment |
+| 4 | Evidence for a molecular second opinion | Banff guidance and B-HOT research, with the project's scope given visual emphasis |
+| 5 | What the dataset contains | Two analysis-table schemas linked by specimen ID; 1,193 transplant biopsies and 202 native-kidney controls |
+| 6 | Outcome: rejection versus no rejection | Four diagnoses and the binary rejection label |
+| 7 | The measurements used to build the features | 770 RNA counts, with 758 model measurements and 12 housekeeping references |
+| 8 | Normalization | Compact numbered calculation and example for each of the 758 counts |
+| 9 | Development and evaluation groups | Authors' discovery/validation division, this project's training/screening split, and an asterisk for undocumented patient and referring-center separation |
+| 10 | Model comparison | Constant, IFNG, logistic regression, and CatBoost; each produces a rejection score |
+| 11 | Threshold selection | Recall and precision definitions, then the discovery-screening selection rule |
+| 12 | Validation results | False negatives and false positives on the same rows, with class denominators |
+| 13 | Errors by recorded diagnosis | False negatives within each rejection group |
+| 14 | Comparison uncertainty | Paired comparison and discovery-only stability follow-up |
+| 15 | Prediction software | Input checks, shared preprocessing, model, response |
+| 16 | Working demonstration | Valid specimen and incomplete-file response |
+| 17 | Software checks | Consequential tests and current deployment evidence |
+| 18 | Next evidence for a molecular second opinion | New transplant biopsies, laboratory checks, and a direct test of added benefit |
+| 19 | Conclusion | Intended use, measured contribution, next step |
 
 Give the central result and its tradeoff enough time after explaining the task.
 A methods nuance should occupy only the space needed to understand the result.
-Backup slides 21–27 support questions and sit outside this timing budget.
+Backup slides 20–27 support questions and sit outside this timing budget. Slide 20
+contains the assay explanation moved from the main talk.
 
 ## Required evidence
 
-- Use absolute counts and denominators alongside percentages. Explain sensitivity
-  and specificity through missed rejection and false flags before using the terms.
+- Use absolute counts and denominators alongside percentages. Define recall as
+  the proportion of recorded rejection cases detected, and precision as the
+  proportion of positive flags with recorded rejection. Explain false negatives
+  as missed cases and false positives as incorrect flags. The selection procedure
+  requires at least 90% screening recall, then minimizes false positives. This
+  second criterion maximizes specificity, not precision. State that the 90% target
+  is an experiment choice and that validation recall fell below it.
+- Explain IFNG as one immune-related measurement used for a simple benchmark.
+  The source study associates it with T-cell-mediated rejection, but this project
+  did not establish it as the best individual predictor. Keep the probability
+  interpretation separate from threshold choice and use "model score" throughout.
 - Include the regularized multivariable comparison. Do not make the talk depend on
   a complicated model winning.
 - Distinguish the binary benchmark, four-class follow-up, and original study.
@@ -115,21 +126,32 @@ Backup slides 21–27 support questions and sit outside this timing budget.
   Keep extra methodological detail and secondary targets in backup slides.
 - Describe work actually completed, including the candidate's decisions and
   appropriate disclosure of AI assistance. Present proposed work as proposed.
-- On slide 8, distinguish the two assembled analysis tables from the two public
-  downloads, one of which contains individual count files. The shared specimen
-  key does not establish the number of independent patients. Both author study
-  groups contribute to the 1,395 specimens, as explained on slide 10.
+- In the script for slide 5, distinguish the two assembled analysis tables from
+  the two public downloads, one of which contains individual count files. Both
+  author study groups contribute to the 1,395 specimens, as explained on slide 9.
+  The full article reports 202 native-kidney controls, so this evaluation is not
+  restricted to transplant biopsies. Public metadata do not map those controls
+  to individual records. The study does not document patient or referring-center
+  separation, and all specimens were processed at one laboratory.
+- Keep the paired clinical example explicitly hypothetical. The study excluded
+  some difficult diagnostic categories, including borderline acute T-cell-mediated
+  rejection. Explain the full exclusions in backup material, without claiming that
+  all ambiguous biopsies were excluded. Do not assume false negatives are always
+  more consequential: the article discusses harmful additional immunosuppression
+  if infection is mistaken for rejection.
 
 ## Design and delivery checks
 
 Give each slide one main purpose. Use ordinary dark-text bullets for parallel
 points, numbered steps for calculations, and bold labels for definitions. Reserve
-color for a consistent meaning. Group each explanation with the count, example,
+color for a consistent meaning, including the unbulleted summary lines requested
+for the dataset, outcome, measurements, and normalization. Group each explanation with the count, example,
 table, or diagram it explains. Do not add unrelated statements at the bottom.
 
 Use real charts and diagrams that explain meaningful relationships or processes.
-Keep the useful diagrams on slides 2, 3, 10, and 16. Slide 6 needs bullets rather
-than a flowchart; slide 8 needs table schemas. Avoid generic
+Keep the useful diagrams on slides 9 and 15. Slide 2 needs definition bullets and
+sub-bullets. Slide 3 needs two matching hypothetical-example boxes. Slide 5 needs
+table schemas. The assay explanation on backup slide 20 uses bullets. Avoid generic
 stock imagery, decorative medical imagery, dense dashboard cards, and lists of
 tools that take space away from evidence. Keep charts and required tables editable.
 Put concise citations beside externally sourced claims and full linked references
@@ -142,8 +164,9 @@ brief bullets, examples, and evidence rather than copying paragraphs. Split a
 script section across slides when its topics need different visuals. Keep the
 terms and sequence aligned. Spoken elaboration, asides, and transitions do not
 each need their own cue. Keep delivery instructions sparse and practical.
-Use plain topic titles for setup slides and
-supported findings for result slides. A definition label should be visually
+Use plain topic titles for setup slides and the requested "Validation results"
+title for slide 12. Use supported findings where useful on other result slides.
+A definition label should be visually
 distinct from its explanation.
 
 Verify the exported deck and PDF for readable labels, clipping, contrast, and
