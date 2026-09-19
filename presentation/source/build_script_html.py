@@ -206,7 +206,7 @@ def main() -> None:
         seconds = int(slide.get("seconds", 0))
         ident = f"slide-{number:02d}"
         label = f"Backup {number - len(main_slides)}" if backup else f"Slide {number}"
-        timing = "For questions after the 20-minute talk" if backup else f"{clock(seconds)} on this slide · {clock(elapsed)}–{clock(elapsed + seconds)} planned elapsed time"
+        timing = "For questions after the 20-minute talk" if backup else f"Approximate pacing: {clock(seconds)} on this slide"
         if not backup:
             elapsed += seconds
         if backup and not backup_started:
@@ -235,7 +235,7 @@ def main() -> None:
 <p class="slide-label">{escape(label)}</p><div class="slide-heading"><h2 id="title-{number}">{escape(title)}</h2></div>
 <p class="timing">{escape(timing)}</p><div class="reader-grid"><div>{stage_html}<div class="spoken">{paragraphs(spoken)}</div>{source_list(slide.get("sources", []))}</div>
 <figure class="visual">{visual}<figcaption>{escape(label)} as shown to the audience. Click to enlarge.</figcaption>{screen_cues}</figure></div></section>''')
-        nav_time = "Questions" if backup else f"Finish by {clock(elapsed)}"
+        nav_time = "Questions" if backup else f"About {clock(seconds)}"
         link = f'<li><a href="#{ident}"><span class="slide-number">{number:02d}</span><span>{escape(title)}<small>{nav_time}</small></span></a></li>'
         option = f'<option value="{ident}">{number:02d}. {escape(title)}</option>'
         (backup_links if backup else main_links).append(link)
@@ -258,7 +258,7 @@ def main() -> None:
 <p class="reader-help">Use the slide index or <kbd>←</kbd> / <kbd>→</kbd> to move between slides. <kbd>A−</kbd> / <kbd>A+</kbd> changes the reading size. This file works offline. Links to the local demo require the application to be running.</p></div>
 {''.join(sections)}
 <section class="closing" id="rehearsal"><h2>Rehearsal record</h2><p>The timings above are a plan. No completed rehearsal is recorded in this deliverable. Complete two full timed runs and one run using the demonstration fallback before presenting.</p>
-<p>Check the time at the end of each slide. Keep the result counts, the comparison with logistic regression, and the valid and invalid demonstration. If delivery runs long, shorten the repeated IFNG calculation during the demo and the second explanation of software checks. Keep backup slides for questions.</p>
+<p>Check the time at section boundaries. Keep the result counts, the comparison with logistic regression, and the valid and invalid demonstration. If delivery runs long, shorten secondary explanations. Use rehearsal to adjust the pace and keep backup slides for questions.</p>
 <details><summary>Record a rehearsal</summary><p class="log-intro">Enter the measured time after a run and export the record. Entries remain on this page only until it is closed or reloaded.</p>
 <div class="log-form"><label>Date<input id="rehearsal-date" type="date"></label><label>Run<select id="rehearsal-kind"><option>Full timed run 1</option><option>Full timed run 2</option><option>Interruption and fallback run</option><option>Additional run</option></select></label>
 <label>Measured duration (minutes:seconds)<input id="rehearsal-duration" type="text" placeholder="20:00" inputmode="numeric"></label><div class="log-actions"><button id="use-timer">Use timer value</button></div>

@@ -6,7 +6,7 @@ Prepare a **20-minute presentation** for the UNOS Associate Data Scientist inter
 
 The user's September 18, 2026 instruction puts all spoken text and delivery cues in a **separate HTML speaking script**. Do not use PowerPoint notes. The [current draft](../presentation/README.md) has 20 main slides, 7 backup slides, and a complete script planned for 20 minutes. Real timed rehearsals remain pending.
 
-The user's feedback sets the order and level of explanation: open with the topic and research question, explain the biopsy, and immediately explain why another assessment of that tissue could help. Establish the clinical rationale before expanding the biological and data context, then present methods and results. Give every substantive spoken topic a visible cue. These are the user's presentation preferences, separate from the external guidance summarized below.
+The user's September 19, 2026 feedback sets the order and level of explanation. Open with only the title, **Classifying Kidney Transplant Rejection from Biopsy RNA**. Explain transplant rejection and the biopsy, then immediately explain why another assessment of that tissue could help. Establish the clinical rationale before expanding the biological and data context, then present methods and results. Use ordinary bullets for parallel points, group explanations with the evidence they describe, and use diagrams when a relationship or process benefits from one. Substantive topics need visible support, but spoken elaboration and transitions do not each need a separate cue. These are the user's presentation preferences, separate from the external guidance summarized below.
 
 The presentation-design guidance uses external sources published in **2007–2014**, with a cutoff before 2020 for the requested guidance predating modern generative-AI presentation tools. Publication dates come from the papers themselves or their publishers. Source summaries appear below. This cutoff applies to design advice. The clinical rationale uses newer evidence and current Banff guidance, documented in [Research context](RESEARCH_CONTEXT.md).
 
@@ -36,11 +36,12 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 - Define biopsy, RNA, assay, and panel in plain language before explaining the measurements. Give only the biological context needed to understand the data and label.
 - Immediately after explaining the biopsy, state the intended use: a molecular second opinion could give specialists additional evidence when a transplant biopsy is uncertain or conflicts with other findings. Explain that tissue appearance and gene activity provide different information from the existing tissue.
 - Make the positive case with its evidence. Current Banff guidance considers validated molecular tests in difficult cases, and research using the B-HOT panel supports investigating information beyond the initial microscopic diagnosis. Then identify the contribution here: a reproducible classifier and software for further evaluation. Added benefit in uncertain cases remains the next research question.
-- Keep the title slide to the topic and research question, with light context only if needed. Introduce the model comparison and error counts after the audience understands the specimens, diagnoses, and evaluation groups. Omit the interview-project tagline.
+- Keep the title slide to **Classifying Kidney Transplant Rejection from Biopsy RNA**, with no subtitle, tagline, or other content. State the research question aloud. Introduce the model comparison and error counts after the audience understands the specimens, diagnoses, and evaluation groups.
 - Draft the central question in one sentence. State what information the model receives, what label it predicts, and which biopsy population the analysis covers.
 - Organize around the work: why the question matters, what the data contain, how the evaluation works, what happened, and what the result permits us to conclude.
 - Distinguish an RNA measurement from the diagnosis the model predicts. Prefer "RNA measurement" or "measured molecule" in audience-facing explanations. When an exact assay or software term requires "target," define it as the molecule the assay measures. Call the predicted outcome the "recorded diagnosis" or "rejection label."
 - Call a sample identifier a "specimen ID." Explain that it identifies the source record and does not enter the model. Reserve "study accession" for the dataset reference in source material.
+- Introduce "cohort" on slide 10, where the discovery and validation groups are explained. Both groups are used. Distinguish the authors' division from this project's training/screening split within discovery, and describe the 1,395 observations as specimens rather than people.
 - Explain decisions through concrete examples. For example, show why a missing required RNA measurement causes the service to reject an input instead of producing a misleading score.
 - Explain the candidate's own contributions accurately. Credit the public dataset and any borrowed methods at the point of use.
 - End with the measured finding, its main limitation, and the next justified step. Do not promise an outcome before the analysis exists.
@@ -48,7 +49,12 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 ### Make each slide understandable
 
 - Give each substantive slide one job. Prefer a short topic title for definitions, processes, and setup. Use a factual takeaway title when the slide establishes a result. Do not force background material into a conclusion.
-- Under that title, show the relevant evidence. A cohort flow diagram explains exclusions. A split diagram explains evaluation. A result chart explains a comparison.
+- Under that title, show the relevant evidence. Use ordinary dark-text bullets for parallel statements and numbered steps for a calculation. Use diagrams for relationships or processes the audience needs to follow, such as the two forms of biopsy evidence, the proposed use, the study split, and the prediction software. Do not turn a list of definitions into a flowchart.
+- Use bold labels to distinguish a term from its explanation. Reserve color for consistent meanings such as comparison groups, rather than using recoloring as a substitute for bullet hierarchy.
+- Place explanations beside the number, table, or diagram they explain. For the 758/12 measurement breakdown, group the meaning of target counts under 758 and the role of housekeeping references under 12. Avoid unrelated statements tacked onto the bottom of a slide.
+- Show slide 6 as a clear bullet explanation of RNA, the NanoString nCounter measurement system, the B-HOT panel, and an example. On slide 8, use two compact table schemas with specimen ID as the one-to-one key. Identify these as analysis tables assembled from public files, not two original source files or a source relational database.
+- Start the normalization slide with a compact numbered example for each of the 758 target counts. Explain why the housekeeping reference is useful before using it. Keep the separate training-fitted scaling explanation with the relevant model or backup methods.
+- Keep qualifications short and close to the claim they qualify. Do not repeat obvious process statements or data QA results on slides whose purpose is to explain the data. Preserve the distinction between specimen counts and unknown numbers of independent patients.
 - Put the explanation for delivery in the separate HTML speaking script, with spoken text visibly separated from delivery cues. Keep PowerPoint notes empty. The visible slide should contain the words needed to understand its evidence and follow the spoken discussion.
 - Choose a few consistent type sizes and a restrained color palette. As a starting point, use roughly 28–32 point body text and 36–44 point titles. These are project defaults, not scientifically established thresholds.
 - Test readability at the actual display size. Enlarge chart labels separately from the slide text. Move secondary detail to an appendix when it cannot remain readable.
@@ -57,12 +63,12 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 
 ### Align the script and slides
 
-- Review the script by topic, then identify the visible cue for each substantive explanation. A cue can be a diagram label, a short bullet, an example, a table row, or a chart annotation. A transition sentence does not need its own cue.
+- Review the script by topic, then identify the visible support for each substantive topic. A cue can be a diagram label, a short bullet, an example, a table row, or a chart annotation. Spoken elaboration, an aside, or a transition does not each need its own cue.
 - Keep each cue on screen while discussing it. If one script section covers several topics that cannot fit readably together, divide it across slides and move the matching script paragraphs with it.
 - Provide enough words to explain what a diagram means. For a definition, use a distinct label followed by a colon and a short explanation, such as "Biopsy tissue: a small tissue sample."
 - Use the same terms and order in both places. Introduce an unfamiliar term before relying on it. Make the distinction between measurements, reference measurements, metadata, and the recorded diagnosis visible.
-- Retain concise cues rather than full spoken paragraphs. Sparse slides can be as difficult to follow as crowded slides when the speaker discusses topics that never appear on screen.
-- Place short, meaningful source acknowledgments beside externally sourced material. Keep full linked references in the script's source area. Omit slide footers that merely announce where the full links are stored.
+- Retain concise cues rather than full spoken paragraphs. Do not add text solely to mirror each script sentence or fill available space. Keep delivery cues sparse and useful, chiefly for demonstrations or pointing to evidence.
+- Place short, meaningful source acknowledgments beside externally sourced material. Keep full linked references in the script's source area. Omit slide footers that merely announce where the full links are stored, and do not repeat sources already identified in a table or beside the evidence.
 - Check each slide beside its script before export. Confirm that every main spoken topic has a readable cue and that every prominent on-slide item is explained aloud.
 
 ### Make the evidence inspectable
@@ -76,6 +82,7 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 - Retain units, denominators, axis labels, and relevant baselines. If simplifying a chart for the talk, preserve the values and comparisons.
 - Describe a gene's model contribution as an association. A useful predictor does not by itself establish a biological cause.
 - Introduce the plausible use before the methods, with a brief qualification that this prototype tests classification of recorded diagnoses. Later, explain how a study of uncertain biopsies could test whether adding the molecular score improves assessment. Keep the distinction clear without letting a list of limitations replace the project's purpose.
+- Describe the recorded labels as histological diagnoses. Do not claim that ambiguous specimens were absent from training without evidence. The supported limitation is that this project has not directly tested added value in ambiguous cases.
 - Keep external clinical evidence separate from this project's results. Rosales et al. studied signals associated with later chronic active antibody-mediated rejection; this classifier does not forecast future rejection. The UNOS kidney-photo study illustrates research toward supporting expert assessment in a different task and does not establish endorsement of this project.
 - Generate quantitative figures from saved analysis outputs. Every reported number must match a reproducible result. Never use generated images to depict results, observations, or diagnostic performance.
 
@@ -83,9 +90,10 @@ These evidence requirements are project choices. The presentation sources above 
 
 ### Use all 20 minutes deliberately
 
-- Allocate section times totaling **20:00**, including the opening and conclusion. Do not reserve two minutes of this slot for questions.
-- Choose the number of slides after allocating time to the argument. There is no required slide count or universal bullets-per-slide formula.
+- Plan for a full **20-minute** talk, including the opening and conclusion. Questions follow it. Use approximate section allocations rather than optimizing individual slides to exact elapsed seconds.
+- Preserve the current 20 main slides and 7 backup slides for this revision. There is no universal bullets-per-slide formula.
 - Rehearse the complete talk aloud, with the real figures and transitions. Record elapsed time at section boundaries.
+- Treat per-slide and cumulative times in the HTML as rough pacing aids. They are not measured performance or a reason to spend extensive effort tuning estimates. Let actual rehearsals determine which sections need more or less time.
 - If the talk runs long, remove secondary material. If it runs short, explain an important result or decision more clearly. Do not fill the time with generic background.
 - Complete at least two final rehearsals close to 20 minutes at a natural pace. Record the times and remaining rough spots. This is the project's rehearsal standard.
 - Ask a practice listener to explain the prediction target, the evaluation setup, and the main conclusion afterward. Revise any point they cannot explain accurately.
@@ -98,12 +106,14 @@ Before accepting a draft, check these points:
 
 | Problem | Required revision |
 | --- | --- |
-| The opening gives a model name or error counts before explaining the task | Keep the title slide to the topic and research question. Move results after the relevant context and show denominators. |
-| A spoken topic has no visible counterpart | Add a short cue or give the topic its own slide, then align the script and timing. |
+| The opening contains a subtitle, tagline, model name, or results | Keep only the agreed title. State the research question aloud and introduce results after the relevant context. |
+| A substantive topic has no visible support | Add a short cue where it aids understanding. Spoken elaboration and transitions can remain in the script. |
 | The biopsy explanation leaves the audience asking why another assessment is needed | Put the molecular-second-opinion use case immediately after it, then show the external evidence and the part this project tests. |
 | A technical label has several possible meanings | Define it with ordinary words and use the same term on the slide and in the script. |
 | The deck lists tools and job-description keywords | Show a decision, the work that supports it, and its consequence. |
 | Every slide uses the same three-box layout | Choose the layout from the information the slide needs to explain. |
+| Color substitutes for structure, or a definition list becomes a flowchart | Use normal dark bullets and bold labels. Keep diagrams for meaningful relationships or processes. |
+| Explanations accumulate beneath an otherwise complete slide | Move each necessary explanation beside the item it describes. Remove repetition. |
 | Dense paragraphs repeat the HTML speaking script | Keep only essential labels and the evidence needed on screen. |
 | A figure looks polished but lacks sample counts or a comparison | Add the missing information and verify it against the saved analysis. |
 | Words such as “transformative,” “robust,” or “actionable” substitute for a finding | State the measured result or the specific action the evidence supports. |
@@ -113,16 +123,16 @@ Before accepting a draft, check these points:
 ## Ready-to-present check
 
 - [ ] The argument is understandable without specialist gene-expression knowledge.
-- [ ] The title slide introduces the topic and question without premature results or an interview tagline.
+- [ ] The title slide contains only **Classifying Kidney Transplant Rejection from Biopsy RNA**.
 - [ ] The slide immediately after the biopsy explanation states who could use molecular evidence and when it could help. External support and the project's measured contribution are distinguishable.
-- [ ] Every substantive spoken topic has a readable on-slide cue, and the slide order matches the script.
+- [ ] Substantive topics have readable visual support, the slide order matches the script, and spoken elaboration does not create unnecessary slide text.
 - [ ] RNA measurements, reference measurements, specimen IDs, and recorded diagnoses have distinct, explained roles.
 - [ ] The visible results match saved outputs, including cohort counts and metric definitions.
 - [ ] Claims have supporting evidence or an explicit label describing their uncertainty.
 - [ ] Figures remain readable at presentation size, with no clipped labels or crowded annotations.
 - [ ] The candidate can explain each methodological choice without reading the slide.
-- [ ] The separate HTML speaking script contains the complete spoken text and delivery cues, and PowerPoint notes are empty.
-- [ ] The planned presentation fills 20 minutes, and final rehearsal times are recorded.
+- [ ] The separate HTML speaking script contains the complete spoken text and only useful delivery cues, and PowerPoint notes are empty.
+- [ ] The presentation targets 20 minutes with approximate pacing, and actual final rehearsal times are recorded.
 - [ ] A local deck, PDF, and any demonstration backup open successfully.
 - [ ] Source acknowledgments and backup slides are complete.
 

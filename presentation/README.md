@@ -1,7 +1,8 @@
 # Interview presentation
 
-Revised September 18, 2026. The talk has **20 main slides** with a
-**20:00 speaking plan**, followed by **7 backup slides** for questions.
+Revised September 19, 2026. **Classifying Kidney Transplant Rejection from Biopsy
+RNA** has **20 main slides** planned for a full **20-minute talk**, followed by
+**7 backup slides** for questions.
 
 - [Editable PowerPoint](unos_kidney_biopsy.pptx)
 - [Separate HTML speaking script](speaking_script.html)
@@ -9,7 +10,7 @@ Revised September 18, 2026. The talk has **20 main slides** with a
 - [Captured demonstration backup](demo_fallback.html)
 
 Open the HTML script in a browser. It contains the spoken text, matching slide
-previews, separate delivery cues, source links, and planned cumulative timings.
+previews, brief delivery cues, source links, and approximate pacing estimates.
 Click a slide preview to enlarge it. Expand “On this slide” to review its topic cues.
 The text and images work offline. The sidebar, previous/next controls, reading-size
 controls, and rehearsal timer help with practice. Printing includes the full script.
@@ -20,33 +21,38 @@ belongs in the HTML file, following the user's September 18 instruction.
 
 ## Story and timing
 
-| Slides | Subject | End time |
+| Slides | Subject | Approximate time |
 | --- | --- | ---: |
-| 1 | Topic and research question | 0:20 |
-| 2–4 | Biopsy, molecular-second-opinion purpose, and supporting evidence | 3:10 |
-| 5–7 | Recorded diagnoses, RNA assay, and measurement roles | 5:30 |
-| 8–12 | One observation, normalization, cohorts, models, and threshold | 10:20 |
-| 13–15 | Evaluation errors, diagnosis groups, and comparison uncertainty | 14:25 |
-| 16–18 | Shared software, demonstration, and checks | 18:15 |
-| 19–20 | Next evidence for a molecular second opinion and conclusion | 20:00 |
+| 1–4 | Title, transplant context, possible use, and supporting evidence | 3 minutes |
+| 5–7 | Recorded diagnoses, RNA assay, and measurement roles | 2½ minutes |
+| 8–12 | Data tables, normalization, study groups, models, and threshold | 5 minutes |
+| 13–15 | Evaluation errors, diagnosis groups, and comparison uncertainty | 4 minutes |
+| 16–18 | Shared software, demonstration, and checks | 4 minutes |
+| 19–20 | Next evidence for a molecular second opinion and conclusion | 1½ minutes |
 | 21–27 | Backup material, including the UNOS research connection | Questions afterward |
 
-The main script includes a two-minute demonstration and time for pauses.
-These are planned allocations, not measured rehearsal results. Complete
+The main script includes about two minutes for the demonstration and room for
+pauses. These are approximate allocations, not measured rehearsal results.
+Use the HTML's per-slide times as pacing aids. Actual rehearsals determine the
+pace; individual slide estimates need not be optimized to exact seconds. Complete
 two full aloud rehearsals and one fallback rehearsal before the interview. The
 HTML page can export a measured rehearsal record. The candidate should also
 review the account of personal contributions before presenting.
 
-The opening states the question. Immediately after the biopsy explanation, the
+The opening slide contains only the selected title. The speaker introduces the
+research question aloud. Immediately after the biopsy explanation, the
 talk explains why a molecular second opinion could help specialists assess
 uncertain biopsies. Banff guidance and B-HOT research support this motivation.
 The project's measured contribution is a reproducible classifier and working
 software. Testing added benefit in uncertain cases is the next research step.
-Results follow the biological context, data, and evaluation procedure. Each substantive spoken topic has an on-slide cue,
-with the longer explanation in the script. Measurement roles and the predicted
-diagnosis have separate labels. The [presentation specification](../docs/PRESENTATION_SPEC.md)
-records the slide-by-slide time budget, and the [guide](../docs/PRESENTATION_GUIDE.md)
-records the standards for keeping the script and slides aligned.
+Results follow the biological context, data, and evaluation procedure. Substantive
+topics have visible support, with spoken elaboration in the script. Ordinary dark
+bullets show parallel points. Explanations sit beside the numbers, examples, or
+diagrams they describe. Slide 6 uses bullets for the assay explanation; slide 8
+shows two linked analysis tables assembled from the public files. "Cohort" first
+appears with the study groups on slide 10. The [presentation specification](../docs/PRESENTATION_SPEC.md)
+records the outline and approximate section budget, and the [guide](../docs/PRESENTATION_GUIDE.md)
+records the September 19 feedback and standards for future edits.
 
 ## Demonstration
 
