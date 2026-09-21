@@ -1,5 +1,11 @@
 # Shared preprocessing and prediction
 
+For the illustrated, detailed version, open the
+[code guide](TECHNICAL_OWNERSHIP.html) in a browser. Its six
+workflows pair script/function diagrams with explanations, source and test links,
+one real public specimen, maintenance scenarios, and exercises. The
+[editable guide sources](ownership/README.md) include a rebuild and reference check.
+
 The research training script and batch prediction application import
 `src/kidney_biopsy/`. The package owns the input checks, source readers,
 housekeeping normalization, score calculation, and saved-model loading.

@@ -1,0 +1,139 @@
+{
+  "id": "preprocessing",
+  "number": "02",
+  "title": "Prepare model inputs",
+  "summary": "Apply one named-target contract and one specimen-level transformation during both training and prediction.",
+  "story": [
+    "A CSV request and the public RCC reader start differently, but they meet at `validate_counts()` and `normalize_counts()` in the shared package. There is no second implementation of the formula in the API. Each specimen's 770 raw counts become 758 normalized assay features, while the 12 housekeeping measurements supply the reference level and are removed from the predictors.",
+    "Normalization computes `log2(count + 1)` for every target, then subtracts the specimen's mean log value across ABCF1, G6PD, GUSB, NRDE2, OAZ1, POLR2A, PPIA, SDHA, STK11IP, TBC1D10B, TBP, and UBB. The added one makes a zero count usable. Subtracting the same reference from all target values expresses each target relative to that specimen's housekeepers. Negative normalized values are valid; negative raw counts are not.",
+    "This step learns nothing across specimens, so a specimen gives the same normalized values alone or in a batch. Training initially preserves the source target order; the frozen schema records that order so serving can accept reordered CSV columns and restore the exact model order. Any learned scaling or feature selection happens later, inside a model pipeline fitted only on training rows."
+  ],
+  "functions": [
+    {
+      "id": "preprocessing-schema",
+      "path": "src/kidney_biopsy/preprocessing.py",
+      "symbol": "AssaySchema.from_dict",
+      "title": "Recover the frozen assay contract",
+      "purpose": "Turn saved schema metadata into a validated, immutable description of the model's inputs.",
+      "inputs": "A dictionary with exactly `features`, `schema_version`, `preprocessing_version`, `housekeeping_targets`, and `extra_targets`.",
+      "steps": [
+        "Reject dictionaries with missing or unknown fields. This prevents incomplete metadata from quietly receiving defaults when read back from a saved run.",
+        "Construct `AssaySchema`, whose `__post_init__()` converts feature and housekeeping lists to tuples and requires the supported `bhot-v1` and `log2-housekeeping-v1` versions.",
+        "Require the exact 12 housekeeping names in their defined order and the `reject` policy for extra targets. Require nonempty, unique feature names and prohibit housekeepers from appearing among predictors.",
+        "Expose `required_targets` as the ordered feature tuple followed by the housekeeping tuple. The model's own stored feature names are checked separately when the predictor loads."
+      ],
+      "outputs": "An `AssaySchema` whose feature order is the order expected by the fitted model.",
+      "why": "A saved model is only usable when new values mean the same thing and arrive in the same order as during fitting. Schema and preprocessing versions make those assumptions explicit. The generic class permits small synthetic schemas for tests; the source import enforces this study's panel size.",
+      "failures": "Rejects unsupported versions, changed housekeepers, duplicate features, unsupported extra-column handling, and missing or unknown serialized fields.",
+      "change": "Changing the formula, housekeepers, or expected predictors requires a compatible schema/preprocessing version and a newly trained model. Editing only the frozen JSON cannot make an older model compatible; the loader also compares its feature names and order.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_schema_version_housekeepers_and_duplicate_features_fail", "reason": "Exercises constructor checks for versions, housekeeping names, and duplicate predictors."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_frozen_schema_order_mismatch_fails_even_with_matching_hashes", "reason": "Checks that a manifest-consistent metadata edit still cannot reorder a fitted model's inputs."}
+      ]
+    },
+    {
+      "id": "preprocessing-read-csv",
+      "path": "src/kidney_biopsy/preprocessing.py",
+      "symbol": "read_counts_csv",
+      "title": "Read a complete CSV batch without losing errors",
+      "purpose": "Parse specimen IDs and target headers before pandas can change or infer their meaning.",
+      "inputs": "A CSV file path or text stream, an optional frozen schema, and a maximum specimen count; the default is 1,000 rows.",
+      "steps": [
+        "For a file path, open it as UTF-8 with optional byte-order mark support and call the same parser on the stream. For streams, use strict `csv.reader` parsing.",
+        "Require a nonblank first-column header and at least one named target. Check duplicate names across the entire header before constructing a DataFrame. This avoids pandas automatically renaming duplicate target columns.",
+        "Read rows as strings, retaining IDs such as `001` exactly. Require every row to have the header's field count, stop when the specimen limit is exceeded, and reject a file with no specimen rows.",
+        "Construct the DataFrame using the first field as the specimen index and the remaining fields as count cells. Pass the complete batch to `validate_counts()` before returning it."
+      ],
+      "outputs": "A validated numeric raw-count DataFrame. The first header becomes the index name; it need not literally be `specimen`.",
+      "why": "Identifiers are labels, not numbers. Duplicate headers and malformed row widths need to fail while the original CSV structure is still visible. The parser enforces a row limit; the CLI and API impose their own byte limits before this step.",
+      "failures": "Rejects empty input, blank or duplicate headers, malformed CSV quoting, wrong row widths, an empty specimen table, and oversized batches. Target and numeric errors from `validate_counts()` also fail the whole request.",
+      "change": "If changing batch limits, update the interface documentation and the caller's upload limits together. Keep ID preservation and duplicate-header rejection before DataFrame creation.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_training_and_reordered_csv_have_identical_preprocessing", "reason": "Checks IDs retain leading zeros and reordered CSV inputs normalize identically."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_duplicate_targets_cannot_be_renamed_or_silently_dropped", "reason": "Checks duplicate headers are caught before implicit repair."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_empty_csv_malformed_rows_and_batch_limit_fail", "reason": "Checks empty input, row widths, and the batch-size boundary."}
+      ]
+    },
+    {
+      "id": "preprocessing-validate-counts",
+      "path": "src/kidney_biopsy/preprocessing.py",
+      "symbol": "validate_counts",
+      "title": "Reject an incomplete or invalid assay batch",
+      "purpose": "Establish that every specimen has usable measurements and, during prediction, exactly the targets required by the model.",
+      "inputs": "A specimen-by-target DataFrame and an optional `AssaySchema`.",
+      "steps": [
+        "Call `_validate_identifiers()` to require a nonempty table, unique nonblank string target names, and unique nonblank string specimen IDs.",
+        "Without a frozen schema, require all 12 housekeepers and at least one other target. With a schema, require every frozen predictor and housekeeper, then reject all extra columns, including numeric-looking metadata.",
+        "Reject Boolean and complex values before conversion. Both can otherwise be coerced in ways that hide the caller's mistake.",
+        "Convert counts to floating-point values and require every cell to be finite and nonnegative. Return the numeric table in its existing row and column order only after the entire table passes."
+      ],
+      "outputs": "Numeric raw counts with the original identifiers and order. No rows are dropped, no values are imputed, and no partial prediction is returned.",
+      "why": "Failing the complete batch gives callers an unambiguous result. A zero count is allowed, but an absent target is not interchangeable with zero. Float counts are accepted; the code does not impose an integer-only rule or certify laboratory assay quality.",
+      "failures": "Raises `ValueError` for bad identifiers, missing or unexpected targets, nonnumeric cells, Boolean/complex values, infinities, missing values, or negative counts. One invalid cell invalidates the batch.",
+      "change": "If introducing an extra-column policy or imputation, treat it as an input-contract change and assess its effect on the fitted model. A metadata field should never become a predictor simply because its values are numeric.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_missing_housekeeping_or_predictor_targets_fail", "reason": "Checks both kinds of required targets."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_extra_metadata_or_assay_targets_fail", "reason": "Prevents metadata or unknown targets from entering the feature table."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_nonnumeric_negative_and_nonfinite_counts_fail_entire_batch", "reason": "Checks that a single invalid count rejects the batch."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_boolean_and_complex_counts_cannot_be_coerced_to_real_numbers", "reason": "Covers values that numeric conversion could otherwise disguise."}
+      ]
+    },
+    {
+      "id": "preprocessing-normalize",
+      "path": "src/kidney_biopsy/preprocessing.py",
+      "symbol": "normalize_counts",
+      "title": "Express each target relative to its specimen's housekeepers",
+      "purpose": "Apply the exact same count transformation during research training and application scoring.",
+      "inputs": "Raw counts and, for prediction, the model's frozen `AssaySchema`.",
+      "steps": [
+        "Validate the complete raw-count table first, even when an upstream reader has already checked it. This protects callers that supply a DataFrame directly.",
+        "Compute `log2(raw_count + 1)` for every target. For each row, take the mean of the 12 specified housekeeping log values.",
+        "Subtract that row's housekeeping mean from every target in the same specimen. No statistic is estimated from other specimens or carried as fitted preprocessing state.",
+        "Drop the housekeeping columns by selecting only predictor names. During training without a schema, preserve the remaining source order; with a schema, select in the frozen feature order."
+      ],
+      "outputs": "For the real assay, a finite specimen-by-758-feature DataFrame ready for the fitted model or its learned pipeline.",
+      "why": "The operation adjusts targets relative to a within-specimen reference and allows training and prediction to share code. For a simple arithmetic check, a target count of zero with all 12 housekeeping counts equal to one becomes `log2(1) - log2(2) = -1`. That negative feature is valid.",
+      "failures": "Input-contract failures propagate from `validate_counts()`. A specimen's score should not depend on the other specimens uploaded alongside it; the batch-independence check guards that property.",
+      "change": "A formula or housekeeping change alters every downstream feature and needs a new preprocessing version, training run, threshold selection, and compatibility review. Keep this implementation shared; a second copy in an API or training script can drift.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_training_and_reordered_csv_have_identical_preprocessing", "reason": "Checks exact training/prediction equality and independent hand-calculated values."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_specimen_normalization_does_not_depend_on_batch", "reason": "Checks the same specimen alone and within a batch produces identical features."}
+      ]
+    },
+    {
+      "id": "preprocessing-labels",
+      "path": "src/kidney_biopsy/preprocessing.py",
+      "symbol": "map_diagnoses",
+      "title": "Define the primary outcome explicitly",
+      "purpose": "Map the four source diagnoses to the project's any-recorded-rejection target.",
+      "inputs": "A pandas Series of recorded diagnosis strings, indexed by specimen.",
+      "steps": [
+        "Reject an empty diagnosis series or any missing diagnosis before assigning classes.",
+        "Compare every observed value with the four documented strings. Reject unknown values, including an empty string or `Borderline`, instead of treating them as no rejection.",
+        "Map `No Rejection` to 0 and `Antibody-mediated Rejection`, `T cell-mediated Rejection`, and `Mixed Rejection` to 1. Return integer labels while preserving the specimen index."
+      ],
+      "outputs": "An aligned binary label Series used by training and evaluation. Diagnosis values are not passed to the model as predictors.",
+      "why": "The target is agreement with the recorded diagnosis for an already collected biopsy. Explicit positive classes make mixed rejection's treatment clear and prevent a new label from silently changing the meaning of the experiment.",
+      "failures": "Missing or unexpected diagnosis values raise `ValueError`. The function does not adjudicate diagnoses or turn an ambiguous clinical category into a definitive label.",
+      "change": "A new diagnosis category requires an explicit analysis decision and a new documented run. A four-class outcome is a different research comparison, implemented separately in the subtype follow-up; it does not change the serving target.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_unknown_and_missing_diagnoses_fail", "reason": "Checks all four accepted mappings and rejects borderline, missing, and blank labels."}
+      ]
+    }
+  ],
+  "changes": [
+    {"title": "A user rearranges the CSV columns", "body": "This is valid if every required target is present exactly once and no extras are added. Parsing preserves the names; `normalize_counts(counts, schema)` restores the model's feature order. The reordered-column test checks the resulting features and prediction."},
+    {"title": "A target is missing from an upload", "body": "The entire batch fails before scoring. Trace the error through `read_counts_csv()` or `Predictor.predict()` into `validate_counts()`. Fix the source input; silently adding a zero would change the measurement's meaning."},
+    {"title": "The normalization formula needs to change", "body": "Update the shared module and versioned contract, train a new model, select a compatible threshold, and verify the new saved artifacts. Keep completed runs intact. Reusing the old model with transformed values that have a new meaning is not a compatible software-only update."}
+  ],
+  "exercises": [
+    {"question": "Why can all specimens be normalized before the discovery split without estimating a transformation from evaluation rows?", "answer": "Each row uses only its own 12 housekeeping values. No cross-specimen parameters are fitted. Learned scaling and feature selection are different: they remain inside pipelines fitted only on training rows."},
+    {"question": "Why does the CSV still need 770 targets when the classifier uses 758 features?", "answer": "The 12 housekeepers are needed to calculate the per-specimen reference. They are then removed; the remaining 758 targets are the model features."},
+    {"question": "Could a valid numeric file from another assay pass these checks?", "answer": "Yes, if it claims the same target names and supplies valid numbers. The checks establish structure and numeric validity, not assay origin or laboratory quality. Assay compatibility remains a caller requirement."}
+  ],
+  "related": [
+    {"path": "docs/CODE_GUIDE.md", "label": "Shared input contract"},
+    {"path": "docs/API.md", "label": "CSV and application behavior"},
+    {"path": "docs/PROJECT_SPEC.md", "label": "Target and normalization rationale"}
+  ]
+}

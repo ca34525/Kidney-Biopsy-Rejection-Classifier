@@ -1,0 +1,169 @@
+{
+  "id": "operations",
+  "number": "06",
+  "title": "Reproduce and maintain the project",
+  "summary": "Choose the right check for the change, preserve completed evidence, and package the same trusted model for local serving.",
+  "story": [
+    "Understanding the checks means knowing what a passing result actually establishes. Fast tests use generated fixtures and check software behavior. A reproduction check compares saved experiment outputs. The real HTTP check compares all 345 validation specimens through the saved results, command line, and running API. The container check verifies the packaged model, page, examples, and displayed evidence.",
+    "The service's default run is `results/reproduction/20260915_shared`. Later research runs do not automatically replace it. A serving bundle copies the selected model, its original manifests and metadata, evaluation counts, and prepared examples while preserving their relative paths. It is a small project root that starts without raw training files or another model fit.",
+    "The GitHub Actions workflow installs the locked package, runs lint, formatting, and tests, then builds and checks an image using a tiny model labeled `synthetic-ci-only`. That establishes packaging behavior without a full research run. Its synthetic predictions are not classifier-performance evidence. Local research-container records and the dated hosted CI pass describe the specific code and artifacts checked; a cloud deployment has not been performed."
+  ],
+  "functions": [
+    {
+      "id": "operations-check-project",
+      "path": "scripts/check_project.py",
+      "symbol": "main",
+      "title": "Run fast checks and save evidence for this revision",
+      "purpose": "Check the local Python package and test suite without downloading public data or requiring the fitted research model.",
+      "inputs": "The repository source, `pyproject.toml`, `uv.lock`, the project's Python 3.12 environment, and optional `--require-installed` and `--output` arguments.",
+      "steps": [
+        "Choose a new evidence path, then record hashes for active Python source, project configuration, lockfile, workflow, and page assets. Existing check records cannot be overwritten.",
+        "Compile source in memory and parse both TOML files. Call `check_environment` to require Python 3.12, an environment inside this project, and a package import from this project. With `--require-installed`, the package must come from the environment rather than editable source.",
+        "Check that packaged HTML, CSS, and JavaScript assets exist and match the working source. This catches a wheel that imports successfully but omits or ships stale web assets.",
+        "Discover and run the `unittest` suite. Save test counts, failures, package versions, source hashes, elapsed time, and success status in a new JSON record; return a nonzero exit status when checks fail."
+      ],
+      "outputs": "A JSON software-check record, test output in the terminal, and an exit status suitable for CI. The command creates a timestamped path by default.",
+      "why": "A pass tied to source hashes is more useful than a floating test count in documentation. The installed-package mode catches packaging problems that editable development imports can hide. Generated test inputs keep routine checks fast and independent of private or downloaded specimens.",
+      "failures": "The wrong Python version, an environment or imported package outside this project, missing/stale installed page assets, invalid syntax/TOML, and test failures make the record unsuccessful. Lint and formatting are separate commands in the workflow, not hidden steps inside this function.",
+      "change": "After changing source, run lint, formatting checks, and this command. If source assets changed after a noneditable installation, reinstall the current package before testing installed-package behavior. Do not cite an earlier record as verification of the new source.",
+      "checks": [
+        {"path": "scripts/check_project.py", "symbol": "check_environment", "reason": "Checks the actual Python environment, package location, and packaged page files."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_one_invalid_count_rejects_every_specimen_without_echoing_data", "reason": "An example of the consequential failure behavior exercised by the suite."}
+      ]
+    },
+    {
+      "id": "operations-verify-reproduction",
+      "path": "scripts/verify_reproduction.py",
+      "symbol": "main",
+      "title": "Determine whether a fixed training procedure was reproduced",
+      "purpose": "Compare a new completed run with the preserved baseline at the specimen, model-selection, threshold, and split levels.",
+      "inputs": "Two completed run directories, each with its manifest, prediction tables, frozen metadata, and saved split, plus a new JSON output path. The default reference is `results/reproduction/baseline`; `--run-dir` and `--output` are required.",
+      "steps": [
+        "Call `verify_artifacts` on both runs to check each artifact's recorded size and SHA-256. This check compares existing outputs; it does not run training itself.",
+        "For every reference prediction CSV, require unique matching specimen IDs, reorder the new table to the reference, and compare labels and flags exactly. Require finite absolute score differences no larger than `1e-12`.",
+        "Compare every reference frozen record's selected model, threshold, ordered features, and train/screen/test counts. Separately compare the complete saved split table after sorting by specimen.",
+        "Write the run identities, manifest hashes, artifact counts, score tolerance, selected thresholds, and per-table maximum differences to a new evidence file."
+      ],
+      "outputs": "A preservation/reproduction JSON record identifying both runs and the compared prediction tables. A successful result means the checked outputs agree within the stated tolerance.",
+      "why": "A refactor can pass small tests yet change actual results. Comparing every saved specimen catches changes that a rounded aggregate score could conceal. Distinguish the training command from this comparison: checking two previously saved runs is not evidence that a new fit just occurred.",
+      "failures": "Changed artifact bytes, missing tables, unequal specimen sets, changed labels or flags, score differences beyond tolerance, changed thresholds/features/model selection, or changed split assignments fail the comparison.",
+      "change": "Use this check after a fixed-procedure rerun. If a method intentionally changes, preserve the new run and explain the result as a new experiment or follow-up; do not loosen tolerance or rewrite the baseline simply to get a pass. Current-source differences alone do not mean historical artifacts should be edited.",
+      "checks": [
+        {"path": "scripts/verify_reproduction.py", "symbol": "verify_artifacts", "reason": "Checks the bytes behind both completed-run manifests before comparing their numerical outputs."},
+        {"path": "scripts/verify_inference.py", "symbol": "main", "reason": "A complementary check compares separately generated inference scores with one run's saved evaluation and records current source versus preserved snapshots."}
+      ]
+    },
+    {
+      "id": "operations-verify-http",
+      "path": "scripts/verify_http_service.py",
+      "symbol": "main",
+      "title": "Check the real HTTP path against the research results",
+      "purpose": "Test the running local service against CLI and saved scores for every technical-validation specimen.",
+      "inputs": "Verified public raw files, a configured completed run, a new aggregate-output directory, and a new case directory under ignored `data/processed`. Its default run matches the frozen service run.",
+      "steps": [
+        "Verify the public inputs and selected saved prediction table, load the configured predictor, and read all validation specimens from the source files. Require exact agreement between validation IDs and saved prediction IDs.",
+        "Invoke the installed CLI in a subprocess to generate an independent prediction CSV. Start Uvicorn on an available localhost port using the same configured run, wait for readiness, and check model identity and HTML serving.",
+        "Send counts in batches of 16 with target columns reversed. Compare every returned score to CLI and saved values within `1e-12`; require identical flags, exact thresholds, one model version, and passed input checks.",
+        "Send an incomplete batch missing IFNG and a 17-specimen batch. Require a whole-batch rejection without predictions. Save aggregate evidence and ignored specimen outputs, then stop the server in a `finally` block, including on failures."
+      ],
+      "outputs": "An aggregate `http.json` record with agreement measures and source hashes; CLI/HTTP specimen CSVs and the server log stay in the ignored case directory. The temporary server is stopped.",
+      "why": "The in-process API tests are useful but do not test a real socket, server startup, installed command execution, or every saved research prediction. Reversing target columns verifies name-based input matching across the complete serving path.",
+      "failures": "Missing or altered inputs, an unready server, the wrong model, mismatched specimens/scores/flags, incorrect batch limits, or partial predictions for invalid input raise errors. Only successful completion writes `http.json`; a partial directory is not a passing record.",
+      "change": "Run this after a meaningful change to parsing, preprocessing, model loading, CLI defaults, or API prediction behavior. A deliberate batch-limit change also requires updating this verifier's fixed 16/17-specimen checks and the documented API contract.",
+      "checks": [
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_api_cli_and_direct_scores_agree_with_reordered_columns", "reason": "Provides a fast fixture-based version of the same agreement check."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_batch_limit_is_applied_before_returning_results", "reason": "Protects whole-batch rejection before the slower real-data HTTP check."}
+      ]
+    },
+    {
+      "id": "operations-prepare-bundle",
+      "path": "scripts/prepare_container.py",
+      "symbol": "prepare_bundle",
+      "title": "Copy exactly the files needed to serve one selected model",
+      "purpose": "Create a new self-contained serving bundle from trusted project artifacts without modifying the original experiment or copying raw training data.",
+      "inputs": "A project root, selected run directory, prepared demo directory, and new output directory. Defaults select the frozen shared run, `data/demo`, and `build/container`.",
+      "steps": [
+        "Require normalized project-relative paths, a new destination, and no case-insensitive copy-path collisions. Read the original run manifest and require a unique artifact entry for the selected model, frozen metadata, and evaluation results.",
+        "Verify required artifact hashes and load the model through the shared `load_predictor`. Check that the evaluation's selected model and threshold match the frozen predictor; agreement of hashes alone is not enough for semantic compatibility.",
+        "Read the demo manifest and require the same run and model version. Verify example hashes, safe unique IDs, descriptions, CSV paths, and file sizes. Parse every example with the frozen schema and verify that its declared valid/invalid status is true. Score valid examples and require at least one valid and one invalid example.",
+        "Only after input verification, create the destination and physically copy the selected files while retaining their relative paths. Recheck copied bytes and load the predictor from the copied root.",
+        "Write `bundle.json` last with run/demo paths, model/schema identity, and the copied-file records. This completion record is absent if copying stops before the bundle is ready."
+      ],
+      "outputs": "A small project-root directory containing the trusted model, original run/frozen/result records, demo manifest and CSVs, and `bundle.json`. The original run manifest can still mention research artifacts that were deliberately not copied.",
+      "why": "Training and serving have different file needs. A narrow verified bundle makes the Docker image independent of raw downloads and unrelated models while keeping the exact recorded paths and artifact hashes. The configured model is trusted project code/data, never an API caller's upload; joblib loading is not a safe parser for arbitrary untrusted model files.",
+      "failures": "Existing destinations, unsafe or colliding paths, missing/tampered artifacts, incompatible schema, changed evaluation threshold, wrong demo model, inaccurate validity labels, and incomplete examples fail preparation. Source checks happen before output creation; a copy failure can leave an incomplete destination without `bundle.json`.",
+      "change": "To switch models, prepare examples for the intended completed run and create a fresh bundle for that same run. Rebuilding the application image alone does not select a newer research run. Do not edit hashes to make incompatible files appear consistent; investigate the changed artifact and regenerate the intended bundle.",
+      "checks": [
+        {"path": "tests/test_container_bundle.py", "symbol": "ContainerBundleTests.test_bundle_serves_same_model_and_examples_without_source_data", "reason": "Proves serving works from copied files alone and leaves source files unchanged."},
+        {"path": "tests/test_container_bundle.py", "symbol": "ContainerBundleTests.test_evaluation_threshold_must_match_even_when_hashes_are_updated", "reason": "A matching hash does not excuse incompatible result metadata."},
+        {"path": "tests/test_container_bundle.py", "symbol": "ContainerBundleTests.test_existing_bundle_is_preserved", "reason": "An existing serving selection cannot be silently overwritten."}
+      ]
+    },
+    {
+      "id": "operations-serve-container",
+      "path": "scripts/serve_container.py",
+      "symbol": "main",
+      "title": "Start the API from the model selected at image build time",
+      "purpose": "Translate the bundled selection into service configuration and launch one API process inside the image.",
+      "inputs": "`runtime/bundle.json` beside the installed launcher and the serving files copied there by the Dockerfile. This layout is created during image construction.",
+      "steps": [
+        "Resolve the `runtime` directory relative to the launcher's own location and read its completion record. Require bundle format version 1.",
+        "Set `KIDNEY_BIOPSY_PROJECT_ROOT`, `KIDNEY_BIOPSY_RESULTS_DIR`, and `KIDNEY_BIOPSY_DEMO_DIR` from that bundled selection before importing the ASGI application through Uvicorn.",
+        "Start `kidney_biopsy.api:app` on container port 8000 with access logs disabled. The API's startup path loads and verifies the configured model; this launcher does not fit a model or fetch inputs."
+      ],
+      "outputs": "A running Uvicorn service using the image's selected model and examples. The Dockerfile installs locked dependencies, supplies an unprivileged user, and defines a readiness command against `/health`.",
+      "why": "The image should serve a known artifact even if the development machine later creates new runs. Configuration comes from the prepared bundle, and the HTTP caller cannot choose a model path. Listening on all container interfaces allows the host to publish the port; local demonstration commands bind the host side to 127.0.0.1.",
+      "failures": "Missing/malformed completion metadata or an unsupported bundle version prevents launch. A model that fails API startup checks remains unready rather than becoming a usable predictor. Docker availability and host port binding are separate environment concerns.",
+      "change": "If the bundle layout or format changes, update preparation, launcher, Dockerfile, and verification together. Check the rebuilt image's readiness and predictions. The image uses a maintained Python base tag, so identical project source alone does not guarantee identical image bytes; the container record identifies the actual checked image.",
+      "checks": [
+        {"path": "scripts/verify_container.py", "symbol": "main", "reason": "Starts the built image, requires a nonroot user, checks read-only operation, and executes its own readiness command."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_missing_corrupted_and_schema_incompatible_models_are_unready", "reason": "Protects the model-readiness behavior used after the launcher starts the API."}
+      ]
+    },
+    {
+      "id": "operations-check-container-service",
+      "path": "scripts/verify_container.py",
+      "symbol": "check_service",
+      "title": "Verify what the packaged application actually serves",
+      "purpose": "Compare the running HTTP service with the trusted local serving bundle, including numerical results and displayed explanations.",
+      "inputs": "An HTTP-compatible client, the verified local bundle root, and parsed bundle metadata. The script's `main` verifies bundle file hashes and waits for readiness before calling this function.",
+      "steps": [
+        "Load the local predictor and compare `/model` with its model version, schema/preprocessing versions, threshold, and required targets. Reconstruct expected evaluation counts from the bundled research results and compare the displayed values.",
+        "Check that the HTML, CSS, and JavaScript are served with nonempty content and expected content types. Compare the public example listing and each downloaded CSV byte-for-byte with the bundle.",
+        "For each valid example, parse the local source, reverse its target columns, submit it to `/predict`, and compare the full prediction table with local inference within `1e-12`. For invalid examples, require HTTP 422 with a structured `invalid_csv` error and no traceback.",
+        "When an example has a recorded diagnosis, request its walkthrough and call `check_walkthrough`. That check reconstructs the IFNG normalization, all housekeeping values, model identity, and prediction from the actual source specimen rather than trusting displayed arithmetic.",
+        "Return aggregate counts and agreement measures. The outer `main` can start a temporary image with a read-only filesystem, verify its Docker readiness command, record image identity and elapsed time, and remove the container even on failure. It also accepts an already running URL."
+      ],
+      "outputs": "Aggregate verification results describing valid specimens, invalid examples, walkthroughs, maximum score difference, and agreement of assets, metadata, example files, and evaluation counts. The outer script writes the dated JSON evidence.",
+      "why": "A green health endpoint only says a model loaded. This check catches serving the wrong model, incorrect displayed counts, stale example files, or a convincing but wrong walkthrough. The same path tests the synthetic CI image and the actual research image, while their evidence keeps those purposes distinct.",
+      "failures": "A changed score fails even when the declared model version is unchanged. Missing assets, wrong thresholds/metadata, altered example bytes, incorrect walkthrough arithmetic, or invalid input accepted as valid also fail. The outer script records failure and exits nonzero; a record file's existence alone does not mean success.",
+      "change": "After a packaging or demo change, rebuild a fresh image and run the checker against the intended bundle. If a displayed field is added, update its expected-value check where it affects the user's interpretation. A successful local image check does not establish a cloud deployment.",
+      "checks": [
+        {"path": "tests/test_container_verification.py", "symbol": "ContainerVerificationTests.test_changed_scores_fail_even_when_version_metadata_agrees", "reason": "Version strings cannot substitute for checking actual numerical behavior."},
+        {"path": "tests/test_container_verification.py", "symbol": "ContainerVerificationTests.test_missing_or_changed_displayed_evaluation_fails", "reason": "Protects the evidence shown beside the prediction."},
+        {"path": "tests/test_container_verification.py", "symbol": "ContainerVerificationTests.test_changed_walkthrough_arithmetic_or_model_identity_fails", "reason": "Ensures the displayed specimen explanation remains tied to the real computation."}
+      ]
+    }
+  ],
+  "changes": [
+    {"title": "Check a routine software change", "body": "From the project root, run `uv sync --frozen`, `uv run --no-sync ruff check src scripts tests experiments`, `uv run --no-sync ruff format --check src scripts tests experiments`, then `uv run --no-sync python scripts/check_project.py`. The last command automatically chooses a new evidence path. These commands check software behavior; they do not rerun research training."},
+    {"title": "Rerun the fixed experiment and verify its predictions", "body": "First run `uv run --frozen python experiments/rejection_public/download.py` and `uv run --frozen python scripts/verify_local_data.py`; existing valid local inputs are reused. In PowerShell set `$runName = 'ownership-' + (Get-Date -Format 'yyyyMMdd-HHmmss')`. Run `uv run --frozen python experiments/rejection_public/run.py --output-dir \"results/reproduction/$runName\" --model-dir \"data/processed/models/$runName\"`, then `uv run --frozen python scripts/verify_reproduction.py --run-dir \"results/reproduction/$runName\" --output \"results/checks/$runName/reproduction.json\"`. This is the full fixed training procedure, followed by comparison; preserve both old and new runs."},
+    {"title": "Verify the real service after a prediction-path change", "body": "Set `$checkName = 'ownership-' + (Get-Date -Format 'yyyyMMdd-HHmmss')`, then run `uv run --frozen python scripts/verify_http_service.py --output-dir \"results/checks/$checkName/http\" --case-dir \"data/processed/application_checks/$checkName\"`. It starts and stops its own local server and checks all 345 frozen validation predictions. See `docs/VERIFICATION.md` for the separate installed-package and fresh-environment checks."},
+    {"title": "Build a new image without replacing an existing bundle", "body": "With the default frozen model and prepared examples available, set `$bundleName = 'ownership-' + (Get-Date -Format 'yyyyMMdd-HHmmss')`, then run `uv run --frozen python scripts/prepare_container.py --output-dir \"build/container/$bundleName\"`. With a running Linux Docker engine, run `docker build --platform linux/amd64 --build-arg \"BUNDLE_DIR=build/container/$bundleName\" --tag \"kidney-biopsy:$bundleName\" .`, then `uv run --frozen python scripts/verify_container.py --image \"kidney-biopsy:$bundleName\" --bundle-dir \"build/container/$bundleName\" --output \"results/checks/$bundleName/container.json\"`. Fresh names preserve earlier bundles, images, and records; the temporary verification container is removed."}
+  ],
+  "exercises": [
+    {"question": "The research script finished a better-looking new run. Why is the app still serving the old model?", "answer": "Research output does not automatically change the serving selection. The default is `results/reproduction/20260915_shared`; an image gets its selection from `bundle.json`. Prepare compatible examples and a new bundle for the intended run, configure or rebuild the service, and verify the resulting model version, scores, and threshold."},
+    {"question": "CI passed with the synthetic model. What remains to check before saying the current research application reproduces the saved results?", "answer": "The synthetic fixture checks software and packaging. Run the real HTTP verifier against the selected local research run and the container verifier against its real bundle. If training or learned transformations changed, also create a new fixed-procedure run and compare its outputs. Do not use synthetic fixture accuracy as evidence about biopsies."},
+    {"question": "A model file's hash no longer matches. Is updating the manifest a repair?", "answer": "No. First determine why the bytes changed and which model belongs to the intended run. Preserve historical records and recover the original verified artifact or make a new completed run and bundle. Hashes detect disagreement with trusted records; they do not make an incompatible or untrusted model valid."},
+    {"question": "Which check catches a page showing the correct model version but different numerical scores?", "answer": "`check_service` compares actual HTTP predictions with the local bundled predictor. `ContainerVerificationTests.test_changed_scores_fail_even_when_version_metadata_agrees` deliberately changes a model's scores while retaining its version and requires the checker to fail."}
+  ],
+  "related": [
+    {"path": "docs/VERIFICATION.md", "label": "Verification commands and dated records"},
+    {"path": "docs/CONTAINERS.md", "label": "Container preparation and execution"},
+    {"path": "docs/CODE_GUIDE.md", "label": "Code reading order"},
+    {"path": ".github/workflows/checks.yml", "label": "Actual CI workflow"},
+    {"path": "scripts/verify_inference.py", "label": "Saved-model inference verification"},
+    {"path": "scripts/verify_fresh_setup.py", "label": "Fresh local environment verification"},
+    {"path": "docs/STATUS.md", "label": "Current status and evidence scope"}
+  ]
+}

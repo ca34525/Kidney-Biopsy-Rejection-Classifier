@@ -1,0 +1,2027 @@
+{
+  "overview": [
+    {
+      "id": "map-overview",
+      "title": "The whole project",
+      "caption": "Read the research path across the top, then follow the saved artifacts into serving. Each named workflow opens its detailed section.",
+      "height": 470,
+      "nodes": [
+        {
+          "id": "raw",
+          "title": "Public raw measurements",
+          "x": 20,
+          "y": 20,
+          "w": 296,
+          "h": 160,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "GEO metadata + RCC counts",
+            "data/manifest.json"
+          ],
+          "anchor": "data"
+        },
+        {
+          "id": "develop",
+          "title": "Prepare, train, evaluate",
+          "x": 372,
+          "y": 20,
+          "w": 296,
+          "h": 160,
+          "path": null,
+          "kind": "module",
+          "functions": [],
+          "lines": [
+            "Shared preprocessing",
+            "Discovery-only selection"
+          ],
+          "anchor": "training",
+          "tag": "WORKFLOWS 01\u201303"
+        },
+        {
+          "id": "saved",
+          "title": "Completed run",
+          "x": 724,
+          "y": 20,
+          "w": 296,
+          "h": 160,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "Model + schema + threshold",
+            "Predictions + run manifest"
+          ],
+          "anchor": "training"
+        },
+        {
+          "id": "verify",
+          "title": "Check and package",
+          "x": 20,
+          "y": 300,
+          "w": 296,
+          "h": 145,
+          "path": null,
+          "kind": "module",
+          "functions": [],
+          "lines": [
+            "Tests, reproduction, HTTP",
+            "Container + saved evidence"
+          ],
+          "anchor": "operations",
+          "tag": "WORKFLOW 06"
+        },
+        {
+          "id": "serve",
+          "title": "Score a new specimen",
+          "x": 372,
+          "y": 300,
+          "w": 296,
+          "h": 145,
+          "path": null,
+          "kind": "module",
+          "functions": [],
+          "lines": [
+            "Browser / API / CLI",
+            "Shared predictor"
+          ],
+          "anchor": "prediction",
+          "tag": "WORKFLOW 05"
+        },
+        {
+          "id": "report",
+          "title": "Explain the results",
+          "x": 724,
+          "y": 300,
+          "w": 296,
+          "h": 145,
+          "path": null,
+          "kind": "module",
+          "functions": [],
+          "lines": [
+            "Errors, comparisons, figures",
+            "Reliability + uncertainty"
+          ],
+          "anchor": "results",
+          "tag": "WORKFLOW 04"
+        }
+      ],
+      "edges": [
+        {
+          "from": "raw",
+          "to": "develop",
+          "label": "read by",
+          "points": [
+            [
+              316,
+              100
+            ],
+            [
+              372,
+              100
+            ]
+          ],
+          "label_at": [
+            344,
+            87
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "develop",
+          "to": "saved",
+          "label": "writes",
+          "points": [
+            [
+              668,
+              100
+            ],
+            [
+              724,
+              100
+            ]
+          ],
+          "label_at": [
+            696,
+            87
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "saved",
+          "to": "report",
+          "label": "read by",
+          "points": [
+            [
+              920,
+              180
+            ],
+            [
+              920,
+              300
+            ]
+          ],
+          "label_at": [
+            952,
+            244
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "saved",
+          "to": "serve",
+          "label": "loaded at startup",
+          "points": [
+            [
+              805,
+              180
+            ],
+            [
+              805,
+              236
+            ],
+            [
+              520,
+              236
+            ],
+            [
+              520,
+              300
+            ]
+          ],
+          "label_at": [
+            644,
+            227
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "verify",
+          "to": "serve",
+          "label": "checks",
+          "points": [
+            [
+              316,
+              380
+            ],
+            [
+              372,
+              380
+            ]
+          ],
+          "label_at": [
+            344,
+            367
+          ],
+          "kind": null
+        }
+      ]
+    }
+  ],
+  "data": [
+    {
+      "id": "map-data",
+      "title": "Acquire files, then join specimens",
+      "caption": "The downloader and verifier protect the local inputs. During training, prepare_data calls the source readers; the RCC reader validates counts before returning them.",
+      "height": 490,
+      "nodes": [
+        {
+          "id": "download",
+          "title": "download.py",
+          "x": 20,
+          "y": 20,
+          "w": 296,
+          "h": 174,
+          "path": "experiments/rejection_public/download.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "main"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "verify",
+          "title": "verify_local_data.py",
+          "x": 372,
+          "y": 20,
+          "w": 296,
+          "h": 174,
+          "path": "scripts/verify_local_data.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "verify"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "raw",
+          "title": "Two raw input files",
+          "x": 724,
+          "y": 20,
+          "w": 296,
+          "h": 174,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "GSE212160_series_matrix.txt.gz",
+            "GSE212160_RAW.tar",
+            "Hashes in data/manifest.json"
+          ]
+        },
+        {
+          "id": "run",
+          "title": "run.py",
+          "x": 20,
+          "y": 290,
+          "w": 296,
+          "h": 174,
+          "path": "experiments/rejection_public/run.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "prepare_data"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "source",
+          "title": "source.py",
+          "x": 372,
+          "y": 290,
+          "w": 296,
+          "h": 174,
+          "path": "src/kidney_biopsy/source.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "read_geo_matrix"
+            },
+            {
+              "symbol": "read_rcc_archive"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "prep",
+          "title": "preprocessing.py",
+          "x": 724,
+          "y": 290,
+          "w": 296,
+          "h": 174,
+          "path": "src/kidney_biopsy/preprocessing.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "validate_counts"
+            }
+          ],
+          "lines": []
+        }
+      ],
+      "edges": [
+        {
+          "from": "download",
+          "to": "verify",
+          "label": "calls",
+          "points": [
+            [
+              316,
+              105
+            ],
+            [
+              372,
+              105
+            ]
+          ],
+          "label_at": [
+            344,
+            92
+          ],
+          "kind": null
+        },
+        {
+          "from": "verify",
+          "to": "raw",
+          "label": "verifies",
+          "points": [
+            [
+              668,
+              105
+            ],
+            [
+              724,
+              105
+            ]
+          ],
+          "label_at": [
+            696,
+            92
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "run",
+          "to": "source",
+          "label": "calls",
+          "points": [
+            [
+              316,
+              375
+            ],
+            [
+              372,
+              375
+            ]
+          ],
+          "label_at": [
+            344,
+            362
+          ],
+          "kind": null
+        },
+        {
+          "from": "source",
+          "to": "prep",
+          "label": "calls",
+          "points": [
+            [
+              668,
+              375
+            ],
+            [
+              724,
+              375
+            ]
+          ],
+          "label_at": [
+            696,
+            362
+          ],
+          "kind": null
+        },
+        {
+          "from": "source",
+          "to": "raw",
+          "label": "reads",
+          "points": [
+            [
+              610,
+              290
+            ],
+            [
+              610,
+              245
+            ],
+            [
+              870,
+              245
+            ],
+            [
+              870,
+              194
+            ]
+          ],
+          "label_at": [
+            742,
+            234
+          ],
+          "kind": "artifact"
+        }
+      ]
+    }
+  ],
+  "preprocessing": [
+    {
+      "id": "map-preprocessing",
+      "title": "One transformation, used by both paths",
+      "caption": "The same preprocessing module validates and transforms training inputs and incoming specimens. The schema determines which named targets are accepted and their feature order.",
+      "height": 520,
+      "nodes": [
+        {
+          "id": "run",
+          "title": "run.py",
+          "x": 20,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": "experiments/rejection_public/run.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "prepare_data"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "prep",
+          "title": "preprocessing.py",
+          "x": 372,
+          "y": 25,
+          "w": 296,
+          "h": 247,
+          "path": "src/kidney_biopsy/preprocessing.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "AssaySchema.from_dict"
+            },
+            {
+              "symbol": "read_counts_csv"
+            },
+            {
+              "symbol": "validate_counts"
+            },
+            {
+              "symbol": "normalize_counts"
+            },
+            {
+              "symbol": "map_diagnoses"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "predict",
+          "title": "prediction.py",
+          "x": 724,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": "src/kidney_biopsy/prediction.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "Predictor.predict"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "cli",
+          "title": "cli.py",
+          "x": 20,
+          "y": 330,
+          "w": 296,
+          "h": 164,
+          "path": "src/kidney_biopsy/cli.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "main"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "api",
+          "title": "api.py",
+          "x": 372,
+          "y": 330,
+          "w": 296,
+          "h": 164,
+          "path": "src/kidney_biopsy/api.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "create_app.predict"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "features",
+          "title": "Named feature table",
+          "x": 724,
+          "y": 330,
+          "w": 296,
+          "h": 164,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "758 targets per specimen",
+            "12 housekeeping targets removed",
+            "No fitted normalization state"
+          ],
+          "tag": "DATA \u00b7 IN MEMORY"
+        }
+      ],
+      "edges": [
+        {
+          "from": "run",
+          "to": "prep",
+          "label": "calls",
+          "points": [
+            [
+              316,
+              110
+            ],
+            [
+              372,
+              110
+            ]
+          ],
+          "label_at": [
+            344,
+            97
+          ],
+          "kind": null
+        },
+        {
+          "from": "predict",
+          "to": "prep",
+          "label": "calls",
+          "points": [
+            [
+              724,
+              110
+            ],
+            [
+              668,
+              110
+            ]
+          ],
+          "label_at": [
+            696,
+            97
+          ],
+          "kind": null
+        },
+        {
+          "from": "cli",
+          "to": "prep",
+          "label": "calls read_counts_csv",
+          "points": [
+            [
+              245,
+              330
+            ],
+            [
+              245,
+              298
+            ],
+            [
+              430,
+              298
+            ],
+            [
+              430,
+              272
+            ]
+          ],
+          "label_at": [
+            323,
+            289
+          ],
+          "kind": null
+        },
+        {
+          "from": "api",
+          "to": "prep",
+          "label": "calls reader",
+          "points": [
+            [
+              553,
+              330
+            ],
+            [
+              553,
+              272
+            ]
+          ],
+          "label_at": [
+            595,
+            306
+          ],
+          "kind": null
+        },
+        {
+          "from": "prep",
+          "to": "features",
+          "label": "returns normalized values",
+          "points": [
+            [
+              630,
+              272
+            ],
+            [
+              630,
+              308
+            ],
+            [
+              865,
+              308
+            ],
+            [
+              865,
+              330
+            ]
+          ],
+          "label_at": [
+            753,
+            299
+          ],
+          "kind": "artifact"
+        }
+      ]
+    }
+  ],
+  "training": [
+    {
+      "id": "map-training",
+      "title": "Fit, choose, freeze, then evaluate",
+      "caption": "run_experiment coordinates the functions inside run.py. Calls to readers and shared processing are shown around it; saved artifacts carry the chosen behavior into other workflows.",
+      "height": 565,
+      "nodes": [
+        {
+          "id": "prep",
+          "title": "preprocessing.py",
+          "x": 20,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": "src/kidney_biopsy/preprocessing.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "normalize_counts"
+            },
+            {
+              "symbol": "map_diagnoses"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "run",
+          "title": "run.py",
+          "x": 372,
+          "y": 25,
+          "w": 296,
+          "h": 285,
+          "path": "experiments/rejection_public/run.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "main"
+            },
+            {
+              "symbol": "run_experiment"
+            },
+            {
+              "symbol": "prepare_data"
+            },
+            {
+              "symbol": "make_candidates"
+            },
+            {
+              "symbol": "fit_candidates"
+            },
+            {
+              "symbol": "choose_threshold"
+            },
+            {
+              "symbol": "freeze_and_evaluate"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "pred",
+          "title": "prediction.py",
+          "x": 724,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": "src/kidney_biopsy/prediction.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "predict_scores"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "source",
+          "title": "source.py",
+          "x": 20,
+          "y": 370,
+          "w": 296,
+          "h": 174,
+          "path": "src/kidney_biopsy/source.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "read_geo_matrix"
+            },
+            {
+              "symbol": "read_rcc_archive"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "saved",
+          "title": "One preserved run",
+          "x": 372,
+          "y": 400,
+          "w": 296,
+          "h": 145,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "Model + frozen JSON + manifest",
+            "Split + screening/eval predictions",
+            "Config + source + lockfile"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "run",
+          "to": "prep",
+          "label": "calls",
+          "points": [
+            [
+              372,
+              115
+            ],
+            [
+              316,
+              115
+            ]
+          ],
+          "label_at": [
+            344,
+            102
+          ],
+          "kind": null
+        },
+        {
+          "from": "run",
+          "to": "pred",
+          "label": "calls",
+          "points": [
+            [
+              668,
+              115
+            ],
+            [
+              724,
+              115
+            ]
+          ],
+          "label_at": [
+            696,
+            102
+          ],
+          "kind": null
+        },
+        {
+          "from": "run",
+          "to": "source",
+          "label": "prepare_data calls readers",
+          "points": [
+            [
+              405,
+              310
+            ],
+            [
+              405,
+              340
+            ],
+            [
+              168,
+              340
+            ],
+            [
+              168,
+              370
+            ]
+          ],
+          "label_at": [
+            280,
+            331
+          ],
+          "kind": null
+        },
+        {
+          "from": "run",
+          "to": "saved",
+          "label": "writes",
+          "points": [
+            [
+              520,
+              310
+            ],
+            [
+              520,
+              400
+            ]
+          ],
+          "label_at": [
+            548,
+            360
+          ],
+          "kind": "artifact"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "map-results",
+      "title": "Report the predictions already saved",
+      "caption": "Analysis reads a completed run and produces reports. It uses shared diagnosis mapping, verifies source and artifact hashes, and does not fit models or choose thresholds.",
+      "height": 550,
+      "nodes": [
+        {
+          "id": "input",
+          "title": "Preserved experiment",
+          "x": 20,
+          "y": 25,
+          "w": 296,
+          "h": 205,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "Split + batch metadata",
+            "Saved scores + labels",
+            "Frozen settings + manifests"
+          ]
+        },
+        {
+          "id": "analysis",
+          "title": "analyze_results.py",
+          "x": 372,
+          "y": 25,
+          "w": 296,
+          "h": 263,
+          "path": "scripts/analyze_results.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "analyze_run"
+            },
+            {
+              "symbol": "load_run"
+            },
+            {
+              "symbol": "align_predictions"
+            },
+            {
+              "symbol": "metrics"
+            },
+            {
+              "symbol": "paired_bootstrap"
+            },
+            {
+              "symbol": "reliability"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "output",
+          "title": "Analysis products",
+          "x": 724,
+          "y": 25,
+          "w": 296,
+          "h": 205,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "REPORT.md + CSV/JSON tables",
+            "Editable SVG + PNG figures",
+            "analysis_manifest.json"
+          ]
+        },
+        {
+          "id": "labels",
+          "title": "preprocessing.py",
+          "x": 372,
+          "y": 360,
+          "w": 296,
+          "h": 164,
+          "path": "src/kidney_biopsy/preprocessing.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "map_diagnoses"
+            }
+          ],
+          "lines": []
+        }
+      ],
+      "edges": [
+        {
+          "from": "analysis",
+          "to": "input",
+          "label": "reads",
+          "points": [
+            [
+              372,
+              130
+            ],
+            [
+              316,
+              130
+            ]
+          ],
+          "label_at": [
+            344,
+            117
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "analysis",
+          "to": "output",
+          "label": "writes",
+          "points": [
+            [
+              668,
+              130
+            ],
+            [
+              724,
+              130
+            ]
+          ],
+          "label_at": [
+            696,
+            117
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "analysis",
+          "to": "labels",
+          "label": "calls",
+          "points": [
+            [
+              520,
+              288
+            ],
+            [
+              520,
+              360
+            ]
+          ],
+          "label_at": [
+            548,
+            326
+          ],
+          "kind": null
+        }
+      ]
+    }
+  ],
+  "prediction": [
+    {
+      "id": "map-startup",
+      "title": "A. Server startup \u2014 load once",
+      "caption": "create_app resolves local settings; its lifespan loads one verified Predictor into application state. Reading the artifact files happens here, before requests are accepted for scoring.",
+      "height": 240,
+      "nodes": [
+        {
+          "id": "api",
+          "title": "api.py",
+          "x": 20,
+          "y": 25,
+          "w": 296,
+          "h": 190,
+          "path": "src/kidney_biopsy/api.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "create_app.lifespan"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "loader",
+          "title": "prediction.py",
+          "x": 372,
+          "y": 25,
+          "w": 296,
+          "h": 190,
+          "path": "src/kidney_biopsy/prediction.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "load_predictor"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "files",
+          "title": "Configured completed run",
+          "x": 724,
+          "y": 25,
+          "w": 296,
+          "h": 190,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "run_manifest.json",
+            "any_rejection_frozen.json",
+            "\u2026selected_model.joblib"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "api",
+          "to": "loader",
+          "label": "calls",
+          "points": [
+            [
+              316,
+              125
+            ],
+            [
+              372,
+              125
+            ]
+          ],
+          "label_at": [
+            344,
+            112
+          ],
+          "kind": null
+        },
+        {
+          "from": "loader",
+          "to": "files",
+          "label": "reads",
+          "points": [
+            [
+              668,
+              125
+            ],
+            [
+              724,
+              125
+            ]
+          ],
+          "label_at": [
+            696,
+            112
+          ],
+          "kind": "artifact"
+        }
+      ]
+    },
+    {
+      "id": "map-request",
+      "title": "B. Each prediction request",
+      "caption": "The API first reads the whole CSV, then calls the already loaded predictor. The CLI uses those same reader and predictor functions. Returned predictions travel back to the caller; the browser verifies their model identity before showing them.",
+      "height": 550,
+      "nodes": [
+        {
+          "id": "browser",
+          "title": "app.js",
+          "x": 20,
+          "y": 25,
+          "w": 296,
+          "h": 205,
+          "path": "src/kidney_biopsy/static/app.js",
+          "kind": "entry",
+          "functions": [
+            {
+              "symbol": "initialize"
+            },
+            {
+              "symbol": "runPrediction"
+            },
+            {
+              "symbol": "showPredictions"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "api",
+          "title": "api.py",
+          "x": 372,
+          "y": 25,
+          "w": 296,
+          "h": 205,
+          "path": "src/kidney_biopsy/api.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "create_app.predict"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "csv",
+          "title": "preprocessing.py",
+          "x": 724,
+          "y": 25,
+          "w": 296,
+          "h": 205,
+          "path": "src/kidney_biopsy/preprocessing.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "read_counts_csv"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "cli",
+          "title": "cli.py",
+          "x": 20,
+          "y": 325,
+          "w": 296,
+          "h": 200,
+          "path": "src/kidney_biopsy/cli.py",
+          "kind": "entry",
+          "functions": [
+            {
+              "symbol": "main"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "predictor",
+          "title": "prediction.py",
+          "x": 372,
+          "y": 325,
+          "w": 296,
+          "h": 200,
+          "path": "src/kidney_biopsy/prediction.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "Predictor.predict"
+            },
+            {
+              "symbol": "Predictor.predict_normalized"
+            },
+            {
+              "symbol": "predict_scores"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "normal",
+          "title": "preprocessing.py",
+          "x": 724,
+          "y": 325,
+          "w": 296,
+          "h": 200,
+          "path": "src/kidney_biopsy/preprocessing.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "normalize_counts"
+            },
+            {
+              "symbol": "validate_counts"
+            }
+          ],
+          "lines": []
+        }
+      ],
+      "edges": [
+        {
+          "from": "browser",
+          "to": "api",
+          "label": "POST",
+          "points": [
+            [
+              316,
+              123
+            ],
+            [
+              372,
+              123
+            ]
+          ],
+          "label_at": [
+            344,
+            110
+          ],
+          "kind": null
+        },
+        {
+          "from": "api",
+          "to": "csv",
+          "label": "1. calls",
+          "points": [
+            [
+              668,
+              123
+            ],
+            [
+              724,
+              123
+            ]
+          ],
+          "label_at": [
+            696,
+            110
+          ],
+          "kind": null
+        },
+        {
+          "from": "api",
+          "to": "predictor",
+          "label": "2. calls",
+          "points": [
+            [
+              520,
+              230
+            ],
+            [
+              520,
+              325
+            ]
+          ],
+          "label_at": [
+            550,
+            280
+          ],
+          "kind": null
+        },
+        {
+          "from": "cli",
+          "to": "predictor",
+          "label": "calls",
+          "points": [
+            [
+              316,
+              425
+            ],
+            [
+              372,
+              425
+            ]
+          ],
+          "label_at": [
+            344,
+            412
+          ],
+          "kind": null
+        },
+        {
+          "from": "predictor",
+          "to": "normal",
+          "label": "calls",
+          "points": [
+            [
+              668,
+              425
+            ],
+            [
+              724,
+              425
+            ]
+          ],
+          "label_at": [
+            696,
+            412
+          ],
+          "kind": null
+        },
+        {
+          "from": "cli",
+          "to": "csv",
+          "label": "also calls the CSV reader",
+          "points": [
+            [
+              168,
+              325
+            ],
+            [
+              168,
+              270
+            ],
+            [
+              870,
+              270
+            ],
+            [
+              870,
+              230
+            ]
+          ],
+          "label_at": [
+            300,
+            259
+          ],
+          "kind": null
+        }
+      ]
+    },
+    {
+      "id": "map-walkthrough",
+      "title": "C. Prepared public examples and their explanation",
+      "caption": "prepare_demo writes example CSVs and a provenance manifest. The walkthrough route verifies and reads those prepared files, then describes the same normalization and score as the regular predictor. Diagnosis is comparison context only.",
+      "height": 540,
+      "nodes": [
+        {
+          "id": "prepare",
+          "title": "prepare_demo.py",
+          "x": 20,
+          "y": 25,
+          "w": 296,
+          "h": 174,
+          "path": "scripts/prepare_demo.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "main"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "files",
+          "title": "Prepared public examples",
+          "x": 372,
+          "y": 25,
+          "w": 296,
+          "h": 174,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "CSV for each recorded diagnosis",
+            "Missing-IFNG invalid example",
+            "Manifest: source + split + model"
+          ]
+        },
+        {
+          "id": "api",
+          "title": "api.py",
+          "x": 724,
+          "y": 25,
+          "w": 296,
+          "h": 174,
+          "path": "src/kidney_biopsy/api.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "create_app.walkthrough"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "prep",
+          "title": "preprocessing.py",
+          "x": 20,
+          "y": 335,
+          "w": 296,
+          "h": 174,
+          "path": "src/kidney_biopsy/preprocessing.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "normalize_counts"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "describe",
+          "title": "walkthrough.py",
+          "x": 372,
+          "y": 335,
+          "w": 296,
+          "h": 174,
+          "path": "src/kidney_biopsy/walkthrough.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "describe_specimen"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "predict",
+          "title": "prediction.py",
+          "x": 724,
+          "y": 335,
+          "w": 296,
+          "h": 174,
+          "path": "src/kidney_biopsy/prediction.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "Predictor.predict_normalized"
+            }
+          ],
+          "lines": []
+        }
+      ],
+      "edges": [
+        {
+          "from": "prepare",
+          "to": "files",
+          "label": "writes",
+          "points": [
+            [
+              316,
+              112
+            ],
+            [
+              372,
+              112
+            ]
+          ],
+          "label_at": [
+            344,
+            99
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "api",
+          "to": "files",
+          "label": "reads",
+          "points": [
+            [
+              724,
+              112
+            ],
+            [
+              668,
+              112
+            ]
+          ],
+          "label_at": [
+            696,
+            99
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "api",
+          "to": "describe",
+          "label": "calls after verifying example",
+          "points": [
+            [
+              872,
+              199
+            ],
+            [
+              872,
+              262
+            ],
+            [
+              520,
+              262
+            ],
+            [
+              520,
+              335
+            ]
+          ],
+          "label_at": [
+            699,
+            251
+          ],
+          "kind": null
+        },
+        {
+          "from": "describe",
+          "to": "prep",
+          "label": "calls",
+          "points": [
+            [
+              372,
+              423
+            ],
+            [
+              316,
+              423
+            ]
+          ],
+          "label_at": [
+            344,
+            410
+          ],
+          "kind": null
+        },
+        {
+          "from": "describe",
+          "to": "predict",
+          "label": "calls",
+          "points": [
+            [
+              668,
+              423
+            ],
+            [
+              724,
+              423
+            ]
+          ],
+          "label_at": [
+            696,
+            410
+          ],
+          "kind": null
+        }
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "id": "map-checks",
+      "title": "A. Three different kinds of verification",
+      "caption": "These scripts answer different verification questions. Test fixtures check failure behavior; saved-run comparison checks reproduction; real HTTP requests check agreement across interfaces.",
+      "height": 465,
+      "nodes": [
+        {
+          "id": "fast",
+          "title": "check_project.py",
+          "x": 20,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": "scripts/check_project.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "main"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "repro",
+          "title": "verify_reproduction.py",
+          "x": 372,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": "scripts/verify_reproduction.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "main"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "http",
+          "title": "verify_http_service.py",
+          "x": 724,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": "scripts/verify_http_service.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "main"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "tests",
+          "title": "Test suite + package",
+          "x": 20,
+          "y": 305,
+          "w": 296,
+          "h": 135,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "Generated fixture tests",
+            "Python syntax + packaged assets"
+          ]
+        },
+        {
+          "id": "runs",
+          "title": "Two completed runs",
+          "x": 372,
+          "y": 305,
+          "w": 296,
+          "h": 135,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "Splits + model choices",
+            "Thresholds + saved scores"
+          ]
+        },
+        {
+          "id": "api",
+          "title": "api.py",
+          "x": 724,
+          "y": 305,
+          "w": 296,
+          "h": 135,
+          "path": "src/kidney_biopsy/api.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "create_app.predict"
+            }
+          ],
+          "lines": []
+        }
+      ],
+      "edges": [
+        {
+          "from": "fast",
+          "to": "tests",
+          "label": "runs / checks",
+          "points": [
+            [
+              168,
+              205
+            ],
+            [
+              168,
+              305
+            ]
+          ],
+          "label_at": [
+            217,
+            259
+          ],
+          "kind": null
+        },
+        {
+          "from": "repro",
+          "to": "runs",
+          "label": "reads and compares",
+          "points": [
+            [
+              520,
+              205
+            ],
+            [
+              520,
+              305
+            ]
+          ],
+          "label_at": [
+            590,
+            259
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "http",
+          "to": "api",
+          "label": "starts server; sends requests",
+          "points": [
+            [
+              872,
+              205
+            ],
+            [
+              872,
+              305
+            ]
+          ],
+          "label_at": [
+            940,
+            252
+          ],
+          "kind": null
+        }
+      ]
+    },
+    {
+      "id": "map-container",
+      "title": "B. Package and check the serving files",
+      "caption": "The same bundle process accepts the research run or the small synthetic CI fixture. Docker builds the image; the launcher reads bundled settings and creates the API. The verifier compares live responses with the trusted local bundle.",
+      "height": 610,
+      "nodes": [
+        {
+          "id": "bundle",
+          "title": "prepare_container.py",
+          "x": 20,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": "scripts/prepare_container.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "prepare_bundle"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "files",
+          "title": "Verified serving bundle",
+          "x": 372,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": null,
+          "kind": "artifact",
+          "functions": [],
+          "lines": [
+            "bundle.json + selected model",
+            "Metadata + evaluation + examples",
+            "Original relative paths retained"
+          ]
+        },
+        {
+          "id": "image",
+          "title": "Dockerfile",
+          "x": 724,
+          "y": 25,
+          "w": 296,
+          "h": 180,
+          "path": null,
+          "kind": "entry",
+          "functions": [],
+          "lines": [
+            "Locked package + bundle",
+            "Nonroot service entry point"
+          ],
+          "tag": "IMAGE BUILD"
+        },
+        {
+          "id": "verify",
+          "title": "verify_container.py",
+          "x": 20,
+          "y": 375,
+          "w": 296,
+          "h": 200,
+          "path": "scripts/verify_container.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "check_service"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "api",
+          "title": "api.py",
+          "x": 372,
+          "y": 375,
+          "w": 296,
+          "h": 200,
+          "path": "src/kidney_biopsy/api.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "create_app.lifespan"
+            },
+            {
+              "symbol": "create_app.predict"
+            }
+          ],
+          "lines": []
+        },
+        {
+          "id": "serve",
+          "title": "serve_container.py",
+          "x": 724,
+          "y": 375,
+          "w": 296,
+          "h": 200,
+          "path": "scripts/serve_container.py",
+          "kind": "module",
+          "functions": [
+            {
+              "symbol": "main"
+            }
+          ],
+          "lines": []
+        }
+      ],
+      "edges": [
+        {
+          "from": "bundle",
+          "to": "files",
+          "label": "writes",
+          "points": [
+            [
+              316,
+              115
+            ],
+            [
+              372,
+              115
+            ]
+          ],
+          "label_at": [
+            344,
+            102
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "image",
+          "to": "files",
+          "label": "copies",
+          "points": [
+            [
+              724,
+              115
+            ],
+            [
+              668,
+              115
+            ]
+          ],
+          "label_at": [
+            696,
+            102
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "image",
+          "to": "serve",
+          "label": "launches",
+          "points": [
+            [
+              875,
+              205
+            ],
+            [
+              875,
+              375
+            ]
+          ],
+          "label_at": [
+            910,
+            298
+          ],
+          "kind": null
+        },
+        {
+          "from": "serve",
+          "to": "files",
+          "label": "reads bundled settings",
+          "points": [
+            [
+              820,
+              375
+            ],
+            [
+              820,
+              286
+            ],
+            [
+              520,
+              286
+            ],
+            [
+              520,
+              205
+            ]
+          ],
+          "label_at": [
+            660,
+            275
+          ],
+          "kind": "artifact"
+        },
+        {
+          "from": "serve",
+          "to": "api",
+          "label": "creates",
+          "points": [
+            [
+              724,
+              475
+            ],
+            [
+              668,
+              475
+            ]
+          ],
+          "label_at": [
+            696,
+            462
+          ],
+          "kind": null
+        },
+        {
+          "from": "verify",
+          "to": "api",
+          "label": "HTTP",
+          "points": [
+            [
+              316,
+              475
+            ],
+            [
+              372,
+              475
+            ]
+          ],
+          "label_at": [
+            344,
+            462
+          ],
+          "kind": null
+        },
+        {
+          "from": "verify",
+          "to": "files",
+          "label": "reads expected values",
+          "points": [
+            [
+              168,
+              375
+            ],
+            [
+              168,
+              251
+            ],
+            [
+              430,
+              251
+            ],
+            [
+              430,
+              205
+            ]
+          ],
+          "label_at": [
+            285,
+            240
+          ],
+          "kind": "artifact"
+        }
+      ]
+    }
+  ]
+}

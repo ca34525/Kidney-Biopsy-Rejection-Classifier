@@ -1,0 +1,117 @@
+{
+  "example_id": "no-rejection",
+  "specimen": "GSM6510425",
+  "recorded_diagnosis": "No Rejection",
+  "recorded_rejection": false,
+  "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+  "schema_version": "bhot-v1",
+  "preprocessing_version": "log2-housekeeping-v1",
+  "threshold": 0.8765880870219778,
+  "required_targets": 770,
+  "predictor_targets": 758,
+  "normalization": {
+    "illustrated_target": "IFNG",
+    "raw_count": 4.0,
+    "log2_count_plus_one": 2.321928094887362,
+    "housekeeping_mean": 7.8998405401735114,
+    "normalized_value": -5.577912445286149,
+    "housekeeping": [
+      {
+        "target": "ABCF1",
+        "raw_count": 183.0,
+        "log2_count_plus_one": 7.523561956057013
+      },
+      {
+        "target": "G6PD",
+        "raw_count": 76.0,
+        "log2_count_plus_one": 6.266786540694901
+      },
+      {
+        "target": "GUSB",
+        "raw_count": 260.0,
+        "log2_count_plus_one": 8.027905996569885
+      },
+      {
+        "target": "NRDE2",
+        "raw_count": 67.0,
+        "log2_count_plus_one": 6.087462841250339
+      },
+      {
+        "target": "OAZ1",
+        "raw_count": 753.0,
+        "log2_count_plus_one": 9.558420713268664
+      },
+      {
+        "target": "POLR2A",
+        "raw_count": 306.0,
+        "log2_count_plus_one": 8.262094845370179
+      },
+      {
+        "target": "PPIA",
+        "raw_count": 1536.0,
+        "log2_count_plus_one": 10.585901449690772
+      },
+      {
+        "target": "SDHA",
+        "raw_count": 342.0,
+        "log2_count_plus_one": 8.422064766172813
+      },
+      {
+        "target": "STK11IP",
+        "raw_count": 38.0,
+        "log2_count_plus_one": 5.285402218862249
+      },
+      {
+        "target": "TBC1D10B",
+        "raw_count": 76.0,
+        "log2_count_plus_one": 6.266786540694901
+      },
+      {
+        "target": "TBP",
+        "raw_count": 166.0,
+        "log2_count_plus_one": 7.383704292474052
+      },
+      {
+        "target": "UBB",
+        "raw_count": 2237.0,
+        "log2_count_plus_one": 11.127994320976393
+      }
+    ]
+  },
+  "prediction": {
+    "specimen": "GSM6510425",
+    "rejection_score": 0.27493421380277305,
+    "rejection_flag": false,
+    "threshold": 0.8765880870219778,
+    "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+    "schema_version": "bhot-v1",
+    "input_check": "passed"
+  },
+  "provenance": {
+    "run_dir": "results/reproduction/20260915_shared",
+    "example_file": "data/demo/no-rejection.csv",
+    "example_sha256": "b52338dcb59e2632954832500a6ceed7049c84f152237cbca5ac4fd6b1c31df0",
+    "manifest_file": "data/demo/manifest.json",
+    "manifest_sha256": "3b1cd720937d6423e6306950cb0787d46a5107584112f7bbe29e75a036bd63ed",
+    "run_manifest_file": "results/reproduction/20260915_shared/run_manifest.json",
+    "run_manifest_sha256": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d",
+    "frozen_artifacts": [
+      {
+        "file": "results/reproduction/20260915_shared/any_rejection_frozen.json",
+        "bytes": 23514,
+        "sha256": "fed0e4f0b37431d2ef9de026071294d3ebef007c1ed38b348ea552d664bb2308"
+      },
+      {
+        "file": "data/processed/models/20260915_shared/any_rejection_selected_model.joblib",
+        "bytes": 153501,
+        "sha256": "e8d1cc2a4f684b86aa524cac2f21802847999d41a70c1728ceef092811a5f94f"
+      }
+    ],
+    "selection": "First accession in lexical order within each recorded diagnosis in the saved discovery-screen split. Scores did not guide selection.",
+    "source_sha256": {
+      "src/kidney_biopsy/preprocessing.py": "c206612ee9febecde4132e674ba7ce920cd65caeef17917a4d861d5c1fed4d67",
+      "src/kidney_biopsy/prediction.py": "6004e22d8690bc21b943b776c7715bcdcf2a3097a1c8825dd7bb992115882f19",
+      "src/kidney_biopsy/walkthrough.py": "a65205f1e17c05f8e686deb8bf8eb47b879f5a72cb19eb29c2411fa617208e8b"
+    }
+  }
+}

@@ -16,6 +16,11 @@ records the supporting Banff guidance, B-HOT study, and related UNOS research.
 Start with the [current status and reading order](docs/STATUS.md). It distinguishes
 completed evidence, the frozen service, and the remaining presentation work.
 
+The [code guide](docs/TECHNICAL_OWNERSHIP.html) explains the code
+through six workflows, with clickable diagrams, detailed function explanations,
+embedded source and tests, and guidance for making and checking changes. Open the
+HTML in a browser; it works offline.
+
 ## Result
 
 All four comparisons use the same 345 technical-validation specimens and fixed

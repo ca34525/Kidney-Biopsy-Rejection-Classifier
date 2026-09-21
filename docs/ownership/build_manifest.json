@@ -1,0 +1,228 @@
+{
+  "guide": "docs/TECHNICAL_OWNERSHIP.html",
+  "guide_sha256": "ce510ac69cb5d46138f7263011b0ab7361454cf7234846850b1569d50ca6b8aa",
+  "source_commit": "a666922b172a349ad1775312d94f4f66a5117040",
+  "source_state": "application source matches HEAD",
+  "chapters": 6,
+  "function_explanations": 41,
+  "diagrams": 10,
+  "source_files_embedded": 25,
+  "inputs": [
+    {
+      "file": ".github/workflows/checks.yml",
+      "sha256": "ee75ee79dfa093f51c698b256fdcb23a57b6191426aa1c5cdc33b20c879181ee"
+    },
+    {
+      "file": "data/manifest.json",
+      "sha256": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6"
+    },
+    {
+      "file": "docs/API.md",
+      "sha256": "7b1adca18e48671f77f9f25dfd344d2d3154732140f84e695e5066d7158b659f"
+    },
+    {
+      "file": "docs/AUDIT.md",
+      "sha256": "bf6e4d91c5469da35832b45b698c3def449f89e3de554bf24f47312fa271e416"
+    },
+    {
+      "file": "docs/CODE_GUIDE.md",
+      "sha256": "7d33167b34d7345c431d0ea346b83892d03de3b246411c351a86497c3ba9418f"
+    },
+    {
+      "file": "docs/CONTAINERS.md",
+      "sha256": "43128fcaa5ab1bc0205b5944a4070d8176c41bb94fcaa3844bf47eb127324e54"
+    },
+    {
+      "file": "docs/PROJECT_SPEC.md",
+      "sha256": "273cd98d941755ccb93f7e1a2c082184790608b8fb3ffd26a1c1c51f88841d71"
+    },
+    {
+      "file": "docs/STATUS.md",
+      "sha256": "daf6ee2fc4a90d87934f906b4bd5f51c6fe91ff8be6f11b6b536bb4d1472e423"
+    },
+    {
+      "file": "docs/VERIFICATION.md",
+      "sha256": "c24bc11b4f9375c1c8c5a57393181d3f3caa0afe483fba4352d4c2d974d47601"
+    },
+    {
+      "file": "docs/ownership/data.json",
+      "sha256": "cf798b570604ce6410d2d38dab114f0b5bae143f94728a4f8539f917db82fe45"
+    },
+    {
+      "file": "docs/ownership/diagrams.json",
+      "sha256": "a371b1bc7538551e2c5738ae4bcd9e6fe6bdfd61afcfc5bb6fb01a2a715f08fc"
+    },
+    {
+      "file": "docs/ownership/guide.css",
+      "sha256": "97701969446ebd0a9aa2100ccfafb7199ff78cc2bec9174bbfa2d66f672554d5"
+    },
+    {
+      "file": "docs/ownership/guide.js",
+      "sha256": "0c505d3b31c0cbb19cddf70a336eb46d7ee9059278f8b4856224584e9a631292"
+    },
+    {
+      "file": "docs/ownership/operations.json",
+      "sha256": "823d2fdb97b812bde268512ed948aa0b7eae89a62433f443fa4ae0ab8fb35a54"
+    },
+    {
+      "file": "docs/ownership/prediction.json",
+      "sha256": "f3c38e5077b29be8165444e12b6a9a0321d5132cd58a9c89ceb739e09e13333d"
+    },
+    {
+      "file": "docs/ownership/preprocessing.json",
+      "sha256": "012b34f9cfe8a0652c077a2113a3168ae666c405a93a6d67c07dcc3ec572f02e"
+    },
+    {
+      "file": "docs/ownership/results.json",
+      "sha256": "31b5ef49b36ed525cd3ac0d557acab8ce1d43a6a0c99d52425f04f6b2699daa9"
+    },
+    {
+      "file": "docs/ownership/specimen.json",
+      "sha256": "859f5a3aed8892e63302c1dedfdaf0a4fa60425beb971c90b015ce15b47e9065"
+    },
+    {
+      "file": "docs/ownership/training.json",
+      "sha256": "5624c464fff1f19e75996a3bb7b4213e8ba2b1a71d814130f6562d43fd45ac76"
+    },
+    {
+      "file": "docs/references/STUDY_AUDIT_20260919.md",
+      "sha256": "8a5949637d955299fc07510d5d61d456f274bb6c721398ddbc4fff7794b4f978"
+    },
+    {
+      "file": "experiments/rejection_public/download.py",
+      "sha256": "c199147accee4342f62eae02db6ee6fc2267041a437a50b2d5dfe01a80c79337"
+    },
+    {
+      "file": "experiments/rejection_public/run.py",
+      "sha256": "014f4f7f5ff9c73004ae23829af75c5f512455ddbdd3d0c2c623a81d7b08a2e2"
+    },
+    {
+      "file": "experiments/rejection_subtypes/run.py",
+      "sha256": "ea6e1bb4beb58a07b8a743b3b5e976df37664a25e3f81dba42b87093f6ce398c"
+    },
+    {
+      "file": "results/analysis/20260915_baseline/REPORT.md",
+      "sha256": "a5562e1ee7ba45e5f754ebc5f07b557b73f47fc1743e8373bdbd525d9fc9ea55"
+    },
+    {
+      "file": "results/checks/20260917_coherence/browser_review.json",
+      "sha256": "00184f765f32be6ca849ee669c7c38d5769e95af4e906592d935d55069e58b79"
+    },
+    {
+      "file": "results/followup/20260915_subtypes/REPORT.md",
+      "sha256": "1d40347bafc38aa87ecd479ca4c277018e13fa3c832c0b2e1dc92460da0ce57d"
+    },
+    {
+      "file": "results/followup/20260917_stability/REPORT.md",
+      "sha256": "e8e84b05e781ac4081cea4a2aec80bc124b50c49745183b01e76942fa2a08efd"
+    },
+    {
+      "file": "scripts/analyze_results.py",
+      "sha256": "d9b02ad86c457514011fb3daae87768da8bcf574e7b396e6d472d353ccf95c60"
+    },
+    {
+      "file": "scripts/build_ownership_guide.py",
+      "sha256": "90e6127d2b74fdc5a4615e2234a6cdfcad260c56e13ed17fc3bccb8a58769738"
+    },
+    {
+      "file": "scripts/check_project.py",
+      "sha256": "95b1134bfc4933eee98a0633e7f2ddd502de3ba3791194bab28d5b06dde3ec9a"
+    },
+    {
+      "file": "scripts/prepare_container.py",
+      "sha256": "ab5a6472f026d3c2f8108442ddef078aa6f21e31660ec82932a8d9a839c74298"
+    },
+    {
+      "file": "scripts/prepare_demo.py",
+      "sha256": "d8720a5da7163c42e43d2b444f011b5bced6a6d0f682cc6116291ac70e671434"
+    },
+    {
+      "file": "scripts/prepare_presentation_figures.py",
+      "sha256": "0adb5b8c53b87dd9571632eb46cb9c816ff139503cc9e52113989fa4fc250c4d"
+    },
+    {
+      "file": "scripts/review_viral_targets.py",
+      "sha256": "2180969ac1b61b417e9d3f6efdfe064ae2d653a04c99c553ef5ee89d09d7cf4b"
+    },
+    {
+      "file": "scripts/serve_container.py",
+      "sha256": "49a60cd26c3d8709b19c0bf1c718d70f8792af78708ee7cc88b52bbbe1acaa94"
+    },
+    {
+      "file": "scripts/verify_container.py",
+      "sha256": "0ba8461056f611bd93ff4179d6f8ab0016fd4b1299709c23174de5bc8b39b052"
+    },
+    {
+      "file": "scripts/verify_fresh_setup.py",
+      "sha256": "bab0469d3b8f8d855c4323211f495304c5eaed8b2ee9c20b226f153b6dc6a1a5"
+    },
+    {
+      "file": "scripts/verify_http_service.py",
+      "sha256": "4c0cf2c4847c0dbbdc3c498c86f9c3dcfce3ecd0ee29746cff774753bc34beb0"
+    },
+    {
+      "file": "scripts/verify_inference.py",
+      "sha256": "2a44e8121fe95c240e05e8cc036337a755baeefc108d88945022ba20c5284a8a"
+    },
+    {
+      "file": "scripts/verify_local_data.py",
+      "sha256": "aa34457b784b7ff89e93f0918d1c56aac85974a74522f507079a116655cb22ac"
+    },
+    {
+      "file": "scripts/verify_reproduction.py",
+      "sha256": "3d6517b265351d7169cc01fea4f3a78b0c159428bc4e7959648e58be481774e7"
+    },
+    {
+      "file": "src/kidney_biopsy/api.py",
+      "sha256": "c22a57a48fba533f8f66435ffbfe55c338071013c57d600bff5775c926d58237"
+    },
+    {
+      "file": "src/kidney_biopsy/cli.py",
+      "sha256": "a6b965d5dafebacafd04b067af4b2edef7029e10f4a8a3604756f11efb133056"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "sha256": "6004e22d8690bc21b943b776c7715bcdcf2a3097a1c8825dd7bb992115882f19"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "sha256": "c206612ee9febecde4132e674ba7ce920cd65caeef17917a4d861d5c1fed4d67"
+    },
+    {
+      "file": "src/kidney_biopsy/source.py",
+      "sha256": "61760e92720793b23361211358af98ca6f74cf35067909d031eb05ce8465b40d"
+    },
+    {
+      "file": "src/kidney_biopsy/static/app.js",
+      "sha256": "4793a3e288c3029e97229e1cb19b0b57fe01f0593a653533396f6886a47b8fdf"
+    },
+    {
+      "file": "src/kidney_biopsy/walkthrough.py",
+      "sha256": "a65205f1e17c05f8e686deb8bf8eb47b879f5a72cb19eb29c2411fa617208e8b"
+    },
+    {
+      "file": "tests/test_analysis.py",
+      "sha256": "aac4f4d95606a224942a97b31975282588cebe83133a75e2d51d9b455b368da7"
+    },
+    {
+      "file": "tests/test_api.py",
+      "sha256": "c4aea12cbe3f4e59a54f5a1fd7dc23611a1735b3dfdc58e6df1387b286679d4b"
+    },
+    {
+      "file": "tests/test_container_bundle.py",
+      "sha256": "c69b987903a418f609241dcee41d2f36ee7d320bea22b0b82d57d8b111b679e3"
+    },
+    {
+      "file": "tests/test_container_verification.py",
+      "sha256": "577ca5101f9f27617c8b8090d006ed8fb99be577805e97040e828edadc38b1ce"
+    },
+    {
+      "file": "tests/test_shared_prediction.py",
+      "sha256": "9b41a468d95e81254029a3d259cdc83a8051be1e5eabe706236e9487bccd0d98"
+    },
+    {
+      "file": "tests/test_source_readers.py",
+      "sha256": "a9cc30adc0d79708e9d6ddd20506b78f85ff07925680f910e39879250ef364db"
+    }
+  ]
+}

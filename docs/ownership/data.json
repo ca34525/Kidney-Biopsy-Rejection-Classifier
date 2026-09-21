@@ -1,0 +1,112 @@
+{
+  "id": "data",
+  "number": "01",
+  "title": "Obtain and check the source data",
+  "summary": "Turn two verified public files into one raw-count table and separate specimen metadata, with every join accounted for.",
+  "story": [
+    "The project starts with two GSE212160 downloads: a GEO series matrix and a tar archive of compressed RCC assay files. The series matrix supplies recorded diagnoses, cohort membership, and specimen identifiers. The RCC files supply the raw counts used by the model. Although the matrix also contains processed expression values, `prepare_data()` deliberately discards that expression table and normalizes raw RCC counts itself.",
+    "A specimen has to appear exactly once in both sources. The archive reader matches by specimen ID, then puts counts into the metadata's order. It keeps Date, CartridgeID, and ScannerID in a separate table for later error review. These fields, the diagnosis, and cohort membership never become model inputs. The completed primary run includes all 1,395 specimens and excludes none.",
+    "These checks establish the files and joins used in this project. They do not establish patient independence or isolate transplant biopsies from native-kidney controls: the public sample metadata does not identify individual native-kidney specimens. The source population and resulting interpretation are documented in the project specification and study audit."
+  ],
+  "functions": [
+    {
+      "id": "data-download",
+      "path": "experiments/rejection_public/download.py",
+      "symbol": "main",
+      "title": "Download once, verify on every run",
+      "purpose": "Make the two expected public inputs available as physical files inside this project.",
+      "inputs": "`data/manifest.json`, containing the two source URLs, project-relative paths, expected byte counts, and SHA-256 hashes.",
+      "steps": [
+        "Call `records()` to check that the manifest names exactly the RCC archive and GEO matrix for GSE212160 and uses the expected NCBI URL prefix. Resolve each file through `local_path()` so a path cannot redirect the input to another project.",
+        "If the final file already exists, pass it directly to `verify()`. A populated checkout therefore needs no download. An existing file with the wrong hash stops the command; it is not silently replaced.",
+        "For a missing file, create its local parent directory and stream the response into a neighboring `.part` file. Verify that temporary file before renaming it to the final filename. The `finally` block removes a leftover temporary file if the transfer or verification fails.",
+        "Print which files were verified or downloaded, their recorded sizes, and the completion time. The download command does not train a model or change the source manifest."
+      ],
+      "outputs": "Verified files under `data/raw/rejection_public/`, totaling 15,992,466 bytes for the current manifest.",
+      "why": "Separating acquisition from training supports both a clean checkout and an offline rerun. The temporary-file step prevents an interrupted download from looking like a completed raw input.",
+      "failures": "A missing network response, unexpected manifest entry, local-path violation, size mismatch, or hash mismatch aborts the operation. The downloader is covered by the reproducibility workflow rather than a dedicated unit test.",
+      "change": "If a public source is updated, inspect the change and record a new provenance entry before changing expected hashes. Do not update a hash merely to silence verification. Existing completed runs must retain the identity of their original inputs.",
+      "checks": []
+    },
+    {
+      "id": "data-verify-file",
+      "path": "scripts/verify_local_data.py",
+      "symbol": "verify",
+      "title": "Check that local bytes match the source record",
+      "purpose": "Reject a missing or changed public input before it enters the analysis.",
+      "inputs": "A resolved local `Path` and its manifest entry, including `file`, `bytes`, and `sha256`.",
+      "steps": [
+        "Require a regular file at the supplied path; if absent, report the download command needed to obtain it.",
+        "Compare the physical file size with the manifest's byte count. This catches an incomplete download quickly, before reading the entire file for hashing.",
+        "Use `sha256()` to read and hash the file, then compare its digest with the recorded value. Equal sizes alone are not sufficient evidence that the files match.",
+        "Return normally only when both checks pass. The callers first use `local_path()`, which rejects absolute paths, traversal, symbolic links, and Windows junctions along the project-relative path."
+      ],
+      "outputs": "No new file and no return value; successful completion means the bytes match the checked-in manifest.",
+      "why": "The raw-data check uses only Python's standard library, so it can run before installing modeling packages. It proves reproducible input identity, not that the source's diagnoses are clinically correct.",
+      "failures": "Raises `FileNotFoundError` for a missing file and `ValueError` for a size or hash mismatch. Calling `verify()` directly does not perform the separate path checks or manifest-structure checks.",
+      "change": "Keep `records()`, `local_path()`, and `verify()` together in the command sequence. Run `uv run --frozen python scripts/verify_local_data.py` after moving or physically copying inputs. A changed source needs a documented new run, not edits to completed results.",
+      "checks": []
+    },
+    {
+      "id": "data-read-geo",
+      "path": "src/kidney_biopsy/source.py",
+      "symbol": "read_geo_matrix",
+      "title": "Read diagnoses and cohort membership",
+      "purpose": "Recover one metadata row per GEO specimen while preventing ambiguous labels or joins.",
+      "inputs": "The gzipped `GSE212160_series_matrix.txt.gz` file.",
+      "steps": [
+        "Decompress the text and split the metadata section from the expression-table section. Parse tab-separated `!Sample_` rows with the CSV reader so quoted source values are handled correctly.",
+        "Require exactly one specimen-accession row containing unique, nonblank IDs. Every metadata row must have one value for every specimen.",
+        "For characteristic values, split only on the first `: ` and assign the field to the specimen. Track each specimen/field pair so a repeated cohort or diagnosis cannot overwrite an earlier value. Title and source-name fields also reject duplicates.",
+        "Read and transpose the expression table to specimen rows, then require its specimen set to equal the metadata set. Preserve the source's misspelled `histology diganosis of rejection` field and expose an additional `histology_diagnosis` alias."
+      ],
+      "outputs": "An expression DataFrame and a metadata DataFrame indexed by GEO specimen IDs. Primary training uses the metadata and discards the deposited expression values.",
+      "why": "A correct model fit can still be meaningless if counts are attached to the wrong diagnoses. Explicit IDs and duplicate-field rejection make that error visible before fitting. Retaining the source spelling keeps the parser faithful to the downloaded record.",
+      "failures": "Raises for missing or duplicate accession rows, duplicate metadata fields, wrong metadata row lengths, or expression/metadata specimen-set disagreement. Allowed diagnosis values are checked separately by `map_diagnoses()`.",
+      "change": "For a different GEO format, update parsing and add a representative malformed-file case. Preserve exact specimen joins and distinguish source-field names from internal aliases; do not infer diagnoses from titles.",
+      "checks": [
+        {"path": "tests/test_source_readers.py", "symbol": "GeoMetadataTests.test_metadata_retains_source_labels_and_matches_expression_specimens", "reason": "Checks source diagnosis retention, cohort values, and expression/metadata alignment."},
+        {"path": "tests/test_source_readers.py", "symbol": "GeoMetadataTests.test_duplicate_metadata_cannot_silently_replace_labels_or_cohorts", "reason": "Prevents later metadata rows from replacing a specimen's earlier diagnosis or cohort."},
+        {"path": "tests/test_source_readers.py", "symbol": "GeoMetadataTests.test_missing_or_duplicate_accession_rows_fail_clearly", "reason": "Requires a single unambiguous specimen-ID row."}
+      ]
+    },
+    {
+      "id": "data-read-rcc",
+      "path": "src/kidney_biopsy/source.py",
+      "symbol": "read_rcc_archive",
+      "title": "Read raw counts and join the specimens",
+      "purpose": "Build the complete raw assay table without mixing identifiers or batch fields into the measurements.",
+      "inputs": "The `GSE212160_RAW.tar` archive and, during training, the ordered specimen IDs from GEO metadata.",
+      "steps": [
+        "Read each regular archive member in memory; no archive paths are extracted onto disk. Derive its specimen ID from the filename before the first underscore and reject repeated IDs.",
+        "Decompress the member, read its `Code_Summary` CSV, and keep only Endogenous and Housekeeping rows. Check missing and repeated target names before converting a specimen's counts to a dictionary, where duplicates would otherwise be lost.",
+        "Collect Date, CartridgeID, and ScannerID separately. Construct a specimen-by-target DataFrame and require 770 distinct retained targets across the archive.",
+        "When an ID order is supplied, require the raw and metadata specimen sets to match exactly and reindex to that order. A missing or extra specimen is an error, not a silent inner join.",
+        "Call shared `validate_counts()` to require the named housekeepers and finite, nonnegative measurements. A target missing from just one specimen becomes a missing cell and is rejected, even if the combined table has 770 columns. Align the separate batch table to the same specimen order."
+      ],
+      "outputs": "A raw-count DataFrame with 1,395 rows and 770 targets for this source, plus a separate batch-metadata DataFrame in the same row order.",
+      "why": "Using raw RCC counts fulfills the project's preprocessing specification. Keeping batch metadata separate allows later investigation of assay patterns without giving the classifier cohort or processing hints.",
+      "failures": "Rejects duplicate specimen files, duplicate or missing target names, a wrong panel size, incomplete specimen joins, and invalid count cells. The source-specific 770-target rule checks size; the prediction schema later checks exact required target names.",
+      "change": "Any new source reader must preserve a complete named panel and an explicit one-to-one specimen join. Do not fill absent targets with zero: a missing measurement and a measured zero carry different meanings.",
+      "checks": [
+        {"path": "tests/test_source_readers.py", "symbol": "RawSourceTests.test_source_join_uses_requested_order_and_keeps_batch_metadata_separate", "reason": "Checks requested row order and separation of assay counts from batch fields."},
+        {"path": "tests/test_source_readers.py", "symbol": "RawSourceTests.test_duplicate_rcc_targets_are_detected_before_dictionary_conversion", "reason": "Prevents duplicate assay measurements from silently replacing one another."},
+        {"path": "tests/test_source_readers.py", "symbol": "RawSourceTests.test_different_per_specimen_panels_cannot_be_silently_union_joined", "reason": "Checks a specimen missing one target fails despite the combined table retaining the full panel."},
+        {"path": "tests/test_source_readers.py", "symbol": "RawSourceTests.test_duplicate_specimen_archives_and_incomplete_metadata_joins_fail", "reason": "Checks duplicate archive IDs and incomplete metadata joins."}
+      ]
+    }
+  ],
+  "changes": [
+    {"title": "The cached download fails its hash check", "body": "First compare its size and the recorded source identity. Download a fresh copy only if the cached file is damaged or incomplete. If the public source itself changed, preserve the old manifest and run evidence before documenting the new input."},
+    {"title": "A specimen is present in only one source", "body": "Investigate the ID and filename parsing. Both readers intentionally reject ambiguous joins. An intentional exclusion needs a stated rule and recorded counts in a new analysis; dropping rows until the tables join hides the problem."}
+  ],
+  "exercises": [
+    {"question": "Which of the two downloaded expression sources actually becomes the model's predictors?", "answer": "The RCC archive supplies raw counts. `prepare_data()` assigns the GEO expression return value to `_`, keeps GEO metadata for labels and cohorts, and calls `normalize_counts()` on the RCC counts."},
+    {"question": "Where would a duplicate IFNG row in one RCC file fail, and why check it before making a dictionary?", "answer": "`read_rcc_archive()` checks `table.Name.duplicated()` before `dict(zip(...))`. A dictionary would retain only one value for a repeated key and conceal the duplicate."}
+  ],
+  "related": [
+    {"path": "docs/PROJECT_SPEC.md", "label": "Data contract and source population"},
+    {"path": "docs/references/STUDY_AUDIT_20260919.md", "label": "Source-study population review"},
+    {"path": "data/manifest.json", "label": "Public input provenance"}
+  ]
+}

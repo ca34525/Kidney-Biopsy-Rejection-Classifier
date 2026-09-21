@@ -1,0 +1,163 @@
+{
+  "id": "results",
+  "number": "04",
+  "title": "Explain the results",
+  "summary": "Turn a completed run's fixed predictions into practical error counts, fair model comparisons, uncertainty intervals, and editable figures.",
+  "story": [
+    "This workflow starts after fitting and threshold selection have finished. Its inputs are saved predictions, specimen assignments, diagnoses, assay metadata, and the completed run's manifests. It verifies that those files agree before calculating a report. It never fits a model or chooses a threshold.",
+    "The primary report is `results/analysis/20260915_baseline/REPORT.md`, from `results/reproduction/baseline`. On the same 345 technical-validation specimens, CatBoost missed 25 of 169 rejection cases and falsely flagged 8 of 176 no-rejection cases. Logistic regression missed 33 with 8 false flags; IFNG missed 14 with 75 false flags. CatBoost's validation sensitivity was 85.2%, below the experimental 90% screening target. These counts make the tradeoff easier to understand than accuracy alone.",
+    "Read those results as agreement with recorded diagnoses in this deposited study. The validation population includes 334 transplant biopsies and 11 native-kidney controls; public metadata do not identify the controls individually. Patient and referring-center independence are unverified. The report assesses score reliability, but it does not establish reliable individual probabilities. The service therefore continues to return a model score."
+  ],
+  "functions": [
+    {
+      "id": "results-load-run",
+      "path": "scripts/analyze_results.py",
+      "symbol": "load_run",
+      "title": "Establish which completed experiment is being described",
+      "purpose": "Load a preserved run and prove that the specimens, labels, decisions, and source files form one consistent set of analysis inputs.",
+      "inputs": "A project-local run directory containing `biopsy_split.csv`, `raw_batch_identifiers.csv`, `biopsy_results.json`, `any_rejection_frozen.json`, `run_manifest.json`, and the selected, logistic, and IFNG prediction tables.",
+      "steps": [
+        "Read the actual saved specimen assignments. Require unique IDs, recognized diagnoses, and all three expected split names. Join Date, CartridgeID, and ScannerID one-to-one; those fields describe assay processing and are used for error review, never as model inputs.",
+        "Check that the selected model and threshold agree between frozen metadata and the aggregate results. Restrict evaluation to `author_validation`, then pass each prediction table through `align_predictions` so row order cannot change the meaning of a score.",
+        "Construct the constant comparison from the rejection fraction in the saved training rows. Its score is not the validation prevalence. Use threshold 0.5 and recompute the central metrics for every comparison on the same evaluation rows.",
+        "Compare the recomputed counts, AUC, and Brier score with saved results within `1e-12`. Verify the analysis input files against the completed-run manifest, then verify the source manifest and physical raw files against the original source records."
+      ],
+      "outputs": "The complete split table, aligned evaluation table, an insertion-ordered score dictionary with the selected model first, a threshold dictionary, the input paths, and saved result metadata.",
+      "why": "A plausible chart can still be wrong if it combines a new threshold, an old prediction table, or differently ordered specimens. These checks tie the report to one identifiable experiment before any chart is made. The constant baseline also keeps its training-derived meaning when validation prevalence differs.",
+      "failures": "Missing or duplicate specimens, unknown labels, mismatched assay rows, inconsistent frozen metadata, invalid predictions, changed hashes or sizes, and altered raw sources stop the analysis. Manifest hashes establish agreement with the trusted local record; they do not authenticate an arbitrary external manifest.",
+      "change": "When adding a comparison, load its predictions through the same alignment checks and keep the selected model first: later paired differences use the first score entry as their reference. Add a new run and analysis directory for a changed model or threshold.",
+      "checks": [
+        {"path": "tests/test_analysis.py", "symbol": "AnalysisValidationTests.test_prediction_join_matches_names_not_row_positions", "reason": "Protects the join used when loading each model's predictions."},
+        {"path": "scripts/analyze_results.py", "symbol": "load_run", "reason": "A real analysis rerun checks saved aggregate values, run hashes, source-manifest hashes, and the physical public inputs."}
+      ]
+    },
+    {
+      "id": "results-align-predictions",
+      "path": "scripts/analyze_results.py",
+      "symbol": "align_predictions",
+      "title": "Match scores and decisions to the correct specimens",
+      "purpose": "Require a prediction table to describe exactly the intended evaluation specimens with their original labels and frozen decisions.",
+      "inputs": "A saved prediction DataFrame indexed by specimen, the reference evaluation DataFrame with `histology`, and that model's frozen numeric threshold. Predictions must contain `y`, `probability`, and `predicted`; `probability` is the historical file-column name for the model score.",
+      "steps": [
+        "Reject empty tables, missing IDs, duplicate IDs, and unequal specimen sets. Reorder the prediction rows by the reference index; do not assume two CSV files happen to share row order.",
+        "Map the reference's original diagnoses through the shared binary-label mapping and require exact agreement with saved `y`. A score joined to the wrong diagnosis is an error even if cohort totals happen to match.",
+        "Parse scores as finite numbers between zero and one and require a finite threshold in the same range. Parse stored decisions explicitly from true/false or 1/0 spellings; converting the string `False` with `bool()` would incorrectly produce true.",
+        "Recompute the decisions using `score >= threshold` and require exact agreement. Return the aligned copy with numeric scores and actual Boolean decisions."
+      ],
+      "outputs": "A validated, consistently ordered prediction table. The input table is copied, so analysis does not silently modify the caller's original object.",
+      "why": "The evaluation comparison is paired by specimen. A one-row shift can corrupt metrics, error overlap, and bootstrap comparisons while still producing believable totals. Frozen-decision checks also catch using a threshold from a different experiment.",
+      "failures": "Missing required columns, changed diagnoses, non-finite or out-of-range scores, unrecognized Boolean values, and decisions inconsistent with the threshold raise `ValueError`.",
+      "change": "If a saved-file schema changes, update the parser and migration policy deliberately. Preserve the distinction between storage names and public terminology: an old column called `probability` does not justify labeling the app's score a reliable probability.",
+      "checks": [
+        {"path": "tests/test_analysis.py", "symbol": "AnalysisValidationTests.test_prediction_join_matches_names_not_row_positions", "reason": "Reversed input order must produce the same correctly aligned scores."},
+        {"path": "tests/test_analysis.py", "symbol": "AnalysisValidationTests.test_unequal_and_duplicate_specimen_sets_fail", "reason": "Partial, substituted, and duplicated evaluation sets must fail."},
+        {"path": "tests/test_analysis.py", "symbol": "AnalysisValidationTests.test_bad_labels_scores_and_frozen_decisions_fail", "reason": "Rejects changed labels, invalid scores, and inconsistent decisions."}
+      ]
+    },
+    {
+      "id": "results-metrics",
+      "path": "scripts/analyze_results.py",
+      "symbol": "metrics",
+      "title": "Translate a fixed score into errors and summary measures",
+      "purpose": "Calculate one model's operating results and score summaries from aligned binary labels, scores, and a fixed threshold.",
+      "inputs": "Same-length arrays of binary labels and scores, plus the previously selected threshold. Input validation and alignment occur before this helper is called.",
+      "steps": [
+        "Apply the rule `score >= threshold`. Count true positives, missed rejection cases, false rejection flags, and true negatives by combining that flag with the recorded label.",
+        "Calculate sensitivity from rejection cases, specificity from no-rejection cases, precision from positive flags, and negative predictive value from negative flags. Each measure has a different denominator; retain the raw counts alongside the ratios.",
+        "Calculate ROC-AUC and average precision from the scores, rather than the thresholded flags. Include the evaluation prevalence so the precision-recall result has useful context.",
+        "Calculate Brier score as mean squared difference between score and label, plus mean score and accuracy. Use an undefined value when a ratio has no denominator, instead of treating an unobservable performance measure as zero."
+      ],
+      "outputs": "A dictionary containing specimen and class counts, prevalence, threshold, all four confusion counts, operating metrics, ROC-AUC, average precision, Brier score, and mean score.",
+      "why": "This function lets the report explain practical consequences and ranking separately. The constant model flags every validation specimen because its training-derived score exceeds 0.5; its negative predictive value is undefined because it makes no negative predictions. That distinction matters when comparing baselines.",
+      "failures": "This is a calculation helper, not a public validation boundary. It handles missing metric denominators with NaN and suppresses AUC when both classes are not present, as can happen in a bootstrap sample or small subgroup.",
+      "change": "When adding a metric, decide whether it depends on scores or flags, define its denominator, and decide what an undefined value should look like in CSV, JSON, and charts. Lower Brier score alone does not establish better calibration because Brier score also reflects discrimination.",
+      "checks": [
+        {"path": "tests/test_analysis.py", "symbol": "UncertaintyTests.test_all_positive_constant_has_undefined_npv", "reason": "Confirms the constant baseline's error counts, AUC, and undefined negative predictive value."},
+        {"path": "scripts/analyze_results.py", "symbol": "load_run", "reason": "Compares recomputed central metrics with the preserved real-run results."}
+      ]
+    },
+    {
+      "id": "results-paired-bootstrap",
+      "path": "scripts/analyze_results.py",
+      "symbol": "paired_bootstrap",
+      "title": "Measure evaluation uncertainty while keeping comparisons paired",
+      "purpose": "Estimate intervals for fixed-model metrics and differences between models without changing the fitted models or thresholds.",
+      "inputs": "Aligned labels, model score arrays, one frozen threshold per model, a replicate count, and a random seed. The standard analysis uses 2,000 replicates and seed 20260915.",
+      "steps": [
+        "Calculate each model's point estimates on the original evaluation rows and allocate space for the requested metrics in every replicate.",
+        "For each replicate, draw 345 specimen positions with replacement in the primary analysis. Apply exactly those positions to every model, preserving which models are right or wrong on the same specimen.",
+        "Recalculate metrics with the original thresholds. For each model and metric, take the 2.5th and 97.5th percentiles of finite replicate values and record how many valid replicates contributed.",
+        "Subtract each nonconstant comparison's replicate metric from the selected model's metric within the same replicate. Summarize those paired differences using the same percentiles; do not subtract the endpoints of two separate intervals."
+      ],
+      "outputs": "Point estimates, a table of per-model metric intervals, and a table of selected-model-minus-comparison differences and intervals.",
+      "why": "Pairing retains the information that the same specimens were evaluated by every model. These intervals describe evaluation-sample variation for fixed models. They do not include model fitting, feature selection, or threshold-selection uncertainty. Patient IDs are unavailable, so specimen resampling cannot establish patient independence and related specimens could make intervals too narrow.",
+      "failures": "Fewer than two replicates are rejected. Metrics with no finite replicate values remain undefined and have zero valid replicates. The caller must supply compatible arrays and thresholds.",
+      "change": "Changing the sampling unit, seed, replicate count, or interval method changes the analysis and belongs in a new output directory and manifest. If patient groups become available, a grouped resampling procedure would need a separate justified implementation. For model-selection variability, use the separately documented discovery-only stability study.",
+      "checks": [
+        {"path": "tests/test_analysis.py", "symbol": "UncertaintyTests.test_pairing_preserves_identical_model_differences_and_seed", "reason": "Identical model scores must have zero paired differences, and the same seed must reproduce the interval tables."}
+      ]
+    },
+    {
+      "id": "results-reliability",
+      "path": "scripts/analyze_results.py",
+      "symbol": "reliability",
+      "title": "Ask whether scores match observed rejection fractions",
+      "purpose": "Build a descriptive reliability table for an already fitted model; this function does not calibrate or alter scores.",
+      "inputs": "Binary evaluation labels, finite scores in [0, 1], and a model name used to identify the resulting rows.",
+      "steps": [
+        "Assign scores to ten fixed equal-width bins: [0, 0.1), [0.1, 0.2), and so on, with 1.0 included in the final bin. Fixed boundaries make the bin definition explicit.",
+        "For each bin, count specimens and rejection labels, then calculate the actual mean score and observed rejection fraction. Plotting the actual mean score avoids pretending observations sit at the bin midpoint.",
+        "Use `wilson` to add an interval around the observed fraction. Retain empty bins with their zero count and undefined values so the output keeps its fixed ten-bin structure."
+      ],
+      "outputs": "Ten records per model containing bin edges, sample count, rejection count, mean score, observed fraction, and Wilson interval endpoints. The analysis writes them to `reliability_bins.csv` and uses them in the reliability figure.",
+      "why": "Threshold selection asks where to draw a flagging boundary; calibration asks whether scores correspond to observed fractions. For the baseline CatBoost model, the [0.8, 0.9) bin has mean score 84.7%, but only 7 of 16 specimens had recorded rejection. That descriptive finding supports retaining the term model score even though ranking performance is strong.",
+      "failures": "Empty bins intentionally yield undefined means and fractions. This helper assumes scores were validated upstream. Small-bin intervals describe limited data; they are not evidence that an individual prediction has that uncertainty interval.",
+      "change": "Changing bin boundaries changes the diagnostic display and should be recorded in a fresh analysis. Fitting a calibration transform would be different work: fit it using discovery data, preserve the fitting procedure, and evaluate it as follow-up analysis. Do not fit it on this validation table.",
+      "checks": [
+        {"path": "tests/test_analysis.py", "symbol": "UncertaintyTests.test_reliability_keeps_empty_bins_and_includes_one", "reason": "Protects bin-edge handling, score 1.0, empty-bin behavior, and the interval for zero observed events."}
+      ]
+    },
+    {
+      "id": "results-analyze-run",
+      "path": "scripts/analyze_results.py",
+      "symbol": "analyze_run",
+      "title": "Write a traceable report without altering the experiment",
+      "purpose": "Coordinate verification, numerical summaries, error review, figures, the written report, and a completion manifest.",
+      "inputs": "A preserved run directory, a new aggregate-output directory, a new specimen-output directory beneath ignored `data/processed`, bootstrap count, and seed.",
+      "steps": [
+        "Require output paths to be separate from the training run and refuse existing destinations. Call `load_run` before creating the output directories, so inconsistent experiment inputs fail before report files are produced.",
+        "Record analysis configuration and input hashes. Call `paired_bootstrap`, `grouped_errors`, `error_overlap`, `reliability`, and `composition` to build tables from the same scores and frozen thresholds.",
+        "Write aggregate CSVs and metrics JSON alongside the report. Keep specimen-level scores, diagnoses, assay metadata, and selected-model error rows in the separately ignored case directory.",
+        "Call `plots` and `report` to create six PNG/SVG figure pairs and `REPORT.md`. The SVG versions retain editable text. Error summaries distinguish false flags in No Rejection from misses in the three rejection diagnoses.",
+        "Write `analysis_manifest.json` last through `write_analysis_manifest`. It records source-code hashes, lockfile hash, package versions, analysis settings, input hashes, model identity, provenance checks, and output hashes."
+      ],
+      "outputs": "A report, eight aggregate CSV tables, metrics JSON, six PNG/SVG figure pairs, two ignored specimen-review CSVs, and an analysis completion manifest.",
+      "why": "The report is a reproducible transformation of fixed predictions. Keeping aggregate evidence separate from specimen details makes it possible to review the results in Git without tracking specimen-level tables. Writing the manifest last distinguishes a completed output set from a run interrupted partway through.",
+      "failures": "Existing destinations, overlapping run/output paths, invalid case locations, failed provenance checks, or calculation/writing errors stop the workflow. A later failure can leave a partial new output directory; inspect it and choose another fresh destination for the next attempt rather than presenting it as completed evidence.",
+      "change": "A chart-label correction can be regenerated from the same fixed predictions. A change informed by evaluation results to the model, predictors, or threshold is follow-up analysis. Preserve the old report and create a new analysis record in either case.",
+      "checks": [
+        {"path": "tests/test_analysis.py", "symbol": "AnalysisValidationTests.test_completed_destination_is_not_overwritten", "reason": "An existing completed report must survive a mistaken rerun unchanged."},
+        {"path": "tests/test_analysis.py", "symbol": "AnalysisValidationTests.test_empty_destination_is_rejected_before_reading_run", "reason": "Even an existing empty destination is rejected before input loading."},
+        {"path": "tests/test_analysis.py", "symbol": "AnalysisValidationTests.test_analysis_paths_reject_absolute_traversal_and_linked_inputs", "reason": "Analysis paths must remain inside the independent project."}
+      ]
+    }
+  ],
+  "changes": [
+    {"title": "Regenerate analysis from the frozen baseline", "body": "From the project root in PowerShell, set a new name with `$analysisName = 'ownership-' + (Get-Date -Format 'yyyyMMdd-HHmmss')`, then run `uv run --frozen python scripts/analyze_results.py --run-dir results/reproduction/baseline --output-dir \"results/analysis/$analysisName\" --case-dir \"data/processed/analysis/$analysisName\"`. The command checks local raw sources and saved artifacts, then recomputes the analysis without fitting. Existing destinations cause an error."},
+    {"title": "Change how a result is displayed", "body": "Start with the corresponding `plot_*` function or `report` in `scripts/analyze_results.py`; keep `metrics` as the common numerical definition. Run `uv run --frozen python -m unittest discover -s tests -p test_analysis.py`, regenerate into fresh directories, and compare the relevant aggregate values as well as inspecting the figure. Do not edit a completed report's numbers by hand."},
+    {"title": "Investigate an observed error pattern", "body": "Use the ignored `specimen_review.csv` to locate cases and the diagnosis/assay-group tables to inspect denominators. Date, CartridgeID, and ScannerID do not identify patients or referring centers. Follow-up scripts for viral targets, subtypes, and development-split stability have separate outputs; their conclusions should not be presented as preplanned confirmation of the original evaluation."}
+  ],
+  "exercises": [
+    {"question": "Why can two models have eight false flags each but still disagree on which specimens they falsely flag?", "answer": "A count does not identify the cases. The baseline report's CatBoost/logistic overlap is two shared false flags, six CatBoost-only false flags, and six logistic-only false flags. `error_overlap` preserves that case-level comparison; paired bootstrap resampling keeps the same case positions across models."},
+    {"question": "A score is 0.85. Why should the presentation avoid saying that this specimen has an 85% chance of rejection?", "answer": "The output is a model score, and good ranking is not sufficient evidence of calibration. In the baseline analysis, the [0.8, 0.9) bin's mean score is 84.7% while 7 of 16 specimens have recorded rejection. `reliability` describes the discrepancy; it does not fit a correction or establish clinical probability."},
+    {"question": "Would adding more bootstrap replicates establish patient independence or uncertainty from retraining?", "answer": "No. `paired_bootstrap` resamples biopsy rows and keeps fitted models and thresholds fixed. More replicates improve the numerical estimate of this particular resampling distribution. They do not supply missing patient identifiers or include fitting and model-selection variability."}
+  ],
+  "related": [
+    {"path": "results/analysis/20260915_baseline/REPORT.md", "label": "Primary report and editable figures"},
+    {"path": "docs/references/STUDY_AUDIT_20260919.md", "label": "Source population and independence review"},
+    {"path": "scripts/review_viral_targets.py", "label": "Viral-target follow-up script"},
+    {"path": "experiments/rejection_subtypes/run.py", "label": "Subtype follow-up script"},
+    {"path": "results/followup/20260917_stability/REPORT.md", "label": "Discovery-only stability follow-up"},
+    {"path": "scripts/prepare_presentation_figures.py", "label": "Presentation figure generation"}
+  ]
+}

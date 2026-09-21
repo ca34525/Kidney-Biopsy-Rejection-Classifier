@@ -1,0 +1,178 @@
+{
+  "id": "training",
+  "number": "03",
+  "title": "Train, select, and freeze a model",
+  "summary": "Fit candidates on discovery training rows, choose cutoffs and the winner on discovery screening rows, then preserve that fitted model for evaluation and serving.",
+  "story": [
+    "The primary workflow lives in one research script, `experiments/rejection_public/run.py`. Its orchestration is deliberately short: `prepare_data()` defines the rows and features; `fit_candidates()` fits nine fixed configurations and chooses each cutoff; `freeze_and_evaluate()` saves the discovery-based choice before scoring technical validation. Shared parsing, normalization, and score calculation come from `src/kidney_biopsy/`.",
+    "The authors' 1,050-specimen discovery cohort is split into 787 training and 263 screening specimens, stratified by the four original diagnoses with seed 20260915. The separate 345-specimen author-validation cohort is retained for evaluation. Training rows fit the models. Screening rows choose cutoffs and the multivariable winner. The selected fitted model is retained without refitting, so its cutoff continues to apply to the same scoring function.",
+    "The service uses the any-rejection model from `results/reproduction/20260915_shared`: full-panel CatBoost, depth 4, threshold 0.8765880870219778. The fixed selection rule favored it over full-panel logistic regression by one false flag on the screening set, with the same 17 missed rejection cases. This is a narrow observed advantage. Repeating this fixed recipe is reproduction; changing decisions after seeing evaluation results is follow-up analysis."
+  ],
+  "functions": [
+    {
+      "id": "training-main",
+      "path": "experiments/rejection_public/run.py",
+      "symbol": "main",
+      "title": "Create a traceable run without replacing a completed one",
+      "purpose": "Handle the command-line run directories and preserve the inputs, source, configuration, environment, and outputs needed to explain a result.",
+      "inputs": "`--output-dir` and `--model-dir`, both project-relative paths; verified raw inputs and the local environment installed from `uv.lock`. The trainer defaults to `results/reproduction/baseline` and `data/processed/models/baseline`. The service instead defaults to the completed run `results/reproduction/20260915_shared`; running the trainer does not change the serving configuration. Supply fresh destinations for a new run.",
+      "steps": [
+        "Resolve both destinations through `local_path()`. Refuse an output directory containing `run_manifest.json` or `biopsy_results.json`, and refuse a nonempty model directory. Verify the two raw files against the public-source manifest before fitting.",
+        "Write `configuration.json` with the normalization, split, threshold rule, model settings, and constant baseline. Snapshot the training script, shared package source, `verify_local_data.py`, `pyproject.toml`, and `uv.lock` beneath the run's `source/` directory.",
+        "Call `run_experiment()` with explicit output and model directories. Fitted models are written under the model directory; small configurations and summaries are kept with the results.",
+        "After successful completion, enumerate saved files in both directories, recording their relative paths, byte counts, and SHA-256 hashes. Exclude the manifest itself and `run.log` from that list.",
+        "Write `run_manifest.json` last, with timestamps, elapsed time, Python and modeling-package versions, seeds, source hashes, the input-manifest hash, and artifact records. For the current fixed recipe, its recorded fit count is 27: nine candidates for each of three binary targets."
+      ],
+      "outputs": "A completed run directory with configuration, source snapshots, split/audit files, metrics, predictions, frozen metadata, and a final manifest; a separate directory with project-controlled fitted models.",
+      "why": "The final manifest ties an output to exact files and settings. Preserving the fitted artifact matters because rerunning a similar recipe is not a substitute for identifying the model that generated a reported result.",
+      "failures": "Invalid paths, changed inputs, an output directory containing `run_manifest.json` or `biopsy_results.json`, a nonempty model directory, or a failed fit stop the run. An interrupted run can leave partial files without a completion manifest. Output files in a directory lacking both marker files can be overwritten if the model directory is empty. Choose fresh directories and retain useful failure evidence rather than relabeling partial output as complete.",
+      "change": "Keep `configuration.json`, seeds, and the manifest's fit count accurate when changing the candidate recipe. For a new run use fresh paths, then run `scripts/verify_reproduction.py` if the intent was an unchanged reproduction. A changed experiment should explain its changed question or procedure.",
+      "checks": []
+    },
+    {
+      "id": "training-orchestrate",
+      "path": "experiments/rejection_public/run.py",
+      "symbol": "run_experiment",
+      "title": "Keep preparation, fitting, and evaluation in order",
+      "purpose": "Coordinate the research workflow while sharing one set of specimen assignments across targets.",
+      "inputs": "An output directory and a model directory already prepared by `main()`.",
+      "steps": [
+        "Call `prepare_data()` once to obtain the normalized features, label Series, and exact ordered IDs for training, screening, and author validation.",
+        "For each target, call `fit_candidates()` with those same rows. The primary `any_rejection` target is processed first; the two secondary antibody-mediated and T-cell-mediated component targets reuse the same prepared data.",
+        "Append the target's screening results to `biopsy_screen.csv`, then call `freeze_and_evaluate()` with the fitted models and their screening results. The function receives fitted objects rather than creating a second fit.",
+        "Write the accumulated `biopsy_results.json` after each completed target. Return control to `main()` so it can write the final run manifest."
+      ],
+      "outputs": "Per-target fitted artifacts and prediction tables, one screening comparison table, and one combined results JSON.",
+      "why": "The ordering shows where each decision is made. It also prevents the binary comparisons from accidentally using different specimens or normalizing counts through different paths. The API imports shared prediction code, not this training script.",
+      "failures": "Any preparation, fit, or evaluation error stops the sequence. A partially written results table is a progress artifact until the final manifest is written.",
+      "change": "Add a research target only with an explicit label definition and update run accounting. The serving loader accepts the any-rejection target; the existence of secondary fitted files does not make those targets part of the application contract.",
+      "checks": []
+    },
+    {
+      "id": "training-prepare",
+      "path": "experiments/rejection_public/run.py",
+      "symbol": "prepare_data",
+      "title": "Fix the specimens, predictors, labels, and split",
+      "purpose": "Produce one auditable development/evaluation partition from the verified source files.",
+      "inputs": "The local GEO matrix and RCC archive, plus the destination for split and audit records.",
+      "steps": [
+        "Read GEO metadata, use its IDs to read and order RCC counts, and call the shared `normalize_counts()`. Save batch identifiers separately. Require the resulting table to contain exactly 1,395 specimens and 758 predictor columns.",
+        "Require the source cohort counts to be exactly 1,050 discovery and 345 validation specimens, without missing or unexpected cohort values. Map the source diagnosis strings using `map_diagnoses()`.",
+        "Split only the discovery IDs using `train_test_split(test_size=0.25, stratify=original_four_diagnoses, random_state=20260915)`. This yields 787 training and 263 screening rows. Preserve the split function's row order as well as membership in the returned `split_ids`.",
+        "Write `biopsy_split.csv` with specimen ID, assignment, original histology, and title. Check for identical normalized profiles; if any exist, hash their rows and fail if the same profile spans more than one split.",
+        "Write `data_audit.json` with included/excluded counts, cohort counts, duplicate-profile counts, class counts, and the join/predictor policy. Return the features, primary binary labels plus secondary component labels, and split IDs."
+      ],
+      "outputs": "The shared 1,395-by-758 feature table; labels indexed by specimen; ordered ID collections for the three splits; `biopsy_split.csv`, `raw_batch_identifiers.csv`, and `data_audit.json`.",
+      "why": "Stratifying by the four diagnoses preserves their representation more directly than stratifying only by a pooled positive class. Checking identical molecular profiles addresses obvious duplicate-record leakage, but it does not prove that different specimens came from different patients or referring centers.",
+      "failures": "Source-join errors, bad labels, unexpected panel/cohort sizes, or identical normalized profiles crossing splits raise an error. Source counts are study-specific assertions, not a general parser for arbitrary future datasets.",
+      "change": "Treat a changed split seed, cohort rule, or label definition as a changed experiment. Preserve actual assignments and compare them when reproducing a run. Do not claim patient-level separation without the IDs needed to establish it.",
+      "checks": [
+        {"path": "tests/test_source_readers.py", "symbol": "RawSourceTests.test_source_join_uses_requested_order_and_keeps_batch_metadata_separate", "reason": "Checks the shared source-reader behavior used by preparation; the full saved split is checked by the separate reproduction verifier."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_unknown_and_missing_diagnoses_fail", "reason": "Checks the explicit binary mapping called by preparation."}
+      ]
+    },
+    {
+      "id": "training-candidates",
+      "path": "experiments/rejection_public/run.py",
+      "symbol": "make_candidates",
+      "title": "Define the bounded model comparison",
+      "purpose": "Return fresh unfitted estimators for one target in the fixed comparison order.",
+      "inputs": "The number of normalized predictor columns, 758 for the source assay.",
+      "steps": [
+        "Create full-panel CatBoost models with depths 4 and 6. Both use 300 iterations, learning rate 0.04, Logloss, seed 2026, and three threads. Create depth-4 variants preceded by `SelectKBest(f_classif)` for the top 50 or 200 training-associated features.",
+        "Create full-panel and top-50 logistic regression pipelines. Both fit `StandardScaler` and logistic regression with `C=0.1` and `max_iter=2000`; the selected-feature version places `SelectKBest` first.",
+        "Include the fixed Extra Trees configuration (400 trees, minimum leaf size 3, feature fraction 0.3, seed 2026) and histogram gradient boosting configuration (150 iterations, seven leaf nodes, L2 regularization 5, seed 2026). These are bounded screening candidates, not additional default serving models.",
+        "Create a separate IFNG logistic pipeline with scaling, `C=1`, and `max_iter=1000`. Its caller supplies only the IFNG column. Return all nine estimators in dictionary insertion order."
+      ],
+      "outputs": "Nine fresh candidate estimators or pipelines. The training-prevalence constant baseline is computed later and requires no fit.",
+      "why": "The comparison asks whether multivariable measurements add useful classification information beyond a single target and a constant score. Keeping learned feature selection and scaling inside a pipeline ensures `.fit()` learns them only from the rows passed to model training.",
+      "failures": "This factory does not validate study rows or fit models. Incompatible or invalid training data fail downstream. Feature-selection sizes use `min(requested_k, feature_count)` so a reduced feature table does not ask for more columns than exist.",
+      "change": "Change both the factory and the written configuration together. Adding candidates after reviewing evaluation performance is follow-up analysis. The current primary run has no explicit simplicity tie-break; dictionary order matters only if specificity and AUC both tie exactly.",
+      "checks": []
+    },
+    {
+      "id": "training-fit",
+      "path": "experiments/rejection_public/run.py",
+      "symbol": "fit_candidates",
+      "title": "Fit on training rows and screen on separate rows",
+      "purpose": "Train each fixed candidate and attach its discovery-selected operating threshold.",
+      "inputs": "A target name, aligned binary labels, normalized features, and the saved split IDs.",
+      "steps": [
+        "Create fresh candidates and select the training and screening IDs. Use all 758 features for each multivariable candidate and only IFNG for the single-target benchmark.",
+        "Call `model.fit()` on the 787 training rows only. For pipeline candidates, this also fits the selector and scaler on training data; screening rows are never passed to `.fit()`.",
+        "Call shared `predict_scores()` on the 263 screening rows. That function checks feature names, binary class order, finite features, and valid two-column model scores before returning the positive-class score.",
+        "Choose a cutoff from those screening scores with `choose_threshold()`, then call `summarize_scores()` to record sensitivity, specificity, AUC, average precision, error counts, predictive values, accuracy, and Brier score at that cutoff.",
+        "Record the effective feature count, including the selected-feature pipeline's retained columns, and elapsed fit/screen time. Return both the still-fitted model objects and their screening summaries."
+      ],
+      "outputs": "A mapping of fitted models and one screening-result record per candidate. Author-validation predictions are not calculated here.",
+      "why": "Returning the fitted objects makes the no-refit rule concrete. The model and the threshold selected for its score distribution can be saved together. Brier score is reported as a diagnostic; this function does not fit a probability-calibration model.",
+      "failures": "Model fitting errors or invalid score shape, range, class order, feature names, or values abort screening. A valid score is still a model output, not automatically a calibrated clinical probability.",
+      "change": "To introduce a learned transform, place it inside the candidate pipeline and fit through this function. If refitting on more rows, design and evaluate a compatible threshold procedure rather than carrying over a cutoff selected for a different fitted model.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_unexpected_model_classes_or_invalid_scores_fail", "reason": "Checks the shared score function used for both screening and application inference."}
+      ]
+    },
+    {
+      "id": "training-threshold",
+      "path": "experiments/rejection_public/run.py",
+      "symbol": "choose_threshold",
+      "title": "Choose the highest cutoff that retains the screening sensitivity target",
+      "purpose": "Translate each candidate's screening scores into a reproducible flag rule.",
+      "inputs": "Binary screening labels, the matching positive-class model scores, and a sensitivity target defaulting to 0.90.",
+      "steps": [
+        "Collect the scores belonging to recorded rejection cases (`labels == 1`). Build candidate cutoffs from the unique scores of all screening specimens.",
+        "At each cutoff, calculate the fraction of recorded rejection cases with `score >= cutoff`. The equality is intentional: scores tied at the cutoff are all flagged.",
+        "Keep the highest observed cutoff whose sensitivity is at least the target. Raising the cutoff cannot increase false positive flags, so this attains the greatest specificity available under the sensitivity requirement; several cutoffs can share the same specificity.",
+        "Return that cutoff as a plain float. For the primary screening set, 90% of 174 rejection cases requires at least 157 flagged cases, leaving at most 17 missed cases at selection time."
+      ],
+      "outputs": "One threshold for the same fitted model that generated the screening scores. The selected CatBoost threshold in the serving run is 0.8765880870219778.",
+      "why": "A fixed 0.5 rule would answer a different operating question. This experiment chooses a high screening sensitivity and then reduces false flags as far as that choice permits. The target is an experiment setting, not a guarantee of 90% sensitivity on new specimens.",
+      "failures": "This internal helper assumes valid scores, matching labels, and positive cases; it does not implement its own full input checks. With no positive cases, no cutoff qualifies and `max()` fails. Do not expose it directly as an unvalidated application endpoint.",
+      "change": "Changing 0.90 changes the false-flag/missed-case tradeoff and needs new screening thresholds and recorded evaluation. Selecting a cutoff does not calibrate the scores. There is no dedicated unit test of this original helper; fixed-run verification checks its resulting frozen thresholds, while separate follow-up helpers have their own tests.",
+      "checks": []
+    },
+    {
+      "id": "training-freeze",
+      "path": "experiments/rejection_public/run.py",
+      "symbol": "freeze_and_evaluate",
+      "title": "Save the discovery choice, then evaluate the unchanged fit",
+      "purpose": "Freeze a multivariable winner and compare it with the simple baselines on the same 345 author-validation specimens.",
+      "inputs": "The fitted candidates, their screening summaries, labels, features, split IDs, and output/model directories.",
+      "steps": [
+        "Exclude `single_gene_IFNG` from the multivariable winner selection, then maximize screening specificity, breaking ties with ROC-AUC. Python's `max()` keeps the first candidate in the original order if both values tie exactly. There is no additional simplicity criterion in this fixed procedure.",
+        "Write the target's `_frozen.json` before author-validation scoring. Store the chosen candidate, its threshold, split sizes, full ordered feature list, versioned schema, model version, and the no-refit selection rule. Selected-feature pipelines still accept the full named input table before their internal selector runs.",
+        "Evaluate the selected candidate, IFNG, and full-panel logistic regression using each model's own screening cutoff. Deduplicate this comparison list if full-panel logistic is itself selected. Save screening predictions, each comparison model, and author-validation predictions on identical evaluation rows.",
+        "Calculate a constant score equal to the training-label prevalence (520/787 for the primary target), with a 0.5 majority-class flag. Also report the all-positive operating point at threshold zero. Neither uses validation prevalence to choose its score.",
+        "Save the selected fitted object as `<target>_selected_model.joblib` without refitting. Save a native `.cbm` as well when the selected model exposes `save_model()`. For a selected any-rejection model exposing feature importances, write its ranked importance table.",
+        "Return selected-model, screening, and author-validation summaries for the combined results JSON. The historical validation CSV column is named `probability` for compatibility; its values are described as model scores throughout the current application and documentation."
+      ],
+      "outputs": "Frozen metadata, fitted selected/comparison artifacts, screening and evaluation prediction tables, and aggregate comparison metrics. `main()` later records their hashes in the completion manifest.",
+      "why": "Saving the choice before evaluation makes the code's decision order reviewable. Retaining the same fit preserves the relationship between model scores and the cutoff chosen on screening data. Same-row evaluation makes differences in missed cases and false flags directly interpretable.",
+      "failures": "Invalid scores fail through `predict_scores()`. Writing frozen metadata alone does not make a completed run: the model and final manifest must also exist and pass loading checks. Historical evaluation results have already been examined, so a rerun is not a new untouched validation study.",
+      "change": "To serve a new model, generate a complete new run and verify model/schema/threshold compatibility; change the configured run only after its checks pass. Do not edit just the cutoff or refit the estimator while retaining old frozen metadata. Use `scripts/verify_reproduction.py` to compare unchanged procedures, including assignments, selections, thresholds, labels, flags, and scores within 1e-12.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_save_load_and_reordered_raw_columns_preserve_scores_and_flags", "reason": "Checks that a saved/reloaded model keeps scores and flags through the shared inference path; full research-run agreement has a separate verifier."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_hash_mismatch_is_detected_before_model_deserialization", "reason": "Checks that changed model bytes are rejected before loading."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_schema_version_or_threshold_mismatch_fails", "reason": "Checks incompatible preprocessing metadata and an invalid frozen threshold are rejected."}
+      ]
+    }
+  ],
+  "changes": [
+    {"title": "Refactor the implementation without changing the experiment", "body": "Run the same recipe into fresh result/model directories, then compare it with the preserved reference using `scripts/verify_reproduction.py`. That verifier checks artifact hashes, actual split assignments, selected names, frozen thresholds, feature order, labels, flags, and evaluation scores at absolute tolerance 1e-12. Unit tests alone do not establish full-run equivalence."},
+    {"title": "Prefer a simpler model when performance is similar", "body": "The project values simplicity, but the fixed primary script implements a precise specificity-then-AUC rule, not a tolerance for similar performance. A new decision rule needs a stated tolerance or tie policy before it is used in follow-up work. Explain the observed one-screening-error margin rather than claiming a decisive CatBoost advantage."},
+    {"title": "Refit the winner on all discovery specimens", "body": "The original cutoff was selected for the 787-row fitted model. A refit changes the score distribution and can change the error tradeoff at that cutoff. Use a new threshold-selection design with data separated appropriately, record a new run, and preserve the original model and results."}
+  ],
+  "exercises": [
+    {"question": "Two candidates have the same screening specificity. What selects the winner, and what happens if the next comparison also ties?", "answer": "Higher screening ROC-AUC wins. If both values tie exactly, the original dictionary order wins because `max()` returns the first maximum. IFNG is excluded from this winner selection. The fixed primary script has no extra simplicity tie-break."},
+    {"question": "A cutoff flags 156 of the 174 screening rejection specimens. Is it eligible under the primary rule?", "answer": "No. 156/174 is about 89.66%. At least 157 must be flagged to meet 90%; 157/174 is about 90.23%. The rule uses score greater than or equal to the cutoff, including ties."},
+    {"question": "Which saved files connect training to the prediction service?", "answer": "The selected joblib model supplies the fitted scoring function; `any_rejection_frozen.json` supplies its schema, threshold, and version; `run_manifest.json` identifies the model directory and records the model/metadata hashes. The service loads these project-controlled artifacts through `load_predictor()`. It does not import the fitting script."},
+    {"question": "Why is the constant baseline based on training prevalence?", "answer": "Its score must be determined without learning the evaluation labels. Here 520/787 is above 0.5, so its majority-class rule flags every evaluation specimen. It provides context for classification on an imbalanced dataset without measuring assay information."}
+  ],
+  "related": [
+    {"path": "docs/PROJECT_SPEC.md", "label": "Model comparison and selection specification"},
+    {"path": "docs/VERIFICATION.md", "label": "Reproduction and software verification"},
+    {"path": "docs/AUDIT.md", "label": "Selection margin and implementation audit"},
+    {"path": "results/followup/20260915_subtypes/REPORT.md", "label": "Separate subtype follow-up"},
+    {"path": "results/followup/20260917_stability/REPORT.md", "label": "Separate discovery-only stability follow-up"}
+  ]
+}

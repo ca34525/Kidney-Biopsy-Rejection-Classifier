@@ -1,0 +1,338 @@
+{
+  "id": "prediction",
+  "number": "05",
+  "title": "Run a prediction",
+  "summary": "Follow raw assay counts from the browser or command line through the shared predictor, and understand what must agree before a result can be shown.",
+  "story": [
+    "There are two distinct sequences. At startup, the server finds a completed training run, verifies its saved files, and constructs one Predictor. On each prediction request, it reads a CSV, validates the whole batch, normalizes each specimen, and uses that already loaded predictor. The server never imports the experiment script or trains a model during a request. Saved model and metadata files connect training to the application.",
+    "The browser and command-line program are two ways to reach the same calculation. Both use read_counts_csv and Predictor.predict; they differ in input handling, limits, and output. The API accepts at most 16 specimens and 2 MiB, while the CLI CSV path accepts at most 1,000 specimens and 20 MiB. A bad specimen rejects the whole batch. A successful result includes the model score, the flag produced by the frozen threshold, and model and schema versions.",
+    "The public-example walkthrough adds an explanation around a real prediction. It checks the prepared example's identity, displays IFNG normalization arithmetic, and compares the flag with the recorded diagnosis. The diagnosis stays outside the predictors. The browser also checks that each returned result still belongs to the model and threshold whose evaluation counts it displays. These checks prevent a visually plausible explanation from being attached to the wrong specimen or model."
+  ],
+  "functions": [
+    {
+      "id": "service-startup",
+      "path": "src/kidney_biopsy/api.py",
+      "symbol": "create_app.lifespan",
+      "title": "Load the configured predictor once at server startup",
+      "purpose": "Give all requests in one server process the same verified Predictor, and make readiness depend on successful model loading.",
+      "inputs": "The FastAPI application plus the root, selected_run, and selected_demo values captured from create_app. Explicit create_app arguments override environment settings; the default run is results/reproduction/20260915_shared.",
+      "steps": [
+        "Clear predictor, evaluation, and example state before loading anything. The application is not ready merely because the HTTP process has started.",
+        "Run load_predictor in a thread pool and store the resulting Predictor on application.state. This happens during the lifespan startup, not inside each /predict request.",
+        "Load aggregate evaluation from the same run and prepared examples from the configured example directory. Their helper functions return None or an empty mapping for their handled optional-file failures, so an absent example or evaluation file does not by itself prevent ordinary predictions.",
+        "If startup loading raises an exception, record a fixed category such as missing_artifact or invalid_artifact_or_schema and leave the predictor unset. The log avoids the exception's private paths or values. /health then reports HTTP 503, and prediction routes report model_unavailable.",
+        "Yield control to the running server. On shutdown, clear the predictor reference. Repairing files on disk does not automatically reload this process; restart after repairing the configured run."
+      ],
+      "outputs": "Application state containing one Predictor and optional display evidence, or an unavailable model state. The HTML page can still be served while the model is unavailable.",
+      "why": "A stable startup-loaded object keeps model loading out of the request path and makes readiness meaningful. The browser can open and explain that scoring is unavailable without pretending the model is ready.",
+      "failures": "Missing, changed, unreadable, or incompatible required model artifacts keep scoring unavailable. Check the startup category, configured run, artifact manifest, and schema before restarting; an HTTP process listening on a port is insufficient evidence of readiness.",
+      "change": "When changing configuration or startup behavior, preserve explicit-setting precedence and the distinction between required prediction artifacts and optional display data. Keep artifact selection under process configuration rather than request parameters.",
+      "checks": [
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_model_is_loaded_once_and_caller_cannot_select_an_artifact", "reason": "Checks that startup calls the loader once and a request cannot choose another model."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_missing_corrupted_and_schema_incompatible_models_are_unready", "reason": "Checks health and scoring remain unavailable when the required artifacts cannot be used."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_startup_logs_actionable_categories_without_private_exception_details", "reason": "Checks useful operator categories without exposing private exception content."}
+      ]
+    },
+    {
+      "id": "load-frozen-predictor",
+      "path": "src/kidney_biopsy/prediction.py",
+      "symbol": "load_predictor",
+      "title": "Reconstruct one predictor from a verified completed run",
+      "purpose": "Bind a fitted model to the exact schema, threshold, and identity recorded with its training run.",
+      "inputs": "A project root and a project-relative completed run directory. An optional model_dir argument must match the directory already named by the run manifest; it is not an unrestricted model override.",
+      "steps": [
+        "Resolve the run through project_path, which rejects absolute paths, traversal, linked paths, and paths escaping the root. Read run_manifest.json and obtain its model_dir.",
+        "Locate any_rejection_selected_model.joblib and any_rejection_frozen.json. Reject duplicate artifact entries or either file being absent from the manifest, then verify both files' sizes and SHA-256 hashes before calling joblib.load.",
+        "Construct AssaySchema from the frozen schema and compare its feature list with the separate frozen features field. Also check any recorded schema version, preprocessing version, and required-target list. A legacy artifact without a schema receives the original supported schema definition.",
+        "Deserialize the model only after the file checks. Recover the recorded model_version, or for a legacy run derive an identifier from the selected model name and model-file hash.",
+        "Construct Predictor with model, schema, threshold, model version, and target. Its constructor checks threshold range, the any_rejection target, a nonempty version, ordered model feature names, and binary classes [0, 1]."
+      ],
+      "outputs": "A Predictor ready to accept raw counts, with its model, schema, threshold, and identity kept together.",
+      "why": "A loadable model file is not sufficient. A model paired with the wrong feature order or threshold can produce believable but incorrect results. Hash checks catch changed files; semantic checks catch incompatible combinations even when the manifest hashes have been updated.",
+      "failures": "The loader rejects changed files before deserialization and rejects incompatible schema/model combinations. The model and manifest must already be trusted project files: matching hashes do not authenticate an untrusted manifest or make arbitrary joblib files safe to load.",
+      "change": "Choose another completed run through configuration. Do not swap only its joblib file or edit the threshold in place. If the persisted format changes, update the schema/version handling and preserve support only for formats whose preprocessing meaning is known.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_hash_mismatch_is_detected_before_model_deserialization", "reason": "Patches joblib.load and proves it is never called for a changed model file."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_frozen_schema_order_mismatch_fails_even_with_matching_hashes", "reason": "Proves matching file hashes do not bypass model-feature compatibility."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_schema_version_or_threshold_mismatch_fails", "reason": "Checks invalid thresholds and incompatible preprocessing versions."}
+      ]
+    },
+    {
+      "id": "http-prediction-request",
+      "path": "src/kidney_biopsy/api.py",
+      "symbol": "create_app.predict",
+      "title": "Accept one CSV request and return a complete batch",
+      "purpose": "Translate the HTTP contract into a call to the shared raw-count predictor without allowing the caller to change the model or partially score an invalid batch.",
+      "inputs": "POST /predict with an uncompressed UTF-8 CSV body, Content-Type text/csv or application/csv, no query parameters, at most 2 MiB, and at most 16 specimens.",
+      "steps": [
+        "Read the predictor already stored on application.state. If it is absent, return model_unavailable before attempting to process counts.",
+        "Call _check_upload_headers to reject query parameters, unsupported compression or media type, and invalid or excessive Content-Length. Then count bytes while reading the actual request stream; a missing or falsely small Content-Length does not bypass the 2 MiB limit.",
+        "Decode with utf-8-sig, which accepts ordinary UTF-8 and a UTF-8 byte-order mark. Send the text to read_counts_csv with the predictor's frozen schema and the API's 16-specimen maximum. This validates all rows before the model is called.",
+        "For invalid CSV input, return HTTP 422 with a bounded message. Replace the extra-column error with a generic instruction so uploaded metadata names are not echoed back.",
+        "Call predictor.predict in the thread pool. If scoring fails, return a generic HTTP 503 with no predictions or internal exception detail. Otherwise serialize every prediction row and the batch input-check summary together."
+      ],
+      "outputs": "JSON containing predictions and input_checks, or one structured error. Every successful row includes specimen, rejection_score, rejection_flag, threshold, model_version, schema_version, and input_check.",
+      "why": "The route handles transport and response behavior while the package handles scientific input processing. Keeping those responsibilities separate lets the CLI and HTTP service share the same scores without copying preprocessing into the server.",
+      "failures": "Request-contract failures return 400, 413, or 415; invalid counts return 422; unavailable scoring returns 503. A bad specimen prevents results for all specimens. Passing file and numeric checks does not establish assay origin or laboratory quality.",
+      "change": "If changing upload limits, update the API constants, advertised /model metadata, browser text and checks, and API documentation together. Keep the actual-stream byte check even when checking Content-Length. Changing the API limit need not change the larger CLI limit.",
+      "checks": [
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_body_size_limit_checks_announced_and_actual_bytes", "reason": "Covers oversized bodies with honest, false, and absent Content-Length."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_batch_limit_is_applied_before_returning_results", "reason": "Checks that the 17th specimen rejects the request before results are returned."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_one_invalid_count_rejects_every_specimen_without_echoing_data", "reason": "Checks whole-batch failure and that private invalid values do not appear in errors."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_unexpected_prediction_failure_has_no_partial_results_or_internal_details", "reason": "Checks the safe scoring-error response."}
+      ]
+    },
+    {
+      "id": "predict-raw-counts",
+      "path": "src/kidney_biopsy/prediction.py",
+      "symbol": "Predictor.predict",
+      "title": "Use the standard prediction path for raw counts",
+      "purpose": "Provide the application entry point that always performs the shared normalization before calculating scores.",
+      "inputs": "A pandas DataFrame of raw counts indexed by specimen ID, containing exactly the frozen predictor targets and the 12 housekeeping targets. Target columns may arrive in a different order.",
+      "steps": [
+        "Pass the whole batch and frozen schema to normalize_counts. Its validation rejects missing or duplicate targets, unexpected columns, invalid specimen IDs, and counts that are not finite, real, nonnegative numbers.",
+        "Normalize each specimen using its own housekeeping targets: log2(target count + 1) minus the mean of log2(housekeeping count + 1). No other specimen changes this calculation.",
+        "Use the normalized frame, with housekeeping columns removed and predictor columns in frozen order, as the input to predict_normalized. Return only after that complete scoring call succeeds."
+      ],
+      "outputs": "A prediction DataFrame for every specimen, or an exception before a prediction result is returned.",
+      "why": "This short method is consequential because it defines the raw-count application contract. A caller that skips it could feed raw counts directly to a model fitted on normalized values, or apply normalization twice.",
+      "failures": "Validation or scoring failure aborts the call. A model score can still be inappropriate if an otherwise valid numeric table comes from the wrong assay; this function cannot infer assay origin from numbers alone.",
+      "change": "Applications should keep calling predict with raw counts. Changes to normalization must be shared with training and reflected in preprocessing compatibility; do not add a separate API or CLI transformation.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_save_load_and_reordered_raw_columns_preserve_scores_and_flags", "reason": "Checks the reloaded raw-count path against the direct predictor and shared score function."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PreprocessingTests.test_specimen_normalization_does_not_depend_on_batch", "reason": "Checks that adding other specimens cannot change a specimen's normalized values."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_api_cli_and_direct_scores_agree_with_reordered_columns", "reason": "Compares all three entry points with reordered target columns."}
+      ]
+    },
+    {
+      "id": "format-predictions",
+      "path": "src/kidney_biopsy/prediction.py",
+      "symbol": "Predictor.predict_normalized",
+      "title": "Apply the frozen threshold and attach model identity",
+      "purpose": "Turn already normalized model inputs into versioned prediction rows using the same score calculation used in research evaluation.",
+      "inputs": "A normalized feature DataFrame whose ordered columns exactly match schema.features. This is an internal/research entry point; ordinary application callers should provide raw counts to Predictor.predict.",
+      "steps": [
+        "Compare the ordered feature columns with the frozen schema. Unlike the raw-count path, this entry point does not reorder columns or normalize them.",
+        "Call predict_scores with the fitted model and normalized frame. That helper checks specimen identifiers, model compatibility, numeric values, and returned binary scores.",
+        "Apply scores >= threshold using the full stored threshold. Equality produces a rejection flag; the browser's rounded display is never used to make the decision.",
+        "Construct one output row per specimen with the score, flag, threshold, model version, schema version, and passed input-check label. The specimen index identifies the output row; it is not passed as a predictor column."
+      ],
+      "outputs": "A DataFrame with the fixed prediction response fields. No diagnosis label is needed to make a prediction.",
+      "why": "Putting thresholding and identity in one shared method keeps the CLI, API, and walkthrough consistent. A score is not the same thing as a decision, and selecting a threshold does not make that score a calibrated probability.",
+      "failures": "Wrong feature order raises an error. Correct names and finite values alone cannot prove that the caller actually normalized the data; that is why the raw-count entry point is the application default.",
+      "change": "Treat changes to threshold semantics or output fields as contract changes. Keep the >= tie behavior consistent with evaluation, and update consumers if fields or meanings change. Select a different frozen run instead of silently modifying a served run's threshold.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_save_load_and_reordered_raw_columns_preserve_scores_and_flags", "reason": "Checks score agreement and flags against the frozen >= threshold rule."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_public_walkthrough_matches_raw_prediction_and_shared_normalization", "reason": "Checks that the normalized walkthrough path returns the same complete prediction as the raw-count route."}
+      ]
+    },
+    {
+      "id": "calculate-model-scores",
+      "path": "src/kidney_biopsy/prediction.py",
+      "symbol": "predict_scores",
+      "title": "Check model inputs and extract the rejection score",
+      "purpose": "Make one checked scoring operation serve both training evaluation and application prediction.",
+      "inputs": "A fitted binary model exposing named input features, classes [0, 1], and predict_proba, together with named, normalized specimen rows.",
+      "steps": [
+        "Validate specimen identifiers and compare the feature names and order against the fitted model. _check_model_features also requires binary classes in the order [0, 1], so column 1 unambiguously corresponds to recorded rejection.",
+        "Convert the feature values to a numeric array for validation and require every value to be finite. The named DataFrame itself is retained for model.predict_proba.",
+        "Call the model's predict_proba. If the fitted object is a pipeline, its already fitted scaling or feature-selection stages execute here; this call does not refit them.",
+        "Require a two-column result with one row per specimen, finite values in [0, 1], and row sums within an absolute tolerance of 1e-7 of one. These checks detect an incompatible model interface or malformed output.",
+        "Return the second column as the rejection model score. Leave thresholding to Predictor.predict_normalized or the research evaluation code."
+      ],
+      "outputs": "A one-dimensional NumPy array of rejection scores in the same specimen order as the input.",
+      "why": "Without the class-order check, taking the second column could silently report the no-rejection score. Checking output shape and range also prevents invalid model output from being dressed up as a valid application result.",
+      "failures": "The function raises on incompatible names or classes, invalid normalized values, or malformed scores. The library method name predict_proba describes its interface; it does not establish individual-biopsy calibration.",
+      "change": "A replacement model must satisfy this binary named-feature contract. Adding a model with another score interface requires an explicit, tested conversion; the four-class follow-up is not interchangeable with this binary service model.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_unexpected_model_classes_or_invalid_scores_fail", "reason": "Exercises reversed classes, non-finite scores, wrong shape, invalid range, and rows that do not sum to one."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_save_load_and_reordered_raw_columns_preserve_scores_and_flags", "reason": "Checks this shared scorer agrees with the persisted predictor."}
+      ]
+    },
+    {
+      "id": "command-line-prediction",
+      "path": "src/kidney_biopsy/cli.py",
+      "symbol": "main",
+      "title": "Score a local batch and preserve earlier output",
+      "purpose": "Provide a reproducible command-line route to the same Predictor used by the service, with a new CSV output file for each invocation.",
+      "inputs": "Exactly one of --counts-csv or --geo-validation, a configured completed run, and a project-relative output path. Explicit CLI options override environment defaults for the project root and results directory.",
+      "steps": [
+        "Parse mutually exclusive input modes, then load the configured predictor and resolve the output path within the project. Reject an existing output immediately so earlier results are preserved.",
+        "For --counts-csv, check the file's 20 MiB maximum and read it with the shared frozen-schema reader. The reader's default maximum is 1,000 specimens; these CLI limits are deliberately different from the interactive API's 16 specimens and 2 MiB.",
+        "For --geo-validation, verify the public source manifest, read the GEO metadata and RCC archive, and select the authors' Validation cohort sample rows. This route supports comparison against saved evaluation scores using the raw public data.",
+        "Call predictor.predict on the complete raw frame. Only after successful prediction create the output parent directory and open the output with exclusive creation mode x, protecting against replacement even if the path appeared after the earlier existence check.",
+        "Write the prediction table without a pandas index and report its row count. For handled data, filesystem, or metadata errors, print the failure to stderr and exit with status 1."
+      ],
+      "outputs": "A new prediction CSV containing the same row fields as the API, plus a concise success message; a failed input batch creates no prediction output.",
+      "why": "The CLI offers repeatable batch work and a reference for HTTP verification. Its file-writing behavior belongs here, while the predictor remains independent of files and transport.",
+      "failures": "Existing output, escaped paths, invalid CSV, missing artifacts, or incompatible model metadata stop the command. Do not remove an existing result just to make a repeated command pass; choose a new --output path.",
+      "change": "Keep this entry point using load_predictor, read_counts_csv, and Predictor.predict. After changing argument precedence or output fields, compare against the API and check that existing output remains intact.",
+      "checks": [
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_cli_uses_same_predictor_and_preserves_existing_output", "reason": "Compares the CSV with direct predictions and checks a repeated invocation leaves the previous file unchanged."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_bad_batch_does_not_create_output", "reason": "Confirms invalid counts do not leave a prediction file."},
+        {"path": "tests/test_shared_prediction.py", "symbol": "PredictionTests.test_cli_and_service_use_same_environment_with_explicit_override", "reason": "Checks consistent environment defaults and explicit overrides."}
+      ]
+    },
+    {
+      "id": "initialize-browser-model",
+      "path": "src/kidney_biopsy/static/app.js",
+      "symbol": "initialize",
+      "title": "Build the page around the server's current model",
+      "purpose": "Fetch the model contract and verified evaluation evidence before enabling the page's scoring controls.",
+      "inputs": "GET /model and GET /demo/examples responses, plus the page's existing DOM elements.",
+      "steps": [
+        "Fetch /model through jsonResponse and retain the returned metadata in page memory. The threshold, model identity, schema, and limits become the page's reference for later predictions.",
+        "Display model readiness and the threshold rounded for reading, while retaining the full threshold as a title and in metadata. Display the current model's verified evaluation counts if present; otherwise state that those counts are unavailable.",
+        "Fetch the finite list of prepared examples and create the selection options. If the list is empty, offer upload input rather than inventing an example or reusing an old option.",
+        "Call describeSelection to establish an empty result area for the current input. On initialization failure, clear metadata, show model unavailable, and display a useful connection or service error.",
+        "Call setBusy(false), which enables scoring only when metadata exists. Later input-change handlers call describeSelection again so an old prediction is cleared as soon as the chosen input changes."
+      ],
+      "outputs": "A page whose model identity, threshold, evaluation counts, examples, and enabled controls reflect the fetched service state.",
+      "why": "The displayed error counts and threshold are evidence for a particular model. Fetching them from the selected run avoids placing fixed research numbers in a page that might serve another model.",
+      "failures": "A failed /model request disables scoring. Missing verified aggregate evaluation is represented as unavailable evidence, and an empty examples list still permits compatible uploads. Server readiness does not guarantee the browser can reach the service.",
+      "change": "When changing /model fields, update this initializer and showPredictions together. Review valid and unavailable states in the browser; server tests alone do not exercise DOM state or whether controls are enabled correctly.",
+      "checks": [
+        {"path": "tests/test_container_verification.py", "symbol": "ContainerVerificationTests.test_missing_or_changed_displayed_evaluation_fails", "reason": "Checks the service evidence contract consumed here; a browser review is still needed for rendering and controls."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_model_is_loaded_once_and_caller_cannot_select_an_artifact", "reason": "Checks the required targets and threshold exposed by /model."}
+      ]
+    },
+    {
+      "id": "browser-prediction-request",
+      "path": "src/kidney_biopsy/static/app.js",
+      "symbol": "runPrediction",
+      "title": "Send the chosen counts and request an optional explanation",
+      "purpose": "Coordinate one browser action from selected input to either a checked result or an error, without retaining a previous specimen's display.",
+      "inputs": "The selected upload or prepared example, cached model metadata, and current busy state.",
+      "steps": [
+        "Refuse a second concurrent action or an action before model metadata is available. Set busy state to disable input controls and replace the prior result with a checking message.",
+        "Call readSelectedCounts. A selected file takes precedence and receives a browser size check; otherwise fetch the selected allowlisted example CSV. Both paths return bytes to send as the raw text/csv request body.",
+        "POST those bytes to /predict and pass the response through jsonResponse. No model name, threshold, diagnosis, or file path is sent as a prediction parameter.",
+        "For a valid prepared example with no uploaded file, request /demo/walkthrough/{id}. If that optional request fails, retain the successful prediction and mark its explanation unavailable. An uploaded file never acquires a recorded diagnosis from the example selector.",
+        "Pass the prediction and optional walkthrough to showPredictions, which checks their identities before rendering. On any main-path error, replace the result with an error; in finally, restore the enabled-control state."
+      ],
+      "outputs": "A result rendered through showPredictions or an error rendered through showError. The optional explanation may be absent even when ordinary scoring succeeds.",
+      "why": "The browser adds user interaction, not a second scoring calculation. Separating optional public-example explanation from the core prediction lets valid counts remain usable when example metadata needs regeneration.",
+      "failures": "Connection failure, rejected input, unreadable JSON, or identity mismatch clears the result. A walkthrough failure has a narrower effect: the score can still be shown with a notice that the explanation could not be verified.",
+      "change": "After changing this flow, review a valid public example, the incomplete example, a multi-row upload, and a file/example switch. Check that earlier results disappear and that uploaded data never inherits a public example's diagnosis. These UI behaviors require browser review beyond the linked backend checks.",
+      "checks": [
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_changed_model_hides_walkthrough_but_keeps_counts_and_predictions_available", "reason": "Checks the backend separation between an unavailable explanation and a usable prediction."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_missing_duplicate_or_extra_targets_fail_entire_batch", "reason": "Checks the rejected-input response this browser flow must display without keeping an old result."}
+      ]
+    },
+    {
+      "id": "render-checked-predictions",
+      "path": "src/kidney_biopsy/static/app.js",
+      "symbol": "showPredictions",
+      "title": "Refuse stale model results before drawing them",
+      "purpose": "Make sure a returned score, its explanation, and the page's displayed evaluation evidence describe the same model and specimen.",
+      "inputs": "The /predict response, an optional walkthrough response, an optional-explanation failure flag, and the /model metadata cached at page initialization.",
+      "steps": [
+        "Require a nonempty predictions array. For every result, compare model_version, threshold, and schema_version with the cached page metadata.",
+        "If any comparison differs, throw an error asking for a page reload. This handles the case where the server was restarted with another model while the page stayed open with the old threshold and evaluation counts.",
+        "When a walkthrough is present, require one prediction and compare example ID, specimen ID, model and schema versions, preprocessing version, threshold, score, and flag. This prevents an explanation from being attached to a different prediction even if each response is individually well formed.",
+        "Choose singlePrediction for one row or batchPredictions for multiple rows. Those renderers format the score and use the server's flag; they do not recalculate the threshold decision from rounded text.",
+        "Append the successful input-check message and, when needed, the unavailable-walkthrough notice. Reveal the public-example evidence context only when a walkthrough and aggregate evaluation both exist, then replace the result container."
+      ],
+      "outputs": "A single-specimen display or a complete batch table consistent with the cached model metadata, or an exception handled by runPrediction as a visible error.",
+      "why": "Correct server calculations can still be misleading if the page places them next to another model's threshold or error counts. This function checks that relationship before displaying anything.",
+      "failures": "Empty predictions, a changed served model, or a mismatched explanation are refused. A normal prediction response does not include preprocessing_version, so its comparison uses model version, schema version, and threshold; the walkthrough adds an explicit preprocessing-version comparison.",
+      "change": "Keep this comparison aligned with the response contracts. After changing it, leave a page open across a model change and verify that it refuses the stale combination until reload. Existing Python tests check service contracts, not execution of this JavaScript branch.",
+      "checks": [
+        {"path": "tests/test_container_verification.py", "symbol": "ContainerVerificationTests.test_different_model_version_or_threshold_fails", "reason": "Checks model identity and threshold in service verification; it is not a substitute for the browser's stale-page check."},
+        {"path": "tests/test_container_verification.py", "symbol": "ContainerVerificationTests.test_changed_walkthrough_arithmetic_or_model_identity_fails", "reason": "Checks walkthrough evidence against the expected model; browser association checks still need UI review."}
+      ]
+    },
+    {
+      "id": "prepare-public-examples",
+      "path": "scripts/prepare_demo.py",
+      "symbol": "main",
+      "title": "Prepare reproducible public examples for one model",
+      "purpose": "Create the small CSVs and provenance record used by the browser, including one deliberately invalid example, without selecting cases by their scores.",
+      "inputs": "A project root, a completed run selected by --results-dir, the verified public raw files, and a new project-relative --output-dir. The defaults use the frozen shared run and data/demo.",
+      "steps": [
+        "Resolve the output inside the project and refuse any existing destination. Verify both physical raw inputs against data/manifest.json, then load the chosen run's predictor through the shared artifact and compatibility checks.",
+        "Verify that run's biopsy_split.csv against its run manifest. Read GEO diagnoses and raw RCC counts with the same source readers used for training, matching specimens by ID.",
+        "For each of the four recorded diagnoses, restrict eligibility to the saved discovery_screen split and choose the first accession in lexical order. The script never calculates scores to choose examples, so changing model scores cannot make it substitute a more convincing case.",
+        "Write one raw-count CSV per diagnosis with the specimen ID followed by exactly the selected model's required targets. Record the ID, diagnosis, description, filename, byte count, and SHA-256 hash for each file. Recorded labels live in the manifest, outside the assay columns.",
+        "Copy the chosen no-rejection specimen's counts in memory and remove IFNG to create missing-target.csv. Mark it invalid in the manifest. This is a deliberately broken input for demonstrating rejection of an incomplete panel, not another prediction example.",
+        "Write manifest.json last, recording the selected run, model version, original source-manifest identity, source-file records, verified split record, selection rule, and all five example files. No fitted model or completed experiment is modified."
+      ],
+      "outputs": "Four valid one-specimen CSVs, one missing-IFNG CSV, and a manifest tied to the selected model and discovery-screen assignments. The API receives the directory through KIDNEY_BIOPSY_DEMO_DIR; container preparation receives it through --demo-dir.",
+      "why": "An example should have an explainable origin rather than being chosen because its prediction looks favorable. The deterministic diagnosis-based rule supplies a range of recorded labels while keeping the selection independent of model scores. These examples demonstrate software behavior; they are not a new performance evaluation.",
+      "failures": "An existing output, altered raw input or split artifact, incompatible model, missing screening diagnosis, or unavailable required target stops preparation. A later write failure can leave a partial directory; the manifest is the final record. The script does not directly score the completed example files; serving and container checks validate their behavior.",
+      "change": "When serving another run, generate examples into a fresh directory with that same --results-dir, then configure both the run and demo directory before restarting. Changing the example-selection rule is an intentional demonstration change: record it in the manifest and preserve earlier prepared examples. There is no dedicated unit test of this producer's selection loop; the linked tests check its consumers' model-identity and invalid-example requirements.",
+      "checks": [
+        {"path": "tests/test_container_bundle.py", "symbol": "ContainerBundleTests.test_demo_run_or_model_mismatch_fails", "reason": "Checks that bundle preparation rejects examples labeled for a different run or model; this is a consumer check, not a test of accession selection."},
+        {"path": "tests/test_container_bundle.py", "symbol": "ContainerBundleTests.test_bundle_serves_same_model_and_examples_without_source_data", "reason": "Checks valid and missing-target examples still behave correctly from their copied serving bundle."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_changed_model_hides_walkthrough_but_keeps_counts_and_predictions_available", "reason": "Checks that stale example model identity prevents a walkthrough while compatible raw-count scoring remains available."}
+      ]
+    },
+    {
+      "id": "public-walkthrough-route",
+      "path": "src/kidney_biopsy/api.py",
+      "symbol": "create_app.walkthrough",
+      "title": "Allow explanations only for verified public examples",
+      "purpose": "Restrict the explanatory route to one prepared public specimen whose file and metadata can be checked against the configured service.",
+      "inputs": "An example_id from the URL and the server's startup-loaded allowlist and Predictor. The ID selects an allowlist entry, not an arbitrary path.",
+      "steps": [
+        "Require the startup-loaded Predictor. Return model_unavailable if scoring itself is not ready.",
+        "Look up the ID in application.state.examples and require its valid flag. Missing entries and the deliberately incomplete example receive walkthrough_unavailable rather than an attempted explanation.",
+        "Recheck the example CSV with verify_artifact on this request. This catches a file modified after startup even though its allowlist entry was valid when the server began.",
+        "Read the file through read_counts_csv with the frozen schema and max_specimens=1. Delegate specimen, label, and model identity checks plus explanation construction to describe_specimen.",
+        "Convert any failure in that verified explanation path to a generic 503 asking for example preparation again. Do not expose paths or private exception details."
+      ],
+      "outputs": "A verified single-public-specimen walkthrough, or a structured 404/503 error. Ordinary uploaded prediction requests use the separate /predict route.",
+      "why": "Only the prepared examples carry known recorded-diagnosis metadata. Restricting this route prevents a user-provided specimen ID or file from being treated as proof of that diagnosis.",
+      "failures": "Changed files, multiple specimens, invalid labels, mismatched specimen identity, or an example prepared for another model make the explanation unavailable. They do not necessarily make compatible raw counts unscoreable through /predict.",
+      "change": "To add examples, use the preparation workflow and a new output directory, preserving its manifest and recorded identity. Keep request IDs as allowlist keys; do not turn this route into a file-path reader.",
+      "checks": [
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_walkthrough_refuses_changed_files_invalid_labels_and_wrong_specimens", "reason": "Checks the request-time file check and specimen/diagnosis identity failures."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_walkthrough_is_only_available_for_one_valid_prepared_public_specimen", "reason": "Rejects multiple rows, arbitrary IDs, and the invalid example."}
+      ]
+    },
+    {
+      "id": "explain-public-specimen",
+      "path": "src/kidney_biopsy/walkthrough.py",
+      "symbol": "describe_specimen",
+      "title": "Explain the actual normalization and prediction for one specimen",
+      "purpose": "Show how a verified public example becomes model inputs, then compare its actual research flag with its recorded diagnosis without feeding that diagnosis to the model.",
+      "inputs": "One raw-count row, its prepared-example metadata, and the current Predictor. Metadata must name the same specimen and model, and contain a recognized recorded diagnosis.",
+      "steps": [
+        "Require exactly one row with the prepared specimen ID, a diagnosis in DIAGNOSES, the current model_version, and IFNG among the model's features. These conditions establish that the explanation has the needed subject, label, and illustrated target.",
+        "Call the shared normalize_counts on the entire panel. Separately calculate logged counts for the display, recording every housekeeping target's raw count and log2(count + 1). The displayed housekeeping mean is the mean of logged counts, not the log of the mean raw count.",
+        "Pass the complete normalized feature frame to predictor.predict_normalized. IFNG is the displayed arithmetic example, while the fitted model receives its full ordered input panel.",
+        "Return the IFNG raw value, logged value, housekeeping mean, and normalized value alongside the full prediction and version metadata. Include required-target and predictor-target counts so the page can explain the role of housekeeping measurements.",
+        "Attach recorded_diagnosis and the mapped recorded_rejection value as explanation fields only. The browser uses them to describe agreement, a false rejection flag, or a missed rejection case for this example."
+      ],
+      "outputs": "A JSON-ready object containing the real normalization arithmetic, 12 housekeeping measurements, prediction, specimen and model identity, and separate recorded-label context.",
+      "why": "An explanation is useful only if it describes the calculation that actually produced the score. Reusing normalization and scoring avoids creating a second illustrative implementation that could drift from the application.",
+      "failures": "The function rejects wrong specimen or model identity, unknown diagnoses, missing IFNG, or invalid counts. Its arithmetic illustration is not a feature-attribution explanation of why the full model reached a particular score.",
+      "change": "If changing the illustrated target or displayed arithmetic, preserve the shared model input path and compare the walkthrough prediction with /predict. Do not introduce diagnosis or specimen identity as model features, or infer a recorded diagnosis for an uploaded specimen.",
+      "checks": [
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_public_walkthrough_matches_raw_prediction_and_shared_normalization", "reason": "Uses unequal housekeeping counts to detect the wrong order of averaging and logging, and compares the complete prediction against /predict."},
+        {"path": "tests/test_api.py", "symbol": "ApiTests.test_changed_model_hides_walkthrough_but_keeps_counts_and_predictions_available", "reason": "Checks that explanation identity is enforced independently of ordinary raw-count scoring."}
+      ]
+    }
+  ],
+  "changes": [
+    {"title": "Serve another completed model run", "body": "From the project root in PowerShell, assign the intended completed run's relative path to $selectedRun. Set `$demoName = 'ownership-' + (Get-Date -Format 'yyyyMMdd-HHmmss')`, then run `uv run --frozen python scripts/prepare_demo.py --results-dir \"$selectedRun\" --output-dir \"data/demo/$demoName\"`. Set `$env:KIDNEY_BIOPSY_RESULTS_DIR = $selectedRun` and `$env:KIDNEY_BIOPSY_DEMO_DIR = \"data/demo/$demoName\"` in the service's PowerShell session before restarting it. Verify /health and /model, compare a prediction with the CLI configured for that same run, and reload open browser pages. For a container, pass the same paths as --results-dir and --demo-dir to prepare_container.py; its launcher uses the bundle's selection."},
+    {"title": "Increase the interactive upload limit", "body": "Change MAX_UPLOAD_BYTES or MAX_SPECIMENS in api.py, then update /model consumers, browser messages, API documentation, and the size/row boundary tests. The browser currently contains literal 2 MiB text in more than one place. Keep streamed byte enforcement; changing only Content-Length checks leaves incomplete enforcement. CLI limits are independent."},
+    {"title": "Change normalization or accepted targets", "body": "Start in the shared preprocessing code and schema, not in the route or browser. The model was fitted against a particular normalized feature definition. Produce a new compatible run, preserve the old run, and verify raw-count predictions agree across direct, CLI, HTTP, and walkthrough paths."},
+    {"title": "Change the result presentation", "body": "Keep identity checks before rendering and clear prior results on input changes. Show server-provided flags, retain full values for comparison, and round only display text. Review one specimen, multiple specimens, rejected input, missing walkthrough evidence, and a page left open while the served model changes."}
+  ],
+  "exercises": [
+    {"question": "Why can /health return 503 even though the page opens?", "answer": "Serving the HTML page does not require a loaded model. The lifespan startup must successfully verify and load the configured Predictor before /health reports ready. Inspect the startup category and configured artifacts, then restart after repair."},
+    {"question": "A public example still scores after changing models, but its walkthrough fails. Is that contradictory?", "answer": "No. Its raw counts may satisfy the new model's schema, so ordinary scoring can succeed. The prepared explanation also asserts a model identity; a mismatch prevents that explanation from being attached to the new prediction. Prepare examples for the new model and reload the page."},
+    {"question": "A score displays as 0.877 beside a threshold displayed as 0.876588. Which values determine the flag?", "answer": "The server compares the full model score with the full frozen threshold using >=. Rounded browser text is for reading only. The browser renders the returned flag rather than calculating a new decision from formatted numbers."},
+    {"question": "Why does a valid 17-specimen CSV work in the CLI but fail in the browser service?", "answer": "They share scientific preprocessing and prediction, but have different operational limits. The API accepts at most 16 specimens and 2 MiB; the CLI CSV path accepts at most 1,000 specimens and 20 MiB. This is a transport contract difference, not a different model calculation."},
+    {"question": "Would calling predict_normalized with raw counts work if the columns have the correct names?", "answer": "It could pass some structural checks and still give invalid results because the model expects normalized values. That method trusts the caller to have normalized the data. Application callers must use Predictor.predict so the shared transformation always runs."}
+  ],
+  "related": [
+    {"path": "scripts/prepare_demo.py", "label": "Prepare public examples and record their selection"},
+    {"path": "docs/API.md", "label": "Startup commands, API contract, examples, and request errors"},
+    {"path": "docs/CODE_GUIDE.md", "label": "Shared package responsibilities and prediction reading order"},
+    {"path": "docs/VERIFICATION.md", "label": "Automated verification and recorded application checks"},
+    {"path": "scripts/verify_http_service.py", "label": "Real HTTP comparison with CLI and saved research scores"},
+    {"path": "results/checks/20260917_coherence/browser_review.json", "label": "Recorded browser review of explanations and input changes"}
+  ]
+}
