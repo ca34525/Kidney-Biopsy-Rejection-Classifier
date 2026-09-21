@@ -30,6 +30,8 @@ sources = [
     "results/analysis/20260915_baseline/paired_differences.csv",
     "results/reproduction/20260915_shared/data_audit.json",
     "results/followup/20260917_stability/summary.json",
+    "results/followup/20260917_stability/selections.csv",
+    "results/followup/20260917_stability/design.json",
     "results/followup/20260915_subtypes/any_rejection_metrics.csv",
     "results/checks/20260917_coherence/checks.json",
     "results/checks/20260917_coherence/http/http.json",
@@ -47,8 +49,8 @@ def sha(file: Path) -> str:
 
 
 manifest = {
-    "created": "2026-09-19",
-    "revision": "consistent definition spacing, clinical context for incorrect flags, word fractions, service transition and a modest conclusion separating modeling from the demo",
+    "created": "2026-09-20",
+    "revision": "slide 14 explains paired bootstrapping and the reason for checking model-choice stability; slide 15 shows the repeated split procedure and selection counts without dot plots",
     "main_slides": len(data['slides']),
     "backup_slides": len(data['backups']),
     "planned_seconds": 1200,

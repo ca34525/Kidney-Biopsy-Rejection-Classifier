@@ -1,7 +1,7 @@
 # Interview presentation
 
-Revised September 19, 2026. **Classifying Kidney Transplant Rejection from Biopsy
-RNA** has **19 main slides** planned for a full **20-minute talk**, followed by
+Revised September 20, 2026. **Classifying Kidney Transplant Rejection from Biopsy
+RNA** has **20 main slides** planned for a full **20-minute talk**, followed by
 **8 backup slides** for questions.
 
 - [Editable PowerPoint](unos_kidney_biopsy.pptx)
@@ -23,13 +23,13 @@ belongs in the HTML file, following the user's September 18 instruction.
 
 | Slides | Subject | Approximate time |
 | --- | --- | ---: |
-| 1–4 | Title, transplant context, possible use, and supporting evidence | 3¾ minutes |
-| 5–8 | Dataset, outcome, measurements, and normalization | 3¾ minutes |
+| 1–4 | Title, transplant context, possible use, and supporting evidence | 3½ minutes |
+| 5–8 | Dataset, outcome, measurements, and normalization | 3½ minutes |
 | 9–11 | Study groups, models, and threshold | 2¾ minutes |
-| 12–14 | Validation errors, diagnosis groups, and comparison uncertainty | 4¼ minutes |
-| 15–17 | Shared software, demonstration, and checks | 3¾ minutes |
-| 18–19 | Possible extensions and project accomplishments | 1¾ minutes |
-| 20–27 | Backup material, starting with assay details | Questions afterward |
+| 12–15 | Validation errors, uncertainty, and model-choice results | 4¾ minutes |
+| 16–18 | Shared software, demonstration, and checks | 3¾ minutes |
+| 19–20 | Possible extensions and project accomplishments | 1¾ minutes |
+| 21–28 | Backup material, starting with assay details | Questions afterward |
 
 The main script includes about two minutes for the demonstration and room for
 pauses. These are approximate allocations, not measured rehearsal results.
@@ -55,15 +55,20 @@ sub-bullets. Slide 3 uses two matching hypothetical-example boxes. Slide 5 shows
 two linked analysis tables, with their assembly explained in the script. The
 patient and referring-center separation note sits beneath the dataset counts.
 "Cohort" first appears with the study groups on slide 9. Detailed assay terminology
-is on backup slide 20. Recall and precision introduce the error terms before the
+is on backup slide 21. Recall and precision introduce the error terms before the
 validation chart compares false negatives and false positives. Slide 11 uses
-word fractions for those metrics. Slide 15 introduces the service and demo,
-slide 18 presents hypothetical extensions, and slide 19 separates the completed
+word fractions for those metrics and remains unchanged. The model tables and
+validation chart distinguish IFNG only (Logistic regression) from All RNA
+(Logistic Regression). Slide 14 explains how the paired bootstrap produced the
+recall-difference interval and why a separate check of the development split was
+needed. Slide 15 shows how the 20 discovery-only splits were made and presents the
+model-selection counts in a table. Slide 16 introduces the service
+and demo, slide 19 presents hypothetical extensions, and slide 20 separates the completed
 model comparison from the software demonstration. Substantive topics
 have visible support, with spoken elaboration in the script.
 The [presentation specification](../docs/PRESENTATION_SPEC.md)
 records the outline and approximate section budget, and the [guide](../docs/PRESENTATION_GUIDE.md)
-records the September 19 feedback and standards for future edits.
+records the September 19 and 20 feedback and standards for future edits.
 
 The supplied full article and supplements clarify the study population. The
 1,395 specimens include 1,193 transplant biopsies and 202 native-kidney controls.
@@ -93,9 +98,13 @@ the same explanation.
 
 ## Evidence and edits
 
-The slides use the project's preserved results. The main error comparison and
-reliability chart are native editable PowerPoint charts with embedded data.
-Tables and process diagrams are also editable. Reliability chart coordinates
+The slides use the project's preserved results. Two native editable PowerPoint
+charts contain embedded data: the main validation error comparison and the backup
+reliability chart. Slide 14 explains the 2,000 paired bootstrap resamples with
+fixed models and thresholds. Slide 15 uses an editable split diagram and a table
+of screening selections: CatBoost 13/20 and All RNA (Logistic Regression) 7/20.
+The assessment-error dot plots are omitted from the deck; the saved analysis
+outputs remain available. Tables and process diagrams are editable. Reliability chart coordinates
 are rounded to six decimals for workbook portability; the source CSV retains
 full precision. The PDF is a static rendering of the final slide pages.
 

@@ -3,8 +3,8 @@
 ## Deliverable
 
 Prepare a full 20-minute presentation about this project's question, analysis,
-results, and software. Questions follow the presentation. Preserve the current
-19 main slides and 8 backup slides for this revision. Give substantive topics
+results, and software. Questions follow the presentation. Use 20 main slides and 8 backup slides for this revision, following the user’s
+September 20 request for a separate model-choice results slide. Give substantive topics
 readable visual support without adding a cue for every spoken elaboration.
 
 Deliver an editable `presentation/unos_kidney_biopsy.pptx`, a matching PDF backup,
@@ -12,7 +12,7 @@ a separate `presentation/speaking_script.html`, and the presentation source file
 All spoken text and delivery cues belong in the HTML file. **Do not use PowerPoint
 notes.** This follows the user's September 18, 2026 delivery instruction.
 
-The [current draft](../presentation/README.md) contains 19 main slides and 8 backup
+The [current draft](../presentation/README.md) contains 20 main slides and 8 backup
 slides, with a complete HTML speaking script planned for 20 minutes. The deck,
 PDF, and static demonstration fallback are available. Actual timed rehearsals
 remain pending; planned timing does not establish measured delivery time.
@@ -68,12 +68,12 @@ laboriously optimizing estimates.
 
 | Slides | Section | Approximate time |
 | --- | --- | ---: |
-| 1–4 | Question, transplant context, possible use, and supporting research | 3¾ minutes |
-| 5–8 | Dataset, outcome, measurements, and normalization | 3¾ minutes |
+| 1–4 | Question, transplant context, possible use, and supporting research | 3½ minutes |
+| 5–8 | Dataset, outcome, measurements, and normalization | 3½ minutes |
 | 9–11 | Study groups, models, and threshold | 2¾ minutes |
-| 12–14 | Validation errors and comparison uncertainty | 4¼ minutes |
-| 15–17 | Prediction software, demonstration, and checks | 3¾ minutes |
-| 18–19 | Possible extensions and project accomplishments | 1¾ minutes |
+| 12–15 | Validation errors, uncertainty, and model-choice results | 4¾ minutes |
+| 16–18 | Prediction software, demonstration, and checks | 3¾ minutes |
+| 19–20 | Possible extensions and project accomplishments | 1¾ minutes |
 | | **Total, with questions afterward** | **20 minutes** |
 
 | Slide | Subject | Evidence or visual |
@@ -87,20 +87,21 @@ laboriously optimizing estimates.
 | 7 | The measurements used to build the features | 758 model measurements and 12 housekeeping references used to adjust for differences in RNA quantity |
 | 8 | Normalization | Compact numbered calculation and example for each of the 758 counts |
 | 9 | Development and evaluation groups | Authors' discovery/validation division and this project's training/screening split |
-| 10 | Model comparison | Constant, IFNG, logistic regression, and CatBoost; each produces a rejection score |
+| 10 | Model comparison | Constant, IFNG only (Logistic regression), All RNA (Logistic Regression), and CatBoost; each produces a rejection score |
 | 11 | Threshold selection | Recall and precision as stacked fractions with words in the numerator and denominator, then the screening selection rule |
-| 12 | Validation results | False negatives and false positives on the same rows, with class denominators |
+| 12 | Validation results | False negatives and false positives on the same rows, with class denominators and the explicit IFNG-only and all-RNA logistic regression labels |
 | 13 | Errors by recorded diagnosis | False negatives within each rejection group |
-| 14 | Comparison uncertainty | Paired comparison and discovery-only stability follow-up |
-| 15 | Prediction service and demonstration | Transition into software, with input checks, shared preprocessing, model and response |
-| 16 | Working demonstration | Valid specimen and incomplete-file response |
-| 17 | Software checks | Consequential tests and current deployment evidence |
-| 18 | Possible next steps | Hypothetical extensions of a personal project: another dataset and a possible study with clinical collaborators |
-| 19 | What this project accomplished | Separate model-comparison and service/demo sections; error percentages with counts and denominators; no next-step bullet |
+| 14 | Comparison uncertainty and reason for the follow-up | Recall difference and paired-bootstrap calculation; explain why a separate check of sensitivity to the development split was needed |
+| 15 | Model choice depended on the development split | Diagram of the 20 discovery-only splits into 630 fitting, 210 screening, and 210 assessment specimens; editable table with CatBoost selected in 13/20 splits and all-RNA logistic regression in 7/20 |
+| 16 | Prediction service and demonstration | Transition into software, with input checks, shared preprocessing, model and response |
+| 17 | Working demonstration | Valid specimen and incomplete-file response |
+| 18 | Software checks | Consequential tests and current deployment evidence |
+| 19 | Possible next steps | Hypothetical extensions of a personal project: another dataset and a possible study with clinical collaborators |
+| 20 | What this project accomplished | Separate model-comparison and service/demo sections; error percentages with counts and denominators; no next-step bullet |
 
 Give the central result and its tradeoff enough time after explaining the task.
 A methods nuance should occupy only the space needed to understand the result.
-Backup slides 20–27 support questions and sit outside this timing budget. Slide 20
+Backup slides 21–28 support questions and sit outside this timing budget. Slide 21
 contains the assay explanation moved from the main talk.
 
 ## Required evidence
@@ -111,14 +112,42 @@ contains the assay explanation moved from the main talk.
   Use stacked word fractions on slide 11. Explain false negatives
   as missed cases and false positives as incorrect flags. The selection procedure
   requires at least 90% screening recall, then minimizes false positives. This
-  second criterion maximizes specificity, not precision. State that the 90% target
+  second criterion directly maximizes specificity. When qualifying choices detect
+  the same number of rejection specimens, as in the saved screening comparison,
+  it also maximizes precision among those choices. State that the 90% target
   is an experiment choice and that validation recall fell below it.
-- Explain IFNG as one immune-related measurement used for a simple benchmark.
+- Label the two logistic models as “IFNG only (Logistic regression)” and
+  “All RNA (Logistic Regression)” in comparison tables and the validation chart.
+  Explain that both used logistic regression, with one versus 758 normalized RNA
+  measurements. Explain IFNG as one immune-related measurement used for a simple benchmark.
   The source study associates it with T-cell-mediated rejection, but this project
   did not establish it as the best individual predictor. Keep the probability
   interpretation separate from threshold choice and use "model score" throughout.
 - Include the regularized multivariable comparison. Do not make the talk depend on
   a complicated model winning.
+- Slide 14 retains the validation comparison: eight more detections among 169
+  rejection specimens, or +4.73 percentage points in recall. Explain the paired
+  bootstrap: 2,000 resamples of the 345 validation specimens with replacement,
+  fixed fitted models and thresholds, and the same draws for both models. In each
+  resample, subtract all-RNA logistic regression recall from CatBoost recall.
+  The 2.5th and 97.5th percentiles give the 95% interval, approximately −0.01 to
+  +9.74 percentage points. It includes zero. Then explain the separate question:
+  a particular training and screening split might favor a model, while this
+  bootstrap held training and selection fixed. Would changing those specimen
+  assignments change the selected family? Keep the split design and results on
+  slide 15.
+- Slide 15 explains the split design and results. Use 20 fixed random seeds and
+  approximately preserve the four diagnosis proportions within the 1,050 discovery
+  specimens. Each time, hold out 210 assessment specimens, then 210 screening
+  specimens, leaving 630 for fitting. Both families used the same partitions and
+  all 758 measurements. Screening required at least 90% recall, then selected by
+  fewest false flags, with ROC-AUC as a tiebreaker; assessment measured later
+  errors without changing selection. The 345 author-validation specimens were
+  not used. Show the 13/20 CatBoost and 7/20 all-RNA logistic regression selections
+  in an editable table, without the assessment-error dot plots. The splits overlap,
+  so these are not independent trials and the counts do not prove a winner. The
+  service model stayed unchanged. Link the saved design, summary, selections, and
+  report in the script; preserve the existing analysis outputs.
 - Distinguish the binary benchmark, four-class follow-up, and original study.
   Do not compare accuracy percentages across different prediction tasks.
 - Show the model version and threshold in the demonstration. Use only public
@@ -151,9 +180,9 @@ for the dataset, outcome, measurements, and normalization. Group each explanatio
 table, or diagram it explains. Do not add unrelated statements at the bottom.
 
 Use real charts and diagrams that explain meaningful relationships or processes.
-Keep the useful diagrams on slides 9 and 15. Slide 2 needs definition bullets and
+Keep the useful diagrams on slides 9, 15, and 16. Slide 2 needs definition bullets and
 sub-bullets. Slide 3 needs two matching hypothetical-example boxes. Slide 5 needs
-table schemas. The assay explanation on backup slide 20 uses bullets. Avoid generic
+table schemas. The assay explanation on backup slide 21 uses bullets. Avoid generic
 stock imagery, decorative medical imagery, dense dashboard cards, and lists of
 tools that take space away from evidence. Keep charts and required tables editable.
 Put concise citations beside externally sourced claims and full linked references

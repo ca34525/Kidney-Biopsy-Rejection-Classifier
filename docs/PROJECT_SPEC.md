@@ -247,7 +247,7 @@ teamwork, cloud work, or personal experience to match the posting.
 
 ## Boundaries
 
-This is a study of recorded diagnoses using an existing assay panel. It is not a
+This personal project classifies recorded diagnoses using an existing assay panel. It is not a
 biopsy-image model, a blood test, a future rejection forecast, or an organ-allocation
 tool. Patient benefit and care decisions would need separate evidence. A short
 explanation of those limits belongs in the talk; most presentation time belongs
