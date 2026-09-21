@@ -49,8 +49,8 @@ def sha(file: Path) -> str:
 
 
 manifest = {
-    "created": "2026-09-20",
-    "revision": "slide 14 explains paired bootstrapping and the reason for checking model-choice stability; slide 15 shows the repeated split procedure and selection counts without dot plots",
+    "created": "2026-09-21",
+    "revision": "corrected the constant baseline threshold description and distinguished all-RNA and IFNG-only logistic settings; presentation sequence and reported results unchanged",
     "main_slides": len(data['slides']),
     "backup_slides": len(data['backups']),
     "planned_seconds": 1200,

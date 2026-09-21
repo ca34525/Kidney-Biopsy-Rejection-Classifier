@@ -798,6 +798,9 @@ def report(
     logistic = point["logistic_all"]
     ifng = point["single_gene_IFNG"]
     metric_intervals = intervals.set_index(["model", "metric"])
+    study_review_link = Path(
+        os.path.relpath(ROOT / "docs/references/STUDY_AUDIT_20260919.md", start=out)
+    ).as_posix()
 
     def interval(name, metric, percentage=True):
         row = metric_intervals.loc[(name, metric)]
@@ -1159,6 +1162,14 @@ def report(
         ),
         "",
         "## Scope of the evidence",
+        "",
+        (
+            "The original source study included 1,193 transplant biopsies and 202 native-kidney "
+            "controls. Its 345-specimen technical-validation cohort included 334 transplant "
+            "biopsies and 11 native-kidney controls. These published totals describe the source "
+            "cohorts; the public metadata do not identify individual native-kidney specimens. "
+            f"See the [September 19, 2026 source review]({study_review_link})."
+        ),
         "",
         (
             "The data establish agreement with recorded rejection diagnoses in this deposited study. "

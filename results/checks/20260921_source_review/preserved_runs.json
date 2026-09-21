@@ -1,0 +1,66 @@
+{
+  "verified_utc": "2026-09-21T17:23:27.557772+00:00",
+  "reference_run": "results/reproduction/baseline",
+  "reproduced_run": "results/reproduction/20260915_shared",
+  "reference_manifest_sha256": "884f28f48686a4451fc4cf144f5ed12e29a6e926b88275b06d73160521a19fdb",
+  "reproduced_manifest_sha256": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d",
+  "verified_artifacts": [
+    25,
+    53
+  ],
+  "split_specimens": 1395,
+  "score_tolerance": 1e-12,
+  "selected_thresholds": {
+    "antibody_mediated_component": 0.28974403910876173,
+    "any_rejection": 0.8765880870219778,
+    "t_cell_mediated_component": 0.5048651647359682
+  },
+  "prediction_comparisons": [
+    {
+      "file": "antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "specimens": 345,
+      "max_absolute_score_difference": 0.0
+    },
+    {
+      "file": "antibody_mediated_component_logistic_all_test_predictions.csv",
+      "specimens": 345,
+      "max_absolute_score_difference": 0.0
+    },
+    {
+      "file": "antibody_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "specimens": 345,
+      "max_absolute_score_difference": 0.0
+    },
+    {
+      "file": "any_rejection_catboost_all_depth4_test_predictions.csv",
+      "specimens": 345,
+      "max_absolute_score_difference": 0.0
+    },
+    {
+      "file": "any_rejection_logistic_all_test_predictions.csv",
+      "specimens": 345,
+      "max_absolute_score_difference": 0.0
+    },
+    {
+      "file": "any_rejection_single_gene_IFNG_test_predictions.csv",
+      "specimens": 345,
+      "max_absolute_score_difference": 0.0
+    },
+    {
+      "file": "t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "specimens": 345,
+      "max_absolute_score_difference": 0.0
+    },
+    {
+      "file": "t_cell_mediated_component_logistic_all_test_predictions.csv",
+      "specimens": 345,
+      "max_absolute_score_difference": 0.0
+    },
+    {
+      "file": "t_cell_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "specimens": 345,
+      "max_absolute_score_difference": 0.0
+    }
+  ],
+  "interpretation": "The shared-code reproduction retained all split assignments, selected models, thresholds, evaluation scores and flags within the stated tolerance."
+}

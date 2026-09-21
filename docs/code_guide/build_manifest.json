@@ -1,8 +1,8 @@
 {
   "guide": "docs/CODE_GUIDE.html",
-  "guide_sha256": "abdede76cb322cf52685e54435ca0059f29960427e0b3952e86fedfc7b26bca1",
+  "guide_sha256": "57c0a9530ccc7b3165ba8181b92709b9359f93d94d4d94555ae6a5ab5c5b14c1",
   "source_commit": "a666922b172a349ad1775312d94f4f66a5117040",
-  "source_state": "application source matches HEAD",
+  "source_state": "working source differs from HEAD",
   "chapters": 6,
   "function_explanations": 41,
   "diagrams": 10,
@@ -18,7 +18,7 @@
     },
     {
       "file": "docs/API.md",
-      "sha256": "7b1adca18e48671f77f9f25dfd344d2d3154732140f84e695e5066d7158b659f"
+      "sha256": "b2e249f62d1c08a128ce7e3b5f44ce8aea7ce58a92cf68f49057027d64b565ba"
     },
     {
       "file": "docs/AUDIT.md",
@@ -33,12 +33,16 @@
       "sha256": "43128fcaa5ab1bc0205b5944a4070d8176c41bb94fcaa3844bf47eb127324e54"
     },
     {
+      "file": "docs/METHODOLOGY_REVIEW.md",
+      "sha256": "62413628b475ffa4f6ed885d7e06d106e27245183b3c7f1e2bed25cdb468e1eb"
+    },
+    {
       "file": "docs/PROJECT_SPEC.md",
       "sha256": "273cd98d941755ccb93f7e1a2c082184790608b8fb3ffd26a1c1c51f88841d71"
     },
     {
       "file": "docs/STATUS.md",
-      "sha256": "daf6ee2fc4a90d87934f906b4bd5f51c6fe91ff8be6f11b6b536bb4d1472e423"
+      "sha256": "96fe7ac82fb1e72deeb69995fbddb90352bad1b30b56a83e8ab73a6887f0b966"
     },
     {
       "file": "docs/VERIFICATION.md",
@@ -74,7 +78,7 @@
     },
     {
       "file": "docs/code_guide/results.json",
-      "sha256": "c35a081d6e7a2f39a2adacaaa04b288ad37a3c884a195cb9b0573e635f848b58"
+      "sha256": "1f23186a840f1a97d5ddbb38c80ac8a7fe64024f55860a6a2759db2ec216e2c4"
     },
     {
       "file": "docs/code_guide/specimen.json",
@@ -118,7 +122,7 @@
     },
     {
       "file": "scripts/analyze_results.py",
-      "sha256": "d9b02ad86c457514011fb3daae87768da8bcf574e7b396e6d472d353ccf95c60"
+      "sha256": "8669227461323f14c0697b9096da0ac929b86153179876244041cdf5ff114c2d"
     },
     {
       "file": "scripts/build_code_guide.py",

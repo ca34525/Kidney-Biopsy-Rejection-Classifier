@@ -1,6 +1,6 @@
 {
   "title": "Classifying Kidney Transplant Rejection from Biopsy RNA — speaking script",
-  "status": "September 20 revision for aloud rehearsal; slide times are approximate and have not been measured.",
+  "status": "September 21 method-label correction for aloud rehearsal; slide times are approximate and have not been measured.",
   "delivery": "Spoken text belongs in the separate HTML deliverable. PowerPoint notes must remain empty.",
   "planned_seconds": 1200,
   "rehearsal": {
@@ -492,7 +492,7 @@
       "seconds": 100,
       "paragraphs": [
         "Here are the results on the same 345 validation specimens. False negatives are missed cases among the 169 specimens recorded as rejection. False positives are incorrect flags among the 176 recorded as no rejection. The count labels let me compare both errors directly.",
-        "The constant model flags every specimen at its selected threshold. It has zero false negatives out of 169 rejection specimens, but 176 false positives out of 176 no-rejection specimens. That shows why finding every rejection case alone does not make a useful classifier.",
+        "The constant model flags every specimen at its fixed threshold of 0.5. It has zero false negatives out of 169 rejection specimens, but 176 false positives out of 176 no-rejection specimens. That shows why finding every rejection case alone does not make a useful classifier.",
         "The IFNG-only logistic regression model has 14 false negatives and 75 false positives. It detects many rejection cases, but also produces many incorrect positive flags.",
         "The all-RNA logistic regression model uses all 758 normalized measurements. It has 33 false negatives and eight false positives. CatBoost has 25 false negatives and also eight false positives.",
         "Compared with IFNG, CatBoost makes 67 fewer false positives but 11 more false negatives. Its validation recall is 85.2 percent, below the 90 percent screening target. The criterion used during development gives a different result in this evaluation group.",
@@ -891,7 +891,7 @@
       "paragraphs": [
         "This table compares the four models on the same 345 validation specimens. Miss counts use the 169 recorded rejection specimens. False-flag counts use the 176 recorded no-rejection specimens. Sensitivity is the fraction of rejection specimens flagged. Specificity is the fraction of no-rejection specimens left unflagged.",
         "CatBoost has 85.2 percent sensitivity and 95.5 percent specificity, compared with 80.5 and 95.5 percent for all-RNA logistic regression. IFNG-only logistic regression detects a larger fraction of rejection specimens, at 91.7 percent sensitivity, but its specificity is 57.4 percent. The constant baseline flags everyone. The two logistic models used the same algorithm with one versus 758 normalized measurements.",
-        "ROC-AUC describes how well the scores rank rejection above no rejection across possible thresholds. CatBoost has ROC-AUC 0.969, logistic regression 0.956, IFNG 0.842, and the constant baseline 0.500. The error counts describe each model at the threshold selected during development."
+        "ROC-AUC describes how well the scores rank rejection above no rejection across possible thresholds. CatBoost has ROC-AUC 0.969, logistic regression 0.956, IFNG 0.842, and the constant baseline 0.500. I selected the RNA-model thresholds on discovery screening. The constant baseline uses a fixed threshold of 0.5."
       ],
       "actions": [
         "Use the relevant metric column and keep its denominator clear."
@@ -916,7 +916,7 @@
       "paragraphs": [
         "For each RNA measurement, add one to the raw count and take its base-two logarithm. Subtract the average of the 12 housekeeping counts after applying the same log transformation. This expresses the measurement relative to the specimen's housekeeping reference. The 758 resulting values are the model inputs.",
         "Logistic regression has one additional preparation step. For each normalized measurement, calculate its average and standard deviation across training specimens. Subtract that average and divide by that standard deviation. Reuse those same training values for screening, validation, and future requests. This puts the measurements on comparable scales. CatBoost does not use that additional scaling step here.",
-        "Logistic regression uses regularization setting C equal to 0.1. The selected CatBoost model uses 300 trees with depth four and learning rate 0.04. These settings describe the saved comparison."
+        "The all-RNA logistic regression uses regularization setting C equal to 0.1. The IFNG-only logistic regression uses C equal to 1. The selected CatBoost model uses 300 trees with depth four and learning rate 0.04. These settings describe the saved comparison."
       ],
       "actions": [
         "Use the formula for normalization questions and the training averages for logistic-scaling questions."
@@ -937,7 +937,7 @@
       ],
       "visible_cues": [
         "Normalized measurement = log2(raw count + 1) minus the mean of 12 housekeeping log2(count + 1) values",
-        "Logistic regression: subtract each feature's training mean and divide by its training standard deviation",
+        "All RNA (Logistic Regression): subtract each feature's training mean and divide by its training standard deviation; C = 0.1",
         "Reuse those values for later specimens; regularization C = 0.1",
         "CatBoost: no additional feature scaling",
         "300 trees, depth 4, learning rate 0.04"
@@ -1117,5 +1117,5 @@
       ]
     }
   ],
-  "revision": "2026-09-20: slide 14 explains the paired-bootstrap interval and why a separate development-split check was needed; slide 15 combines the split procedure with an editable selection-count table, replacing the assessment-error plots. The explicit logistic regression labels, 20 main slides, 8 backups, and 20-minute planned time are retained. Slide 11 and all reported results are unchanged."
+  "revision": "2026-09-21: distinguish the constant baseline's fixed threshold of 0.5 from the RNA-model thresholds selected on discovery screening. Identify C = 0.1 as the all-RNA logistic setting and C = 1 as the IFNG-only setting. The September 20 slide sequence, 20 main slides, 8 backups, and 20-minute planned time are retained. Slide 11 and all reported results are unchanged."
 }

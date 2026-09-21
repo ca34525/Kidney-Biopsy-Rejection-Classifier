@@ -56,6 +56,13 @@ same run's hash-verified `biopsy_results.json`; they are not fixed to the page o
 substituted for another configured model. The displayed threshold is rounded;
 the actual decision always uses the full frozen value, `0.8765880870219778`.
 
+The source study's validation group includes 334 transplant biopsies and 11
+native-kidney controls. Public metadata do not identify the native-kidney specimens
+individually, so these results do not establish transplant-only performance. The
+page states that population beside its error counts. The
+[September 19 source review](references/STUDY_AUDIT_20260919.md) records the counts
+and source pages.
+
 ## Process configuration
 
 | Setting | Default | Meaning |

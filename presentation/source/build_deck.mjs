@@ -301,7 +301,7 @@ assaySlide();
 {
  const s=slide('Backup: normalization and model settings','Sources: shared preprocessing; primary model configuration');
  text(s,'Normalized measurement = log₂(raw count + 1)\n− mean of the 12 housekeeping log₂(count + 1) values',64,169,1152,110,34,C.ink,true);
- table(s,[['Model','Additional preparation and settings'],['Logistic regression','Subtract each feature’s training mean, then divide by its training standard deviation. Reuse these values for later specimens.\nRegularization: C = 0.1.'],['CatBoost','No extra feature scaling.\n300 trees, depth 4, learning rate 0.04.']],{y:305,h:292,rowHeights:[54,142,96],widths:[300,852],size:28,padY:8});
+ table(s,[['Model','Additional preparation and settings'],[modelLabels.logistic,'Subtract each feature’s training mean, then divide by its training standard deviation. Reuse these values for later specimens.\nRegularization: C = 0.1.'],['CatBoost','No extra feature scaling.\n300 trees, depth 4, learning rate 0.04.']],{y:305,h:292,rowHeights:[54,142,96],widths:[300,852],size:28,padY:8});
 }
 {
  const s=slide('Backup: interpreting model scores','Source: reliability_bins.csv. The highlighted bin has a Wilson 95% interval. No recalibration fitted.');

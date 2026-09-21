@@ -52,7 +52,9 @@ The task is to classify **any histologically defined rejection versus no rejecti
 
 The authors' [Supplementary Methods](https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc6.docx) compare several model families and select LASSO for a smaller set of weighted features. This makes regularized multigene regression a meaningful comparator. Fitting a different algorithm alone does not establish a new biological finding.
 
-The full article and all six supplements have now been reviewed. The authors call
+The full article and six supplements were reviewed on September 19, 2026;
+findings and page references are recorded in the
+[full-study audit](references/STUDY_AUDIT_20260919.md). The authors call
 the 345-specimen validation cohort independent, but do not report a unique-patient
 count, a repeat-biopsy exclusion rule, or allocation that separates patients or
 referring transplant centers. All biopsies were processed at Arkana Laboratories;
@@ -107,6 +109,11 @@ complete preprocessing or published LASSO classifier. The
 [deposited sample description](https://ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM6510698)
 describes the processed matrix as batch-corrected; that matrix is not used as the
 model input here.
+
+The [September 21 methodology review](METHODOLOGY_REVIEW.md) compares the
+implemented procedure with the paper, including normalization, batch correction,
+feature choice, and model selection. It explains which choices support the
+current research comparison and which questions remain open.
 
 The input checks establish file structure, complete targets, and usable numbers.
 They do not establish assay quality. The project has not independently repeated

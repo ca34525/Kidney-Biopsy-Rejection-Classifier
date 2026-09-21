@@ -34,6 +34,7 @@ def image(name: str) -> str:
 <nav><a href="#valid">Valid public specimen</a><a href="#invalid">Missing IFNG</a><a href="speaking_script.html#slide-{demo_slide}">Speaking script</a></nav></header>
 <main><p>Saved model: <code>20260915_shared:any_rejection:catboost_all_depth4</code><br>
 Threshold: 0.8765880870219778. The public discovery-screen example demonstrates software behavior, not new validation.</p>
+<p>The captured error counts describe the source study’s validation group: 334 transplant biopsies and 11 native-kidney controls. Public metadata do not identify the native-kidney specimens individually. See the <a href="../docs/references/STUDY_AUDIT_20260919.md">September 19 source review</a>.</p>
 <section id="valid"><h2>GSM6510425 produces a model score of 0.274934</h2>
 <p>The score is below the selected threshold. Its flag agrees with the recorded no-rejection diagnosis.</p>
 <img src="{image('demo-valid.png')}" alt="Actual local application displaying specimen GSM6510425, normalized IFNG minus 5.578 and model score 0.275"></section>

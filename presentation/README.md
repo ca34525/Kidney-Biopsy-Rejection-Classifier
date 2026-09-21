@@ -1,6 +1,6 @@
 # Interview presentation
 
-Revised September 20, 2026. **Classifying Kidney Transplant Rejection from Biopsy
+Revised September 21, 2026. **Classifying Kidney Transplant Rejection from Biopsy
 RNA** has **20 main slides** planned for a full **20-minute talk**, followed by
 **8 backup slides** for questions.
 

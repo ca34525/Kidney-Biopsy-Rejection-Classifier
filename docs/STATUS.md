@@ -1,6 +1,6 @@
 # Current project status
 
-Updated September 19, 2026. Start here for the current reading order; dated run
+Updated September 21, 2026. Start here for the current reading order; dated run
 reports and verification records remain evidence of what was checked at the time.
 
 ## Read the project in this order
@@ -35,7 +35,7 @@ reports and verification records remain evidence of what was checked at the time
    evidence below; a previous passing revision is not a test of later edits.
 5. **Presentation draft:** The [presentation package](../presentation/README.md)
    contains the editable deck, matching PDF, separate HTML speaking script, and
-   static demonstration fallback. The revised talk has 19 main slides and 8 backup
+   static demonstration fallback. The revised talk has 20 main slides and 8 backup
    slides, with a full script planned for 20 minutes. PowerPoint notes are not used. Two full
    timed rehearsals and one interruption/fallback rehearsal remain pending. The
    revised sequence places the molecular-second-opinion purpose immediately after
@@ -52,6 +52,7 @@ reports and verification records remain evidence of what was checked at the time
 | --- | --- | --- |
 | [Primary analysis](../results/analysis/20260915_baseline/REPORT.md) | Same-row comparison, error review, uncertainty, score reliability | Includes native-kidney controls; patient and referring-center separation between cohorts is not documented |
 | [September 19 source review](references/STUDY_AUDIT_20260919.md) | Full article and supplements establish transplant/native-kidney counts and clarify cohort limits | Public metadata do not identify native-kidney specimens individually; all biopsies were processed at Arkana Laboratories |
+| [September 21 methodology review](METHODOLOGY_REVIEW.md) | Compares the implemented methods with the paper and records the remaining weaknesses | Assessment of the existing procedure; no new model fitting or clinical evaluation |
 | [Discovery-only stability](../results/followup/20260917_stability/REPORT.md) | Model choice changes across 20 development splits; 100 fits completed in 639.3 seconds | Each split uses 630 fit / 210 screen / 210 assessment specimens; no author-validation scoring or service change |
 | [Fixed-procedure reproduction](../results/checks/20260915_readability/reproduction.json) | All nine prediction tables, model choices, and thresholds reproduced exactly | A repeat of the fixed procedure, not a new validation cohort |
 | [HTTP comparison](../results/checks/20260915_readability/http/http.json) | CLI, API, and saved scores agree on all 345 validation specimens | Software consistency, not new classifier evaluation |
@@ -75,6 +76,14 @@ checked the full study and supplements. The 1,395 specimens include 1,193
 transplant biopsies and 202 native-kidney controls, some with native-kidney disease.
 The updated population description qualifies the existing results; it does not
 change saved runs. Timed rehearsals remain pending.
+
+The September 21 review reconciles the dated source-review statement, adds the
+native-control qualification to the demo and future generated reports, and
+corrects the presentation's constant-threshold and logistic-setting descriptions.
+The [methodology comparison](METHODOLOGY_REVIEW.md) explains the defensible choices
+and the remaining weaknesses. The [correction checks](../results/checks/20260921_source_review/README.md)
+record software and presentation checks and confirm that the preserved baseline
+and service run artifacts are intact.
 
 ## Keep the main story short
 

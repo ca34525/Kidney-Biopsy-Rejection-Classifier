@@ -155,6 +155,7 @@
   "related": [
     {"path": "results/analysis/20260915_baseline/REPORT.md", "label": "Primary report and editable figures"},
     {"path": "docs/references/STUDY_AUDIT_20260919.md", "label": "Source population and independence review"},
+    {"path": "docs/METHODOLOGY_REVIEW.md", "label": "Methodology compared with the source study"},
     {"path": "scripts/review_viral_targets.py", "label": "Viral-target follow-up script"},
     {"path": "experiments/rejection_subtypes/run.py", "label": "Subtype follow-up script"},
     {"path": "results/followup/20260917_stability/REPORT.md", "label": "Discovery-only stability follow-up"},
