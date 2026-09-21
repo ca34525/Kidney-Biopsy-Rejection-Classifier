@@ -35,13 +35,14 @@ reports and verification records remain evidence of what was checked at the time
    evidence below; a previous passing revision is not a test of later edits.
 5. **Presentation draft:** The [presentation package](../presentation/README.md)
    contains the editable deck, matching PDF, separate HTML speaking script, and
-   static demonstration fallback. The revised talk has 20 main slides and 8 backup
-   slides, with a full script planned for 20 minutes. PowerPoint notes are not used. Two full
-   timed rehearsals and one interruption/fallback rehearsal remain pending. The
-   revised sequence places the molecular-second-opinion purpose immediately after
-   the biopsy explanation, then presents its supporting evidence before data and
-   methods. The UNOS kidney-photo research connection has a cited backup slide.
-   Visible cues match the topics covered in the script.
+   static demonstration fallback. The revised talk has 19 main slides and no
+   backup slides, with a full script planned for 20 minutes. Slides 1–12 preserve
+   the accepted context, methods, and results. The new section shows the
+   [analysis report](../presentation/analysis_report.html) and application live,
+   then uses slides for shared preparation, the API, verification, and handoff.
+   The full Code Guide and detailed reports remain available for questions.
+   PowerPoint notes are not used. Two full timed rehearsals and one
+   interruption/fallback rehearsal remain pending.
    The [AWS guide](AWS_DEPLOYMENT.md) is a procedure; a cloud deployment has not
    been performed. [Next steps](NEXT_STEPS.md) records deferred research questions
    and product ideas without adding them to the current implementation.
@@ -61,7 +62,7 @@ reports and verification records remain evidence of what was checked at the time
 | [Hosted Software checks #8](https://github.com/ca34525/Kidney-Biopsy-Rejection-Classifier/actions/runs/35270209322) | Installed package, lint, tests, and synthetic-container checks succeeded | PR #2 head `ce34d4c79442098308c89ca4ccb34542c4010216`; previous revision |
 | [Subtype follow-up](../results/followup/20260915_subtypes/REPORT.md) | Four-class comparisons did not justify replacing the binary service | Follow-up on an already examined validation cohort |
 | [Viral-target review](../results/analysis/20260915_viral/REPORT.md) | Describes BK signals and study composition | No viral-feature removal or independent assay-QC experiment |
-| [Presentation draft](../presentation/README.md) | Editable slides, PDF backup, separate HTML speaking script, and static demo fallback | 20-minute timing is planned; real rehearsals remain pending |
+| [Presentation draft](../presentation/README.md) | 19 editable slides, matching PDF, separate HTML script, offline report, and static demo fallback | Slides 1–12 preserved; no backup slides; 20-minute timing is planned and rehearsals remain pending |
 
 The September 17 application work added a walkthrough
 of a prepared public specimen, a bounded discovery-only stability comparison,

@@ -31,7 +31,7 @@ def image(name: str) -> str:
 <title>Captured demonstration · kidney biopsy classifier</title>
 <style>body{{margin:0;font-family:Arial,sans-serif;background:#F7F8F5;color:#16343E}}header{{padding:24px 4vw;background:#16343E;color:white}}h1{{font-size:28px;margin:0 0 10px}}p{{line-height:1.5}}nav{{display:flex;gap:30px}}a{{color:inherit}}main{{max-width:1440px;margin:auto;padding:20px}}img{{display:block;width:100%;height:auto;border:1px solid #CEDBD7}}section{{margin:30px 0 60px}}h2{{font-size:26px}}code{{overflow-wrap:anywhere}}@media print{{header{{background:white;color:#16343E}}section{{break-before:page}}}}</style>
 <header><h1>Captured local demonstration</h1><p>Actual browser captures, 18 September 2026. This page works offline.</p>
-<nav><a href="#valid">Valid public specimen</a><a href="#invalid">Missing IFNG</a><a href="speaking_script.html#slide-{demo_slide}">Speaking script</a></nav></header>
+<nav><a href="#valid">Valid public specimen</a><a href="#invalid">Missing IFNG</a><a href="speaking_script.html#slide-{demo_slide:02d}">Speaking script</a></nav></header>
 <main><p>Saved model: <code>20260915_shared:any_rejection:catboost_all_depth4</code><br>
 Threshold: 0.8765880870219778. The public discovery-screen example demonstrates software behavior, not new validation.</p>
 <p>The captured error counts describe the source study’s validation group: 334 transplant biopsies and 11 native-kidney controls. Public metadata do not identify the native-kidney specimens individually. See the <a href="../docs/references/STUDY_AUDIT_20260919.md">September 19 source review</a>.</p>

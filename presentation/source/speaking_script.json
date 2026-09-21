@@ -1,6 +1,6 @@
 {
   "title": "Classifying Kidney Transplant Rejection from Biopsy RNA — speaking script",
-  "status": "September 21 method-label correction for aloud rehearsal; slide times are approximate and have not been measured.",
+  "status": "September 21 technical-section revision for aloud rehearsal. The first 12 slides are preserved. Only the report walkthrough and application demonstration leave the deck. Timings are approximate and have not been measured.",
   "delivery": "Spoken text belongs in the separate HTML deliverable. PowerPoint notes must remain empty.",
   "planned_seconds": 1200,
   "rehearsal": {
@@ -524,163 +524,65 @@
     },
     {
       "id": 13,
-      "title": "Most CatBoost misses were T-cell rejection",
-      "seconds": 60,
+      "title": "Inspecting the analysis report",
+      "seconds": 45,
       "paragraphs": [
-        "The original diagnoses help me examine CatBoost's 25 misses. It missed six of 56 antibody-mediated specimens, 18 of 95 T-cell-mediated specimens, and one of 18 mixed specimens.",
-        "T-cell rejection accounts for most misses and is also the largest rejection group. About 19 percent of that group was missed, compared with about 11 percent of the antibody-mediated group. One miss among only 18 mixed specimens gives limited evidence about what to expect elsewhere.",
-        "Overall, the model detects 144 of 169 rejection specimens, or 85.2 percent. This is recall, also called sensitivity. On screening, it detected 157 of 174, or 90.2 percent. The validation result is below the 90 percent requirement I used to choose the threshold.",
-        "So the screening rule cannot guarantee performance on new specimens. These errors describe disagreements with the recorded diagnoses. Resolving individual disagreements would require review of the tissue and clinical records."
+        "The slides showed the central comparison. This saved report is the fuller record another analyst could inspect afterward. It includes the error breakdown by diagnosis, uncertainty in the comparisons, and checks of how scores relate to observed rejection.",
+        "Here, the error table keeps each count beside its denominator. The report identifies the underlying tables and the completed model run. I can reproduce these summaries from the saved predictions without refitting the model. I will now show how the application uses that saved model."
       ],
       "actions": [
-        "Compare each subtype miss count with its denominator, then compare screening and validation detection."
+        "Switch to the already-open presentation/analysis_report.html. Briefly show the section navigation and the links to the original report, metrics CSV, and serving-run configuration.",
+        "Use Missed rejection and false flags in the report navigation to show the table with counts and denominators. Do not repeat the model comparison or open the linked files. Then switch to the running application."
       ],
       "visible_cues": [
-        "144 / 169 detected: 85.2% recall (sensitivity) in evaluation",
-        "Screening: 157 / 174 detected (90.2%)",
-        "Evaluation falls below the 90% selection target.",
-        "Misses by recorded diagnosis",
-        "Antibody-mediated: 6 / 56",
-        "T-cell-mediated: 18 / 95",
-        "Mixed: 1 / 18"
+        "Saved analysis for another analyst to inspect",
+        "Full model comparisons",
+        "Errors by recorded diagnosis",
+        "Score reliability and uncertainty",
+        "Live walkthrough of the preserved report"
       ],
       "sources": [
         {
-          "label": "Errors by original diagnosis and screening comparison",
+          "label": "Browser view for the live report walkthrough",
+          "path": "presentation/analysis_report.html"
+        },
+        {
+          "label": "Primary analysis report",
           "path": "results/analysis/20260915_baseline/REPORT.md"
+        },
+        {
+          "label": "Error counts and denominators by diagnosis",
+          "path": "results/analysis/20260915_baseline/errors_by_diagnosis.csv"
+        },
+        {
+          "label": "Recorded analysis inputs, settings, and outputs",
+          "path": "results/analysis/20260915_baseline/analysis_manifest.json"
+        },
+        {
+          "label": "Serving-run configuration available from the report",
+          "path": "results/reproduction/20260915_shared/configuration.json"
         }
       ]
     },
     {
       "id": 14,
-      "title": "The advantage over logistic regression is uncertain",
-      "seconds": 60,
-      "paragraphs": [
-        "CatBoost detected eight more of the 169 rejection specimens than all-RNA logistic regression: a recall difference of 4.73 percentage points. Both made eight false flags among 176 no-rejection specimens.",
-        "To estimate uncertainty in that recall difference, I used a paired bootstrap. I drew 345 validation specimens with replacement, so a specimen could appear repeatedly. I did this 2,000 times. The fitted models and thresholds stayed fixed, and both models used the same draws.",
-        "For each draw, I calculated CatBoost recall minus all-RNA logistic regression recall. The middle 95 percent of those differences, from the 2.5th to the 97.5th percentile, gave an interval of about minus 0.01 to plus 9.74 percentage points. It includes zero, so this comparison did not establish a clear recall advantage.",
-        "That bootstrap held training and selection fixed. A particular training and screening split might favor one model. I therefore asked a different question: would changing those specimen assignments change which model the procedure selected? The next slide shows how I checked."
-      ],
-      "actions": [
-        "Explain what stayed fixed during the bootstrap, then distinguish uncertainty in the recall difference from sensitivity of model choice to the development split."
-      ],
-      "visible_cues": [
-        "CatBoost versus all-RNA logistic regression",
-        "8 more detections among 169 rejection specimens: +4.73 percentage points in recall",
-        "Both made 8 false flags among 176 no-rejection specimens.",
-        "Paired bootstrap: 2,000 resamples of 345 validation specimens, with replacement",
-        "Models and thresholds stayed fixed; both models used the same resampled specimens.",
-        "Calculate CatBoost recall minus all-RNA logistic regression recall for each resample.",
-        "Middle 95%: −0.01 to +9.74 percentage points; the interval includes zero.",
-        "Why check the development split? One training and screening split might favor a model.",
-        "Would different specimen assignments change which model was selected?"
-      ],
-      "sources": [
-        {
-          "label": "Paired uncertainty analysis",
-          "path": "results/analysis/20260915_baseline/REPORT.md"
-        },
-        {
-          "label": "Saved paired confidence intervals",
-          "path": "results/analysis/20260915_baseline/paired_differences.csv"
-        },
-        {
-          "label": "Reason for the discovery-only stability follow-up",
-          "path": "results/followup/20260917_stability/REPORT.md"
-        }
-      ]
-    },
-    {
-      "id": 15,
-      "title": "Model choice depended on the development split",
-      "seconds": 60,
-      "paragraphs": [
-        "I randomly split the 1,050 discovery specimens 20 times, using fixed seeds to make the assignments reproducible. Each time, I set aside 210 specimens for assessment, then 210 for screening, leaving 630 for fitting. Both steps kept the four diagnosis proportions similar.",
-        "Both model families used the same rows and all 758 measurements. Fitting trained each candidate. Screening selected its threshold to retain at least 90 percent recall, then selected by the fewest false flags, using ROC-AUC to break ties. Assessment measured later errors without changing the choice. The 345 author-validation specimens were not used.",
-        "The table shows which model screening selected: CatBoost in 13 of the 20 repetitions and all-RNA logistic regression in seven. Changing the development assignments changed the selected family.",
-        "These repetitions shared specimens, so they were not independent trials and the counts did not prove a winner. They showed that logistic regression remained a credible simpler option. This follow-up did not change the saved model used in the demonstration."
-      ],
-      "actions": [
-        "Follow the three split roles, explain that screening made the choice, then read the selection-count table."
-      ],
-      "visible_cues": [
-        "20 random splits of the 1,050 discovery specimens, with fixed seeds and similar proportions of the four diagnoses",
-        "630 fitting / 210 screening / 210 assessment",
-        "Same rows and all 758 measurements for both model families",
-        "Screening: at least 90% recall, then fewest false flags; ROC-AUC broke ties.",
-        "Assessment measured errors after selection; the 345 author-validation specimens were not used.",
-        "Screening selected CatBoost in 13 / 20 splits and All RNA (Logistic Regression) in 7 / 20.",
-        "The splits overlap; the selection counts do not prove a winner.",
-        "The demonstrated model stayed unchanged."
-      ],
-      "sources": [
-        {
-          "label": "Model selection counts and assessment summary",
-          "path": "results/followup/20260917_stability/summary.json"
-        },
-        {
-          "label": "Development-split design, fixed seeds, and selection rule",
-          "path": "results/followup/20260917_stability/design.json"
-        },
-        {
-          "label": "Screening model choices for all 20 repetitions",
-          "path": "results/followup/20260917_stability/selections.csv"
-        },
-        {
-          "label": "Development-split follow-up report",
-          "path": "results/followup/20260917_stability/REPORT.md"
-        }
-      ]
-    },
-    {
-      "id": 16,
-      "title": "Prediction service and demonstration",
-      "seconds": 60,
-      "paragraphs": [
-        "I will now turn to the software and demonstration. Training and prediction use the same preparation code. The service reads a CSV, checks the required counts, and normalizes them into 758 model inputs. It then scores those inputs with the saved model.",
-        "The command line and the web application both use this code. This matters because a difference in preparation between analysis and the application could change the results.",
-        "The response contains specimen ID, model score, threshold, rejection flag, and model version. The version identifies the saved model. The flag records whether the score crossed its threshold.",
-        "The service loads the model controlled by this project. The caller supplies the count file. Missing measurements, duplicate names, negative counts, and non-finite values produce an error and stop scoring. The next slide shows both a valid request and a missing-measurement error."
-      ],
-      "actions": [
-        "Follow the four preparation and scoring steps, then explain the response and input errors."
-      ],
-      "visible_cues": [
-        "CSV input through the command line or web application",
-        "Training and prediction share the preparation code.",
-        "Read counts / check names and numbers / normalize 758 inputs / score with saved model",
-        "Valid request: specimen ID, model score, threshold, flag, and model version",
-        "Missing or duplicate measurements, negative counts, or non-finite values stop scoring."
-      ],
-      "sources": [
-        {
-          "label": "Application and API contract",
-          "path": "docs/API.md"
-        },
-        {
-          "label": "Shared prediction implementation",
-          "path": "src/kidney_biopsy/prediction.py"
-        }
-      ]
-    },
-    {
-      "id": 17,
       "title": "One public specimen through the service",
       "seconds": 120,
       "paragraphs": [
-        "This is public specimen GSM6510425, recorded as no rejection. It comes from the discovery screening group and demonstrates software behavior. My evaluation results came from the separate validation group.",
-        "I will request its research score. The page identifies the model version and the threshold, approximately 0.876588. This specimen receives a score of about 0.275. That is below the threshold, so its rejection flag is false, agreeing with its recorded diagnosis.",
-        "Now I will try the incomplete file. It contains the same public example with IFNG removed. The application clears the previous result and identifies the missing measurement. The error message calls it an assay target. No score is returned. The user has to correct the file before submitting it again."
+        "This is public specimen GSM6510425, recorded as no rejection. It comes from discovery screening and demonstrates software behavior. The evaluation results came from the separate validation group.",
+        "I will request its research score. The page shows the model version and the selected threshold, approximately 0.877. This specimen receives a score of about 0.275. It falls below the threshold, so the rejection flag is false, agreeing with its recorded diagnosis.",
+        "The Follow the specimen section connects that result to the measurements. It shows the actual IFNG count and the same normalization calculation I explained earlier. That is one example of preparing the inputs. The model uses all 758 normalized measurements to produce its score.",
+        "Now I will try the incomplete file. It contains the same example with IFNG removed. The application clears the previous result and names the missing measurement. A missing measurement is different from a measured zero. I require the complete input before calculating a score."
       ],
       "actions": [
-        "Open the running local application and select the public No Rejection example.",
-        "Click Get research score. Show the score, threshold, flag, and model version.",
-        "Click Try an incomplete file. Show the missing-IFNG message and the cleared result, then return to the presentation.",
-        "If the application is unavailable, use the supplied static capture and identify it as a captured run."
+        "Select the public No Rejection example and click Get research score. Point to the score, threshold, flag, and model version.",
+        "Open Follow the specimen and briefly point to IFNG. Do not repeat the full normalization explanation or expand all 12 housekeeping measurements.",
+        "Click Try an incomplete file. Show Missing required assay targets: IFNG and the cleared result. Return to the presentation for Shared preparation and scoring.",
+        "If the application is unavailable, open demo_fallback.html, identify it as a captured run, and show its valid and invalid examples."
       ],
       "visible_cues": [
-        "GSM6510425: recorded no rejection",
-        "Model score: 0.274934; selected threshold: 0.876588; flag: false (below cutoff)",
+        "GSM6510425: recorded no rejection.",
+        "Model score: 0.274934; selected threshold: 0.876588; rejection flag: False (below cutoff)",
         "Model: 20260915_shared:any_rejection:catboost_all_depth4",
         "The complete input produces a flag that agrees with the recorded diagnosis.",
         "Removing IFNG clears the previous result and returns no new score.",
@@ -692,430 +594,238 @@
           "path": "data/demo/manifest.json"
         },
         {
-          "label": "Demo behavior and exact invalid-input response",
+          "label": "Demo behavior and input contract",
           "path": "docs/API.md"
         },
         {
           "label": "Recorded browser arithmetic and score check",
           "path": "results/checks/20260917_coherence/browser_review.json"
+        },
+        {
+          "label": "Captured valid and invalid demonstration",
+          "path": "presentation/demo_fallback.html"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Shared preparation and scoring",
+      "seconds": 70,
+      "paragraphs": [
+        "The main software decision was to keep one preparation calculation for the analysis and the application. A difference between them could change the score even when the raw measurements are identical.",
+        "This excerpt is the prediction entry point for raw counts. The first line calls normalize_counts, the same function used during model development. It checks the measurements and applies the housekeeping adjustment. The schema supplies the required measurement names and their expected order.",
+        "The second line passes those normalized values to the saved model. The prediction code then compares the score with its saved threshold and attaches the model version.",
+        "Both the command-line tool and the web application call this prediction code. If I later change an input check, I can make that change in one place and check both routes. The short method makes that shared calculation easy to find and review."
+      ],
+      "actions": [
+        "Follow the flow from raw counts to the saved model and threshold. Then point to the two calculation lines inside Predictor.predict. Explain the calls without reading Python punctuation aloud."
+      ],
+      "visible_cues": [
+        "The analysis and application use the same preparation code.",
+        "Raw RNA counts",
+        "Check and normalize",
+        "Saved model and threshold",
+        "Application entry point: Predictor.predict",
+        "normalized = normalize_counts(counts, self.schema)",
+        "return self.predict_normalized(normalized)",
+        "The web page and command line both use this prediction path."
+      ],
+      "sources": [
+        {
+          "label": "Raw-count prediction entry point and result fields",
+          "path": "src/kidney_biopsy/prediction.py"
+        },
+        {
+          "label": "Input checks and shared normalization",
+          "path": "src/kidney_biopsy/preprocessing.py"
+        },
+        {
+          "label": "Training workflow using shared preparation",
+          "path": "experiments/rejection_public/run.py"
+        },
+        {
+          "label": "Code Guide reference",
+          "path": "docs/CODE_GUIDE.html"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "title": "An interface other software can call",
+      "seconds": 70,
+      "paragraphs": [
+        "The web page is one way to use the model. I also gave it an API: a documented way for another program to send measurements and receive results. A developer could connect their own application to this interface.",
+        "The request sends a CSV containing a specimen ID and the 770 raw counts, including the 12 housekeeping measurements. The ID keeps each result attached to the right source record. It does not enter the model.",
+        "The response is structured JSON that another program can read. This example shows the same specimen from the demo, with its score, threshold, and flag. The model version and input-schema version accompany each result. They identify the saved model and the expected set of measurements.",
+        "Keeping those fields together lets another application explain the decision and record how I calculated it. The service uses its configured model and threshold for every request."
+      ],
+      "actions": [
+        "Follow CSV, POST /predict, and JSON from left to right, then explain the example result. Identify the model and input-schema versions as the information another developer receives with each prediction."
+      ],
+      "visible_cues": [
+        "API: a documented way for software to send data and receive results.",
+        "CSV: Specimen ID + 770 counts",
+        "POST /predict",
+        "JSON: Prediction results",
+        "Each result identifies the calculation",
+        "Specimen GSM6510425; score 0.274934; threshold 0.876588; flag False",
+        "Model and input-schema versions accompany each result."
+      ],
+      "sources": [
+        {
+          "label": "API input, output, and failure contract",
+          "path": "docs/API.md"
+        },
+        {
+          "label": "Response construction",
+          "path": "src/kidney_biopsy/prediction.py"
+        },
+        {
+          "label": "HTTP request handling",
+          "path": "src/kidney_biopsy/api.py"
+        },
+        {
+          "label": "Public example values",
+          "path": "results/checks/20260917_coherence/browser_review.json"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Checking the application against the analysis",
+      "seconds": 95,
+      "paragraphs": [
+        "Moving a model into an application should preserve its answers. I checked that by sending all 345 validation specimens through a running HTTP service, then comparing its results with the command-line tool and the saved analysis.",
+        "I deliberately reversed the input columns. A valid file should produce the same answer when its columns change position, because the software matches measurements by name. The verification code also checks the specimen IDs before comparing their results.",
+        "The assertion on this slide compares the HTTP scores with the command-line scores. I allowed an absolute difference of one times ten to the minus twelve for numerical rounding. The same script also compares the saved analysis scores and checks the rejection flags. All 345 results agreed within the tolerance, and every flag matched.",
+        "The table shows two failures I tested. Missing or duplicate measurements stop the whole batch, with no partial predictions. Incompatible model metadata stops the model from loading.",
+        "These checks test whether the application performs the intended calculation and handles the tested failures. The separate model evaluation answers how often that calculation agrees with the recorded diagnosis."
+      ],
+      "actions": [
+        "Point to the HTTP-versus-command-line assertion. Explain that companion checks in the same script compare the saved analysis scores and flags.",
+        "Use the two failure rows to explain the expected behavior. Keep the slide visible throughout."
+      ],
+      "visible_cues": [
+        "All 345 validation specimens",
+        "Saved results, command line and HTTP service had matching flags.",
+        "Scores agreed within 10^-12, including reordered measurement columns.",
+        "np.testing.assert_allclose(actual.rejection_score, cli.rejection_score, rtol=0, atol=1e-12)",
+        "Missing or duplicate measurements: no scores for the batch",
+        "Incompatible model metadata: model does not load"
+      ],
+      "sources": [
+        {
+          "label": "Real HTTP agreement check",
+          "path": "scripts/verify_http_service.py"
+        },
+        {
+          "label": "Recorded 345-specimen HTTP result",
+          "path": "results/checks/20260917_coherence/http/http.json"
+        },
+        {
+          "label": "Consequential input and model-compatibility tests",
+          "path": "tests/test_shared_prediction.py"
+        },
+        {
+          "label": "API error and batch tests",
+          "path": "tests/test_api.py"
+        },
+        {
+          "label": "Dated software verification record",
+          "path": "results/checks/20260917_coherence/README.md"
         }
       ]
     },
     {
       "id": 18,
-      "title": "The service reproduces all 345 saved scores",
-      "seconds": 50,
+      "title": "Running and maintaining the application",
+      "seconds": 70,
       "paragraphs": [
-        "The table shows checks for failures that could change results. Reordering valid columns must preserve scores. Missing or duplicate measurements, negative counts, and non-finite values must produce errors. An incompatible model and input definition must stop model loading.",
-        "I also compared the service with the saved analysis on all 345 validation specimens. The HTTP API, command line, and saved scores agreed within one times ten to the minus twelve, and every rejection flag matched.",
-        "The September seventeenth verification record reports 94 passing tests. A local research container served the public examples and rejected invalid input. These checks establish that the software reproduces the saved results and handles the tested input errors."
+        "For another developer to use this work, the setup needs to be explicit. The repository includes a locked dependency list, commands to install the application, and instructions to reproduce the analysis or run the saved model.",
+        "I added automated checks that run when code is pushed or a pull request is opened. They check the installed package, run the tests, and build a container with a small synthetic model. This keeps routine checks independent of the public dataset and the full training run.",
+        "The verification record includes a successful hosted run for an earlier revision. The later application changes have separate local checks. I also built and tested a local container with the actual research model, including valid predictions and an invalid request.",
+        "That gives a developer documented setup, repeatable checks, and a tested way to run the application. The cloud deployment remains future work."
       ],
       "actions": [
-        "Explain the check-and-behavior table, then the agreement across all 345 specimens."
+        "Follow the three table rows: locked environment and run instructions, automated checks, and the tested local container. Use the note below the table to distinguish the earlier hosted pass from the later local checks."
       ],
       "visible_cues": [
-        "The service reproduces all 345 saved scores.",
-        "API, command line, and saved evaluation agree within 10^-12.",
-        "Reordered columns: same model score",
-        "Invalid or incomplete counts: no score",
-        "Incompatible model metadata: model does not load",
-        "94 tests passed, including these failure cases.",
-        "The local container was checked. Cloud deployment is deferred."
+        "Locked Python environment and run instructions: install the recorded dependencies and start the service.",
+        "Automated checks on code changes: catch changes that break scoring or input handling.",
+        "Tested local container: run the packaged application with its model.",
+        "Hosted checks passed for an earlier revision.",
+        "The current application and research container were checked locally.",
+        "Cloud deployment remains future work."
       ],
       "sources": [
         {
-          "label": "Current local verification record",
-          "path": "results/checks/20260917_coherence/README.md"
+          "label": "Setup and reproduction commands",
+          "path": "README.md"
         },
         {
-          "label": "HTTP score agreement",
-          "path": "results/checks/20260917_coherence/http/http.json"
+          "label": "Locked package versions",
+          "path": "uv.lock"
         },
         {
-          "label": "Research container checks",
+          "label": "Automated software-check workflow",
+          "path": ".github/workflows/checks.yml"
+        },
+        {
+          "label": "Hosted and local evidence distinguished by revision",
+          "path": "docs/VERIFICATION.md"
+        },
+        {
+          "label": "Recorded local research-container checks",
           "path": "results/checks/20260917_coherence/container.json"
+        },
+        {
+          "label": "Container handoff instructions",
+          "path": "docs/CONTAINERS.md"
         }
       ]
     },
     {
       "id": 19,
-      "title": "Possible next steps",
-      "seconds": 60,
-      "paragraphs": [
-        "These are ideas for extending my personal project. I compared models against recorded diagnoses in one public dataset. I would want to learn whether those results hold on other transplant biopsies.",
-        "One possible extension would test the saved models and thresholds on another dataset, retaining logistic regression as a comparison. Patient and center identifiers would allow checks for overlap, and laboratory quality records would help assess assay consistency. A transplant-only dataset would also avoid mixing in native-kidney controls.",
-        "A separate question is whether RNA adds useful evidence when a biopsy is difficult to interpret. Investigating that would require clinical collaborators and examples of the uncertain diagnoses this project has not directly evaluated.",
-        "One possible approach would compare specialist assessment with and without the RNA score, using independent review and follow-up outcomes to examine any changes in interpretation or care. These are possible research questions beyond the analysis and demonstration I completed here."
-      ],
-      "actions": [
-        "Present these as hypothetical extensions of a personal project. Explain the separate questions about another dataset and added clinical information."
-      ],
-      "visible_cues": [
-        "Ideas for extending this personal project",
-        "Would the results hold in another dataset?",
-        "Test the saved models and thresholds on new transplant biopsies",
-        "Record patient, center and lab quality information",
-        "Would RNA help with uncertain biopsies?",
-        "With clinical collaborators, compare assessment with and without the RNA score",
-        "Review decisions and follow-up outcomes"
-      ],
-      "sources": [
-        {
-          "label": "Research context and assay-quality limits",
-          "path": "docs/RESEARCH_CONTEXT.md"
-        },
-        {
-          "label": "Primary evaluation limits",
-          "path": "results/analysis/20260915_baseline/REPORT.md"
-        },
-        {
-          "label": "Deferred research questions",
-          "path": "docs/NEXT_STEPS.md"
-        },
-        {
-          "label": "Banff current reference guide: molecular assessment in difficult cases",
-          "url": "https://banfffoundation.org/central-repository-for-banff-classification-resources-3/"
-        },
-        {
-          "label": "Banff 2022 Kidney Meeting Work Plan, published 2024: evaluating molecular diagnostics",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11135910/"
-        },
-        {
-          "label": "Zhang et al., 2024, Discussion, page 11: excluded diagnostic categories",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
-        },
-        {
-          "label": "September 19 full-study review with exact source pages",
-          "path": "docs/references/STUDY_AUDIT_20260919.md"
-        }
-      ]
-    },
-    {
-      "id": 20,
       "title": "What this project accomplished",
       "seconds": 45,
       "paragraphs": [
-        "The project has two completed parts: a reproducible model comparison and a working prediction service.",
-        "For modeling, CatBoost missed 14.8 percent of the 169 recorded rejection specimens: 25 cases. It incorrectly flagged 4.5 percent of the 176 no-rejection specimens: eight cases. Compared with IFNG, it made fewer false flags but more misses. Its advantage over logistic regression remains uncertain.",
-        "For software, the shared preparation and scoring code reproduced all 345 saved evaluation scores. The demonstration shows a valid specimen being scored and a clear error when required input is missing.",
-        "Zhang and colleagues supplied the public study. AI assisted with this presentation, and the quantitative claims trace to saved project runs. Thank you."
+        "I completed a reproducible model comparison. Compared with IFNG alone, the combined measurements reduced false flags but missed more rejection cases. CatBoost's practical advantage over logistic regression remains uncertain.",
+        "I also built working software that preserves the calculation. It returns a versioned score, explains incomplete input, and reproduces the saved results across all 345 validation specimens.",
+        "The next research question is whether the molecular score adds useful evidence when specialists assess uncertain biopsies. That needs direct evaluation.",
+        "Zhang and colleagues supplied the public data. AI assisted with development and this presentation. Thank you."
       ],
       "actions": [
-        "Summarize the modeling section, then the service and demo section. Thank the panel and take questions."
+        "Summarize the model comparison first, then the software. State the remaining research question briefly and thank the panel. Questions follow the full 20-minute talk."
       ],
       "visible_cues": [
-        "Model comparison",
-        "CatBoost, 345 evaluation specimens",
-        "14.8% missed: 25 of 169 recorded rejection specimens",
-        "4.5% false flags: 8 of 176 recorded no-rejection specimens",
-        "Fewer false flags than IFNG, but more misses",
-        "Advantage over logistic regression remains uncertain",
-        "Prediction service and demo",
-        "Shared preparation code reproduced all 345 saved scores",
-        "Working demo with valid input and clear error messages",
-        "Public data: Zhang et al. (2024), GSE212160; presentation prepared with AI assistance"
+        "A reproducible model comparison",
+        "Combined measurements reduced false flags, with a tradeoff in missed cases.",
+        "The practical advantage over logistic regression remains uncertain.",
+        "Working software that preserves the calculation",
+        "A versioned score, clear input errors and checks against the saved results.",
+        "Added value for uncertain biopsies still needs direct evaluation.",
+        "Public data: Zhang et al. (2024), GSE212160. Development and presentation used AI assistance."
       ],
       "sources": [
+        {
+          "label": "Primary analysis and comparison uncertainty",
+          "path": "results/analysis/20260915_baseline/REPORT.md"
+        },
+        {
+          "label": "Recorded software checks",
+          "path": "results/checks/20260917_coherence/README.md"
+        },
+        {
+          "label": "Research purpose and further evaluation",
+          "path": "docs/RESEARCH_CONTEXT.md"
+        },
         {
           "label": "Original study",
           "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
-        },
-        {
-          "label": "Frozen primary analysis",
-          "path": "results/analysis/20260915_baseline/REPORT.md"
-        },
-        {
-          "label": "Project verification evidence",
-          "path": "docs/VERIFICATION.md"
         }
       ]
     }
   ],
-  "backups": [
-    {
-      "id": 21,
-      "title": "Backup: measuring biopsy RNA with NanoString nCounter",
-      "seconds": 0,
-      "paragraphs": [
-        "RNA includes messages cells make when genes are active. Measuring those messages gives me information about activity in the biopsy tissue.",
-        "An assay is a laboratory test. NanoString nCounter is the measurement system used for the public dataset. B-HOT is the panel: the fixed list of RNA types selected for measurement. An assay target means the type of RNA that a probe recognizes.",
-        "The laboratory extracts RNA from preserved tissue. Probes recognize selected RNAs, and NanoString nCounter counts their identifying barcodes. Each resulting count is a number associated with a named RNA measurement.",
-        "For example, IFNG is one of the measurements. Its raw count is four in the public specimen used in the preparation example and application demonstration."
-      ],
-      "actions": [
-        "Explain the instrument and panel, then point to the IFNG count of 4."
-      ],
-      "visible_cues": [
-        "RNA includes messages cells make when genes are active.",
-        "An assay is a laboratory test.",
-        "B-HOT panel: a fixed list of RNA molecules to measure",
-        "An assay target is the type of RNA that a probe recognizes.",
-        "The laboratory extracts RNA from preserved tissue. Probes recognize selected RNAs, and NanoString nCounter counts their identifying barcodes.",
-        "Example: IFNG count = 4 in one public specimen"
-      ],
-      "sources": [
-        {
-          "label": "GSE212160 public study deposit",
-          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160"
-        },
-        {
-          "label": "Bruker: nCounter technology and molecular barcodes",
-          "url": "https://brukerspatialbiology.com/support/knowledgebase/ncounterkb/"
-        },
-        {
-          "label": "B-HOT panel consensus",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7496585/"
-        },
-        {
-          "label": "Project data contract",
-          "path": "docs/PROJECT_SPEC.md"
-        },
-        {
-          "label": "Public example provenance",
-          "path": "data/demo/manifest.json"
-        },
-        {
-          "label": "Demo behavior and exact invalid-input response",
-          "path": "docs/API.md"
-        },
-        {
-          "label": "Recorded browser arithmetic and score check",
-          "path": "results/checks/20260917_coherence/browser_review.json"
-        }
-      ]
-    },
-    {
-      "id": 22,
-      "title": "Backup: complete primary comparison",
-      "seconds": 0,
-      "paragraphs": [
-        "This table compares the four models on the same 345 validation specimens. Miss counts use the 169 recorded rejection specimens. False-flag counts use the 176 recorded no-rejection specimens. Sensitivity is the fraction of rejection specimens flagged. Specificity is the fraction of no-rejection specimens left unflagged.",
-        "CatBoost has 85.2 percent sensitivity and 95.5 percent specificity, compared with 80.5 and 95.5 percent for all-RNA logistic regression. IFNG-only logistic regression detects a larger fraction of rejection specimens, at 91.7 percent sensitivity, but its specificity is 57.4 percent. The constant baseline flags everyone. The two logistic models used the same algorithm with one versus 758 normalized measurements.",
-        "ROC-AUC describes how well the scores rank rejection above no rejection across possible thresholds. CatBoost has ROC-AUC 0.969, logistic regression 0.956, IFNG 0.842, and the constant baseline 0.500. I selected the RNA-model thresholds on discovery screening. The constant baseline uses a fixed threshold of 0.5."
-      ],
-      "actions": [
-        "Use the relevant metric column and keep its denominator clear."
-      ],
-      "sources": [
-        {
-          "label": "Full metrics and uncertainty",
-          "path": "results/analysis/20260915_baseline/REPORT.md"
-        }
-      ],
-      "visible_cues": [
-        "CatBoost, All RNA (Logistic Regression), IFNG only (Logistic regression), and constant models",
-        "Misses / false flags / sensitivity / specificity / ROC-AUC",
-        "Denominators: 169 rejection and 176 no rejection",
-        "Fixed thresholds per model"
-      ]
-    },
-    {
-      "id": 23,
-      "title": "Backup: normalization and model settings",
-      "seconds": 0,
-      "paragraphs": [
-        "For each RNA measurement, add one to the raw count and take its base-two logarithm. Subtract the average of the 12 housekeeping counts after applying the same log transformation. This expresses the measurement relative to the specimen's housekeeping reference. The 758 resulting values are the model inputs.",
-        "Logistic regression has one additional preparation step. For each normalized measurement, calculate its average and standard deviation across training specimens. Subtract that average and divide by that standard deviation. Reuse those same training values for screening, validation, and future requests. This puts the measurements on comparable scales. CatBoost does not use that additional scaling step here.",
-        "The all-RNA logistic regression uses regularization setting C equal to 0.1. The IFNG-only logistic regression uses C equal to 1. The selected CatBoost model uses 300 trees with depth four and learning rate 0.04. These settings describe the saved comparison."
-      ],
-      "actions": [
-        "Use the formula for normalization questions and the training averages for logistic-scaling questions."
-      ],
-      "sources": [
-        {
-          "label": "Normalization implementation",
-          "path": "src/kidney_biopsy/preprocessing.py"
-        },
-        {
-          "label": "Frozen model metadata",
-          "path": "results/reproduction/20260915_shared/any_rejection_frozen.json"
-        },
-        {
-          "label": "Selection specification",
-          "path": "docs/PROJECT_SPEC.md"
-        }
-      ],
-      "visible_cues": [
-        "Normalized measurement = log2(raw count + 1) minus the mean of 12 housekeeping log2(count + 1) values",
-        "All RNA (Logistic Regression): subtract each feature's training mean and divide by its training standard deviation; C = 0.1",
-        "Reuse those values for later specimens; regularization C = 0.1",
-        "CatBoost: no additional feature scaling",
-        "300 trees, depth 4, learning rate 0.04"
-      ]
-    },
-    {
-      "id": 24,
-      "title": "Backup: interpreting model scores",
-      "seconds": 0,
-      "paragraphs": [
-        "This plot groups the 345 validation specimens into ten fixed CatBoost score ranges. Within each range, it compares the average score with the fraction of specimens recorded as rejection. The diagonal shows where the model score and observed fraction would match.",
-        "In the highlighted range from 0.8 to 0.9, the mean score is 0.847. Seven of the 16 specimens have recorded rejection, or 43.8 percent. The displayed 95 percent interval for that fraction runs from 23.1 to 66.8 percent. The group is small, and this range was highlighted after inspecting the plot.",
-        "A model can rank specimens well while its numerical scores differ from the observed rejection fractions. I did not fit a calibration model on these validation specimens. The application therefore calls its output a model score."
-      ],
-      "actions": [
-        "Keep the 16-specimen count visible when explaining the highlighted range."
-      ],
-      "sources": [
-        {
-          "label": "Score reliability analysis",
-          "path": "results/analysis/20260915_baseline/REPORT.md"
-        }
-      ],
-      "visible_cues": [
-        "CatBoost on 345 validation specimens",
-        "Mean model score / recorded rejection fraction",
-        "Score bin 0.8–0.9",
-        "Mean score: 0.847",
-        "Recorded rejection: 7 / 16",
-        "Observed fraction: 43.8%; 95% interval: 23.1–66.8%",
-        "Diagonal: score equals observed rejection fraction",
-        "No recalibration fitted"
-      ]
-    },
-    {
-      "id": 25,
-      "title": "Backup: rejection subtype follow-up",
-      "seconds": 0,
-      "paragraphs": [
-        "This follow-up compared models trained on the four diagnoses with the original model trained on rejection versus no rejection. The table converts each result to the same any-rejection question using rules selected in discovery, so these error counts are comparable.",
-        "The original binary CatBoost model misses 25 of 169 rejection specimens with eight false flags among 176 no-rejection specimens. Four-class CatBoost misses 29 with eight false flags. Four-class logistic regression misses 28 with ten false flags. Separate antibody and T-cell component models miss 24 with 15 false flags. That last approach detects one additional rejection specimen while adding seven false flags.",
-        "For the separate subtype question, four-class logistic regression correctly identifies ten of 18 mixed diagnoses and makes five false mixed calls among 327 non-mixed specimens.",
-        "The follow-up supplied no reason to replace the binary service. Because I had already examined this validation group, the findings need confirmation in a new cohort."
-      ],
-      "actions": [
-        "Explain the common any-rejection comparison before discussing the separate mixed-diagnosis result."
-      ],
-      "sources": [
-        {
-          "label": "Subtype follow-up",
-          "path": "results/followup/20260915_subtypes/REPORT.md"
-        }
-      ],
-      "visible_cues": [
-        "Model / any-rejection misses / false flags",
-        "Binary CatBoost: 25 / 169; 8 / 176",
-        "Four-class CatBoost: 29 / 169; 8 / 176",
-        "Four-class logistic: 28 / 169; 10 / 176",
-        "Separate component models: 24 / 169; 15 / 176",
-        "Four-class logistic recognized 10 / 18 mixed diagnoses, with 5 false mixed calls among 327 non-mixed specimens.",
-        "Reuses the examined validation cohort; needs independent confirmation"
-      ]
-    },
-    {
-      "id": 26,
-      "title": "Backup: dataset, assay and deployment limits",
-      "seconds": 0,
-      "paragraphs": [
-        "The full article and supplements do not document the number of unique patients, a rule for repeat biopsies, or allocation that separates patients and referring centers between groups. All specimens were processed at Arkana Laboratories. Specimen-level uncertainty intervals could be too narrow if some observations are related.",
-        "The evaluated dataset includes 202 native-kidney controls: 191 in discovery and 11 in validation. The public specimen metadata do not map those controls to individual records, so my current validation counts cannot be presented as a transplant-only evaluation.",
-        "The study excluded borderline acute T-cell-mediated rejection, chronic inactive antibody-mediated rejection, and chronic active T-cell-mediated rejection with mild or minimal inflammation, defined as an i score below two. These specific exclusions limit evidence for those difficult categories. They do not establish that every ambiguous biopsy was excluded.",
-        "The software checks required measurements and usable numeric counts. The project did not independently repeat laboratory quality checks such as control-probe or imaging checks. Meaningful inputs still require a compatible assay and completed laboratory quality checks.",
-        "The score analysis does not establish reliable individual probabilities. The service labels its output a model score. The local research container has been tested, while cloud deployment remains deferred."
-      ],
-      "actions": [
-        "Answer the relevant limitation and explain what additional evidence would address it."
-      ],
-      "sources": [
-        {
-          "label": "Assay-group analysis",
-          "path": "results/analysis/20260915_baseline/REPORT.md"
-        },
-        {
-          "label": "Assay-quality scope",
-          "path": "docs/RESEARCH_CONTEXT.md"
-        },
-        {
-          "label": "Local research container checks",
-          "path": "results/checks/20260917_coherence/container.json"
-        },
-        {
-          "label": "Zhang et al., 2024, pages 2–3, 10–11: cohort construction, native controls, and exclusions",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
-        },
-        {
-          "label": "September 19 full-study review with exact source pages",
-          "path": "docs/references/STUDY_AUDIT_20260919.md"
-        }
-      ],
-      "visible_cues": [
-        "One processing laboratory; patient and referring-center separation not documented",
-        "202 native-kidney controls included; evaluation is not transplant-only",
-        "Some difficult diagnoses excluded, including borderline acute T-cell-mediated rejection",
-        "Laboratory assay quality: file checks tested; laboratory quality not independently assessed",
-        "Individual probabilities: score calibration remains limited",
-        "Cloud deployment: local container tested; cloud work deferred"
-      ]
-    },
-    {
-      "id": 27,
-      "title": "Backup: sources and contributions",
-      "seconds": 0,
-      "paragraphs": [
-        "Zhang and colleagues supplied the public study and the GSE212160 deposit. For this personal project, I used their raw measurements for a rejection-versus-no-rejection comparison. It does not reconstruct their published classifier.",
-        "The project provides saved model runs, shared preparation and prediction software, and a tested local demonstration. Configurations, input hashes, reports, and source code make the quantitative claims inspectable.",
-        "The presentation guide draws on Bourne for audience and rehearsal, Kosslyn and colleagues for presentation flaws, Garner and Alley for connecting statements to evidence, and Rougier and colleagues for clear figures. AI assisted with preparing this presentation."
-      ],
-      "actions": [
-        "Describe the presenter's actual contribution when asked; check the wording before the interview."
-      ],
-      "sources": [
-        {
-          "label": "Zhang et al., 2024",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
-        },
-        {
-          "label": "GSE212160",
-          "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160"
-        },
-        {
-          "label": "B-HOT panel consensus",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7496585/"
-        },
-        {
-          "label": "Presentation guide and dated references",
-          "path": "docs/PRESENTATION_GUIDE.md"
-        },
-        {
-          "label": "Project source manifest",
-          "path": "data/manifest.json"
-        }
-      ],
-      "visible_cues": [
-        "Public study: Zhang et al., Laboratory Investigation (2024), GSE212160 raw NanoString B-HOT measurements",
-        "This personal project: binary comparisons and runs produced here, shared preparation code, tested local prediction service",
-        "Presentation guidance: Bourne (2007), Kosslyn et al. (2012), Garner and Alley (2013), Rougier et al. (2014)"
-      ]
-    },
-    {
-      "id": 28,
-      "title": "Backup: UNOS research connection",
-      "seconds": 0,
-      "paragraphs": [
-        "UNOS researchers have studied whether artificial intelligence can identify anatomical issues from donor-kidney photographs. They used historical transplant and refusal records to label the images. Their stated aim includes supporting clinical decisions and making anatomical assessment more consistent.",
-        "The connection is the research approach: learn from existing assessments to develop an additional source of evidence for transplant professionals. Here, the inputs are RNA measurements and the question concerns rejection in biopsy tissue.",
-        "These are different clinical tasks. The UNOS example provides context for the approach. It does not endorse this project or establish that my classifier improves clinical decisions."
-      ],
-      "actions": [
-        "Explain the different inputs and clinical questions before drawing the research connection."
-      ],
-      "visible_cues": [
-        "UNOS researchers studied anatomical issues in donor kidney photographs.",
-        "Labels came from records of transplantation or refusal because of anatomy concerns.",
-        "The intended use is to support clinical assessment and improve consistency.",
-        "The connection: use recorded assessments to develop additional evidence for specialists.",
-        "This is a different clinical task and does not validate my classifier."
-      ],
-      "sources": [
-        {
-          "label": "UNOS, June 2, 2026: Using AI to identify kidney anatomy issues",
-          "url": "https://unos.org/news/using-ai-to-identify-kidney-anatomy-issues/"
-        },
-        {
-          "label": "Project research context",
-          "path": "docs/RESEARCH_CONTEXT.md"
-        }
-      ]
-    }
-  ],
-  "revision": "2026-09-21: distinguish the constant baseline's fixed threshold of 0.5 from the RNA-model thresholds selected on discovery screening. Identify C = 0.1 as the all-RNA logistic setting and C = 1 as the IFNG-only setting. The September 20 slide sequence, 20 main slides, 8 backups, and 20-minute planned time are retained. Slide 11 and all reported results are unchanged."
+  "backups": [],
+  "revision": "2026-09-21: preserve slides 1–12 and their timings, replace all later material with a report walkthrough, live application demonstration, shared preparation and scoring, API contract, verification, handoff, and conclusion. The deck has 19 main slides, no backup slides, and a planned 20-minute delivery. The report and demonstration are the only live walkthroughs. Code Guide selections now appear as editable slide content. PowerPoint notes remain empty."
 }

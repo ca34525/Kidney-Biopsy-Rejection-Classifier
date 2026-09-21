@@ -2,6 +2,7 @@
 from pathlib import Path
 import hashlib
 import json
+import posixpath
 import re
 import xml.etree.ElementTree as ET
 import zipfile
@@ -10,20 +11,109 @@ from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "presentation"
+EXPECTED_MAIN_SLIDES = 19
+EXPECTED_BACKUP_SLIDES = 0
+EXPECTED_CHART_SLIDES = [12]
+PRESERVED_SLIDE_COUNT = 12
+BASELINE = ROOT / "build/presentation/before-technical-slides-20260921/unos_kidney_biopsy.pptx"
+REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+NS = {
+    "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
+    "c": "http://schemas.openxmlformats.org/drawingml/2006/chart",
+}
+
+
+def sha(file: Path) -> str:
+    return hashlib.sha256(file.read_bytes()).hexdigest()
+
+
+def relationships(archive: zipfile.ZipFile, part: str) -> dict:
+    """Resolve package references independently of exporter-generated IDs."""
+    folder, name = posixpath.split(part)
+    rel_part = posixpath.join(folder, "_rels", name + ".rels")
+    if rel_part not in archive.namelist():
+        return {}
+    result = {}
+    for relation in ET.fromstring(archive.read(rel_part)):
+        target = relation.attrib["Target"]
+        mode = relation.get("TargetMode", "Internal")
+        if mode != "External":
+            target = posixpath.normpath(posixpath.join(folder, target)).lstrip("/")
+        result[relation.attrib["Id"]] = (relation.attrib["Type"], target, mode)
+    return result
+
+
+def semantic_xml(archive: zipfile.ZipFile, part: str) -> tuple:
+    """Keep content, formatting and geometry, omitting volatile creation IDs."""
+    references = relationships(archive, part)
+
+    def element_value(element: ET.Element) -> tuple:
+        attributes = []
+        for key, value in element.attrib.items():
+            if key.startswith("{" + REL_NS + "}"):
+                value = references[value]
+            attributes.append((key, value))
+        return (
+            element.tag,
+            tuple(sorted(attributes)),
+            element.text or "",
+            tuple(
+                element_value(child)
+                for child in element
+                if child.tag.rsplit("}", 1)[-1] != "creationId"
+            ),
+        )
+
+    return element_value(ET.fromstring(archive.read(part)))
+
+
 data = json.loads((OUT / "source/speaking_script.json").read_text(encoding="utf-8"))
+assert len(data["slides"]) == EXPECTED_MAIN_SLIDES
+assert len(data.get("backups", [])) == EXPECTED_BACKUP_SLIDES
+preservation = {
+    "baseline": BASELINE.relative_to(ROOT).as_posix(),
+    "status": "not checked: archived baseline is unavailable",
+}
 with zipfile.ZipFile(OUT / "unos_kidney_biopsy.pptx") as archive:
     parts = archive.namelist()
     slides = [name for name in parts if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)]
     charts = [name for name in parts if re.search(r"/charts/chart\d+\.xml$", name)]
     workbooks = [name for name in parts if name.endswith(".xlsx")]
-    assert len(slides) == len(data['slides']) + len(data['backups'])
+    assert len(slides) == EXPECTED_MAIN_SLIDES + EXPECTED_BACKUP_SLIDES
     assert not any("notes" in name.lower() for name in parts)
-    assert len(charts) == 2 and len(workbooks) == 2
-    ns = {"a": "http://schemas.openxmlformats.org/drawingml/2006/main"}
-    tables = sum(len(ET.fromstring(archive.read(name)).findall(".//a:tbl", ns)) for name in slides)
+    assert len(charts) == len(workbooks) == len(EXPECTED_CHART_SLIDES)
+    chart_slides = sorted(
+        int(re.search(r"slide(\d+)\.xml$", name).group(1))
+        for name in slides
+        if ET.fromstring(archive.read(name)).findall(".//c:chart", NS)
+    )
+    assert chart_slides == EXPECTED_CHART_SLIDES
+    tables = sum(len(ET.fromstring(archive.read(name)).findall(".//a:tbl", NS)) for name in slides)
+    # The archive is a local revision aid, not a dependency of a clean checkout.
+    # Main-slide renders are compared separately during visual review.
+    if BASELINE.exists():
+        with zipfile.ZipFile(BASELINE) as original:
+            for number in range(1, PRESERVED_SLIDE_COUNT + 1):
+                name = f"ppt/slides/slide{number}.xml"
+                assert semantic_xml(archive, name) == semantic_xml(original, name), (
+                    f"Preserved slide {number} changed its content, formatting, or geometry."
+                )
+            for name in charts:
+                assert semantic_xml(archive, name) == semantic_xml(original, name), (
+                    f"Preserved chart changed: {name}"
+                )
+        preservation = {
+            "baseline": BASELINE.relative_to(ROOT).as_posix(),
+            "baseline_sha256": sha(BASELINE),
+            "status": "passed",
+            "slides": list(range(1, PRESERVED_SLIDE_COUNT + 1)),
+            "comparison": "Slide and chart XML content, formatting and geometry; generated creation IDs ignored and relationship IDs resolved.",
+        }
 assert len(PdfReader(OUT / "unos_kidney_biopsy.pdf").pages) == len(slides)
 assert sum(slide["seconds"] for slide in data["slides"]) == 1200
 sources = [
+    "results/analysis/20260915_baseline/REPORT.md",
+    "results/reproduction/20260915_shared/configuration.json",
     "results/analysis/20260915_baseline/model_metrics.csv",
     "results/analysis/20260915_baseline/reliability_bins.csv",
     "results/analysis/20260915_baseline/errors_by_diagnosis.csv",
@@ -35,6 +125,26 @@ sources = [
     "results/followup/20260915_subtypes/any_rejection_metrics.csv",
     "results/checks/20260917_coherence/checks.json",
     "results/checks/20260917_coherence/http/http.json",
+    "results/checks/20260917_coherence/container.json",
+    "results/checks/20260915_application/fresh_setup_final.json",
+    "src/kidney_biopsy/prediction.py",
+    "src/kidney_biopsy/preprocessing.py",
+    "src/kidney_biopsy/api.py",
+    "experiments/rejection_public/run.py",
+    "tests/test_api.py",
+    "scripts/verify_http_service.py",
+    "scripts/verify_container.py",
+    "scripts/verify_fresh_setup.py",
+    "docs/JOB_REQUIREMENTS.md",
+    "docs/references/JOB_DESCRIPTION.txt",
+    "docs/API.md",
+    "docs/CODE_GUIDE.md",
+    "docs/VERIFICATION.md",
+    "docs/CONTAINERS.md",
+    ".github/workflows/checks.yml",
+    "pyproject.toml",
+    "uv.lock",
+    "Dockerfile",
     "docs/RESEARCH_CONTEXT.md",
     "docs/PRESENTATION_GUIDE.md",
     "docs/PRESENTATION_SPEC.md",
@@ -44,13 +154,9 @@ sources = [
 ]
 
 
-def sha(file: Path) -> str:
-    return hashlib.sha256(file.read_bytes()).hexdigest()
-
-
 manifest = {
     "created": "2026-09-21",
-    "revision": "corrected the constant baseline threshold description and distinguished all-RNA and IFNG-only logistic settings; presentation sequence and reported results unchanged",
+    "revision": data.get("revision", data["status"]),
     "main_slides": len(data['slides']),
     "backup_slides": len(data['backups']),
     "planned_seconds": 1200,
@@ -59,6 +165,8 @@ manifest = {
     "native_tables": tables,
     "native_charts": len(charts),
     "embedded_chart_workbooks": len(workbooks),
+    "native_chart_slides": chart_slides,
+    "preserved_slides": preservation,
     "rehearsals": "pending",
     "sources": {name: sha(ROOT / name) for name in sources},
     "outputs_and_authoring_sources": {

@@ -242,23 +242,25 @@ def main() -> None:
         (backup_options if backup else main_options).append(option)
     title = data.get("title", "Kidney biopsy rejection classifier")
     title = re.sub(r"\s*[—–-]\s*speaking script$", "", title, flags=re.IGNORECASE)
+    backup_picker = '<optgroup label="Backup slides">' + ''.join(backup_options) + '</optgroup>' if backup_options else ''
+    backup_navigation = '<h2>For questions</h2><ol>' + ''.join(backup_links) + '</ol>' if backup_links else ''
     document = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Offline speaking script for the 20-minute kidney biopsy classifier presentation."><title>{escape(title)} · Speaking script</title><style>{CSS}</style></head>
 <body><a class="skip" href="#script">Skip to speaking script</a>
 <header class="toolbar"><span class="brand">Speaking script</span><label class="visually-hidden" for="slide-picker">Go to slide</label>
-<select class="picker" id="slide-picker"><optgroup label="Main talk · 20 minutes">{''.join(main_options)}</optgroup><optgroup label="Backup slides">{''.join(backup_options)}</optgroup></select>
+<select class="picker" id="slide-picker"><optgroup label="Main talk · 20 minutes">{''.join(main_options)}</optgroup>{backup_picker}</select>
 <div class="tools"><button id="previous" aria-label="Previous slide" title="Previous slide (left arrow)">←</button><button id="next" aria-label="Next slide" title="Next slide (right arrow)">→</button></div>
 <div class="tools font-tools"><button id="smaller" aria-label="Decrease script font size">A−</button><span class="font-size" id="font-value" aria-live="polite">21px</span><button id="larger" aria-label="Increase script font size">A+</button></div>
 <div class="tools"><span class="tool-label">Rehearsal</span><output class="timer" id="elapsed" aria-label="Elapsed rehearsal time">0:00</output><button id="timer-toggle">Start</button><button id="timer-reset">Reset</button></div></header>
-<div class="layout"><nav class="index" aria-label="Slide index"><h2>Main talk · 20:00</h2><ol>{''.join(main_links)}</ol><h2>For questions</h2><ol>{''.join(backup_links)}</ol></nav>
+<div class="layout"><nav class="index" aria-label="Slide index"><h2>Main talk · 20:00</h2><ol>{''.join(main_links)}</ol>{backup_navigation}</nav>
 <main id="script"><div class="page-head"><h1>{escape(title)}</h1>
 <p class="intro">Words to say aloud, with delivery cues and the matching slides. The main talk is planned for 20 minutes. Questions follow.</p>
-<div class="file-links"><a href="unos_kidney_biopsy.pptx">PowerPoint slides</a><a href="unos_kidney_biopsy.pdf">PDF backup</a><a href="http://127.0.0.1:8765">Local demonstration</a><a href="demo_fallback.html">Captured demo backup</a></div>
+<div class="file-links"><a href="unos_kidney_biopsy.pptx">PowerPoint slides</a><a href="unos_kidney_biopsy.pdf">PDF backup</a><a href="analysis_report.html">Analysis report</a><a href="http://127.0.0.1:8765">Local demonstration</a><a href="demo_fallback.html">Captured demo backup</a></div>
 <p class="reader-help">Use the slide index or <kbd>←</kbd> / <kbd>→</kbd> to move between slides. <kbd>A−</kbd> / <kbd>A+</kbd> changes the reading size. This file works offline. Links to the local demo require the application to be running.</p></div>
 {''.join(sections)}
 <section class="closing" id="rehearsal"><h2>Rehearsal record</h2><p>The timings above are a plan. No completed rehearsal is recorded in this deliverable. Complete two full timed runs and one run using the demonstration fallback before presenting.</p>
-<p>Check the time at section boundaries. Keep the result counts, the comparison with logistic regression, and the valid and invalid demonstration. If delivery runs long, shorten secondary explanations. Use rehearsal to adjust the pace and keep backup slides for questions.</p>
+<p>Check the time at section boundaries. Keep the result counts, the report walkthrough, and the valid and invalid demonstration. If delivery runs long, shorten secondary explanations. Use rehearsal to adjust the pace. The report and Code Guide remain available for questions.</p>
 <details><summary>Record a rehearsal</summary><p class="log-intro">Enter the measured time after a run and export the record. Entries remain on this page only until it is closed or reloaded.</p>
 <div class="log-form"><label>Date<input id="rehearsal-date" type="date"></label><label>Run<select id="rehearsal-kind"><option>Full timed run 1</option><option>Full timed run 2</option><option>Interruption and fallback run</option><option>Additional run</option></select></label>
 <label>Measured duration (minutes:seconds)<input id="rehearsal-duration" type="text" placeholder="20:00" inputmode="numeric"></label><div class="log-actions"><button id="use-timer">Use timer value</button></div>

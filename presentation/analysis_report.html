@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Primary analysis report · Kidney biopsy classifier</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:25px}body{margin:0;background:#F7F8F5;color:#16343E;font:19px/1.6 Arial,sans-serif}header{padding:28px 5vw;border-bottom:1px solid #CEDBD7}header p{margin:0 0 10px}a{color:#007C78;text-underline-offset:3px}nav{padding:25px 5vw;border-bottom:1px solid #CEDBD7;display:flex;gap:12px 28px;flex-wrap:wrap;font-size:17px}main{max-width:1500px;margin:auto;padding:35px 5vw 80px}h1{font-size:36px;line-height:1.2}h2{font-size:28px;margin:60px 0 18px}p{max-width:100ch}table{border-collapse:collapse;width:100%;font-size:17px;line-height:1.4;margin:24px 0;display:block;overflow:auto}th,td{border:1px solid #CEDBD7;padding:12px 15px;text-align:left}th{background:#16343E;color:white}tr:nth-child(even){background:#EAF1ED}code{overflow-wrap:anywhere;font-size:.9em}.context{border-left:4px solid #007C78;padding-left:18px}.provenance{font-size:14px;color:#52656B;overflow-wrap:anywhere}footer{border-top:1px solid #CEDBD7;padding:25px 5vw}@media print{nav,header .links{display:none}body{font-size:11pt}main{padding:0}table{font-size:9pt;display:table}h2{break-after:avoid}}
+</style></head><body>
+<header><p><strong>Saved primary analysis</strong></p><p class="links"><a href="speaking_script.html#slide-13">Return to speaking script</a> · <a href="../results/analysis/20260915_baseline/REPORT.md">Original Markdown report</a> · <a href="../results/analysis/20260915_baseline/model_metrics.csv">Model metrics CSV</a> · <a href="../results/reproduction/20260915_shared/configuration.json">Serving-run configuration</a></p>
+<p class="context">Population clarification from the September 19 source review: the 345 evaluation specimens include 334 transplant biopsies and 11 native-kidney controls. The deposited metadata do not identify those controls individually. <a href="../docs/references/STUDY_AUDIT_20260919.md">Source review</a>.</p>
+<p class="provenance">The report below preserves the completed analysis. This page changes its display only; it does not rerun the models or change the results.</p></header>
+<nav aria-label="Report sections"><a href="#main-finding">Main finding</a><a href="#paired-comparison-and-uncertainty">Paired comparison and uncertainty</a><a href="#missed-rejection-and-false-flags">Missed rejection and false flags</a><a href="#score-reliability">Score reliability</a><a href="#assay-metadata-and-study-composition">Assay metadata and study composition</a><a href="#reproduce-and-inspect">Reproduce and inspect</a><a href="#scope-of-the-evidence">Scope of the evidence</a></nav>
+<main><h1>Finished analysis of the frozen primary classifier</h1>
+<p>Source run: <code>results/reproduction/baseline</code>. Analysis seed: 20260915. Target: any recorded rejection in an already collected biopsy.</p>
+<h2 id="main-finding">Main finding</h2>
+<p>On 345 author technical-validation specimens, CatBoost missed 25 of 169 rejection cases and falsely flagged 8 of 176 no-rejection cases. Logistic regression missed 33 with 8 false flags; IFNG missed 14 with 75 false flags. At these frozen thresholds, CatBoost detected 8 more rejection cases than logistic regression. Compared with IFNG, it produced 67 fewer false flags and 11 more misses.</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th align="right">Threshold</th>
+<th align="right">Misses / rejection</th>
+<th align="right">False flags / no rejection</th>
+<th>Sensitivity (95% interval)</th>
+<th>Specificity (95% interval)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CatBoost</td>
+<td align="right">0.876588</td>
+<td align="right">25 / 169</td>
+<td align="right">8 / 176</td>
+<td>85.2% (79.7%–90.7%)</td>
+<td>95.5% (92.4%–98.3%)</td>
+</tr>
+<tr>
+<td>Multivariable logistic</td>
+<td align="right">0.853673</td>
+<td align="right">33 / 169</td>
+<td align="right">8 / 176</td>
+<td>80.5% (74.3%–86.5%)</td>
+<td>95.5% (92.1%–98.2%)</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td align="right">0.520758</td>
+<td align="right">14 / 169</td>
+<td align="right">75 / 176</td>
+<td>91.7% (87.1%–95.7%)</td>
+<td>57.4% (50.3%–64.5%)</td>
+</tr>
+<tr>
+<td>Training constant</td>
+<td align="right">0.500000</td>
+<td align="right">0 / 169</td>
+<td align="right">176 / 176</td>
+<td>100.0% (100.0%–100.0%)</td>
+<td>0.0% (0.0%–0.0%)</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>ROC-AUC (95% interval)</th>
+<th align="right">Average precision</th>
+<th align="right">Precision</th>
+<th align="right">Negative predictive value</th>
+<th align="right">Accuracy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CatBoost</td>
+<td>0.969 (0.952–0.983)</td>
+<td align="right">0.972</td>
+<td align="right">94.7%</td>
+<td align="right">87.0%</td>
+<td align="right">90.4%</td>
+</tr>
+<tr>
+<td>Multivariable logistic</td>
+<td>0.956 (0.935–0.974)</td>
+<td align="right">0.958</td>
+<td align="right">94.4%</td>
+<td align="right">83.6%</td>
+<td align="right">88.1%</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td>0.842 (0.799–0.884)</td>
+<td align="right">0.794</td>
+<td align="right">67.4%</td>
+<td align="right">87.8%</td>
+<td align="right">74.2%</td>
+</tr>
+<tr>
+<td>Training constant</td>
+<td>0.500 (0.500–0.500)</td>
+<td align="right">0.490</td>
+<td align="right">49.0%</td>
+<td align="right">Undefined</td>
+<td align="right">49.0%</td>
+</tr>
+</tbody></table>
+<p>The constant score is the training rejection fraction, evaluated at 0.5. It flags every validation specimen because training prevalence exceeds 0.5. Its negative predictive value is undefined: it makes no negative predictions. The preserved original run used a zero-denominator fallback of zero; this analysis corrects that display without altering the run.</p>
+<p>The selected threshold reached 90.2% sensitivity on screening data; validation sensitivity was 85.2%, below the experimental 90% target. Threshold selection and probability calibration are separate: a threshold picks a flagging rule; calibration asks whether scores correspond to observed fractions.</p>
+<h2 id="paired-comparison-and-uncertainty">Paired comparison and uncertainty</h2>
+<p>Intervals use 2,000 ordinary bootstrap resamples of 345 biopsy specimens with replacement, seed 20260915, and the 2.5th and 97.5th percentiles. Each resample uses the same specimen positions for every model. Models, preprocessing, and thresholds remain fixed. These intervals describe evaluation-sample uncertainty, not uncertainty from model fitting, feature selection, or threshold selection. Patient and center independence are unverified; repeated or related specimens could make these intervals too narrow. Small subgroup intervals are descriptive, with no multiplicity adjustment.</p>
+<p>Differences below are <strong>CatBoost minus the comparison model</strong>. Negative miss/false-flag counts and Brier differences favor the selected model; positive sensitivity/specificity/AUC differences favor it. Count intervals describe differences in a same-size resampled cohort, not a forecast for a new clinic.</p>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>Metric</th>
+<th align="right">Difference</th>
+<th>95% paired interval</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Multivariable logistic</td>
+<td>Sensitivity</td>
+<td align="right">+4.73 pp</td>
+<td>-0.01 to +9.74 pp</td>
+</tr>
+<tr>
+<td>Multivariable logistic</td>
+<td>Specificity</td>
+<td align="right">+0.00 pp</td>
+<td>-3.59 to +4.02 pp</td>
+</tr>
+<tr>
+<td>Multivariable logistic</td>
+<td>ROC-AUC</td>
+<td align="right">+0.0131</td>
+<td>+0.0001 to +0.0270</td>
+</tr>
+<tr>
+<td>Multivariable logistic</td>
+<td>Brier score</td>
+<td align="right">-0.0075</td>
+<td>-0.0248 to +0.0099</td>
+</tr>
+<tr>
+<td>Multivariable logistic</td>
+<td>Missed rejection</td>
+<td align="right">-8</td>
+<td>-17.00 to +0.02</td>
+</tr>
+<tr>
+<td>Multivariable logistic</td>
+<td>False flags</td>
+<td align="right">+0</td>
+<td>-7.00 to +6.00</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td>Sensitivity</td>
+<td align="right">-6.51 pp</td>
+<td>-12.35 to -1.17 pp</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td>Specificity</td>
+<td align="right">+38.07 pp</td>
+<td>+30.90 to +45.84 pp</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td>ROC-AUC</td>
+<td align="right">+0.1263</td>
+<td>+0.0866 to +0.1667</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td>Brier score</td>
+<td align="right">-0.1068</td>
+<td>-0.1340 to -0.0790</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td>Missed rejection</td>
+<td align="right">+11</td>
+<td>+2.00 to +21.00</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td>False flags</td>
+<td align="right">-67</td>
+<td>-83.00 to -53.00</td>
+</tr>
+</tbody></table>
+<p>The point estimates favor CatBoost over logistic regression in this cohort, but the paired intervals show how much the comparison can vary. The ROC-AUC difference interval only just excludes zero under this fixed-model specimen-resampling calculation; its lower endpoint is about 0.0001. The sensitivity, miss-count, specificity, and Brier-difference intervals include zero. The practical advantage over logistic regression remains uncertain, and these intervals do not measure training or selection uncertainty.</p>
+<h2 id="missed-rejection-and-false-flags">Missed rejection and false flags</h2>
+<p>These are errors against recorded histological labels, without chart review or adjudication. They do not establish which diagnosis is biologically correct.</p>
+<table>
+<thead>
+<tr>
+<th>Original diagnosis</th>
+<th align="right">CatBoost errors / specimens</th>
+<th align="right">Logistic errors / specimens</th>
+<th align="right">IFNG errors / specimens</th>
+<th>Error counted</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>No Rejection</td>
+<td align="right">8 / 176</td>
+<td align="right">8 / 176</td>
+<td align="right">75 / 176</td>
+<td>False flag</td>
+</tr>
+<tr>
+<td>Antibody-mediated Rejection</td>
+<td align="right">6 / 56</td>
+<td align="right">8 / 56</td>
+<td align="right">9 / 56</td>
+<td>Missed rejection</td>
+</tr>
+<tr>
+<td>T cell-mediated Rejection</td>
+<td align="right">18 / 95</td>
+<td align="right">25 / 95</td>
+<td align="right">5 / 95</td>
+<td>Missed rejection</td>
+</tr>
+<tr>
+<td>Mixed Rejection</td>
+<td align="right">1 / 18</td>
+<td align="right">0 / 18</td>
+<td align="right">0 / 18</td>
+<td>Missed rejection</td>
+</tr>
+</tbody></table>
+<p>The diagnosis plot and CSV show each denominator and 95% Wilson intervals. The subtype analysis evaluates the binary classifier; it is not a separate subtype-prediction task.</p>
+<table>
+<thead>
+<tr>
+<th>Comparison with CatBoost</th>
+<th>Error type</th>
+<th align="right">Both models wrong</th>
+<th align="right">CatBoost only wrong</th>
+<th align="right">Comparison only wrong</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Multivariable logistic</td>
+<td>missed rejection</td>
+<td align="right">20</td>
+<td align="right">5</td>
+<td align="right">13</td>
+</tr>
+<tr>
+<td>Multivariable logistic</td>
+<td>false flag</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">6</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td>missed rejection</td>
+<td align="right">8</td>
+<td align="right">17</td>
+<td align="right">6</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td>false flag</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">70</td>
+</tr>
+</tbody></table>
+<p>The local specimen review is <code>data/processed/analysis/20260915_baseline/specimen_review.csv</code>; <code>selected_model_errors.csv</code> contains only the selected model&#39;s errors. They retain original diagnosis, assay date/cartridge/scanner, all model scores and decisions, and outcome categories. Per-specimen files are Git-ignored.</p>
+<h2 id="score-reliability">Score reliability</h2>
+<p>The reliability plot uses ten fixed equal-width score bins: [0, 0.1), …, [0.9, 1]. Each point uses the actual mean score and observed rejection fraction within its bin. Counts and 95% Wilson intervals make sparse bins visible; empty bins have no point. Brier score is mean squared score error, so lower is better; it reflects both discrimination and calibration. A lower Brier score alone does not establish better calibration. Method reference: <a href="https://scikit-learn.org/stable/modules/calibration.html">scikit-learn probability calibration documentation</a>, accessed September 15, 2026.</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th align="right">Mean score</th>
+<th align="right">Observed rejection</th>
+<th align="right">Mean minus observed</th>
+<th>Brier score (95% interval)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CatBoost</td>
+<td align="right">52.7%</td>
+<td align="right">49.0%</td>
+<td align="right">+3.7 pp</td>
+<td>0.078 (0.057–0.101)</td>
+</tr>
+<tr>
+<td>Multivariable logistic</td>
+<td align="right">51.8%</td>
+<td align="right">49.0%</td>
+<td align="right">+2.9 pp</td>
+<td>0.086 (0.065–0.109)</td>
+</tr>
+<tr>
+<td>IFNG</td>
+<td align="right">63.6%</td>
+<td align="right">49.0%</td>
+<td align="right">+14.6 pp</td>
+<td>0.185 (0.163–0.209)</td>
+</tr>
+<tr>
+<td>Training constant</td>
+<td align="right">66.1%</td>
+<td align="right">49.0%</td>
+<td align="right">+17.1 pp</td>
+<td>0.279 (0.263–0.297)</td>
+</tr>
+</tbody></table>
+<p>The selected model&#39;s average score differs from the observed fraction by +3.7 percentage points. Among its bins with at least 10 specimens, the largest score-versus-observation gap is in [0.8, 0.9): mean score 84.7%, but 7/16 (43.8%) had recorded rejection (95% Wilson interval 23.1%–66.8%). This is a descriptive example selected after inspecting the fixed bins. In the [0.9, 1.0] bin, mean score was 98.4% and 142/148 (95.9%) had rejection (95% Wilson interval 91.4%–98.1%). Good ranking does not by itself make each score a reliable probability, and agreement of averages does not establish calibration in each score range. Several bins contain few specimens. Continue calling the output a <strong>model score</strong>; no recalibration was fitted on validation data. Any future calibration fit must use discovery data and be evaluated as a separate follow-up analysis.</p>
+<h2 id="assay-metadata-and-study-composition">Assay metadata and study composition</h2>
+<p>Metadata grouping uses deposited assay Date, CartridgeID, and ScannerID. These fields describe processing; they are not patient or center IDs and are excluded from model predictors. Every group table includes rejection and no-rejection denominators, original diagnosis counts, misses, false flags, and Wilson intervals for the two error rates.</p>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th align="right">Specimens</th>
+<th align="right">Rejection fraction</th>
+<th align="right">No rejection</th>
+<th align="right">Antibody-mediated</th>
+<th align="right">T cell-mediated</th>
+<th align="right">Mixed</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>train</td>
+<td align="right">787</td>
+<td align="right">66.1%</td>
+<td align="right">267</td>
+<td align="right">207</td>
+<td align="right">256</td>
+<td align="right">57</td>
+</tr>
+<tr>
+<td>discovery_screen</td>
+<td align="right">263</td>
+<td align="right">66.2%</td>
+<td align="right">89</td>
+<td align="right">69</td>
+<td align="right">86</td>
+<td align="right">19</td>
+</tr>
+<tr>
+<td>author_validation</td>
+<td align="right">345</td>
+<td align="right">49.0%</td>
+<td align="right">176</td>
+<td align="right">56</td>
+<td align="right">95</td>
+<td align="right">18</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Metadata field</th>
+<th align="right">Discovery groups</th>
+<th align="right">Validation groups</th>
+<th align="right">Groups shared across cohorts</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Date</td>
+<td align="right">37</td>
+<td align="right">7</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>CartridgeID</td>
+<td align="right">96</td>
+<td align="right">31</td>
+<td align="right">0</td>
+</tr>
+<tr>
+<td>ScannerID</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Validation scanner</th>
+<th align="right">Specimens</th>
+<th align="right">Rejection</th>
+<th align="right">Misses / rejection</th>
+<th align="right">False flags / no rejection</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2010C0748</td>
+<td align="right">345</td>
+<td align="right">49.0%</td>
+<td align="right">25 / 169</td>
+<td align="right">8 / 176</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Validation assay date</th>
+<th align="right">Specimens</th>
+<th align="right">Rejection fraction</th>
+<th align="right">Misses / rejection</th>
+<th align="right">False flags / no rejection</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20211130</td>
+<td align="right">91</td>
+<td align="right">52.7%</td>
+<td align="right">9 / 48</td>
+<td align="right">5 / 43</td>
+</tr>
+<tr>
+<td>20211201</td>
+<td align="right">43</td>
+<td align="right">48.8%</td>
+<td align="right">4 / 21</td>
+<td align="right">0 / 22</td>
+</tr>
+<tr>
+<td>20211202</td>
+<td align="right">43</td>
+<td align="right">48.8%</td>
+<td align="right">3 / 21</td>
+<td align="right">2 / 22</td>
+</tr>
+<tr>
+<td>20211203</td>
+<td align="right">42</td>
+<td align="right">50.0%</td>
+<td align="right">3 / 21</td>
+<td align="right">0 / 21</td>
+</tr>
+<tr>
+<td>20211210</td>
+<td align="right">45</td>
+<td align="right">53.3%</td>
+<td align="right">2 / 24</td>
+<td align="right">0 / 21</td>
+</tr>
+<tr>
+<td>20211216</td>
+<td align="right">47</td>
+<td align="right">59.6%</td>
+<td align="right">2 / 28</td>
+<td align="right">0 / 19</td>
+</tr>
+<tr>
+<td>20211221</td>
+<td align="right">34</td>
+<td align="right">17.6%</td>
+<td align="right">2 / 6</td>
+<td align="right">1 / 28</td>
+</tr>
+</tbody></table>
+<p>Discovery and validation used different dates and cartridges, but the same scanner. Those assay groups are therefore tied to cohort membership; they cannot separate cohort effects from assay effects. Assay-group error rates must be read alongside diagnosis composition and small denominators. The recorded groups do not isolate a scanner, cartridge, or date effect from specimen mix. These are descriptive checks, not evidence of a causal batch effect or verified transportability to new centers.</p>
+<p>Viral assay-target interpretation is documented separately in <a href="../results/analysis/20260915_viral/REPORT.md">viral-target review</a>.</p>
+<h2 id="reproduce-and-inspect">Reproduce and inspect</h2>
+<pre><code class="language-powershell">uv run python scripts/analyze_results.py --output-dir results/analysis/20260915_baseline_check --case-dir data/processed/analysis/20260915_baseline_check
+</code></pre>
+<p>This command reads saved predictions and cohort assignments, checks exact specimen sets and diagnosis mappings, verifies frozen flags and original aggregate results, then recomputes all summaries without fitting or changing thresholds. Saved inputs are verified against the completed-run manifest, and physical raw files against its public-source manifest. Inputs, hashes, settings, package versions, and output hashes are recorded in <code>analysis_manifest.json</code>. The original baseline outputs are preserved. Completed analysis and specimen-output directories are never overwritten; choose fresh directory names for each rerun. Additional reports may use <code>--run-dir</code>, <code>--output-dir</code>, and <code>--case-dir</code> with new project-relative directories.</p>
+<h3>Main charts</h3>
+<p>Each PNG has an editable SVG with text retained as text and a corresponding aggregate CSV where applicable.</p>
+<ol>
+<li><a href="../results/analysis/20260915_baseline/figures/01_roc_precision_recall.svg">ROC and precision–recall</a></li>
+<li><a href="../results/analysis/20260915_baseline/figures/02_confusion_matrices.svg">Confusion matrices</a></li>
+<li><a href="../results/analysis/20260915_baseline/figures/03_absolute_errors.svg">Absolute error counts</a></li>
+<li><a href="../results/analysis/20260915_baseline/figures/04_errors_by_diagnosis.svg">Errors by diagnosis</a></li>
+<li><a href="../results/analysis/20260915_baseline/figures/05_score_distributions.svg">Score distributions</a></li>
+<li><a href="../results/analysis/20260915_baseline/figures/06_score_reliability.svg">Score reliability</a></li>
+</ol>
+<p>Aggregate tables: <code>model_metrics.csv</code>, <code>metric_intervals.csv</code>, <code>paired_differences.csv</code>, <code>errors_by_diagnosis.csv</code>, <code>error_overlap.csv</code>, <code>reliability_bins.csv</code>, <code>assay_group_errors.csv</code>, and <code>cohort_composition.csv</code>. Full metric intervals include precision, negative predictive value, average precision, accuracy, Brier score, and error counts.</p>
+<h2 id="scope-of-the-evidence">Scope of the evidence</h2>
+<p>The data establish agreement with recorded rejection diagnoses in this deposited study. Technical validation is the authors&#39; held-out cohort, not a prospective clinical trial. The study does not establish future rejection prediction, care benefit, clinical deployment, or patient/center independence. This analysis completes reporting of the existing fixed run; no new model, threshold, or calibrated model was selected from its validation results.</p>
+</main><footer class="provenance">Source: results/analysis/20260915_baseline/REPORT.md<br>SHA-256: a5562e1ee7ba45e5f754ebc5f07b557b73f47fc1743e8373bdbd525d9fc9ea55</footer></body></html>

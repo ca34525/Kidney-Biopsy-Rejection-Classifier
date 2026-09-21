@@ -3,6 +3,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
 import { spawnSync } from 'node:child_process';
+import { addTechnicalSlides } from './technical_slides.mjs';
 
 // Run from the repository root. Runtime paths are supplied by the build command.
 const root = process.cwd();
@@ -14,6 +15,7 @@ const require = createRequire(path.join(build, 'runtime.mjs'));
 const { Presentation, PresentationFile } = await import(pathToFileURL(require.resolve('@oai/artifact-tool')).href);
 const { resolvePresentationFont, applyPresentationChartFont, finalizePresentation, makeNativeBulletParagraphs } = await import(pathToFileURL(path.join(skill, 'container_tools/artifact_tool_utils.mjs')).href);
 const FONT = resolvePresentationFont({ fontFamily: 'Arial' });
+const CODE_FONT = resolvePresentationFont({ fontFamily: 'Consolas' });
 const C = { ink:'#16343E', teal:'#007C78', orange:'#B55730', muted:'#52656B', bg:'#F7F8F5', light:'#E4EFEB', rule:'#CEDBD7', white:'#FFFFFF' };
 const p = Presentation.create({slideSize:{width:1280,height:720}});
 const nativeTables=[], nativeCharts=[];
@@ -213,127 +215,8 @@ function datasetSlide(){
  chart(s,'bar',{position:{left:56,top:202,width:1170,height:327},categories:[modelLabels.ifng,modelLabels.logistic,'CatBoost'],series:[{name:'False negatives / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'False positives / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:25}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
  bullets(s,[`Constant baseline: ${constant.fn} false negatives, ${constant.fp} false positives. It flags everyone.`,'CatBoost versus IFNG: 67 fewer false positives, 11 more false negatives.'],64,546,1152,103,29,C.ink,11);
 }
-// Group counts and detection shortfall.
-{
- const s=slide('Most CatBoost misses were T-cell rejection','Source: primary evaluation and screening results, 15 Sep 2026');
- text(s,'144 / 169 detected',64,190,490,70,47,C.ink,true);
- text(s,'85.2% recall (sensitivity)\nin evaluation',64,273,490,84,33);
- bullets(s,['Screening: 157 / 174 detected (90.2%).','Evaluation falls below the 90% selection target.'],64,393,474,180,30,C.ink,18);
- text(s,'Misses by recorded diagnosis',595,175,621,48,31,C.ink,true);
- table(s,[['Recorded rejection','Missed / total'],['Antibody-mediated','6 / 56'],['T-cell-mediated','18 / 95'],['Mixed','1 / 18']],{x:595,y:250,w:621,h:325,widths:[397,224],size:28});
-}
-// Explain the bootstrap and why model selection needed a separate check.
-{
- const s=slide('The advantage over logistic regression is uncertain','Sources: paired bootstrap analysis; discovery stability follow-up, 17 Sep 2026');
- text(s,'CatBoost versus All RNA (Logistic Regression)',64,159,1152,48,32,C.ink,true);
- text(s,`Observed recall difference: +${(+recallDifference.estimate*100).toFixed(2)} percentage points (8 / 169 specimens).`,64,212,1152,44,29,C.teal);
- text(s,'How I calculated the 95% confidence interval',64,274,1152,43,32,C.ink,true);
- text(s,'1. I drew 2,000 resamples of the 345 validation specimens, with replacement.',64,323,1152,56,28);
- text(s,'2. I kept both models and thresholds fixed and compared recall on each draw.',64,379,1152,56,28);
- text(s,`3. The middle 95% ran from −${Math.abs(+recallDifference.lower*100).toFixed(2)} to +${(+recallDifference.upper*100).toFixed(2)} percentage points, including zero.`,64,435,1152,56,28);
- text(s,'Why I also repeated model development',64,515,1152,44,32,C.ink,true);
- text(s,'One training / screening split might favor CatBoost.\nI checked whether changing those assignments changed the selected model.',64,565,1152,75,29);
-}
-// Show how the development assignments changed and which family screening chose.
-{
- const s=slide('Model choice depended on the development split','Source: discovery stability follow-up, 17 Sep 2026.');
- text(s,'I repeated development with 20 splits of the 1,050 discovery specimens.',64,159,1152,53,31);
- text(s,'Each random split kept the four diagnosis proportions similar.\nI used the same rows for both model families.',64,221,1152,70,28);
- node(s,'630 fitting\nTrain both model families',64,311,356,92,{size:27});
- node(s,'210 screening\nChoose model and threshold',462,311,356,92,{size:26});
- node(s,'210 assessment\nMeasure held-out errors',860,311,356,92,{size:27});
- text(s,'Screening: at least 90% recall, then fewest false flags.\nI used ROC-AUC to break ties.',64,420,1152,72,28);
- table(s,[['CatBoost','All RNA (Logistic Regression)'],[`${stability.selection_counts.catboost} / ${stability.repetitions} selections`,`${stability.selection_counts.logistic} / ${stability.repetitions} selections`]],{y:513,h:92,rowHeights:[46,46],widths:[576,576],size:29,padY:4});
-text(s,'The splits shared specimens; the 20 selections were not independent trials.',64,619,1152,35,25);
-}
-// Shared implementation and failures that stop scoring.
-{
- const s=slide('Prediction service and demonstration','Source: shared preprocessing and Predictor; application contract');
- bullets(s,['CSV input through the command line or web application.','Training and prediction share the preparation code.'],64,160,1152,83,29,C.ink,6);
- const labels=['Read counts','Check names\nand numbers','Normalize\n758 inputs','Score with\nsaved model'];
- let prev;labels.forEach((v,i)=>{const n=node(s,v,64+i*298,253,256,130,{size:31});if(prev)connect(s,prev,n);prev=n;});
- bullets(s,['A valid request returns the specimen ID, model score, threshold, flag and model version.','Missing or duplicate measurements, negative counts or non-finite values stop scoring.'],64,439,1152,176,32,C.ink,22);
-}
-// The slide also works when the presenter uses the static fallback.
-{
- const s=slide('One public specimen through the service','Source: public discovery-screen example and saved application checks');
- bullets(s,['GSM6510425: recorded no rejection.'],64,163,1152,61,34);
- table(s,[['Model score','Selected threshold','Rejection flag'],['0.274934','0.876588','False (below cutoff)']],{y:249,h:138,widths:[346,366,440],size:31});
- text(s,'Model: 20260915_shared:any_rejection:catboost_all_depth4',64,399,1152,34,24,C.muted);
- bullets(s,['The complete input produces a flag that agrees with the recorded diagnosis.','Removing IFNG clears the previous result and returns no new score.'],64,459,1152,127,30,C.ink,18);
- text(s,'“Missing required assay targets: IFNG”',94,592,1122,44,30,C.ink,true);
-}
-// Consistency, input failures, and the actual deployment status.
-{
- const s=slide('The service reproduces all 345 saved scores','Source: local verification, 17 Sep 2026. Software consistency check.');
- bullets(s,['API, command line and saved evaluation agree within 10⁻¹².'],64,165,1152,62,33);
- table(s,[['Check','Observed behavior'],['Reordered columns','Same model score'],['Invalid or incomplete counts','No score'],['Incompatible model metadata','Model does not load']],{y:257,h:250,widths:[575,577],size:30});
- bullets(s,['94 tests passed, including these failure cases.','The local container was checked. Cloud deployment is deferred.'],64,546,1152,102,29,C.ink,13);
-}
-// Hypothetical extensions of this personal project.
-{
- const s=slide('Possible next steps','Sources: project results and research context. Hypothetical extensions.');
- text(s,'Ideas for extending this personal project',64,168,1152,68,32,C.teal);
- table(s,[['Question','Possible approach'],['Would the results hold in another dataset?','Test the saved models and thresholds on new transplant biopsies.\nRecord patient, center and lab quality information.'],['Would RNA help with uncertain biopsies?','With clinical collaborators, compare assessment with and without the RNA score.\nReview decisions and follow-up outcomes.']],{y:261,h:350,rowHeights:[54,148,148],widths:[427,725],size:28,padY:8});
-}
-// Results belong here, after the question and evidence.
-{
- const s=slide('What this project accomplished','Public data: Zhang et al. (2024), GSE212160. Presentation prepared with AI assistance.',true);
- text(s,'Model comparison',64,161,1152,43,32,C.white,true);
- text(s,'CatBoost, 345 evaluation specimens',64,207,1152,40,28,C.white);
- text(s,`${(+cat.fn/+cat.positives*100).toFixed(1)}% missed`,64,251,542,62,47,C.white,true);
- text(s,`${(+cat.fp/+cat.negatives*100).toFixed(1)}% false flags`,666,251,550,62,47,C.white,true);
- text(s,`${cat.fn} of ${cat.positives} recorded rejection specimens`,64,320,542,42,25,C.white);
- text(s,`${cat.fp} of ${cat.negatives} recorded no-rejection specimens`,666,320,550,42,25,C.white);
- text(s,'Fewer false flags than IFNG, but more misses.\nAdvantage over logistic regression remains uncertain.',64,373,1152,76,29,C.white);
- line(s,64,470,1152,'#78949B');
- text(s,'Prediction service and demo',64,486,1152,43,32,C.white,true);
- bullets(s,['Shared preparation code reproduced all 345 saved scores.','Working demo with valid input and clear error messages.'],64,544,1152,88,29,C.white,10);
-}
-// Backup material is outside the 20-minute plan.
-assaySlide();
-{
- const s=slide('Backup: complete primary comparison',analysis);
- const names=['CatBoost',modelLabels.logistic,modelLabels.ifng,'Constant'];
- table(s,[['Model','Misses','False flags','Sensitivity','Specificity','ROC-AUC'],...[cat,log,ifng,constant].map((m,i)=>[names[i],m.fn,m.fp,(+m.sensitivity*100).toFixed(1)+'%',(+m.specificity*100).toFixed(1)+'%',(+m.roc_auc).toFixed(3)])],{y:187,h:376,rowHeights:[80,58,90,90,58],widths:[320,140,146,177,184,185],size:26,padY:8});
- text(s,'Denominators: 169 rejection; 176 no rejection. Fixed thresholds per model.',64,589,1152,50,29);
-}
-{
- const s=slide('Backup: normalization and model settings','Sources: shared preprocessing; primary model configuration');
- text(s,'Normalized measurement = log₂(raw count + 1)\n− mean of the 12 housekeeping log₂(count + 1) values',64,169,1152,110,34,C.ink,true);
- table(s,[['Model','Additional preparation and settings'],[modelLabels.logistic,'Subtract each feature’s training mean, then divide by its training standard deviation. Reuse these values for later specimens.\nRegularization: C = 0.1.'],['CatBoost','No extra feature scaling.\n300 trees, depth 4, learning rate 0.04.']],{y:305,h:292,rowHeights:[54,142,96],widths:[300,852],size:28,padY:8});
-}
-{
- const s=slide('Backup: interpreting model scores','Source: reliability_bins.csv. The highlighted bin has a Wilson 95% interval. No recalibration fitted.');
- text(s,'CatBoost on 345 validation specimens',64,152,1152,41,30,C.ink,true);
- chart(s,'scatter',{position:{left:59,top:215,width:726,height:393},series:[{name:'Agreement',xValues:[0,1],values:[0,1],line:{fill:C.muted,width:1.4},marker:{symbol:'none'}},{name:'Observed bins',xValues:bins.map(x=>Number(Number(x.mean_score).toFixed(6))),values:bins.map(x=>Number(Number(x.observed_fraction).toFixed(6))),line:{fill:'none',width:0},marker:{symbol:'circle',size:9},fill:C.teal}],scatterOptions:{style:'lineWithMarkers'},hasLegend:false,xAxis:{min:0,max:1,majorUnit:.2,title:{text:'Mean model score',textStyle:axisText},textStyle:axisText,numberFormatCode:'0.0',majorGridlines:null},yAxis:{min:0,max:1,majorUnit:.2,title:{text:'Recorded rejection fraction',textStyle:axisText},textStyle:axisText,numberFormatCode:'0.0',majorGridlines:{fill:C.rule,width:1}},chartFill:C.bg,plotAreaFill:C.bg});
- text(s,'Score bin 0.8–0.9',837,226,379,50,31,C.ink,true);
- bullets(s,['Mean score: 0.847','Recorded rejection: 7 / 16','Observed fraction: 43.8%\n95% interval: 23.1–66.8%'],837,303,379,270,28,C.ink,20);
- text(s,'Diagonal: score equals observed rejection fraction',94,619,1122,31,24);
-}
-{
- const s=slide('Backup: rejection subtype follow-up','Source: subtype follow-up, 15 Sep 2026. Reuses the examined validation cohort; needs independent confirmation.');
- table(s,[['Model','Any-rejection misses','False flags'],['Binary CatBoost','25 / 169','8 / 176'],['Four-class CatBoost','29 / 169','8 / 176'],['Four-class logistic','28 / 169','10 / 176'],['Separate component models','24 / 169','15 / 176']],{y:200,h:325,widths:[532,342,278],size:28});
- bullets(s,['Four-class logistic recognized 10 / 18 mixed diagnoses, with 5 false mixed calls among 327 non-mixed specimens.'],64,555,1152,88,30);
-}
-{
- const s=slide('Backup: dataset, assay and deployment limits','Sources: Zhang et al. (2024), Methods and Tables 5–6; primary analysis; verification guide.');
- table(s,[['Question','Evidence and remaining limits'],['Patient / center separation?','Not documented. All specimens were processed at one laboratory.'],['Study population?','Includes 202 native-kidney controls.\nSelected ambiguous diagnoses were excluded.'],['Laboratory assay quality?','File checks were tested. Laboratory quality was not independently reassessed.'],['Individual probabilities?','Score calibration remains limited.'],['Cloud deployment?','Local container tested. Cloud work deferred.']],{y:179,h:453,rowHeights:[49,85,94,101,62,62],widths:[385,767],size:26,padY:7});
-}
-{
- const s=slide('Backup: sources and contributions','');
- text(s,'Public study',64,171,1152,44,32,C.ink,true);
- bullets(s,['Zhang et al., Laboratory Investigation (2024): GSE212160 raw NanoString B-HOT measurements.'],64,225,1152,91,32);
- text(s,'This personal project',64,351,1152,44,32,C.ink,true);
- bullets(s,['Binary model comparisons and runs produced here, shared preparation code, and a tested local prediction service.'],64,405,1152,99,32);
- text(s,'Presentation guidance',64,545,1152,43,30,C.ink,true);
- text(s,'Bourne (2007), Kosslyn et al. (2012), Garner and Alley (2013), Rougier et al. (2014)',64,595,1152,45,25);
-}
-{
- const s=slide('Backup: UNOS research connection','Source: UNOS, Using AI to identify kidney anatomy issues (2 Jun 2026)');
- bullets(s,['UNOS researchers studied anatomical issues in donor kidney photographs.','Labels came from records of transplantation or refusal because of anatomy concerns.','The intended use is to support clinical assessment and improve consistency.','The connection: use recorded assessments to develop additional evidence for specialists.'],64,178,1152,377,33,C.ink,21);
- text(s,'This is a different clinical task and does not validate my classifier.',94,590,1122,46,28);
-}
+// The approved first twelve slides are followed by the slide-based technical section.
+await addTechnicalSlides({root,slide,text,bullets,table,line,node,connect,C,codeFont:CODE_FONT});
 
 await fs.mkdir(build,{recursive:true});await fs.mkdir(path.join(out,'slides'),{recursive:true});
 const exportedPath=path.join(build,'exported.pptx');
@@ -353,5 +236,5 @@ for(let i=0;i<sources.length;i++){
  console.log(`Rendered ${i+1}/${sources.length}`);
 }
 const finalPath=path.join(out,process.env.DECK_FILENAME||'unos_kidney_biopsy_second_pass.pptx');
-const result=await finalizePresentation({workspaceDir:root,candidatePath,finalPath,pythonExecutable:process.env.RUNTIME_PYTHON,integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-bullet-geometry','--validate-heading-fit',...[...new Set(nativeTables)].flatMap(n=>['--require-native-table-slide',String(n)])],requiredNativeTableOwnerSlides:[...new Set(nativeTables)],requiredNativeChartOwnerSlides:[...new Set(nativeCharts)],materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:[FONT]},verifyArtifactToolImport:true,receiptPath:path.join(build,`${path.basename(finalPath)}.${Date.now()}.validation.json`)});
+const result=await finalizePresentation({workspaceDir:root,candidatePath,finalPath,pythonExecutable:process.env.RUNTIME_PYTHON,integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-bullet-geometry','--validate-heading-fit',...[...new Set(nativeTables)].flatMap(n=>['--require-native-table-slide',String(n)])],requiredNativeTableOwnerSlides:[...new Set(nativeTables)],requiredNativeChartOwnerSlides:[...new Set(nativeCharts)],materializeLiteralChartWorkbooks:true,fontPolicy:{basis:'design',families:[FONT,CODE_FONT]},verifyArtifactToolImport:true,receiptPath:path.join(build,`${path.basename(finalPath)}.${Date.now()}.validation.json`)});
 console.log(JSON.stringify(result));

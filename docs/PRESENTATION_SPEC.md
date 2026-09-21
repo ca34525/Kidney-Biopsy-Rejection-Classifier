@@ -3,218 +3,166 @@
 ## Deliverable
 
 Prepare a full 20-minute presentation about this project's question, analysis,
-results, and software. Questions follow the presentation. Use 20 main slides and 8 backup slides for this revision, following the user’s
-September 20 request for a separate model-choice results slide. Give substantive topics
-readable visual support without adding a cue for every spoken elaboration.
+results, and software. Questions follow the presentation. The user's September
+21, 2026 instruction preserves slides 1–12 and replaces every later slide,
+including the old backups. This revision contains **19 main slides and no backup
+slides**. The report and application are the only live demonstrations. Put the
+remaining implementation explanation on slides, with short code excerpts and
+editable diagrams where they help explain a decision.
 
-Deliver an editable `presentation/unos_kidney_biopsy.pptx`, a matching PDF backup,
-a separate `presentation/speaking_script.html`, and the presentation source files.
-All spoken text and delivery cues belong in the HTML file. **Do not use PowerPoint
-notes.** This follows the user's September 18, 2026 delivery instruction.
+Deliver an editable `presentation/unos_kidney_biopsy.pptx`, a matching PDF,
+`presentation/speaking_script.html`, an offline report view at
+`presentation/analysis_report.html`, and the presentation source files. Keep the
+captured application fallback at `presentation/demo_fallback.html`. All spoken
+text and delivery cues belong in the HTML speaking script. **Keep PowerPoint
+notes empty.**
 
-The [current draft](../presentation/README.md) contains 20 main slides and 8 backup
-slides, with a complete HTML speaking script planned for 20 minutes. The deck,
-PDF, and static demonstration fallback are available. Actual timed rehearsals
-remain pending; planned timing does not establish measured delivery time.
+The [presentation package](../presentation/README.md) records the current files
+and preparation instructions. The script allocates 20 minutes. Actual timed
+rehearsals remain pending. Planned timing does not establish measured delivery
+time. The prior deck and accompanying deliverables are preserved privately under
+`build/presentation/before-technical-slides-20260921/`.
 
 Follow [Presentation guide](PRESENTATION_GUIDE.md), whose design advice draws on
 sources published from 2007 through 2014. The newer clinical-rationale sources
 are documented in [Research context](RESEARCH_CONTEXT.md). Use the project's own
-run outputs for every project result.
+saved outputs for every project result.
 
 ## Audience and purpose
 
-Assume a mixed Product and Tech interview panel. Define the biopsy prediction task
-before naming the algorithm. Explain enough transplant context for a technical
-interviewer without presenting a clinical lecture. Show the candidate's choices,
-what the models did, and how the result becomes usable software.
-Define biopsy and RNA before explaining the model inputs. Keep the assay,
-instrument, and panel terminology in the first backup slide.
-Distinguish the RNA measurements from the recorded diagnosis the model predicts.
-Use "specimen ID" for the identifier that matches a specimen to its source record.
-Introduce "cohort" on slide 9 alongside the discovery and validation groups.
+The panel includes one data scientist, two biostatisticians, and a manager with
+a master's in public health. Explain engineering through concrete questions:
+can another analyst examine the findings, can someone use the model, does the
+application preserve the evaluated calculation, and can another developer run
+and check it? Avoid a tour of the module structure or a list of technologies.
+The [job requirements](JOB_REQUIREMENTS.md) support emphasizing shared
+preprocessing, an understandable API, consequential tests, and handoff evidence.
 
 The title slide contains only **Classifying Kidney Transplant Rejection from
-Biopsy RNA**, following the user's September 19, 2026 selection. State the research
-question aloud. Results come after the audience has enough context to understand
-them.
+Biopsy RNA**. State the research question aloud. Preserve the accepted sequence
+through slide 12: biopsy explanation, molecular-second-opinion purpose,
+supporting research, data, methods, and validation results.
 
-Immediately after the biopsy explanation, explain the intended use: a molecular
-second opinion could give specialists additional evidence when a transplant
-biopsy is uncertain or conflicts with other findings. Histology examines tissue
-appearance, while RNA measurements describe gene activity. Current Banff guidance
-and B-HOT research support investigating this role.
-
-The project develops and evaluates an early research prototype for that purpose.
-Its measurements classify recorded rejection with a measurable error tradeoff,
-and its shared pipeline supports reproducible scoring of further specimens.
-Testing added benefit for uncertain biopsies is a possible extension requiring
-clinical collaborators. Present this qualification alongside the intended use,
-then frame later suggestions as hypothetical extensions of this personal project.
-Do not claim ambiguous specimens were absent from training without
-evidence. The UNOS kidney-photo research connection belongs in a backup
-slide as an example of research toward supporting expert assessment in a
-different task.
+The intended use is additional molecular evidence for specialists interpreting
+uncertain transplant biopsies. This project evaluates agreement with recorded
+diagnoses and supplies reproducible scoring software. Added value in uncertain
+cases needs direct evaluation. Keep this distinction proportional to the claim.
 
 ## Content and time budget
 
-The outline puts the purpose immediately after the biopsy explanation, then
-presents supporting evidence, the dataset, the outcome, and the measurements.
-Keep detailed assay terminology in the appendix. Use the
-following approximate section allocations to plan a full 20-minute talk. The
-HTML's per-slide and cumulative times are rough pacing aids, not measured rehearsal
-times or deadlines for each slide. Refine pacing from actual delivery rather than
-laboriously optimizing estimates.
+Slides 1–12 retain their content and planned timings, totaling 11 minutes
+25 seconds. The replacement section totals 8 minutes 35 seconds. Treat these
+allocations as approximate pacing aids. Refine delivery through rehearsal rather
+than treating a per-slide estimate as a deadline.
 
-| Slides | Section | Approximate time |
+| Slides | Section | Planned allocation |
 | --- | --- | ---: |
-| 1–4 | Question, transplant context, possible use, and supporting research | 3½ minutes |
-| 5–8 | Dataset, outcome, measurements, and normalization | 3½ minutes |
-| 9–11 | Study groups, models, and threshold | 2¾ minutes |
-| 12–15 | Validation errors, uncertainty, and model-choice results | 4¾ minutes |
-| 16–18 | Prediction software, demonstration, and checks | 3¾ minutes |
-| 19–20 | Possible extensions and project accomplishments | 1¾ minutes |
-| | **Total, with questions afterward** | **20 minutes** |
+| 1–12 | Accepted question, context, methods, and validation results | 11:25 |
+| 13 | Inspecting the analysis report, live | 0:45 |
+| 14 | One public specimen through the service, live | 2:00 |
+| 15 | Shared preparation and scoring | 1:10 |
+| 16 | An interface other software can call | 1:10 |
+| 17 | Checking the application against the analysis | 1:35 |
+| 18 | Running and maintaining the application | 1:10 |
+| 19 | What this project accomplished | 0:45 |
+| | **Total, with questions afterward** | **20:00** |
 
 | Slide | Subject | Evidence or visual |
 | ---: | --- | --- |
 | 1 | Classifying Kidney Transplant Rejection from Biopsy RNA | Title only |
-| 2 | Transplant rejection and kidney biopsy | Bold definition labels and indented biopsy-evidence sub-bullets, with consistent gaps between the visible text blocks |
-| 3 | Possible Use: Molecular Second Opinion for Ambiguous Biopsies | Matching boxes labelled Hypothetical Example, before and after a possible molecular assessment |
-| 4 | Evidence for a molecular second opinion | Banff guidance, B-HOT research, and why unnecessary rejection treatment can worsen infection; keep the project's scope visible |
-| 5 | What the dataset contains | Two analysis-table schemas linked by specimen ID; matching bullets at the same font size for the specimen counts and the patient/referring-center separation note directly underneath, without an asterisk |
-| 6 | Outcome: rejection versus no rejection | Colored summary above the diagnosis table; binary mapping of the included categories and a short exclusion note |
-| 7 | The measurements used to build the features | 758 model measurements and 12 housekeeping references used to adjust for differences in RNA quantity |
-| 8 | Normalization | Compact numbered calculation and example for each of the 758 counts |
-| 9 | Development and evaluation groups | Authors' discovery/validation division and this project's training/screening split |
-| 10 | Model comparison | Constant, IFNG only (Logistic regression), All RNA (Logistic Regression), and CatBoost; each produces a rejection score |
-| 11 | Threshold selection | Recall and precision as stacked fractions with words in the numerator and denominator, then the screening selection rule |
-| 12 | Validation results | False negatives and false positives on the same rows, with class denominators and the explicit IFNG-only and all-RNA logistic regression labels |
-| 13 | Errors by recorded diagnosis | False negatives within each rejection group |
-| 14 | Comparison uncertainty and reason for the follow-up | Recall difference and paired-bootstrap calculation; explain why a separate check of sensitivity to the development split was needed |
-| 15 | Model choice depended on the development split | Diagram of the 20 discovery-only splits into 630 fitting, 210 screening, and 210 assessment specimens; editable table with CatBoost selected in 13/20 splits and all-RNA logistic regression in 7/20 |
-| 16 | Prediction service and demonstration | Transition into software, with input checks, shared preprocessing, model and response |
-| 17 | Working demonstration | Valid specimen and incomplete-file response |
-| 18 | Software checks | Consequential tests and current deployment evidence |
-| 19 | Possible next steps | Hypothetical extensions of a personal project: another dataset and a possible study with clinical collaborators |
-| 20 | What this project accomplished | Separate model-comparison and service/demo sections; error percentages with counts and denominators; no next-step bullet |
+| 2 | Transplant rejection and kidney biopsy | Definition labels and biopsy-evidence sub-bullets |
+| 3 | Possible Use: Molecular Second Opinion for Ambiguous Biopsies | Paired, explicitly hypothetical examples |
+| 4 | Evidence for a molecular second opinion | Banff guidance, B-HOT research, and the project's scope |
+| 5 | What the dataset contains | Linked analysis-table schemas, specimen counts, and the patient/referring-center separation qualification |
+| 6 | Outcome: rejection versus no rejection | Binary mapping of the included diagnoses and exclusion qualification |
+| 7 | The measurements used to build the features | 758 model measurements and 12 housekeeping references |
+| 8 | Normalization | Numbered calculation and a concrete example |
+| 9 | Development and evaluation groups | Authors' discovery/validation division and the training/screening split |
+| 10 | Model comparison | Constant, IFNG logistic regression, all-RNA logistic regression, and CatBoost |
+| 11 | Threshold selection | Word fractions for recall and precision, then the screening rule |
+| 12 | Validation results | Missed rejection and false flags on the same rows, with class denominators |
+| 13 | Inspecting the analysis report | Open the offline rendering of the preserved report and show how another analyst can inspect the evidence |
+| 14 | One public specimen through the service | Show a valid public example, its versioned score and threshold, then the incomplete-file response |
+| 15 | Shared preparation and scoring | Short source excerpt and editable explanation of the calculation shared by research and prediction |
+| 16 | An interface other software can call | Concrete request/response example and the boundary between the application and calling software |
+| 17 | Checking the application against the analysis | Saved all-specimen agreement check, a readable assertion excerpt, and consequential input failures |
+| 18 | Running and maintaining the application | Documented setup, automated checks, tested local container, and the limits of existing deployment evidence |
+| 19 | What this project accomplished | Completed analysis and usable scoring software, with the clinical-evaluation limit stated briefly |
 
-Give the central result and its tradeoff enough time after explaining the task.
-A methods nuance should occupy only the space needed to understand the result.
-Backup slides 21–28 support questions and sit outside this timing budget. Slide 21
-contains the assay explanation moved from the main talk.
+The report stop demonstrates an inspectable deliverable. Do not repeat the
+validation chart or add another results lecture. The application stop follows
+one public specimen. Resume the slides afterward. Keep the complete
+[Code Guide](CODE_GUIDE.html) available for questions, while presenting the
+selected implementation content directly on slides.
 
 ## Required evidence
 
-- Use absolute counts and denominators alongside percentages. Show recall as
-  recorded rejection cases detected divided by all recorded rejection cases,
-  and precision as flags with recorded rejection divided by all positive flags.
-  Use stacked word fractions on slide 11. Explain false negatives
-  as missed cases and false positives as incorrect flags. The selection procedure
-  requires at least 90% screening recall, then minimizes false positives. This
-  second criterion directly maximizes specificity. When qualifying choices detect
-  the same number of rejection specimens, as in the saved screening comparison,
-  it also maximizes precision among those choices. State that the 90% target
-  is an experiment choice and that validation recall fell below it.
-- Label the two logistic models as “IFNG only (Logistic regression)” and
-  “All RNA (Logistic Regression)” in comparison tables and the validation chart.
-  Explain that both used logistic regression, with one versus 758 normalized RNA
-  measurements. Explain IFNG as one immune-related measurement used for a simple benchmark.
-  The source study associates it with T-cell-mediated rejection, but this project
-  did not establish it as the best individual predictor. Keep the probability
-  interpretation separate from threshold choice and use "model score" throughout.
-- Include the regularized multivariable comparison. Do not make the talk depend on
-  a complicated model winning.
-- Slide 14 retains the validation comparison: eight more detections among 169
-  rejection specimens, or +4.73 percentage points in recall. Explain the paired
-  bootstrap: 2,000 resamples of the 345 validation specimens with replacement,
-  fixed fitted models and thresholds, and the same draws for both models. In each
-  resample, subtract all-RNA logistic regression recall from CatBoost recall.
-  The 2.5th and 97.5th percentiles give the 95% interval, approximately −0.01 to
-  +9.74 percentage points. It includes zero. Then explain the separate question:
-  a particular training and screening split might favor a model, while this
-  bootstrap held training and selection fixed. Would changing those specimen
-  assignments change the selected family? Keep the split design and results on
-  slide 15.
-- Slide 15 explains the split design and results. Use 20 fixed random seeds and
-  approximately preserve the four diagnosis proportions within the 1,050 discovery
-  specimens. Each time, hold out 210 assessment specimens, then 210 screening
-  specimens, leaving 630 for fitting. Both families used the same partitions and
-  all 758 measurements. Screening required at least 90% recall, then selected by
-  fewest false flags, with ROC-AUC as a tiebreaker; assessment measured later
-  errors without changing selection. The 345 author-validation specimens were
-  not used. Show the 13/20 CatBoost and 7/20 all-RNA logistic regression selections
-  in an editable table, without the assessment-error dot plots. The splits overlap,
-  so these are not independent trials and the counts do not prove a winner. The
-  service model stayed unchanged. Link the saved design, summary, selections, and
-  report in the script; preserve the existing analysis outputs.
-- Distinguish the binary benchmark, four-class follow-up, and original study.
-  Do not compare accuracy percentages across different prediction tasks.
-- Show the model version and threshold in the demonstration. Use only public
-  study examples with no invented clinical history.
-- Explain the intended clinical role and the measured research contribution in
-  plain language. Distinguish external evidence from this project's results.
-  Keep extra methodological detail and secondary targets in backup slides.
-- Describe work actually completed, including the candidate's decisions and
-  appropriate disclosure of AI assistance. Present proposed work as proposed.
-- In the script for slide 5, distinguish the two assembled analysis tables from
-  the two public downloads, one of which contains individual count files. Both
-  author study groups contribute to the 1,395 specimens, as explained on slide 9.
-  The full article reports 202 native-kidney controls, so this evaluation is not
-  restricted to transplant biopsies. Public metadata do not map those controls
-  to individual records. The study does not document patient or referring-center
-  separation, and all specimens were processed at one laboratory.
-- Keep the paired clinical example explicitly hypothetical. The study excluded
-  some difficult diagnostic categories, including borderline acute T-cell-mediated
-  rejection. Explain the full exclusions in backup material, without claiming that
-  all ambiguous biopsies were excluded. Do not assume false negatives are always
-  more consequential: the article discusses harmful additional immunosuppression
-  if infection is mistaken for rejection.
+- Preserve the accepted slides 1–12, including their model labels, counts,
+  metric definitions, and explanatory sequence. Use absolute counts and
+  denominators alongside percentages. The 90% screening recall target was an
+  experiment choice, and validation recall fell below it.
+- Call the output a model score. Keep threshold selection separate from
+  probability calibration. The all-RNA logistic regression comparison remains
+  a credible simpler alternative. The report's uncertainty and follow-up
+  evidence do not establish a clear overall winner.
+- Render the preserved primary `REPORT.md` into the offline report view.
+  Identify its source and retain links to the saved evidence. Do not rewrite
+  the historical report or rerun models as part of a presentation revision.
+- Demonstrate public screening specimen GSM6510425, then remove IFNG using
+  the application's incomplete-file example. Show the model version,
+  `20260915_shared:any_rejection:catboost_all_depth4`, and frozen threshold
+  `0.8765880870219778`. The valid score is `0.27493421380277305`. An incomplete
+  input yields an explanatory error and no score. This demonstration is not
+  additional validation.
+- Use source excerpts from the actual prediction and verification code.
+  Explain how the same preprocessing code protects agreement between research
+  and application behavior. Match the displayed API fields to the real response.
+- Explain the recorded comparison across all 345 validation specimens: HTTP,
+  command-line, and saved research outputs agreed within numerical tolerance,
+  including reordered input columns, and the flags matched. This establishes
+  software consistency rather than a new estimate of classifier performance.
+- Date test and container evidence. Distinguish completed local checks from
+  hosted checks on earlier revisions. A deployment guide is not a completed
+  cloud deployment. No cloud deployment or new test run is implied by revising
+  the slides.
+- Describe personal contributions and AI assistance accurately. Present
+  completed work as completed and proposed work as proposed. Avoid implying
+  clinical deployment, patient benefit, or team experience from this project.
+- Preserve the population qualification: the 1,395 specimens include 1,193
+  transplant biopsies and 202 native-kidney controls. Public metadata do not
+  identify controls individually. All specimens were processed at one laboratory,
+  and patient/referring-center separation is not documented. Some difficult
+  diagnosis categories were excluded. Do not claim all ambiguous biopsies were
+  absent or that this project evaluated their clinical benefit.
 
 ## Design and delivery checks
 
 Give each slide one main purpose. Use ordinary dark-text bullets for parallel
 points, numbered steps for calculations, and bold labels for definitions. Reserve
-color for a consistent meaning, including the unbulleted summary lines requested
-for the dataset, outcome, measurements, and normalization. Group each explanation with the count, example,
-table, or diagram it explains. Do not add unrelated statements at the bottom.
+color for a consistent meaning. Group an explanation with its evidence. Keep
+charts, tables, code text, and process diagrams editable. Enlarge the selected
+code enough to read at presentation size and show only the lines needed to
+explain the decision.
 
-Use real charts and diagrams that explain meaningful relationships or processes.
-Keep the useful diagrams on slides 9, 15, and 16. Slide 2 needs definition bullets and
-sub-bullets. Slide 3 needs two matching hypothetical-example boxes. Slide 5 needs
-table schemas. The assay explanation on backup slide 21 uses bullets. Avoid generic
-stock imagery, decorative medical imagery, dense dashboard cards, and lists of
-tools that take space away from evidence. Keep charts and required tables editable.
-Put concise citations beside externally sourced claims and full linked references
-in the HTML speaking script. Omit footers about the location of those full links.
-Do not repeat source citations already named beside the evidence. Keep PowerPoint
-notes empty.
+Map substantive script topics to visible support. Spoken elaboration and
+transitions do not each need a slide cue. Put concise citations beside external
+claims and full linked references in the HTML script. Keep PowerPoint notes
+empty.
 
-Map each substantive topic in the script to visible support. Use readable labels,
-brief bullets, examples, and evidence rather than copying paragraphs. Split a
-script section across slides when its topics need different visuals. Keep the
-terms and sequence aligned. Spoken elaboration, asides, and transitions do not
-each need their own cue. Keep delivery instructions sparse and practical.
-Use plain topic titles for setup slides and the requested "Validation results"
-title for slide 12. Use supported findings where useful on other result slides.
-A definition label should be visually
-distinct from its explanation.
+Verify the deck and PDF for clipping, readable labels, contrast, and consistent
+values. Check the offline report and demonstration fallback. The fallback must
+show the same software and model as the live example. Rehearse the report and
+application transitions as part of the talk.
 
-Verify the exported deck and PDF for readable labels, clipping, contrast, and
-consistent numeric values. Keep a static screenshot or short local recording of
-the demonstration so a network or application failure does not interrupt the talk.
-The fallback must show the same software and model as the live example.
+Complete at least two full timed rehearsals and one interruption/fallback
+rehearsal. Aim to land at 20 minutes without rushing. Keep a short cut list for
+delays rather than speaking faster. Record actual rehearsal times separately
+from planned allocations.
 
-Rehearse aloud with the demonstration included. Complete at least two full timed
-runs and one interruption/fallback rehearsal. Aim to land at 20 minutes without
-rushing the results. Keep a short cut list for unexpected delays rather than
-shrinking every slide or speaking faster.
+## Material for questions
 
-## Backup material
-
-Prepare concise answers with supporting slides for label mapping, preprocessing,
-the full model comparison, threshold choice, calibration, secondary rejection
-components, study limitations, testing, deployment, and what would change at a
-larger data volume. Include the UNOS kidney-photo research connection with its
-source and the difference in clinical task. Backups do not count toward the
-planned 20 minutes.
+This revision has no backup slides. Keep the saved reports, Code Guide, source
+reviews, and software verification records available for questions. They retain
+the detailed uncertainty calculation, development-split follow-up, assay and
+label details, reliability assessment, subtype analysis, and deployment limits.
+Their removal from the deck does not remove or change the underlying work.
