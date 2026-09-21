@@ -2,9 +2,12 @@
 
 Revised September 21, 2026. **Classifying Kidney Transplant Rejection from Biopsy
 RNA** has **19 main slides and no backup slides**, planned for a full
-**20-minute talk** with questions afterward. Slides 1–12 preserve the accepted
-content. The replacement section shows the report and application live, then
-uses slides to explain the implementation.
+**20-minute talk** with questions afterward. The latest pass updates slide 7's
+measurement and reference bullets and briefly clarifies slide 9's terminology
+in the script. Earlier changes to slides 2–4 and 10–12 remain. The sequence and
+planned timings are unchanged. The
+technical section shows the report and application live, then uses slides to
+explain the implementation.
 
 - [Editable PowerPoint](unos_kidney_biopsy.pptx)
 - [Separate HTML speaking script](speaking_script.html)
@@ -20,8 +23,8 @@ reading-size controls, and rehearsal timer help with practice. Printing includes
 the full script. Repository source links require keeping the file in this folder.
 
 **The PowerPoint contains no speaker notes or notes pages.** All spoken material
-belongs in the HTML file. The prior presentation is preserved privately under
-`build/presentation/before-technical-slides-20260921/`.
+belongs in the HTML file. The presentation before this RNA/cohort wording pass is
+preserved privately under `build/presentation/before-rna-cohort-pass-20260921/presentation/`.
 
 ## Story and timing
 
@@ -56,6 +59,20 @@ sequence and time budget. The [guide](../docs/PRESENTATION_GUIDE.md) records the
 user's presentation preferences and the dated design and rehearsal sources.
 The former detailed-results and backup slides are removed from the current deck.
 Their saved analyses and source documentation remain available.
+
+The wording pass explains RNA counts through gene activity, uses one
+research-supported borderline-biopsy example, and states both potential clinical
+error consequences. The clarity pass makes the example's outcomes concrete and
+frames untested usefulness in ambiguous biopsies as a project limitation. The
+accepted slide 7 bullets explain RNA activity and cell mixture, how housekeeping
+references adjust for overall measurable RNA input, and the two groups' roles in
+normalization and modeling. Slide 9's script briefly identifies screening as the
+usual validation-set role and the authors' validation cohort as the final test
+set; its diagram is unchanged. The earlier pass also clarifies the model rationale
+and metric fractions, removes the screening-target asterisk, and keeps the CatBoost-versus-IFNG
+comparison in the script before the constant baseline. The
+[source note](../docs/references/PRESENTATION_WORDING_20260921.md) records the
+evidence and its limits; the example does not claim a general prevalence.
 
 ## Report and application demonstrations
 
@@ -116,13 +133,15 @@ the final slide pages.
   diagnoses. Added clinical value needs direct evaluation.
 - Basic biology: NIDDK's kidney transplant and biopsy pages. The script contains
   full links beside the relevant passages. The
-  [biopsy-care review](../docs/references/BIOPSY_CARE_20260919.md) supports the
-  explanation of potential harm from unnecessary rejection treatment.
+  [biopsy-care review](../docs/references/BIOPSY_CARE_20260919.md) and
+  [wording source note](../docs/references/PRESENTATION_WORDING_20260921.md)
+  support the explanation of potential harm from missed rejection and unnecessary
+  rejection treatment, and the study of borderline diagnoses.
 - [Presentation guide](../docs/PRESENTATION_GUIDE.md) supplies dated design and
   rehearsal references. [Source and output hashes](manifest.json) identify the
   current draft.
 
-This revision changes the presentation and its report viewer. It does not change
+This wording pass changes the presentation and its documentation. It does not change
 the research runs, scoring software, or frozen model. No new software test run,
 cloud deployment, aloud rehearsal, or PowerPoint-desktop presentation test is
 claimed by this documentation.

@@ -3,10 +3,14 @@
 ## Deliverable
 
 Prepare a full 20-minute presentation about this project's question, analysis,
-results, and software. Questions follow the presentation. The user's September
-21, 2026 instruction preserves slides 1–12 and replaces every later slide,
-including the old backups. This revision contains **19 main slides and no backup
-slides**. The report and application are the only live demonstrations. Put the
+results, and software. Questions follow the presentation. The user's first September
+21, 2026 instruction preserved slides 1–12 and replaced every later slide,
+including the old backups. The later wording pass revises slides 2, 3, 4, 10,
+11, and 12, superseding that preservation instruction for those slides. The
+clarity pass further revises slides 2–4. The latest pass accepts slide 7's RNA and
+housekeeping bullets and clarifies slide 9's terminology in the script while
+retaining its diagram. This revision retains **19 main slides and no backup slides**. The report
+and application are the only live demonstrations. Put the
 remaining implementation explanation on slides, with short code excerpts and
 editable diagrams where they help explain a decision.
 
@@ -20,8 +24,9 @@ notes empty.**
 The [presentation package](../presentation/README.md) records the current files
 and preparation instructions. The script allocates 20 minutes. Actual timed
 rehearsals remain pending. Planned timing does not establish measured delivery
-time. The prior deck and accompanying deliverables are preserved privately under
-`build/presentation/before-technical-slides-20260921/`.
+time. The deck and accompanying deliverables before this RNA/cohort wording pass are
+preserved privately under
+`build/presentation/before-rna-cohort-pass-20260921/presentation/`.
 
 Follow [Presentation guide](PRESENTATION_GUIDE.md), whose design advice draws on
 sources published from 2007 through 2014. The newer clinical-rationale sources
@@ -50,7 +55,7 @@ cases needs direct evaluation. Keep this distinction proportional to the claim.
 
 ## Content and time budget
 
-Slides 1–12 retain their content and planned timings, totaling 11 minutes
+Slides 1–12 retain their order and planned timings, totaling 11 minutes
 25 seconds. The replacement section totals 8 minutes 35 seconds. Treat these
 allocations as approximate pacing aids. Refine delivery through rehearsal rather
 than treating a per-slide estimate as a deadline.
@@ -71,16 +76,16 @@ than treating a per-slide estimate as a deadline.
 | ---: | --- | --- |
 | 1 | Classifying Kidney Transplant Rejection from Biopsy RNA | Title only |
 | 2 | Transplant rejection and kidney biopsy | Definition labels and biopsy-evidence sub-bullets |
-| 3 | Possible Use: Molecular Second Opinion for Ambiguous Biopsies | Paired, explicitly hypothetical examples |
-| 4 | Evidence for a molecular second opinion | Banff guidance, B-HOT research, and the project's scope |
+| 3 | Possible Use: Molecular Second Opinion for Ambiguous Biopsies | One Example box supported by a study of 146 borderline diagnoses, then the project's possible use |
+| 4 | Evidence for a molecular second opinion | Banff guidance, B-HOT research, both clinical error consequences, and the project's scope |
 | 5 | What the dataset contains | Linked analysis-table schemas, specimen counts, and the patient/referring-center separation qualification |
 | 6 | Outcome: rejection versus no rejection | Binary mapping of the included diagnoses and exclusion qualification |
-| 7 | The measurements used to build the features | 758 model measurements and 12 housekeeping references |
+| 7 | The measurements used to build the features | Three bullets each explain the 758 model measurements and 12 housekeeping references |
 | 8 | Normalization | Numbered calculation and a concrete example |
-| 9 | Development and evaluation groups | Authors' discovery/validation division and the training/screening split |
-| 10 | Model comparison | Constant, IFNG logistic regression, all-RNA logistic regression, and CatBoost |
-| 11 | Threshold selection | Word fractions for recall and precision, then the screening rule |
-| 12 | Validation results | Missed rejection and false flags on the same rows, with class denominators |
+| 9 | Development and evaluation groups | Authors' discovery/validation division and the training/screening split; brief terminology clarification in the script |
+| 10 | Model comparison | Constant, IFNG logistic regression, all-RNA logistic regression, and CatBoost; Approach and rationale column |
+| 11 | Threshold selection | Word fractions with the same true-positive numerator and different denominators, then the screening rule without an asterisk |
+| 12 | Validation results | Missed rejection and false flags on the same rows, with class denominators; CatBoost-versus-IFNG comparison remains spoken |
 | 13 | Inspecting the analysis report | Open the offline rendering of the preserved report and show how another analyst can inspect the evidence |
 | 14 | One public specimen through the service | Show a valid public example, its versioned score and threshold, then the incomplete-file response |
 | 15 | Shared preparation and scoring | Short source excerpt and editable explanation of the calculation shared by research and prediction |
@@ -97,8 +102,8 @@ selected implementation content directly on slides.
 
 ## Required evidence
 
-- Preserve the accepted slides 1–12, including their model labels, counts,
-  metric definitions, and explanatory sequence. Use absolute counts and
+- Preserve the model labels, counts, and explanatory sequence through slide 12,
+  with the later September 21 wording changes described below. Use absolute counts and
   denominators alongside percentages. The 90% screening recall target was an
   experiment choice, and validation recall fell below it.
 - Call the output a model score. Keep threshold selection separate from
@@ -134,6 +139,53 @@ selected implementation content directly on slides.
   and patient/referring-center separation is not documented. Some difficult
   diagnosis categories were excluded. Do not claim all ambiguous biopsies were
   absent or that this project evaluated their clinical benefit.
+
+## September 21 wording pass
+
+- Slide 2 describes histology as: "Microscopic examination reveals injury and
+  inflammation that can support a rejection diagnosis." Counts of selected RNA
+  types provide information about gene activity. Raw counts are not described as
+  the model inputs; processing is explained later.
+- Slide 3 opens with "Sometimes the histology findings are ambiguous." Its one
+  Example box reads: "A biopsy shows mild inflammation, but not enough to diagnose
+  rejection. In a study of 146 borderline diagnoses, inflammation disappeared in
+  some patients. Others later developed acute rejection." This is evidence of a
+  real clinical problem, not a general prevalence estimate or an individual
+  patient's history. The second bullet is: "As a step towards potentially helping
+  resolve ambiguous biopsies, I used RNA counts to classify recorded diagnoses.
+  A high rejection score could add evidence for specialist review." Remove the
+  continued-example box.
+- Slide 4 explains why missed rejection and unnecessary rejection treatment can
+  both matter. State the project limitation: "This project has not established
+  usefulness in ambiguous biopsies. That requires comparing specialist assessment
+  with and without RNA scores."
+- Slide 7 uses three bullets for model measurements: "Selected human and viral
+  RNA measurements"; "Signals reflect gene activity and the mixture of cells in
+  the biopsy"; "Normalized values become the model's inputs." Its three
+  housekeeping-reference bullets are: "Relatively stable RNAs provide a reference
+  for each specimen"; "Help adjust for differences in overall measurable RNA
+  input"; "Used for normalization, then excluded
+  from the model."
+- Slide 9's script briefly clarifies: "The screening split serves the role often
+  called a validation set. The authors' validation cohort is my final test set."
+  Keep the diagram unchanged.
+- Slide 10 uses "Approach and rationale" for the explanatory column. CatBoost
+  can represent nonlinear RNA patterns and interactions; shallow trees limit
+  overfitting. Do not imply that categorical predictors are required or that
+  this rationale proves superiority over another boosting library.
+- Slide 11 uses "Correctly flagged rejection cases" as both fraction numerators.
+  Recall divides by "All cases diagnosed as rejection"; precision divides by
+  "All rejection flags." Explain the denominators first in the script. Reducing
+  false positives at a fixed true-positive count reduces the precision
+  denominator; it does not create true positives. Use "My selection rule for
+  screening specimens" without an asterisk or separate experimental-target
+  footnote.
+- Slide 12 removes the final CatBoost-versus-IFNG bullet. Retain the spoken
+  comparison before discussing the constant baseline.
+
+The [wording source note](references/PRESENTATION_WORDING_20260921.md) records
+the clinical evidence, its limits, and the CatBoost rationale. These edits do not
+change model results, the 19-slide sequence, or the planned 20-minute allocation.
 
 ## Design and delivery checks
 

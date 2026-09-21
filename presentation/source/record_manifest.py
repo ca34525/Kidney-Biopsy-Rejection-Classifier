@@ -14,8 +14,9 @@ OUT = ROOT / "presentation"
 EXPECTED_MAIN_SLIDES = 19
 EXPECTED_BACKUP_SLIDES = 0
 EXPECTED_CHART_SLIDES = [12]
-PRESERVED_SLIDE_COUNT = 12
-BASELINE = ROOT / "build/presentation/before-technical-slides-20260921/unos_kidney_biopsy.pptx"
+REVISED_SLIDES = [12]
+PRESERVED_SLIDES = [n for n in range(1, EXPECTED_MAIN_SLIDES + 1) if n not in REVISED_SLIDES]
+BASELINE = ROOT / "build/presentation/before-chart-label-fix-20260921/presentation/unos_kidney_biopsy.pptx"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 NS = {
     "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
@@ -43,7 +44,7 @@ def relationships(archive: zipfile.ZipFile, part: str) -> dict:
     return result
 
 
-def semantic_xml(archive: zipfile.ZipFile, part: str) -> tuple:
+def semantic_xml(archive: zipfile.ZipFile, part: str, *, normalize_chart_whitespace: bool = False) -> tuple:
     """Keep content, formatting and geometry, omitting volatile creation IDs."""
     references = relationships(archive, part)
 
@@ -53,10 +54,13 @@ def semantic_xml(archive: zipfile.ZipFile, part: str) -> tuple:
             if key.startswith("{" + REL_NS + "}"):
                 value = references[value]
             attributes.append((key, value))
+        element_text = element.text or ""
+        if normalize_chart_whitespace and element.tag == "{" + NS["c"] + "}v":
+            element_text = " ".join(element_text.split())
         return (
             element.tag,
             tuple(sorted(attributes)),
-            element.text or "",
+            element_text,
             tuple(
                 element_value(child)
                 for child in element
@@ -93,21 +97,21 @@ with zipfile.ZipFile(OUT / "unos_kidney_biopsy.pptx") as archive:
     # Main-slide renders are compared separately during visual review.
     if BASELINE.exists():
         with zipfile.ZipFile(BASELINE) as original:
-            for number in range(1, PRESERVED_SLIDE_COUNT + 1):
+            for number in PRESERVED_SLIDES:
                 name = f"ppt/slides/slide{number}.xml"
                 assert semantic_xml(archive, name) == semantic_xml(original, name), (
                     f"Preserved slide {number} changed its content, formatting, or geometry."
                 )
             for name in charts:
-                assert semantic_xml(archive, name) == semantic_xml(original, name), (
+                assert semantic_xml(archive, name, normalize_chart_whitespace=True) == semantic_xml(original, name, normalize_chart_whitespace=True), (
                     f"Preserved chart changed: {name}"
                 )
         preservation = {
             "baseline": BASELINE.relative_to(ROOT).as_posix(),
             "baseline_sha256": sha(BASELINE),
             "status": "passed",
-            "slides": list(range(1, PRESERVED_SLIDE_COUNT + 1)),
-            "comparison": "Slide and chart XML content, formatting and geometry; generated creation IDs ignored and relationship IDs resolved.",
+            "slides": PRESERVED_SLIDES,
+            "comparison": "Unchanged slide XML preserved. Chart content, formatting and geometry preserved except category-label whitespace. Generated creation IDs ignored and relationship IDs resolved.",
         }
 assert len(PdfReader(OUT / "unos_kidney_biopsy.pdf").pages) == len(slides)
 assert sum(slide["seconds"] for slide in data["slides"]) == 1200
@@ -150,6 +154,7 @@ sources = [
     "docs/PRESENTATION_SPEC.md",
     "docs/references/STUDY_AUDIT_20260919.md",
     "docs/references/BIOPSY_CARE_20260919.md",
+    "docs/references/PRESENTATION_WORDING_20260921.md",
     "docs/references/rejection_source_manifest.json",
 ]
 
@@ -167,6 +172,7 @@ manifest = {
     "embedded_chart_workbooks": len(workbooks),
     "native_chart_slides": chart_slides,
     "preserved_slides": preservation,
+    "revised_slides": REVISED_SLIDES,
     "rehearsals": "pending",
     "sources": {name: sha(ROOT / name) for name in sources},
     "outputs_and_authoring_sources": {

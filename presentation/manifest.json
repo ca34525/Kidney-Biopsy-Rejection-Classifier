@@ -1,10 +1,10 @@
 {
   "created": "2026-09-21",
-  "revision": "2026-09-21: preserve slides 1\u201312 and their timings, replace all later material with a report walkthrough, live application demonstration, shared preparation and scoring, API contract, verification, handoff, and conclusion. The deck has 19 main slides, no backup slides, and a planned 20-minute delivery. The report and demonstration are the only live walkthroughs. Code Guide selections now appear as editable slide content. PowerPoint notes remain empty.",
+  "revision": "2026-09-21: remove line breaks from slide 12 chart category labels so chart viewers reserve the full label width. All wording, values, other slides and spoken text remain unchanged. PowerPoint notes remain empty.",
   "main_slides": 19,
   "backup_slides": 0,
   "planned_seconds": 1200,
-  "main_spoken_words": 2611,
+  "main_spoken_words": 2588,
   "powerpoint_notes_parts": 0,
   "native_tables": 10,
   "native_charts": 1,
@@ -13,8 +13,8 @@
     12
   ],
   "preserved_slides": {
-    "baseline": "build/presentation/before-technical-slides-20260921/unos_kidney_biopsy.pptx",
-    "baseline_sha256": "52166667a3e04b1f4ebe8e42f8892a194feb80a0e5da3988ec33f43d9d9cb5e6",
+    "baseline": "build/presentation/before-chart-label-fix-20260921/presentation/unos_kidney_biopsy.pptx",
+    "baseline_sha256": "1ce5afdf398daf7900e8cbc077c022726139449192083160325da7deb764549a",
     "status": "passed",
     "slides": [
       1,
@@ -28,10 +28,19 @@
       9,
       10,
       11,
-      12
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
     ],
-    "comparison": "Slide and chart XML content, formatting and geometry; generated creation IDs ignored and relationship IDs resolved."
+    "comparison": "Unchanged slide XML preserved. Chart content, formatting and geometry preserved except category-label whitespace. Generated creation IDs ignored and relationship IDs resolved."
   },
+  "revised_slides": [
+    12
+  ],
   "rehearsals": "pending",
   "sources": {
     "results/analysis/20260915_baseline/REPORT.md": "a5562e1ee7ba45e5f754ebc5f07b557b73f47fc1743e8373bdbd525d9fc9ea55",
@@ -68,10 +77,11 @@
     "uv.lock": "e91b18c34ecc90c61ad12e378a7b87b32d4768e13cf75ce25f1a9af642c4b5f6",
     "Dockerfile": "357aac4c0fe2d0aeabf609b6cdbababab8cf98e195bcaf4ffafcc808f1ef9f01",
     "docs/RESEARCH_CONTEXT.md": "85e5dc4e94288a8bd97238aa62d2f16519dd69b3ace06a9057ff6b08b447f50c",
-    "docs/PRESENTATION_GUIDE.md": "5ab2ebcf3986e5c8dca27557b42a0487192fe197c2fc68f6b158715390c05ce6",
-    "docs/PRESENTATION_SPEC.md": "f61e0758a0cd4693a812467fd6690b443b27bebc6c573f5cf794acca3d285502",
-    "docs/references/STUDY_AUDIT_20260919.md": "8a5949637d955299fc07510d5d61d456f274bb6c721398ddbc4fff7794b4f978",
+    "docs/PRESENTATION_GUIDE.md": "0d120b70792971c282a6487bb9151fddb1ab64b76d92594be4cca923b3737bc5",
+    "docs/PRESENTATION_SPEC.md": "cdc31ba68b9107577ed52806a678a323be0af24e0175288bf1c18a217017ab48",
+    "docs/references/STUDY_AUDIT_20260919.md": "c56ee3a9e22fafd60e44aa6c5ee69c99f2ff526475782d0f0e1dfe999cbe2eb8",
     "docs/references/BIOPSY_CARE_20260919.md": "79c50df752b75fe5216690b5be1721a0ee6127123c39805a3bfd637d36c9f5c9",
+    "docs/references/PRESENTATION_WORDING_20260921.md": "72381ee733d04edc6760aeb69cab13c7c85626e7f622963b75a2041f3a7be492",
     "docs/references/rejection_source_manifest.json": "e77f42685419e43ed47d2602d1b9b5597cee21aa91ec3664f2dd058e9e9753ae"
   },
   "outputs_and_authoring_sources": {
@@ -79,19 +89,19 @@
     "presentation/assets/demo-invalid.png": "423bc4cc7db298fa8a188f8920c0524be00b2193f63cfcb58026693f465b6684",
     "presentation/assets/demo-valid.png": "05bdf5ad80780a862d31343f9fcec392d3bd06788f0e2692eb13f63247f1027f",
     "presentation/demo_fallback.html": "06b79a250f767fb972358fbad172d28703bfd59417f23274a1991edbc366b984",
-    "presentation/README.md": "f60c56a8f48de16a4bd0158baeb9cb9d86b9b5bfb1237399fb6d9e30c42dc4ca",
+    "presentation/README.md": "8cc4193b512c30c6f28c5990db6f3e387462a9ab01930c6c1fde7c8da25f5f74",
     "presentation/slides/slide-01.png": "73a4c359b214d4076c10a766344a80a5b6dacfe2cf636b72f60a2d554c9f282a",
-    "presentation/slides/slide-02.png": "b7509051bfe44368f6bf3358d7527d5281299d32b414ba3a68f39285fcee732e",
-    "presentation/slides/slide-03.png": "2036fefb8991788b2d3078274256dce2ddaa539118a142190d7d347e8ee66665",
-    "presentation/slides/slide-04.png": "6d7cc85430080b3812fc1b2b9cffcd562b28f0e7a2c0d149058f21906dd1982f",
+    "presentation/slides/slide-02.png": "d48e77b7fb76482d152981ccd0a2c3fb494c816a06b02ce7f18bc41bcd853e1d",
+    "presentation/slides/slide-03.png": "219811045aaab8d459a60b88084131b7ab680eee03a2cf8836d43fe07e95ef19",
+    "presentation/slides/slide-04.png": "752c2976d3daf494be2338fd1d2a6e8474b83af018f16b33d504ce216f7bd1a9",
     "presentation/slides/slide-05.png": "f6e0a7a3aa1ffccf9d1c59ed56528763c758baff622416c57c11078e25578850",
     "presentation/slides/slide-06.png": "e878306e904ea0a83ce8967662e40283d5111778558db02feea29c91ecdf2587",
-    "presentation/slides/slide-07.png": "bd6a221c85d06f0c5dca84581a68a2c373748d7935c4d23cf932068f381ef251",
+    "presentation/slides/slide-07.png": "36ac13de26380712864c945b6db747d5e7fbca5621e58b29248181684a4edc5d",
     "presentation/slides/slide-08.png": "02847c2233f86f26842e640be2b51e7b73c5d4553ea76e1c15f6b6fb17dd5ec2",
     "presentation/slides/slide-09.png": "99f70d7e7eb70df6f5303b09ccf4657ddf06aa0117e355fcdb0d54dd2e9d8bfd",
-    "presentation/slides/slide-10.png": "0e5704fb68dcec21a2f4bd22d8eccd9d840296237ac9d3b485142cdc0417501b",
-    "presentation/slides/slide-11.png": "cfb811af57906f9bf21f34b76f377a55e95d83e44b6b944e689df96ee267f351",
-    "presentation/slides/slide-12.png": "c9ab44f33da6ed1d48c803de9fde28933a7a797420f56f0a6b70f40c23f595f9",
+    "presentation/slides/slide-10.png": "7b2e24715fe543ccdc2c5fb7653ddede9d378c71c89512916021431e3519ae37",
+    "presentation/slides/slide-11.png": "3b50dd529f087e7824c7b210bba1cb8660f31f0d3706dcfb1917a2f2e440179f",
+    "presentation/slides/slide-12.png": "7c7b62ab868a3dfe12c4304b196be925dac49508f8a5282dfbca3b52079d1111",
     "presentation/slides/slide-13.png": "5404cf99b7237c6387aefc3a674aa5f7ee66274d9c9011a61c2f9ab0e8c69519",
     "presentation/slides/slide-14.png": "7791ca6f27e3649c84559d4af35fec6c9f3f6b2a2097222f39cd6e4d43394c7b",
     "presentation/slides/slide-15.png": "19ee36d0387e2cd13fc0b9bef05f7a774da38746f0182092cccdf0e525af5831",
@@ -101,15 +111,15 @@
     "presentation/slides/slide-19.png": "6f3ac25b9a62a50201c2b3901e485aa989dfd86dd05a9141267acf621b236f2b",
     "presentation/source/build_analysis_report.mjs": "28a58fa07383c1d09ca9b170575dbb94d10088168edb880dbd1d92c76d876900",
     "presentation/source/build_backups.py": "6b3305428efd0b492a437d2404f64fce7404b8655f393984c70b15d1d29fa9b8",
-    "presentation/source/build_deck.mjs": "a83702d3b277d44944144a0ea36f2c09ab649b594eb53c1f22c110f6f6ad52de",
+    "presentation/source/build_deck.mjs": "55e94b9433d57fb3fb5bcea0692c09d1a31727b199493ca81539bb414e276e3e",
     "presentation/source/build_script_html.py": "766ae41dfb3547bcf369ff0a24be902956a802383ae957450a3ddb2be675a4a1",
-    "presentation/source/record_manifest.py": "69c50ef944c93175e57b1676f0cbded0318bc1394dccc1f11caff091beb3410f",
+    "presentation/source/record_manifest.py": "be45aa0870807065310e21a519c1908ae27b7c66cabce8c40023cffce347856a",
     "presentation/source/remove_notes.py": "1f1d2c2d1b063133195df9b1540e66960d05f142b7bc4637850d335d36114e83",
     "presentation/source/render_final.mjs": "194813d56c31acf083e72753034a115baaf6af50e70c3e943cb885c778109ce7",
-    "presentation/source/speaking_script.json": "58d811d87738a56fbedd9e2df65a1ca322d9011fbe97576b32250c31fe48d853",
+    "presentation/source/speaking_script.json": "856dc279e1f55b29ff50d968d01fc84baeb6f09cc20fd6b8b86bc46c8c4f9ed7",
     "presentation/source/technical_slides.mjs": "90d32aebc9888a3c6c3618d313c90f16f2ce2bf5d15fe3aac21aad1944171dc8",
-    "presentation/speaking_script.html": "0d81e9a6c903dcff37cbdd7b4753183940a8467a7a4698bb2e721feccdb8964d",
-    "presentation/unos_kidney_biopsy.pdf": "e0543fcdcd663d3483555ee6e61f058027f65debe425b2d4b5453e289310d0dd",
-    "presentation/unos_kidney_biopsy.pptx": "941131553e363099ced336e64d49f0699f6d003d12a9b1e90a388c78c366786a"
+    "presentation/speaking_script.html": "018503f55703278e8d402d074418dab0db0e86c806a414b71bf9cbc5f9601f9e",
+    "presentation/unos_kidney_biopsy.pdf": "4faf98b59caa1f47e74c903719df8a1dcf729b1c58bc049da1649c462bb8c23a",
+    "presentation/unos_kidney_biopsy.pptx": "240efadd2a537194d3b4421290a0f97faa8b2516b5cd8a795fc5589dfd8564f3"
   }
 }

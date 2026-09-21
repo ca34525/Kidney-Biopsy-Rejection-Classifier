@@ -104,16 +104,15 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  const s=slide('Transplant rejection and kidney biopsy','Sources: NIDDK, Kidney Transplant and Kidney Biopsy; Zhang et al. (2024)');
  definition(s,'Rejection: ','The recipient’s immune system attacks the donated kidney.',177,{h:60});
  definition(s,'Kidney biopsy: ','A small tissue sample collected from the kidney for examination.',257,{h:93});
- definition(s,'Histology: ','Microscopic examination reveals injury and inflammation and supports the recorded diagnosis.',377,{nested:true,h:92});
- definition(s,'Molecular measurements: ','Counts of selected RNA types provide the model’s inputs.',493,{nested:true,h:92});
+ definition(s,'Histology: ','Microscopic examination reveals injury and inflammation that can support a rejection diagnosis.',377,{nested:true,h:92});
+ definition(s,'Molecular measurements: ','Counts of selected RNA types reflect gene activity and the mix of cells in the tissue.',493,{nested:true,h:116});
 }
-// A clearly hypothetical case illustrates the proposed purpose.
+// A documented diagnostic situation illustrates the proposed purpose.
 {
- const s=slide('Possible Use: Molecular Second Opinion for Ambiguous Biopsies','Source: Banff reference guide (updated Apr 2026).');
- bullets(s,['Sometimes the microscopic findings are borderline or conflict with other clinical evidence.'],64,172,1152,86,31);
- example(s,'Hypothetical Example:','A biopsy shows mild inflammation, but the microscopic findings do not clearly establish rejection.',270,135);
- bullets(s,['I used RNA to classify recorded diagnoses in this personal project.'],64,425,1152,71,31);
- example(s,'Hypothetical Example, continued:','A high rejection score could add evidence for specialist review of this biopsy.',507,135);
+ const s=slide('Possible Use: Molecular Second Opinion for Ambiguous Biopsies','Sources: Banff reference guide (Apr 2026); Nankivell et al. (2019)');
+ bullets(s,['Sometimes the histology findings are ambiguous.'],64,172,1152,86,31);
+ example(s,'Example:','A biopsy shows mild inflammation, but not enough to diagnose rejection. In a study of 146 borderline diagnoses, inflammation disappeared in some patients. Others later developed acute rejection.',270,185);
+ bullets(s,['As a step towards potentially helping resolve ambiguous biopsies, I used RNA counts to classify recorded diagnoses. A high rejection score could add evidence for specialist review.'],64,482,1152,158,31);
 }
 {
  const s=slide('Evidence for a molecular second opinion');
@@ -123,10 +122,10 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  text(s,'B-HOT study\nRosales, 2022',64,268,274,81,29,C.ink,true);
  text(s,'Higher initial molecular scores in patients who later\ndeveloped chronic active antibody-mediated rejection,\ndespite no initial diagnosis of it',365,259,851,108,28);
  line(s,64,383,1152);
- text(s,'Why incorrect\nrejection calls matter',64,402,274,103,28,C.ink,true);
- text(s,'Unnecessary rejection treatment can weaken the body’s\ndefenses and worsen an infection.',365,397,851,107,29);
- text(s,'KDIGO (2009); BK polyomavirus consensus (2024)',365,507,851,27,18,C.muted);
- text(s,'This personal project measured agreement with recorded diagnoses.\nIts value in ambiguous biopsies needs direct evaluation.',64,555,1152,85,30,C.teal,true);
+ text(s,'Why both kinds\nof error matter',64,405,274,103,28,C.ink,true);
+ text(s,'Missed rejection can leave kidney injury untreated.\nUnnecessary treatment can weaken the body’s defenses\nand worsen an infection.',365,395,851,123,29);
+ text(s,'KDIGO (2009); Nankivell (2019); BK polyomavirus consensus (2024)',365,526,851,27,18,C.muted);
+ text(s,'This project has not established usefulness in ambiguous biopsies.\nThat requires comparing specialist assessment with and without RNA scores.',64,562,1152,86,30,C.teal,true);
 }
 datasetSlide();
 // Give the biological labels their own visual explanation.
@@ -148,14 +147,14 @@ function assaySlide(){
 }
 // Separate what is measured from what is predicted.
 {
- const s=slide('The measurements used to build the features','Sources: GSE212160; B-HOT panel consensus (2020); project data contract');
+ const s=slide('The measurements used to build the features','Sources: GSE212160; B-HOT panel consensus; NanoString analysis guidance; shared preprocessing');
  text(s,'770 RNA counts per specimen, one for each RNA type measured.',64,170,1152,81,34,C.teal);
- text(s,'758',64,285,535,80,64,C.ink,true);
- text(s,'Model measurements',64,369,535,49,34,C.ink,true);
- bullets(s,['Include human and viral RNA.','Signals depend on gene activity and the cell mixture.'],64,430,540,200,29,C.ink,12);
- text(s,'12',687,285,529,80,64,C.ink,true);
- text(s,'Housekeeping references',687,369,529,49,34,C.ink,true);
- bullets(s,['12 different reference RNAs.','Used to adjust for differences in how much RNA each specimen supplies.'],687,430,529,200,29,C.ink,12);
+ text(s,'758',64,269,535,70,64,C.ink,true);
+ text(s,'Model measurements',64,351,535,49,34,C.ink,true);
+ bullets(s,['Selected human and viral RNA measurements.','Signals reflect gene activity and the mixture of cells in the biopsy.','Normalized values become the model’s inputs.'],64,410,540,234,29,C.ink,10);
+ text(s,'12',687,269,529,70,64,C.ink,true);
+ text(s,'Housekeeping references',687,351,529,49,34,C.ink,true);
+ bullets(s,['Relatively stable RNAs provide a reference for each specimen.','Help adjust for differences in overall measurable RNA input.','Used for normalization, then excluded from the model.'],687,410,529,234,29,C.ink,10);
 }
 // Explain the identifier by showing what it joins.
 function datasetSlide(){
@@ -187,35 +186,35 @@ function datasetSlide(){
 }
 // Model names now come with an explanation.
 {
- const s=slide('Models compared','Sources: primary configuration and analysis, 15 Sep 2026; Zhang et al., Supplementary Table S2');
+ const s=slide('Models compared','Sources: primary configuration and analysis; Zhang et al., Table S2; CatBoost documentation');
  text(s,'Each model produces a score for rejection versus no rejection.',64,165,1152,75,33,C.teal);
- table(s,[['Model','What it learns'],['Constant baseline','One score: the training rejection fraction'],[modelLabels.ifng,'One immune-related RNA measurement\nas a simple benchmark'],[modelLabels.logistic,'A weighted combination of 758 measurements.\nRegularization limits the size of the weights.'],['CatBoost','A combination of decision trees']],{y:254,h:372,rowHeights:[53,61,78,110,70],widths:[354,798],size:29});
+ table(s,[['Model','Approach and rationale'],['Constant baseline','One score: the training rejection fraction'],[modelLabels.ifng,'One immune-related RNA measurement\nas a simple benchmark'],[modelLabels.logistic,'A weighted combination of 758 measurements.\nRegularization limits the size of the weights.'],['CatBoost','Can capture nonlinear RNA patterns and interactions.\nShallow trees help limit overfitting.']],{y:250,h:388,rowHeights:[50,60,86,96,96],widths:[354,798],size:29});
 }
 // Define the decision and error vocabulary before reporting results.
 {
- const s=slide('Choosing a rejection threshold','Source: discovery screening rule and selected model metadata');
+ const s=slide('Choosing a rejection threshold','Reference: recorded biopsy diagnoses. Source: discovery screening rule and model metadata');
  text(s,'Recall',64,167,544,45,35,C.orange,true);
- text(s,'Recorded rejection cases detected',64,223,544,47,28,C.ink,false,'center');
+ text(s,'Correctly flagged rejection cases',64,223,544,47,28,C.ink,false,'center');
  line(s,76,278,520,C.ink);
- text(s,'All recorded rejection cases',64,284,544,47,28,C.ink,false,'center');
+ text(s,'All cases diagnosed as rejection',64,284,544,47,28,C.ink,false,'center');
  text(s,'(False negatives are missed cases.)',64,342,544,55,28,C.orange);
  text(s,'Precision',704,167,512,45,35,C.teal,true);
- text(s,'Flags with recorded rejection',704,223,512,47,28,C.ink,false,'center');
+ text(s,'Correctly flagged rejection cases',704,223,512,47,28,C.ink,false,'center');
  line(s,716,278,488,C.ink);
- text(s,'All positive flags',704,284,512,47,28,C.ink,false,'center');
+ text(s,'All rejection flags',704,284,512,47,28,C.ink,false,'center');
  text(s,'(False positives are incorrect flags.)',704,342,512,55,28,C.teal);
- text(s,'Selection using screening specimens',64,420,1152,40,32,C.ink,true);
- table(s,[['Step','Rule'],['1','Detect at least 90% of recorded rejection cases.*'],['2','Among qualifying choices, minimize false positives.'],['3','Keep the chosen model and threshold for evaluation.']],{y:473,h:151,rowHeights:[37,38,38,38],widths:[112,1040],size:25,padY:2});
- text(s,'*90% is an experimental target.',64,632,1152,27,23,C.muted);
+ text(s,'My selection rule for screening specimens',64,420,1152,40,32,C.ink,true);
+ table(s,[['Step','Rule'],['1','Detect at least 90% of cases diagnosed as rejection.'],['2','Among qualifying choices, minimize false positives.'],['3','Keep the chosen model and threshold for evaluation.']],{y:473,h:151,rowHeights:[37,38,38,38],widths:[112,1040],size:25,padY:2});
 }
 // Editable data and explicit denominators.
 {
  const s=slide('Validation results','Source: primary evaluation, 15 Sep 2026. Errors are against recorded diagnoses.');
  text(s,'Same 345 specimens: 169 rejection and 176 no rejection',64,145,1152,48,32);
- chart(s,'bar',{position:{left:56,top:202,width:1170,height:327},categories:[modelLabels.ifng,modelLabels.logistic,'CatBoost'],series:[{name:'False negatives / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'False positives / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:25}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
- bullets(s,[`Constant baseline: ${constant.fn} false negatives, ${constant.fp} false positives. It flags everyone.`,'CatBoost versus IFNG: 67 fewer false positives, 11 more false negatives.'],64,546,1152,103,29,C.ink,11);
+ // Single-line categories let chart viewers reserve the full label width.
+ chart(s,'bar',{position:{left:56,top:202,width:1170,height:327},categories:[modelLabels.ifng.replace('\n',' '),modelLabels.logistic.replace('\n',' '),'CatBoost'],series:[{name:'False negatives / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'False positives / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:25}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
+ bullets(s,[`Constant baseline: ${constant.fn} false negatives, ${constant.fp} false positives. It flags everyone.`],64,546,1152,60,29,C.ink,11);
 }
-// The approved first twelve slides are followed by the slide-based technical section.
+// Context and results are followed by the slide-based technical section.
 await addTechnicalSlides({root,slide,text,bullets,table,line,node,connect,C,codeFont:CODE_FONT});
 
 await fs.mkdir(build,{recursive:true});await fs.mkdir(path.join(out,'slides'),{recursive:true});

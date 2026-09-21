@@ -1,6 +1,6 @@
 {
   "title": "Classifying Kidney Transplant Rejection from Biopsy RNA — speaking script",
-  "status": "September 21 technical-section revision for aloud rehearsal. The first 12 slides are preserved. Only the report walkthrough and application demonstration leave the deck. Timings are approximate and have not been measured.",
+  "status": "September 21 RNA and cohort terminology revision for aloud rehearsal. Slide 7 uses the accepted measurement and reference bullets. The slide 9 script briefly distinguishes screening from the authors’ validation cohort. Only the report walkthrough and application demonstration leave the deck. Timings are approximate and have not been measured.",
   "delivery": "Spoken text belongs in the separate HTML deliverable. PowerPoint notes must remain empty.",
   "planned_seconds": 1200,
   "rehearsal": {
@@ -46,18 +46,18 @@
       "seconds": 55,
       "paragraphs": [
         "A kidney transplant gives a person a donor kidney. The recipient's immune system can recognize it as foreign and attack it. That immune response is rejection.",
-        "A kidney biopsy is a small tissue sample collected from the kidney for examination. It can supply two kinds of evidence. A specialist examines thin sections under a microscope for injury and inflammation. Histology means studying tissue this way. Molecular measurements count selected types of RNA, which include messages cells make when genes are active. Those counts provide the inputs to this model.",
-        "In this dataset, the recorded diagnoses come from histological assessment. The authors rescored transplant biopsies using Banff 2019 criteria. Those diagnoses provide the answers used to train and evaluate the classifier. The molecular measurements provide its inputs.",
-        "Why seek another assessment when the tissue has already been examined? That is the reason for the proposed use on the next slide."
+        "A kidney biopsy is a small tissue sample collected from the kidney for examination. It can supply two kinds of evidence. Histology is the microscopic examination of tissue. It reveals injury and inflammation that can support a rejection diagnosis.",
+        "Molecular measurements count selected types of RNA, which include messages cells make when genes are active. Those measurements reflect both gene activity within cells and the mix of cells in the tissue. More immune cells in a specimen can also change its RNA pattern.",
+        "The tissue's appearance and its RNA pattern describe different aspects of the biopsy. That is why molecular evidence might help when the microscopic interpretation is uncertain."
       ],
       "actions": [
-        "Explain the two forms of evidence beneath the biopsy definition and distinguish the recorded diagnosis from the model inputs."
+        "Explain tissue appearance and RNA measurements as two forms of biopsy evidence. Introduce the possible use on the next slide."
       ],
       "visible_cues": [
         "Rejection: the recipient's immune system attacks the donated kidney.",
         "Kidney biopsy: a small tissue sample collected from the kidney for examination.",
-        "Histology: microscopic examination reveals injury and inflammation and supports the recorded diagnosis.",
-        "Molecular measurements: counts of selected RNA types provide the model's inputs."
+        "Histology: microscopic examination reveals injury and inflammation that can support a rejection diagnosis.",
+        "Molecular measurements: counts of selected RNA types reflect gene activity and the mix of cells in the tissue."
       ],
       "sources": [
         {
@@ -87,20 +87,18 @@
       "title": "Possible Use: Molecular Second Opinion for Ambiguous Biopsies",
       "seconds": 65,
       "paragraphs": [
-        "The possible use is a molecular second opinion for ambiguous biopsies. Sometimes the microscopic findings are borderline or conflict with other clinical evidence. A specialist then needs to weigh the available information.",
-        "The first box gives a hypothetical example. A biopsy shows mild inflammation, but the microscopic findings do not clearly establish rejection. That leaves the specialist with an uncertain interpretation of tissue already collected.",
-        "Histology shows tissue appearance. RNA messages provide information about gene activity in that tissue. Because they describe different things, a molecular assessment could add useful evidence for specialist review.",
-        "For this personal project, I tested how well RNA measurements classified recorded rejection diagnoses and built software to score further specimens. In the second hypothetical box, the RNA pattern receives a high rejection score. In a validated application, that could give the specialist additional evidence when reviewing the uncertain biopsy.",
-        "The example illustrates how RNA could supply additional evidence from tissue already collected."
+        "The possible use is a molecular second opinion for ambiguous biopsies. Sometimes the histology findings are ambiguous. A specialist then needs to weigh the available information.",
+        "For example, a biopsy can show mild inflammation without enough evidence to diagnose rejection. Nankivell and colleagues examined 146 borderline diagnoses. The inflammation later disappeared in some patients. Other patients went on to develop acute rejection. The original appearance alone left uncertainty about what that inflammation meant. The 146 diagnoses describe one clinical study, not a general frequency for all transplant programs.",
+        "As a step towards potentially helping resolve ambiguous biopsies, I used RNA counts to classify recorded diagnoses. A high rejection score could add evidence for specialist review.",
+        "The aim is to get more useful information from tissue already collected. My evaluation measured agreement with the existing diagnoses. It did not establish that the score improves specialists' assessment of ambiguous cases."
       ],
       "actions": [
-        "Read the first hypothetical example, explain the project question, then continue the example in the matching box."
+        "Use the single example to explain the uncertainty, then connect the project to the proposed specialist review. The example describes a documented diagnostic situation, not a patient from this dataset."
       ],
       "visible_cues": [
-        "Sometimes the microscopic findings are borderline or conflict with other clinical evidence.",
-        "Hypothetical Example: A biopsy shows mild inflammation, but the microscopic findings do not clearly establish rejection.",
-        "I used RNA to classify recorded diagnoses in this personal project.",
-        "Hypothetical Example, continued: A high rejection score could add evidence for specialist review of this biopsy."
+        "Sometimes the histology findings are ambiguous.",
+        "Example: A biopsy shows mild inflammation, but not enough to diagnose rejection. In a study of 146 borderline diagnoses, inflammation disappeared in some patients. Others later developed acute rejection.",
+        "As a step towards potentially helping resolve ambiguous biopsies, I used RNA counts to classify recorded diagnoses. A high rejection score could add evidence for specialist review."
       ],
       "sources": [
         {
@@ -110,6 +108,14 @@
         {
           "label": "Project research context",
           "path": "docs/RESEARCH_CONTEXT.md"
+        },
+        {
+          "label": "Nankivell et al., 2019: clinical outcomes of 146 borderline diagnoses; this is a study count, not general prevalence",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30501008/"
+        },
+        {
+          "label": "September 21 wording and source review",
+          "path": "docs/references/PRESENTATION_WORDING_20260921.md"
         }
       ]
     },
@@ -120,17 +126,17 @@
       "paragraphs": [
         "Banff guidance considers validated molecular tests in selected difficult biopsy interpretations. This supports investigating RNA as additional evidence when the microscopic findings leave uncertainty.",
         "Rosales and colleagues used B-HOT, the same fixed panel of RNA measurements used here. Patients who later developed chronic active antibody-mediated rejection had higher initial rejection-related molecular scores as a group, despite lacking that diagnosis on the initial biopsy. Antibody-mediated rejection involves immune proteins called antibodies. That later-outcome finding belongs to their study.",
-        "There is also a practical reason to avoid incorrect rejection calls. A rejection diagnosis can lead to medicines that suppress the immune system. If the problem is an infection, extra treatment can weaken the body’s defenses and make the infection worse. This is a reason to examine incorrect flags as well as missed rejection. It does not establish which model makes the best treatment decisions.",
-        "My personal project measured agreement with recorded diagnoses. It has not measured changes in care or patient outcomes, and its value in ambiguous biopsies needs direct evaluation."
+        "Both kinds of diagnostic error matter. Missing rejection can leave immune injury untreated. A false rejection diagnosis can lead to extra medicines that suppress the immune system. If the problem is an infection, that treatment can weaken the body’s defenses and make it worse. These consequences motivate examining both errors. Their relative importance depends on how specialists use the result.",
+        "This project measured agreement with recorded diagnoses. It has not established usefulness in ambiguous biopsies. Establishing that would require comparing specialist assessment with and without the RNA score, using an independent case review or patient outcomes to judge whether the added information helps."
       ],
       "actions": [
-        "Explain the two research findings, then the treatment consequence of an incorrect rejection call. Finish with what this project actually measures."
+        "Explain the two research findings, then why both missed rejection and unnecessary treatment matter. Close with the limitation and the comparison needed to establish usefulness."
       ],
       "visible_cues": [
         "Banff guidance, 2026: considers validated molecular tests for difficult biopsy interpretations",
         "B-HOT study, Rosales, 2022: higher initial molecular scores before later chronic active antibody-mediated rejection",
-        "Why incorrect rejection calls matter: unnecessary rejection treatment can weaken the body’s defenses and worsen an infection",
-        "This personal project measured agreement with recorded diagnoses. Its value in ambiguous biopsies needs direct evaluation."
+        "Why both kinds of error matter: missed rejection can leave kidney injury untreated. Unnecessary treatment can weaken the body’s defenses and worsen an infection.",
+        "This project has not established usefulness in ambiguous biopsies. That requires comparing specialist assessment with and without RNA scores."
       ],
       "sources": [
         {
@@ -156,6 +162,14 @@
         {
           "label": "September 19 research note: biopsy findings, care decisions, and the model tradeoff",
           "path": "docs/references/BIOPSY_CARE_20260919.md"
+        },
+        {
+          "label": "Nankivell et al., 2019: borderline diagnoses, later rejection and tissue injury",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30501008/"
+        },
+        {
+          "label": "September 21 wording and source review",
+          "path": "docs/references/PRESENTATION_WORDING_20260921.md"
         }
       ]
     },
@@ -250,9 +264,9 @@
       "title": "The measurements used to build the features",
       "seconds": 45,
       "paragraphs": [
-        "Each specimen has 770 RNA counts, one for each RNA type measured. Each count summarizes signals from that type of RNA. There are two roles for those measurements.",
-        "The 758 on the left include human and viral RNA measurements. The counts describe the tissue as a whole. A higher signal can reflect more activity within cells, a different mixture of cells, or both.",
-        "The other 12 measure housekeeping RNAs selected to provide a relatively stable reference. I used them to adjust for differences in how much measurable RNA each specimen supplies. The next slide shows that adjustment."
+        "Each specimen has 770 counts of selected RNA types. The 758 model measurements include human and viral RNA. Their signals reflect both gene activity and the mixture of cells in the biopsy. Their normalized values become the model's inputs.",
+        "The other 12 measure relatively stable housekeeping RNAs. More usable RNA entering the assay can raise counts across many measurements. The reference helps adjust for that overall difference.",
+        "I used the housekeeping counts for normalization, then excluded them from the model. The next slide shows the calculation."
       ],
       "actions": [
         "Use the 758 and 12 groups to explain the role of each set of counts."
@@ -260,9 +274,13 @@
       "visible_cues": [
         "770 RNA counts per specimen, one for each RNA type measured.",
         "758 model measurements",
-        "Human and viral RNA; signals depend on gene activity and the cell mixture",
-        "12 housekeeping references: 12 different reference RNAs",
-        "Used to adjust for differences in how much RNA each specimen supplies."
+        "Selected human and viral RNA measurements.",
+        "Signals reflect gene activity and the mixture of cells in the biopsy.",
+        "Normalized values become the model’s inputs.",
+        "12 housekeeping references",
+        "Relatively stable RNAs provide a reference for each specimen.",
+        "Help adjust for differences in overall measurable RNA input.",
+        "Used for normalization, then excluded from the model."
       ],
       "sources": [
         {
@@ -285,9 +303,17 @@
           "label": "Shared normalization implementation",
           "path": "src/kidney_biopsy/preprocessing.py"
         },
-        {
-          "label": "Project preprocessing specification",
-          "path": "docs/PROJECT_SPEC.md"
+      {
+        "label": "Project preprocessing specification",
+        "path": "docs/PROJECT_SPEC.md"
+      },
+      {
+        "label": "NanoString analysis guidelines: housekeeping normalization as a reference for RNA input",
+        "url": "https://nanostring.com/wp-content/uploads/Gene_Expression_Data_Analysis_Guidelines.pdf"
+      },
+      {
+        "label": "NanoString normalization technical note: reference-gene stability across expression levels",
+        "url": "https://nanostring.com/wp-content/uploads/TN_Normalization_of_Expression_Data.pdf"
         }
       ]
     },
@@ -343,12 +369,13 @@
       "title": "Development and evaluation specimens",
       "seconds": 45,
       "paragraphs": [
-        "The authors supplied two groups, or cohorts. Discovery has 1,050 specimens and validation has 345. I preserved that division for model development and the final comparison.",
-        "Within discovery, a saved split assigned 787 specimens to training and 263 to screening, keeping the four diagnosis proportions similar. I fitted the models on training specimens. I compared candidates and chose thresholds on screening specimens.",
-        "I then evaluated the selected model and threshold on the same 345 validation specimens used by every comparison model. The authors call this technical validation."
+        "The authors supplied 1,050 discovery specimens and 345 validation specimens. I preserved that division.",
+        "Within discovery, I split 787 specimens into training and 263 into screening, keeping diagnosis proportions similar. Training fitted the models. Screening selected the model and threshold.",
+        "The screening split serves the role often called a validation set. The authors' validation cohort is my final test set.",
+        "Once the choices were fixed, I evaluated the models on those same 345 specimens. That checks how the selected model and threshold perform on other specimens."
       ],
       "actions": [
-        "Follow discovery into training and screening, then move to the separate validation box."
+        "Follow discovery into training and screening, briefly clarify the terminology, then move to the separate validation box. Keep the authors’ cohort names on the slide."
       ],
       "visible_cues": [
         "I used the authors' two study groups: discovery and validation cohorts.",
@@ -390,11 +417,12 @@
       "title": "Models compared",
       "seconds": 60,
       "paragraphs": [
-        "Each model produces a score for rejection versus no rejection. The models estimate probabilities, but calibration has not established reliable individual probabilities here. I therefore call the output a model score.",
+        "Each model produces a rejection score. I call it a score because calibration has not established reliable individual probabilities here.",
         "The constant model uses the training rejection fraction for everyone. It shows what happens without RNA measurements.",
-        "IFNG encodes interferon gamma, an immune-signalling protein. The study associates it with T-cell-mediated rejection. I used logistic regression with this single normalized measurement as a simple benchmark fixed in my starting recipe. I did not establish IFNG as the best individual predictor.",
-        "The all-RNA model also used logistic regression, but combined all 758 normalized measurements using learned weights. Regularization limited those weights to reduce overfitting. CatBoost combined decision trees, allowing more complicated relationships between measurements and diagnoses.",
-        "I compared the models on the same specimens and used the same normalization for the RNA models. That let me ask whether combining measurements helped and whether CatBoost improved enough over all-RNA logistic regression to justify its complexity."
+        "IFNG encodes interferon gamma, an immune-signalling protein associated with T-cell-mediated rejection. I used logistic regression with this one normalized measurement as a simple benchmark. It was fixed in the starting recipe, rather than selected as the best individual predictor.",
+        "The all-RNA model also used logistic regression, but combined all 758 normalized measurements using learned weights. Regularization limited those weights to reduce overfitting.",
+        "CatBoost can capture nonlinear patterns and interactions. One RNA measurement's relationship with rejection can depend on another measurement's level. It works with numerical inputs, so categorical features are not required. Shallow trees and a small learning rate help limit overfitting.",
+        "The comparison uses the same specimens and normalization. It asks whether combining measurements helps, and whether CatBoost offers enough improvement over logistic regression to justify its complexity."
       ],
       "actions": [
         "Explain each model in table order."
@@ -404,7 +432,7 @@
         "Constant baseline: one score, the training rejection fraction",
         "IFNG only (Logistic regression): one immune-related RNA measurement as a simple benchmark",
         "All RNA (Logistic Regression): a weighted combination of 758 measurements; regularization limits weights",
-        "CatBoost: a combination of decision trees"
+        "CatBoost: can capture nonlinear RNA patterns and interactions. Shallow trees help limit overfitting."
       ],
       "sources": [
         {
@@ -426,6 +454,18 @@
         {
           "label": "September 19 full-study review with exact source pages",
           "path": "docs/references/STUDY_AUDIT_20260919.md"
+        },
+        {
+          "label": "CatBoost parameter tuning: tree depth, learning rate and regularization",
+          "url": "https://catboost.ai/docs/en/concepts/parameter-tuning"
+        },
+        {
+          "label": "CatBoostClassifier: numerical features without categorical inputs",
+          "url": "https://catboost.ai/docs/en/concepts/python-reference_catboostclassifier"
+        },
+        {
+          "label": "September 21 wording and source review",
+          "path": "docs/references/PRESENTATION_WORDING_20260921.md"
         }
       ]
     },
@@ -434,22 +474,22 @@
       "title": "Choosing a rejection threshold",
       "seconds": 55,
       "paragraphs": [
-        "A threshold turns a model score into a rejection flag. The fractions show what I count. Recall divides the recorded rejection cases detected by all recorded rejection cases. False negatives are the missed cases. Precision divides flags with recorded rejection by all positive flags. False positives are the incorrect flags.",
-        "On screening specimens, first retain thresholds with at least 90 percent recall. Among those choices, minimize false positives. Keep the chosen model and threshold together for evaluation. Minimizing false positives here maximizes specificity. It does not mean maximizing precision.",
-        "This gives priority to detecting rejection, then reduces incorrect flags. The 90 percent target is an experiment choice. It is not an established clinical requirement or a guarantee on new data.",
-        "Threshold selection also does not calibrate scores. The saved threshold appears in the demonstration."
+        "A threshold turns a score into a rejection flag. Recorded means the diagnosis supplied with the biopsy data.",
+        "For recall, start with all cases diagnosed as rejection. Count how many the model flags correctly. Fewer missed cases means higher recall.",
+        "For precision, start with all rejection flags. Count how many agree with a rejection diagnosis. Both fractions have the same numerator. Removing a false positive improves precision if the number of correct flags stays the same. It removes an incorrect flag from the denominator.",
+        "I chose a screening target of at least 90 percent recall, then minimized false positives among qualifying choices. I kept the selected model and threshold together for evaluation. That target guides this comparison and may not hold on new specimens. Choosing a threshold does not calibrate the score."
       ],
       "actions": [
-        "Read each fraction from numerator to denominator, then explain the screening rule and why its 90 percent target is an experiment choice."
+        "Explain each fraction from the denominator first. Both numerators count true positives. Fewer false positives reduce the precision denominator when true positives stay fixed. Then explain the screening rule."
       ],
       "visible_cues": [
-        "Recall = recorded rejection cases detected / all recorded rejection cases. False negatives are missed cases.",
-        "Precision = flags with recorded rejection / all positive flags. False positives are incorrect flags.",
-        "Selection using screening specimens",
-        "1. Detect at least 90% of recorded rejection cases.*",
+        "Recall = correctly flagged rejection cases / all cases diagnosed as rejection. False negatives are missed cases.",
+        "Precision = correctly flagged rejection cases / all rejection flags. False positives are incorrect flags.",
+        "My selection rule for screening specimens",
+        "1. Detect at least 90% of cases diagnosed as rejection.",
         "2. Among qualifying choices, minimize false positives.",
         "3. Keep the chosen model and threshold for evaluation.",
-        "*The 90% target is an experiment choice, not an established clinical requirement."
+        "Reference: recorded biopsy diagnoses."
       ],
       "sources": [
         {
@@ -492,15 +532,15 @@
       "seconds": 100,
       "paragraphs": [
         "Here are the results on the same 345 validation specimens. False negatives are missed cases among the 169 specimens recorded as rejection. False positives are incorrect flags among the 176 recorded as no rejection. The count labels let me compare both errors directly.",
-        "The constant model flags every specimen at its fixed threshold of 0.5. It has zero false negatives out of 169 rejection specimens, but 176 false positives out of 176 no-rejection specimens. That shows why finding every rejection case alone does not make a useful classifier.",
         "The IFNG-only logistic regression model has 14 false negatives and 75 false positives. It detects many rejection cases, but also produces many incorrect positive flags.",
         "The all-RNA logistic regression model uses all 758 normalized measurements. It has 33 false negatives and eight false positives. CatBoost has 25 false negatives and also eight false positives.",
         "Compared with IFNG, CatBoost makes 67 fewer false positives but 11 more false negatives. Its validation recall is 85.2 percent, below the 90 percent screening target. The criterion used during development gives a different result in this evaluation group.",
         "If the intended use prioritizes avoiding missed rejection, those additional false negatives matter. I cannot settle the preferred tradeoff from total error counts alone. I would need to know how specialists act on the score and what those actions change.",
-        "Compared with logistic regression, CatBoost detects eight more rejection specimens with the same false-positive count. Combining measurements reduces false positives here. The smaller difference between the two models using all measurements needs closer examination before I treat it as a dependable advantage."
+        "Compared with logistic regression, CatBoost detects eight more rejection specimens with the same false-positive count. Combining measurements reduces false positives here. The smaller difference between the two models using all measurements needs closer examination before I treat it as a dependable advantage.",
+        "The constant model flags every specimen at its fixed threshold of 0.5. It has zero false negatives out of 169 rejection specimens, but 176 false positives out of 176 no-rejection specimens. That shows why finding every rejection case alone does not make a useful classifier."
       ],
       "actions": [
-        "State both denominators before comparing the bars. Pause on the IFNG tradeoff, the recall shortfall, and the eight-case difference from logistic regression."
+        "State both denominators before comparing the bars. Explain the CatBoost-versus-IFNG tradeoff and comparison with all-RNA logistic regression before discussing the constant baseline."
       ],
       "visible_cues": [
         "Same 345 specimens: 169 rejection and 176 no rejection",
@@ -508,8 +548,7 @@
         "IFNG only (Logistic regression): 14 false negatives and 75 false positives",
         "All RNA (Logistic Regression): 33 false negatives and 8 false positives",
         "CatBoost: 25 false negatives and 8 false positives",
-        "Constant baseline: 0 / 169 false negatives and 176 / 176 false positives; it flags everyone",
-        "CatBoost versus IFNG: 67 fewer false positives, 11 more false negatives"
+        "Constant baseline: 0 / 169 false negatives and 176 / 176 false positives; it flags everyone"
       ],
       "sources": [
         {
@@ -827,5 +866,5 @@
     }
   ],
   "backups": [],
-  "revision": "2026-09-21: preserve slides 1–12 and their timings, replace all later material with a report walkthrough, live application demonstration, shared preparation and scoring, API contract, verification, handoff, and conclusion. The deck has 19 main slides, no backup slides, and a planned 20-minute delivery. The report and demonstration are the only live walkthroughs. Code Guide selections now appear as editable slide content. PowerPoint notes remain empty."
+  "revision": "2026-09-21: remove line breaks from slide 12 chart category labels so chart viewers reserve the full label width. All wording, values, other slides and spoken text remain unchanged. PowerPoint notes remain empty."
 }
