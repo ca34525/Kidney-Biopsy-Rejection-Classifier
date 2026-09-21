@@ -1,6 +1,6 @@
 {
-  "guide": "docs/TECHNICAL_OWNERSHIP.html",
-  "guide_sha256": "ce510ac69cb5d46138f7263011b0ab7361454cf7234846850b1569d50ca6b8aa",
+  "guide": "docs/CODE_GUIDE.html",
+  "guide_sha256": "abdede76cb322cf52685e54435ca0059f29960427e0b3952e86fedfc7b26bca1",
   "source_commit": "a666922b172a349ad1775312d94f4f66a5117040",
   "source_state": "application source matches HEAD",
   "chapters": 6,
@@ -26,7 +26,7 @@
     },
     {
       "file": "docs/CODE_GUIDE.md",
-      "sha256": "7d33167b34d7345c431d0ea346b83892d03de3b246411c351a86497c3ba9418f"
+      "sha256": "117fcaf7d71747837d86cdcbdfa79543702831f1ae97ef8c5e58e9efdab6f316"
     },
     {
       "file": "docs/CONTAINERS.md",
@@ -45,43 +45,43 @@
       "sha256": "c24bc11b4f9375c1c8c5a57393181d3f3caa0afe483fba4352d4c2d974d47601"
     },
     {
-      "file": "docs/ownership/data.json",
+      "file": "docs/code_guide/data.json",
       "sha256": "cf798b570604ce6410d2d38dab114f0b5bae143f94728a4f8539f917db82fe45"
     },
     {
-      "file": "docs/ownership/diagrams.json",
+      "file": "docs/code_guide/diagrams.json",
       "sha256": "a371b1bc7538551e2c5738ae4bcd9e6fe6bdfd61afcfc5bb6fb01a2a715f08fc"
     },
     {
-      "file": "docs/ownership/guide.css",
+      "file": "docs/code_guide/guide.css",
       "sha256": "97701969446ebd0a9aa2100ccfafb7199ff78cc2bec9174bbfa2d66f672554d5"
     },
     {
-      "file": "docs/ownership/guide.js",
+      "file": "docs/code_guide/guide.js",
       "sha256": "0c505d3b31c0cbb19cddf70a336eb46d7ee9059278f8b4856224584e9a631292"
     },
     {
-      "file": "docs/ownership/operations.json",
-      "sha256": "823d2fdb97b812bde268512ed948aa0b7eae89a62433f443fa4ae0ab8fb35a54"
+      "file": "docs/code_guide/operations.json",
+      "sha256": "0b783117d8c3911959423e7467cbd192922970ad325620c6d0091a947b3c706d"
     },
     {
-      "file": "docs/ownership/prediction.json",
-      "sha256": "f3c38e5077b29be8165444e12b6a9a0321d5132cd58a9c89ceb739e09e13333d"
+      "file": "docs/code_guide/prediction.json",
+      "sha256": "28b7b44904d37adc170e44500972e1d9b6fd0c23b3008a3a36a7d6c048e28af8"
     },
     {
-      "file": "docs/ownership/preprocessing.json",
+      "file": "docs/code_guide/preprocessing.json",
       "sha256": "012b34f9cfe8a0652c077a2113a3168ae666c405a93a6d67c07dcc3ec572f02e"
     },
     {
-      "file": "docs/ownership/results.json",
-      "sha256": "31b5ef49b36ed525cd3ac0d557acab8ce1d43a6a0c99d52425f04f6b2699daa9"
+      "file": "docs/code_guide/results.json",
+      "sha256": "c35a081d6e7a2f39a2adacaaa04b288ad37a3c884a195cb9b0573e635f848b58"
     },
     {
-      "file": "docs/ownership/specimen.json",
+      "file": "docs/code_guide/specimen.json",
       "sha256": "859f5a3aed8892e63302c1dedfdaf0a4fa60425beb971c90b015ce15b47e9065"
     },
     {
-      "file": "docs/ownership/training.json",
+      "file": "docs/code_guide/training.json",
       "sha256": "5624c464fff1f19e75996a3bb7b4213e8ba2b1a71d814130f6562d43fd45ac76"
     },
     {
@@ -121,8 +121,8 @@
       "sha256": "d9b02ad86c457514011fb3daae87768da8bcf574e7b396e6d472d353ccf95c60"
     },
     {
-      "file": "scripts/build_ownership_guide.py",
-      "sha256": "90e6127d2b74fdc5a4615e2234a6cdfcad260c56e13ed17fc3bccb8a58769738"
+      "file": "scripts/build_code_guide.py",
+      "sha256": "dcbf581270c50f16d402689f459c6b1a63f747037e77f70da184d7fc7828f186"
     },
     {
       "file": "scripts/check_project.py",

@@ -1,14 +1,14 @@
 # Code guide source
 
-Open [the complete offline guide](../TECHNICAL_OWNERSHIP.html) in a browser.
+Open [the complete offline guide](../CODE_GUIDE.html) in a browser.
 It pairs workflow diagrams with detailed explanations, linked source and tests,
 one prepared public specimen, change guidance, and exercises with answers.
 
 All commands below run from the project root with the project's Python 3.12 environment:
 
 ```powershell
-uv run --frozen python scripts/build_ownership_guide.py
-uv run --frozen python scripts/build_ownership_guide.py --check
+uv run --frozen python scripts/build_code_guide.py
+uv run --frozen python scripts/build_code_guide.py --check
 ```
 
 The ordinary build uses only Python's standard library, checked-in source, and
@@ -34,7 +34,7 @@ the checkout. The internal source links work even when the HTML is copied alone.
 To recalculate the example after changing its calculation code:
 
 ```powershell
-uv run --frozen python scripts/build_ownership_guide.py --refresh-example
+uv run --frozen python scripts/build_code_guide.py --refresh-example
 ```
 
 This optional operation needs the populated project's prepared examples and

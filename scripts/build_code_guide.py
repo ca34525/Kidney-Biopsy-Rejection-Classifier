@@ -1,6 +1,6 @@
 """Build the offline code guide from editable content and current source.
 
-Run from the project root: uv run --frozen python scripts/build_ownership_guide.py
+Run from the project root: uv run --frozen python scripts/build_code_guide.py
 Use --check to detect stale HTML, links, symbols, or its source manifest.
 Use --refresh-example to recalculate the public specimen with the frozen predictor.
 Normal builds need only Python's standard library and the checked-in example record.
@@ -20,8 +20,8 @@ from pathlib import Path
 from urllib.parse import quote, unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTENT = ROOT / "docs/ownership"
-OUTPUT = ROOT / "docs/TECHNICAL_OWNERSHIP.html"
+CONTENT = ROOT / "docs/code_guide"
+OUTPUT = ROOT / "docs/CODE_GUIDE.html"
 CHAPTERS = ("data", "preprocessing", "training", "results", "prediction", "operations")
 SOURCES: dict[str, str] = {}
 INPUTS: set[str] = set()
@@ -287,7 +287,7 @@ def specimen_block(example: dict) -> str:
     return f"""<aside class="specimen" id="specimen"><div class="specimen-head"><div><p class="eyebrow">One specimen, followed through the guide</p><h3>{esc(example["specimen"])} · prepared public example</h3></div><small>Recorded diagnosis: {esc(example["recorded_diagnosis"])}<br>Saved discovery-screen split</small></div>
 <div class="specimen-grid"><div><strong>{n["raw_count"]:g}</strong><span>Raw IFNG count</span></div><div><strong>{n["normalized_value"]:.6f}</strong><span>Normalized IFNG value</span></div><div><strong>{p["rejection_score"]:.6f}</strong><span>Model score from all {example["predictor_targets"]} targets</span></div><div><strong>{p["threshold"]:.6f}</strong><span>Frozen flag threshold</span></div></div>
 <p>The score is {relation} the threshold, so this specimen receives <code>rejection_flag = {flag_text}</code>. Its recorded diagnosis is used afterward for comparison. Neither the diagnosis nor the specimen ID enters the model.</p>
-<details><summary>See the arithmetic and all 12 housekeeping measurements</summary><p><code>log2({n["raw_count"]:g} + 1) − {n["housekeeping_mean"]:.6f} = {n["normalized_value"]:.6f}</code>. The mean is calculated across the transformed housekeeping counts below. IFNG illustrates one feature; it does not by itself determine this model's score.</p><div class="table-wrap"><table><thead><tr><th>Housekeeping target</th><th>Raw count</th><th>log2(count + 1)</th></tr></thead><tbody>{rows}</tbody></table></div><p class="source-caption">Calculated with the project's <code>describe_specimen()</code> and the verified frozen model. Example selection: {esc(example["provenance"]["selection"])} Displayed values are rounded; the saved record retains full precision. Source: <a href="ownership/specimen.json">specimen.json</a>.</p></details></aside>"""
+<details><summary>See the arithmetic and all 12 housekeeping measurements</summary><p><code>log2({n["raw_count"]:g} + 1) − {n["housekeeping_mean"]:.6f} = {n["normalized_value"]:.6f}</code>. The mean is calculated across the transformed housekeeping counts below. IFNG illustrates one feature; it does not by itself determine this model's score.</p><div class="table-wrap"><table><thead><tr><th>Housekeeping target</th><th>Raw count</th><th>log2(count + 1)</th></tr></thead><tbody>{rows}</tbody></table></div><p class="source-caption">Calculated with the project's <code>describe_specimen()</code> and the verified frozen model. Example selection: {esc(example["provenance"]["selection"])} Displayed values are rounded; the saved record retains full precision. Source: <a href="code_guide/specimen.json">specimen.json</a>.</p></details></aside>"""
 
 
 def trace_for(chapter: str, example: dict) -> str:
@@ -339,9 +339,9 @@ def validate_html(document: str) -> None:
 
 
 def build(recorded_revision: dict | None = None) -> tuple[str, str]:
-    chapters = [json.loads(read(f"docs/ownership/{name}.json")) for name in CHAPTERS]
-    diagrams = json.loads(read("docs/ownership/diagrams.json"))
-    example = json.loads(read("docs/ownership/specimen.json"))
+    chapters = [json.loads(read(f"docs/code_guide/{name}.json")) for name in CHAPTERS]
+    diagrams = json.loads(read("docs/code_guide/diagrams.json"))
+    example = json.loads(read("docs/code_guide/specimen.json"))
     for path, expected in example["provenance"]["source_sha256"].items():
         if digest(path) != expected:
             raise ValueError("Specimen calculation source changed; rebuild with --refresh-example.")
@@ -370,7 +370,7 @@ def build(recorded_revision: dict | None = None) -> tuple[str, str]:
         text=True,
         check=True,
     ).stdout.splitlines()
-    changed_source = [line for line in revision_files if "build_ownership_guide.py" not in line]
+    changed_source = [line for line in revision_files if "build_code_guide.py" not in line]
     source_state = (
         "working source differs from HEAD" if changed_source else "application source matches HEAD"
     )
@@ -422,9 +422,9 @@ def build(recorded_revision: dict | None = None) -> tuple[str, str]:
             f'<p class="source-caption">SHA-256 <code>{digest(path)}</code> · <a href="../{quote(path)}">Open current local file</a></p>'
             f'<div class="source-full">{code_lines(path, 1, len(value.splitlines()), anchors=True)}</div></details>'
         )
-    css = read("docs/ownership/guide.css")
-    js = read("docs/ownership/guide.js")
-    read("scripts/build_ownership_guide.py")
+    css = read("docs/code_guide/guide.css")
+    js = read("docs/code_guide/guide.js")
+    read("scripts/build_code_guide.py")
     html_document = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A source-linked guide to the kidney biopsy rejection classifier code."><title>Code guide · Kidney biopsy classifier</title><style>{css}</style></head>
 <body><a class="skip" href="#overview">Skip to the guide</a>
@@ -441,14 +441,14 @@ def build(recorded_revision: dict | None = None) -> tuple[str, str]:
 <section class="chapter" id="source-reference"><div class="chapter-head"><span class="chapter-num">07</span><h2>Source & maintenance</h2></div>
 <p class="chapter-summary">The explanations are hand-written; the source excerpts, symbol links, and file hashes are checked during the build.</p>
 <div class="prose"><p>The diagrams deliberately show the important calls and artifact transfers, rather than every helper or import. A module can appear in several workflows because its responsibilities are shared. Historical copies under <code>results/</code> preserve earlier experiments; the active implementation is under <code>src/</code>, <code>experiments/</code>, and <code>scripts/</code>.</p><p>Each function's source link opens the corresponding embedded file at its recorded line. Links labeled “Open current local file” and the related documentation links require the surrounding checkout. Diagram links, explanations, tests, search, and print work in the standalone file.</p></div>
-<h3>Update this guide after changing code</h3><ol class="steps"><li>Edit the chapter JSON under <code>docs/ownership/</code>. Update the workflow relationships in <code>diagrams.json</code> if calls or saved files change.</li><li>Run <code>uv run --frozen python scripts/build_ownership_guide.py</code> from the project root. The builder rejects missing symbols, missing files, broken anchors, and diagram nodes without explanations.</li><li>If preprocessing, prediction, or walkthrough code changed, use <code>uv run --frozen python scripts/build_ownership_guide.py --refresh-example</code> to recalculate the public example with the project-controlled frozen model. A normal build needs no model or raw assay files.</li><li>Review changed explanations against the source. The build checks references and captures hashes; it cannot determine whether prose still explains the implementation correctly.</li><li>Run <code>uv run --frozen python scripts/build_ownership_guide.py --check</code>, then open the HTML and inspect the affected diagrams and links. Commit the editable sources, generated HTML, and <code>docs/ownership/build_manifest.json</code> together.</li></ol>
-<h3>Scope of the source record</h3><p>The latest commit affecting the documented source at build time was <code>{revision}</code>; {source_state}. Exact input hashes are recorded in <a href="ownership/build_manifest.json">build_manifest.json</a>. The public specimen record identifies its model run, prepared CSV hash, and calculation source hashes. Existing model results and verification reports are historical evidence; building this guide is not a new training run or a rerun of those software checks.</p>
+<h3>Update this guide after changing code</h3><ol class="steps"><li>Edit the chapter JSON under <code>docs/code_guide/</code>. Update the workflow relationships in <code>diagrams.json</code> if calls or saved files change.</li><li>Run <code>uv run --frozen python scripts/build_code_guide.py</code> from the project root. The builder rejects missing symbols, missing files, broken anchors, and diagram nodes without explanations.</li><li>If preprocessing, prediction, or walkthrough code changed, use <code>uv run --frozen python scripts/build_code_guide.py --refresh-example</code> to recalculate the public example with the project-controlled frozen model. A normal build needs no model or raw assay files.</li><li>Review changed explanations against the source. The build checks references and captures hashes; it cannot determine whether prose still explains the implementation correctly.</li><li>Run <code>uv run --frozen python scripts/build_code_guide.py --check</code>, then open the HTML and inspect the affected diagrams and links. Commit the editable sources, generated HTML, and <code>docs/code_guide/build_manifest.json</code> together.</li></ol>
+<h3>Scope of the source record</h3><p>The latest commit affecting the documented source at build time was <code>{revision}</code>; {source_state}. Exact input hashes are recorded in <a href="code_guide/build_manifest.json">build_manifest.json</a>. The public specimen record identifies its model run, prepared CSV hash, and calculation source hashes. Existing model results and verification reports are historical evidence; building this guide is not a new training run or a rerun of those software checks.</p>
 <div class="source-catalog"><h3>Embedded source and test reference</h3>{"".join(catalog)}</div></section>
-<footer>Prepared with Codex assistance from this project's active source, tests, and recorded artifacts. The guide's reference checks do not replace review of its explanations. Editable content: <a href="ownership/README.md">docs/ownership/README.md</a>.</footer>
+<footer>Prepared with Codex assistance from this project's active source, tests, and recorded artifacts. The guide's reference checks do not replace review of its explanations. Editable content: <a href="code_guide/README.md">docs/code_guide/README.md</a>.</footer>
 </main><script>{js}</script></body></html>"""
     validate_html(html_document)
     manifest = {
-        "guide": "docs/TECHNICAL_OWNERSHIP.html",
+        "guide": "docs/CODE_GUIDE.html",
         "guide_sha256": hashlib.sha256(html_document.encode("utf-8")).hexdigest(),
         "source_commit": revision,
         "source_state": source_state,
