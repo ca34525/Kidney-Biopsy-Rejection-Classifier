@@ -6,9 +6,9 @@
     "results/followup/20260917_stability/summary.json": "e31a297e06eeb19d0bc116f2d036c5184e8fd3e9198ea88304073e794bc6cffc",
     "results/analysis/20260915_baseline/REPORT.md": "a5562e1ee7ba45e5f754ebc5f07b557b73f47fc1743e8373bdbd525d9fc9ea55",
     "results/followup/20260917_stability/REPORT.md": "e8e84b05e781ac4081cea4a2aec80bc124b50c49745183b01e76942fa2a08efd",
-    "docs/API.md": "a7688ebe06f21252d39dc7929cda39636ee4cd2ccc84a09488018aa852f8cb63",
-    "docs/VERIFICATION.md": "c24bc11b4f9375c1c8c5a57393181d3f3caa0afe483fba4352d4c2d974d47601",
-    "docs/CODE_GUIDE.md": "117fcaf7d71747837d86cdcbdfa79543702831f1ae97ef8c5e58e9efdab6f316",
+    "docs/API.md": "2446d55a13a5c719f6afc14b054dd06e213d350a1b6ca9507b2e9a96c44d7989",
+    "docs/VERIFICATION.md": "7377555f104275776f694052bd4dbddbb5d25a4b5b4f35ce6d7d607e42b5f6b9",
+    "docs/CODE_GUIDE.md": "6991a088efdd7a08a86ca2cee20b84d2568dfab6fc18ebcf218069896a8dfe3a",
     "docs/METHODOLOGY_REVIEW.md": "62413628b475ffa4f6ed885d7e06d106e27245183b3c7f1e2bed25cdb468e1eb",
     "results/checks/20260917_coherence/http/http.json": "47c94032872aa389c800158f1ad316e8683b26c134290054ddd1851c459d0834",
     "results/checks/20260917_coherence/container.json": "b379bcbbb6d58a7245852d08deecde42752397ac63d34a83232b97eaf1fae49f",
@@ -16,11 +16,12 @@
     "results/followup/20260917_stability/selections.csv": "972fd8e3cf5d1ec74f2b91b18a38025de6c3a74b95142140db6ddcfc3f5f9424",
     "results/followup/20260917_stability/design.json": "831a8a10a6b5023f1da9dc933fc0eed4a292dd8f82712f46cb7bf7d9824480d3",
     "results/reproduction/20260915_shared/configuration.json": "1704a1e4ce9ffce95127d83b8843177cd8aab4e7e46cc42565af206f5763c7b6",
-    "src/kidney_biopsy/prediction.py": "6004e22d8690bc21b943b776c7715bcdcf2a3097a1c8825dd7bb992115882f19",
-    "src/kidney_biopsy/preprocessing.py": "c206612ee9febecde4132e674ba7ce920cd65caeef17917a4d861d5c1fed4d67",
-    "experiments/rejection_public/run.py": "014f4f7f5ff9c73004ae23829af75c5f512455ddbdd3d0c2c623a81d7b08a2e2",
-    "scripts/verify_http_service.py": "4c0cf2c4847c0dbbdc3c498c86f9c3dcfce3ecd0ee29746cff774753bc34beb0",
-    ".github/workflows/checks.yml": "ee75ee79dfa093f51c698b256fdcb23a57b6191426aa1c5cdc33b20c879181ee"
+    "src/kidney_biopsy/prediction.py": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5",
+    "src/kidney_biopsy/preprocessing.py": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08",
+    "tests/test_shared_prediction.py": "918c4629da9ff8b16d2736b27c38f073a530719c555529b8e191763a03755189",
+    "experiments/rejection_public/run.py": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62",
+    "scripts/verify_http_service.py": "85623b728d637e4cff6866eabf2617da9e7617c2304dfe2760530550c59c2b97",
+    ".github/workflows/checks.yml": "0469e5381f6d127318584ec4a495dede15c55d81ba2982e50677856376dd4354"
   },
-  "output_sha256": "0cbdae5aa6e171b02a633a1c0c9839f5e04bf9290891fa0a27a586d260bde55d"
+  "output_sha256": "058c01c6086eabe07e1a2da72dd4a83076a76715325892c8e392553c2e88d1d9"
 }

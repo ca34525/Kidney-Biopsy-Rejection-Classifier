@@ -367,8 +367,8 @@
           "path": "docs/PROJECT_SPEC.md"
         },
         {
-          "label": "Public example provenance",
-          "path": "data/demo/manifest.json"
+          "label": "Captured public example and calculation",
+          "path": "presentation/source/demo_snapshot.json"
         },
         {
           "label": "Demo behavior and exact invalid-input response",
@@ -577,7 +577,7 @@
         "I will now switch to the browser for the software engineering portion. I will inspect the saved evidence, score a public specimen, and show how the software preserves and checks the calculation."
       ],
       "actions": [
-        "Switch from PowerPoint to the pre-opened engineering_demo.html page. Keep the same browser tab throughout all three stops. Return to PowerPoint on slide 14 afterward."
+        "Switch from PowerPoint to the pre-opened engineering_demo.html page. The Application link opens a separate tab; the engineering page stays open for the third stop. Return to PowerPoint on slide 14 afterward."
       ],
       "visible_cues": [
         "Reports, application and scoring service",
@@ -650,23 +650,23 @@
     "stops": [
       {
         "id": "evidence",
-        "title": "Inspect the saved evidence",
+        "title": "Model comparison results",
         "seconds": 75,
         "paragraphs": [
-          "This page gives another analyst a short route into the saved evidence. The error table retains the original diagnoses even though the model predicts a binary outcome. Most missed cases were T-cell-mediated rejection: eighteen for CatBoost and twenty-five for logistic regression. Mixed rejection has only eighteen specimens, so I would be cautious about its apparent difference.",
-          "The full primary report contains the other model comparisons, uncertainty intervals and score-reliability analysis. The discovery-split follow-up is a separate report, because it asks how the development decision changes with the split.",
-          "Here are the twenty recorded selections behind the thirteen-to-seven count. Each repetition has separate training, screening and held-out assessment partitions within discovery. The partitions overlap across repetitions. On assessment, neither family consistently has fewer missed cases. The saved design and complete results are available from this page."
+          "The first table compares errors on the same three hundred and forty-five specimens from the authors’ technical-validation cohort. Each fraction shows errors out of the specimens with that diagnosis. Most missed rejection cases were T-cell-mediated: eighteen for CatBoost and twenty-five for logistic regression. Mixed rejection has only eighteen specimens, so its error rates are particularly uncertain.",
+          "The next view asks whether model choice changes with the discovery split. Each repetition randomly reassigned the same one thousand and fifty discovery specimens. Both splitting steps preserved approximately the proportions of the four diagnoses. Six hundred and thirty specimens were used for training, two hundred and ten for screening, and two hundred and ten for assessment. The authors’ validation cohort was unused, and specimens were reused across repetitions.",
+          "Screening selected settings and thresholds, then the preferred family: CatBoost thirteen times and logistic regression seven. Both family winners were then evaluated on the reserved discovery assessment specimens. CatBoost missed fewer rejection cases in nine repetitions, logistic in ten, with one tie. Neither consistently missed fewer cases. The complete reports and all twenty selections are available here."
         ],
         "actions": [
-          "Evidence tab: show Errors by diagnosis. Point to the T-cell-mediated row and the mixed-rejection denominator. Briefly open Read the full primary analysis, then close the source dialog.",
-          "Choose Discovery splits. Show the 630/210/210 roles and expand Inspect all 20 selections briefly. Close the list before moving on. Do not read every row. Use Next: application."
+          "Model comparison opens on Validation errors by diagnosis. The cohort explanation precedes the table. The Primary analysis report opens in the source dialog.",
+          "Model choice across repeated splits presents the partition design first, the screening rule and selection counts next, and assessment errors afterward. All 20 selections and random seeds is expandable. Next: application advances to the CSV preview."
         ],
         "visible_cues": [
-          "Errors by diagnosis",
-          "Discovery splits",
-          "Inspect all 20 selections",
-          "Read the full primary analysis",
-          "Read the complete follow-up"
+          "Validation errors by diagnosis",
+          "Model choice across repeated splits",
+          "Three separate groups within each repetition",
+          "Preferred family across the 20 repetitions",
+          "Errors on the discovery assessment specimens"
         ],
         "sources": [
           {
@@ -681,26 +681,27 @@
       },
       {
         "id": "specimen",
-        "title": "Score a public specimen",
+        "title": "A public specimen in the application",
         "seconds": 135,
         "paragraphs": [
-          "This is the working application, embedded in the same browser page. The intended user here is an analyst or molecular laboratory researcher who wants to try the selected model without running the training scripts. Another program can use the same service directly.",
+          "This preview shows selected columns from the actual input CSV. Each row represents a specimen, with its identifier followed by seven hundred and seventy raw counts. The full input includes all twelve housekeeping targets. The application link opens the working service in a separate tab. An analyst or molecular laboratory researcher can use it without running the training scripts.",
           "I will use this public specimen, GSM6510425. It comes from the discovery-screen group and has a recorded no-rejection diagnosis. The prepared examples were selected by accession within each diagnosis, rather than by whether the model got them right. This is a software demonstration, separate from the validation result.",
           "The request supplies all seven hundred and seventy raw counts. The diagnosis is displayed for comparison, but it is not sent as a predictor. The application calls the service and shows the preparation for IFNG as one example. Four counts become about two point three two two after the log transformation. Subtracting the housekeeping reference gives about minus five point five seven eight. The same operation prepares the full model input.",
           "The model score is about zero point two seven five, below the frozen threshold of about zero point eight seven seven. The rejection flag is false. The score and threshold are separate, and the model version tells us which saved calculation produced them.",
           "Now I will remove IFNG. The application clears the previous result, identifies the missing measurement, and returns no new score. It does not silently fill the missing value. The user gets an explanation they can act on."
         ],
         "actions": [
-          "Confirm the page says Live application. In the embedded app, choose the No Rejection public example and click Get research score. Point to IFNG preparation, the score, frozen threshold and flag. Allow time for the audience to follow the fields.",
-          "Click Try an incomplete file. Show that the prior score disappears and Missing required assay targets: IFNG appears.",
-          "If the service is unavailable, use the labeled saved responses already on this page. Say: “These are captured responses from the same application.” Use Show saved complete input, then Show saved missing IFNG. Do not describe them as a live request.",
-          "Use the Engineering tab to continue. Keep the same browser tab open."
+          "The Application tab contains the CSV preview and one Kidney biopsy application link. That link opens a separate tab. The No Rejection example and Get research score control produce the public specimen result.",
+          "Try an incomplete file clears the prior result and displays Missing required assay targets: IFNG.",
+          "If the service is unavailable, the separate demo_fallback.html contains captured application screenshots. The fallback wording is: “These are captured responses from the same application.” They are not live requests.",
+          "The engineering-page tab remains open. Its Engineering tab continues with the shared calculation."
         ],
         "visible_cues": [
-          "Live application or clearly labeled saved responses",
+          "Selected columns from the actual public example",
+          "Kidney biopsy application",
           "Get research score",
           "Try an incomplete file",
-          "Model score, threshold, rejection flag and model version"
+          "Model score, threshold, rejection flag and model version in the application"
         ],
         "sources": [
           {
@@ -715,7 +716,7 @@
       },
       {
         "id": "engineering",
-        "title": "Trace and check the calculation",
+        "title": "The shared calculation and software checks",
         "seconds": 240,
         "paragraphs": [
           "The key implementation decision was to share the preparation and prediction code. Otherwise, the application could produce a different result from the analysis even while loading the same fitted model.",
@@ -729,17 +730,17 @@
           "Together, the reports make the analysis inspectable, the application makes the model usable, and the shared code and checks keep the software connected to the evaluated procedure. I will return to the slideshow to close."
         ],
         "actions": [
-          "Shared calculation, about 1:10: point to normalize_counts in both actual source excerpts. Explain the division between browser, service and shared prediction code. The complete code guide is for later reference.",
-          "API request and response, about 1:10: show the request and saved HTTP 200 response. Point to score, threshold, flag and version fields, then the HTTP 422 example. The download is optional; no terminal command needs to be typed during the talk.",
-          "Verification and handoff, about 1:40: show the 345-specimen comparison, open Inspect the recorded check briefly, then close it. Show the failure cases and handoff table. Distinguish the dates and scope of local and hosted checks.",
-          "Return to PowerPoint on slide 14. Do not return to any of the removed technical slides."
+          "Shared calculation, about 1:10: the preparation sequence leads to the training and prediction source excerpts. Both call normalize_counts. The code guide supplies further detail.",
+          "Programmatic access, about 1:10: the request precedes the response-field explanation. Complete saved JSON response expands the actual HTTP 200 response. The missing-IFNG example follows it.",
+          "Verification and setup, about 1:40: the cohort and comparison are explained before the agreement table. Recorded agreement check opens the historical record. Failure cases and setup evidence follow, with dates and local versus hosted scope identified.",
+          "Closing slide 14 provides the transition back to PowerPoint."
         ],
         "visible_cues": [
           "Shared calculation",
-          "API request and response",
-          "Verification and handoff",
-          "345 validation specimens",
-          "What another developer receives"
+          "Programmatic access",
+          "Verification and setup",
+          "Agreement between research results and the service",
+          "Reproducing and running the software"
         ],
         "sources": [
           {

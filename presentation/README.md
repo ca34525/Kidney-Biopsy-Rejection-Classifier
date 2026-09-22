@@ -22,13 +22,14 @@ include the demonstration; questions follow. PowerPoint notes are empty.
 | Browser: shared calculation, API, checks and handoff | 4:00 | 19:10 |
 | Slide 14: completed analysis, software and next steps | 0:50 | 20:00 |
 
-Switch from PowerPoint to the browser after slide 13. Stay on the same HTML page
-for all three stops, then return to PowerPoint on slide 14. The former technical
+Switch from PowerPoint to the browser after slide 13. The Application stop opens the scoring app in a separate tab. Return to the
+engineering page for the third stop, then to PowerPoint on slide 14. The former technical
 slides have been removed from the current deck. Their useful content is now in
 the browser page and script.
 
-The first stop shows errors by recorded diagnosis and the 20 recorded model
-selections. The second embeds the actual scoring application. The third shows
+The first stop explains the validation cohort and the repeated discovery-split
+design before showing their results. The second shows a real CSV excerpt and
+one link to the scoring application. The third shows
 source excerpts, a real API response and the saved 345-specimen agreement check,
 followed by the run instructions, automated checks and local container evidence.
 
@@ -48,8 +49,8 @@ uv run --frozen python presentation/source/serve_demo.py
 ```
 
 Open [the local engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html).
-The page verifies the expected model version and threshold before displaying
-the live application. The original app remains available at the server root.
+The Application tab links to the scoring app at the server root. The integration
+check verifies the served model version and threshold against the saved example.
 The launcher binds to localhost and adds presentation-file serving around the
 existing FastAPI application. It does not change the model or scoring routes.
 Use `--port` to select a different local port if needed.
@@ -58,7 +59,7 @@ If the examples are absent, follow [application preparation](../docs/API.md).
 A clean checkout first needs the environment, data and reproduction steps in
 the [project README](../README.md). The presentation launcher does not train models.
 
-Before presenting, confirm that the Application stop says **Live application**.
+Before presenting, follow **Kidney biopsy application** from the Application tab.
 Choose **No Rejection**, click **Get research score**, and then
 **Try an incomplete file**. The complete specimen is GSM6510425, with score
 `0.27493421380277305` and frozen threshold `0.8765880870219778`.
@@ -67,11 +68,10 @@ Removing IFNG returns HTTP 422 and no score. The model version is
 
 ## Offline use and speaking script
 
-Open `engineering_demo.html` directly to use its embedded reports, code and
-saved example responses without a server. The Application stop labels those
-responses as saved. Its buttons show the complete-input response or missing-IFNG
-response; they do not run a new prediction. The live page also has a **Use saved
-example** control. The earlier browser screenshots remain in `demo_fallback.html`.
+Open `engineering_demo.html` directly to read its reports, code, CSV preview and
+saved API responses without a server. The Application tab contains no duplicate
+scoring interface; its application link requires the local service. The separate
+`demo_fallback.html` retains the captured application screenshots for offline use.
 
 The separate speaking script contains the words to say, click instructions,
 fallback wording and pacing. Its index places browser stops D1–D3 between slides

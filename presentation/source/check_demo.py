@@ -70,8 +70,8 @@ def main():
         "shared-view",
         "interface-view",
         "checks-view",
-        "saved-valid",
-        "saved-invalid",
+        "csv-preview",
+        "application-link",
     ]:
         assert name in page.ids, name
     payload = json.loads(page.script_data)

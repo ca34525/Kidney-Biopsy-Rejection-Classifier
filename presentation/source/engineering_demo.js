@@ -6,6 +6,7 @@
   const panels = [...document.querySelectorAll('main > [role=tabpanel]')];
   const dialog = document.getElementById('reference-dialog');
   const refBody = document.getElementById('reference-body');
+  history.scrollRestoration = 'manual';
   let active = 0;
   function selectStop(name, focus = false) {
     active = Math.max(0, stops.indexOf(name));
@@ -18,7 +19,7 @@
     panels.forEach(panel => { panel.hidden = panel.id !== stops[active]; });
     history.replaceState(null, '', '#' + stops[active]);
     document.getElementById('previous-stop').disabled = active === 0;
-    document.getElementById('next-stop').textContent = active === 2 ? 'Return to closing slide 14' : 'Next: ' + (active === 0 ? 'application' : 'engineering');
+    document.getElementById('next-stop').textContent = active === 2 ? 'Closing slide 14' : 'Next: ' + (active === 0 ? 'application' : 'engineering');
     document.getElementById('stop-position').textContent = `${active + 1} of 3`;
     window.scrollTo(0, 0);
   }
@@ -33,7 +34,7 @@
   document.getElementById('next-stop').addEventListener('click', () => {
     if (active < 2) selectStop(stops[active + 1]);
     else {
-      refBody.innerHTML = '<h1>Return to the slideshow</h1><p>Resume PowerPoint on slide 14, “What this project accomplished”.</p><p><a href="unos_kidney_biopsy.pptx">Open the PowerPoint</a> · <a href="unos_kidney_biopsy.pdf#page=14">Open the PDF closing page</a></p>';
+      refBody.innerHTML = '<h1>Closing slide 14</h1><p>The slideshow concludes with “What this project accomplished”.</p><p><a href="unos_kidney_biopsy.pptx">PowerPoint deck</a> · <a href="unos_kidney_biopsy.pdf#page=14">PDF closing page</a></p>';
       dialog.showModal();
     }
   });
@@ -60,12 +61,12 @@
   function showReference(id) {
     const ref = data.references[id];
     if (!ref) return;
-    refBody.innerHTML = `<p class="ref-source">Source: ${escape(ref.path)}<br>SHA-256: ${escape(ref.sha256)}</p><p><button class="quiet" data-download-ref="${escape(id)}">Download original source</button></p>` + ref.html;
+    refBody.innerHTML = ref.html + `<details class="records"><summary>Original source and file record</summary><p class="ref-source">Source: ${escape(ref.path)}<br>SHA-256: ${escape(ref.sha256)}</p><p><button class="quiet" data-download-ref="${escape(id)}">Original source download</button></p></details>`;
     if (!dialog.open) dialog.showModal();
     dialog.scrollTop = 0;
   }
   function showLibrary() {
-    refBody.innerHTML = '<h1>Reports and source material</h1><p>The highlights link to these complete documents and saved records.</p><ul class="ref-library">' + Object.entries(data.references).map(([id, ref]) => `<li><button class="quiet" data-ref="${escape(id)}">${escape(ref.title)}</button><p>${escape(ref.description)}</p></li>`).join('') + '</ul>';
+    refBody.innerHTML = '<h1>Reports and source material</h1><p>These original reports, source files and dated checks support the explanations in this demonstration.</p><ul class="ref-library">' + Object.entries(data.references).map(([id, ref]) => `<li><button class="quiet" data-ref="${escape(id)}">${escape(ref.title)}</button><p>${escape(ref.description)}</p></li>`).join('') + '</ul>';
     if (!dialog.open) dialog.showModal();
     dialog.scrollTop = 0;
   }
@@ -88,52 +89,10 @@
   document.getElementById('all-references').addEventListener('click', showLibrary);
   document.getElementById('close-reference').addEventListener('click', () => dialog.close());
   document.getElementById('download-example').addEventListener('click', () => download(data.snapshot.valid_csv, 'no-rejection.csv', 'text/csv'));
-  document.querySelectorAll('[data-saved-case]').forEach(button => button.addEventListener('click', () => {
-    const valid = button.dataset.savedCase === 'valid';
-    document.getElementById('saved-valid').hidden = !valid;
-    document.getElementById('saved-invalid').hidden = valid;
-    document.getElementById('saved-case-status').textContent = valid ? 'Saved complete-input response' : 'Saved missing-IFNG response: HTTP 422, no score';
-  }));
-  const frame = document.getElementById('live-app');
-  frame.addEventListener('load', () => {
-    // The surrounding demonstration supplies the title; keep the real app controls.
-    const embedded = frame.contentDocument;
-    if (!embedded || embedded.getElementById('presentation-embedding')) return;
-    const style = embedded.createElement('style');
-    style.id = 'presentation-embedding';
-    style.textContent = '.site-header,.intro{display:none}main{padding-top:24px!important}';
-    embedded.head.append(style);
-  });
-  const saved = document.getElementById('saved-application');
-  const toggle = document.getElementById('toggle-mode');
-  const mode = document.getElementById('application-mode');
-  let liveReady = false;
-  function savedMode() {
-    frame.hidden = true; saved.hidden = false;
-    mode.textContent = 'Saved example responses'; mode.classList.add('saved');
-    toggle.textContent = liveReady ? 'Use live application' : 'Check live service';
+  const applicationLink = document.getElementById('application-link');
+  if (location.protocol === 'http:' || location.protocol === 'https:') {
+    applicationLink.href = new URL('/', location.href).href;
   }
-  function liveMode() {
-    saved.hidden = true; frame.hidden = false;
-    if (!frame.getAttribute('src')) frame.src = '/';
-    mode.textContent = 'Live application · frozen model verified'; mode.classList.remove('saved');
-    toggle.textContent = 'Use saved example';
-  }
-  async function checkService() {
-    if (location.protocol === 'file:') { savedMode(); return; }
-    try {
-      const response = await fetch('/model', {cache:'no-store', signal:AbortSignal.timeout(5000)});
-      if (!response.ok) throw new Error('Unavailable');
-      const model = await response.json();
-      if (model.model_version !== data.snapshot.model_version || model.threshold !== data.snapshot.threshold) throw new Error('Different model');
-      liveReady = true; liveMode();
-    } catch { liveReady = false; savedMode(); }
-  }
-  toggle.addEventListener('click', () => {
-    if (!frame.hidden) savedMode();
-    else if (liveReady) liveMode();
-    else checkService();
-  });
   selectStop(location.hash.slice(1));
-  checkService();
+  window.addEventListener('load', () => requestAnimationFrame(() => window.scrollTo(0, 0)), {once: true});
 })();
