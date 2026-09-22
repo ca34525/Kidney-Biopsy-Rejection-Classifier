@@ -5,7 +5,6 @@ const ui = {
   exampleSelect: byId("example-select"),
   countsFile: byId("counts-file"),
   runButton: byId("run-button"),
-  invalidButton: byId("invalid-button"),
   result: byId("result-content"),
 };
 let metadata = null;
@@ -163,8 +162,8 @@ function singlePrediction(result, walkthrough) {
     const comparison = agrees
       ? "For this specimen, the flag agrees with the recorded diagnosis."
       : result.rejection_flag
-        ? "For this specimen, the result is a false rejection flag."
-        : "For this specimen, the result is a missed rejection case.";
+        ? "False positive: the model flags rejection, but the recorded diagnosis is no rejection."
+        : "False negative: the model misses the recorded rejection diagnosis.";
     box.append(element("p", "example-comparison", comparison));
   }
   return box;
@@ -285,8 +284,6 @@ function describeSelection() {
 function setBusy(value) {
   busy = value;
   ui.runButton.disabled = value || !metadata;
-  ui.invalidButton.disabled = value || !metadata ||
-    !examples.some((example) => example.id === "missing-target");
   ui.exampleSelect.disabled = value || examples.length === 0;
   ui.countsFile.disabled = value;
   byId("clear-file").disabled = value;
@@ -393,12 +390,6 @@ async function initialize() {
 }
 
 ui.runButton.addEventListener("click", runPrediction);
-ui.invalidButton.addEventListener("click", () => {
-  ui.countsFile.value = "";
-  ui.exampleSelect.value = "missing-target";
-  describeSelection();
-  runPrediction();
-});
 ui.exampleSelect.addEventListener("change", () => {
   ui.countsFile.value = "";
   describeSelection();

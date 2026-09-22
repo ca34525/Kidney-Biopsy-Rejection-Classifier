@@ -101,11 +101,12 @@ uv run --frozen uvicorn kidney_biopsy.api:app --host 127.0.0.1 --port 8765 --no-
 ```
 
 Open [the local demo](http://127.0.0.1:8765). Choose a public specimen or upload
-raw counts, then try the incomplete-file example. The page shows the score,
+raw counts. The specimen selector includes false-positive and false-negative
+examples and an invalid file missing IFNG. The page shows the score,
 threshold, research flag, and observed error counts. Uploads are processed in
 memory and are not saved or logged.
 
-**Follow the specimen** shows a public example's actual count normalization,
+**View the Results** shows a public example's actual count normalization,
 score, threshold, and agreement with its recorded diagnosis. It illustrates the
 shared prediction path; diagnosis and specimen ID are not model inputs.
 
