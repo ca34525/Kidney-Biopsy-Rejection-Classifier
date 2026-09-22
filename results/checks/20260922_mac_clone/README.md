@@ -4,6 +4,12 @@ Completed September 22, 2026 UTC (September 21 in America/Chicago).
 Starting revision: `ccbaf31abcaa049be946efe849b7d2f243378976`.
 Machine: macOS, Apple Silicon. The checkout was clean before setup.
 
+Later September 22: the original Windows models and specimen-level predictions
+became available. The [direct follow-up investigation](../20260922_windows_mac_investigation/README.md)
+confirms that all saved primary, subtype and stability flags agree and locates the
+notable CatBoost difference in training. The historical setup findings below are
+preserved as recorded before those artifacts were available.
+
 The local research workflow and application now work. The main model choices and
 validation error counts reproduce the committed desktop results. This is **not
 an exact reproduction of every number or artifact**: the strict audit records
