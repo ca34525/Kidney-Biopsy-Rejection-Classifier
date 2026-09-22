@@ -1,0 +1,836 @@
+{
+  "strict_tolerance": 1e-12,
+  "differences": [
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 7,
+      "identity": {
+        "target": "any_rejection",
+        "model": "extra_trees"
+      },
+      "field": "roc_auc",
+      "desktop": "0.9720392612682422",
+      "mac": "0.9718455379052047",
+      "absolute_difference": 0.00019372336303757898
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 7,
+      "identity": {
+        "target": "any_rejection",
+        "model": "extra_trees"
+      },
+      "field": "average_precision",
+      "desktop": "0.9844594046697168",
+      "mac": "0.9843039497204984",
+      "absolute_difference": 0.0001554549492184254
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 7,
+      "identity": {
+        "target": "any_rejection",
+        "model": "extra_trees"
+      },
+      "field": "threshold",
+      "desktop": "0.7340416666666668",
+      "mac": "0.7347916666666667",
+      "absolute_difference": 0.0007499999999999174
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 7,
+      "identity": {
+        "target": "any_rejection",
+        "model": "extra_trees"
+      },
+      "field": "brier",
+      "desktop": "0.05591888441988806",
+      "mac": "0.055913920224704275",
+      "absolute_difference": 4.964195183781994e-06
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "roc_auc",
+      "desktop": "0.9647402597402598",
+      "mac": "0.9642857142857143",
+      "absolute_difference": 0.00045454545454548523
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "average_precision",
+      "desktop": "0.9533539908878583",
+      "mac": "0.9527076183178893",
+      "absolute_difference": 0.0006463725699690226
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "threshold",
+      "desktop": "0.3705000000000001",
+      "mac": "0.3680000000000001",
+      "absolute_difference": 0.0025000000000000022
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "specificity",
+      "desktop": "0.9371428571428572",
+      "mac": "0.9314285714285714",
+      "absolute_difference": 0.005714285714285783
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "ppv",
+      "desktop": "0.8791208791208791",
+      "mac": "0.8695652173913043",
+      "absolute_difference": 0.009555661729574783
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "npv",
+      "desktop": "0.9534883720930233",
+      "mac": "0.9532163742690059",
+      "absolute_difference": 0.00027199782401743366
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "fp",
+      "desktop": "11",
+      "mac": "12",
+      "absolute_difference": 1.0
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "tn",
+      "desktop": "164",
+      "mac": "163",
+      "absolute_difference": 1.0
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "accuracy",
+      "desktop": "0.9277566539923955",
+      "mac": "0.9239543726235742",
+      "absolute_difference": 0.0038022813688213253
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "brier",
+      "desktop": "0.06973364962901352",
+      "mac": "0.06974320053073511",
+      "absolute_difference": 9.550901721597227e-06
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 25,
+      "identity": {
+        "target": "t_cell_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "roc_auc",
+      "desktop": "0.9472573839662447",
+      "mac": "0.9470765521398433",
+      "absolute_difference": 0.00018083182640138418
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 25,
+      "identity": {
+        "target": "t_cell_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "average_precision",
+      "desktop": "0.9072863291386342",
+      "mac": "0.906974556863392",
+      "absolute_difference": 0.00031177227524215034
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "row": 25,
+      "identity": {
+        "target": "t_cell_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "brier",
+      "desktop": "0.0884849547884981",
+      "mac": "0.08848445488091466",
+      "absolute_difference": 4.999075834399846e-07
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 7,
+      "identity": {
+        "target": "any_rejection",
+        "model": "extra_trees"
+      },
+      "field": "roc_auc",
+      "desktop": "0.9720392612682422",
+      "mac": "0.9718455379052047",
+      "absolute_difference": 0.00019372336303757898
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 7,
+      "identity": {
+        "target": "any_rejection",
+        "model": "extra_trees"
+      },
+      "field": "average_precision",
+      "desktop": "0.9844594046697168",
+      "mac": "0.9843039497204984",
+      "absolute_difference": 0.0001554549492184254
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 7,
+      "identity": {
+        "target": "any_rejection",
+        "model": "extra_trees"
+      },
+      "field": "threshold",
+      "desktop": "0.7340416666666668",
+      "mac": "0.7347916666666667",
+      "absolute_difference": 0.0007499999999999174
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 7,
+      "identity": {
+        "target": "any_rejection",
+        "model": "extra_trees"
+      },
+      "field": "brier",
+      "desktop": "0.05591888441988806",
+      "mac": "0.055913920224704275",
+      "absolute_difference": 4.964195183781994e-06
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "roc_auc",
+      "desktop": "0.9647402597402598",
+      "mac": "0.9642857142857143",
+      "absolute_difference": 0.00045454545454548523
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "average_precision",
+      "desktop": "0.9533539908878583",
+      "mac": "0.9527076183178893",
+      "absolute_difference": 0.0006463725699690226
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "threshold",
+      "desktop": "0.3705000000000001",
+      "mac": "0.3680000000000001",
+      "absolute_difference": 0.0025000000000000022
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "specificity",
+      "desktop": "0.9371428571428572",
+      "mac": "0.9314285714285714",
+      "absolute_difference": 0.005714285714285783
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "ppv",
+      "desktop": "0.8791208791208791",
+      "mac": "0.8695652173913043",
+      "absolute_difference": 0.009555661729574783
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "npv",
+      "desktop": "0.9534883720930233",
+      "mac": "0.9532163742690059",
+      "absolute_difference": 0.00027199782401743366
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "fp",
+      "desktop": "11",
+      "mac": "12",
+      "absolute_difference": 1.0
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "tn",
+      "desktop": "164",
+      "mac": "163",
+      "absolute_difference": 1.0
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "accuracy",
+      "desktop": "0.9277566539923955",
+      "mac": "0.9239543726235742",
+      "absolute_difference": 0.0038022813688213253
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 16,
+      "identity": {
+        "target": "antibody_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "brier",
+      "desktop": "0.06973364962901352",
+      "mac": "0.06974320053073511",
+      "absolute_difference": 9.550901721597227e-06
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 25,
+      "identity": {
+        "target": "t_cell_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "roc_auc",
+      "desktop": "0.9472573839662447",
+      "mac": "0.9470765521398433",
+      "absolute_difference": 0.00018083182640138418
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 25,
+      "identity": {
+        "target": "t_cell_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "average_precision",
+      "desktop": "0.9072863291386342",
+      "mac": "0.906974556863392",
+      "absolute_difference": 0.00031177227524215034
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "row": 25,
+      "identity": {
+        "target": "t_cell_mediated_component",
+        "model": "extra_trees"
+      },
+      "field": "brier",
+      "desktop": "0.08848495478849809",
+      "mac": "0.08848445488091466",
+      "absolute_difference": 4.999075834261069e-07
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/any_rejection_metrics.csv",
+      "row": 2,
+      "identity": {
+        "model": "four_class_logistic",
+        "target": "any_rejection"
+      },
+      "field": "threshold",
+      "desktop": "0.7474529027563233",
+      "mac": "0.7474529028526886",
+      "absolute_difference": 9.636536013601926e-11
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/any_rejection_metrics.csv",
+      "row": 6,
+      "identity": {
+        "model": "four_class_logistic",
+        "target": "any_rejection"
+      },
+      "field": "threshold",
+      "desktop": "0.7474529027563233",
+      "mac": "0.7474529028526886",
+      "absolute_difference": 9.636536013601926e-11
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/component_metrics.csv",
+      "row": 3,
+      "identity": {
+        "model": "four_class_logistic",
+        "target": "antibody_mediated_component"
+      },
+      "field": "threshold",
+      "desktop": "0.3245429918947258",
+      "mac": "0.32454299191880054",
+      "absolute_difference": 2.407474219978667e-11
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/component_metrics.csv",
+      "row": 4,
+      "identity": {
+        "model": "four_class_logistic",
+        "target": "t_cell_mediated_component"
+      },
+      "field": "threshold",
+      "desktop": "0.3607582863697376",
+      "mac": "0.3607582865367196",
+      "absolute_difference": 1.6698198379572204e-10
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/component_metrics.csv",
+      "row": 9,
+      "identity": {
+        "model": "four_class_logistic",
+        "target": "antibody_mediated_component"
+      },
+      "field": "threshold",
+      "desktop": "0.3245429918947258",
+      "mac": "0.32454299191880054",
+      "absolute_difference": 2.407474219978667e-11
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/component_metrics.csv",
+      "row": 10,
+      "identity": {
+        "model": "four_class_logistic",
+        "target": "t_cell_mediated_component"
+      },
+      "field": "threshold",
+      "desktop": "0.3607582863697376",
+      "mac": "0.3607582865367196",
+      "absolute_difference": 1.6698198379572204e-10
+    },
+    {
+      "reference": "results/followup/20260917_stability/assessment_metrics.csv",
+      "row": 1,
+      "identity": {
+        "repeat": "1",
+        "seed": "20260917",
+        "family": "logistic",
+        "model": "logistic_C0.1"
+      },
+      "field": "threshold",
+      "desktop": "0.7537403368509463",
+      "mac": "0.7537403368487627",
+      "absolute_difference": 2.183586644832758e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/assessment_metrics.csv",
+      "row": 7,
+      "identity": {
+        "repeat": "4",
+        "seed": "20260920",
+        "family": "logistic",
+        "model": "logistic_C1"
+      },
+      "field": "threshold",
+      "desktop": "0.8619838368817434",
+      "mac": "0.8619838368770739",
+      "absolute_difference": 4.669487019270946e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/assessment_metrics.csv",
+      "row": 17,
+      "identity": {
+        "repeat": "9",
+        "seed": "20260925",
+        "family": "logistic",
+        "model": "logistic_C0.1"
+      },
+      "field": "threshold",
+      "desktop": "0.9134021157810345",
+      "mac": "0.9134021157426904",
+      "absolute_difference": 3.834410566838642e-11
+    },
+    {
+      "reference": "results/followup/20260917_stability/assessment_metrics.csv",
+      "row": 25,
+      "identity": {
+        "repeat": "13",
+        "seed": "20260929",
+        "family": "logistic",
+        "model": "logistic_C1"
+      },
+      "field": "threshold",
+      "desktop": "0.8915330123266055",
+      "mac": "0.8915330123202514",
+      "absolute_difference": 6.3541394368371584e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 2,
+      "identity": {
+        "repeat": "1",
+        "seed": "20260917",
+        "model": "logistic_C0.1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.7537403368509463",
+      "mac": "0.7537403368487627",
+      "absolute_difference": 2.183586644832758e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 3,
+      "identity": {
+        "repeat": "1",
+        "seed": "20260917",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8152561781769797",
+      "mac": "0.8152561736001217",
+      "absolute_difference": 4.576858003702e-09
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 8,
+      "identity": {
+        "repeat": "2",
+        "seed": "20260918",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.9184738945953654",
+      "mac": "0.9184738945942917",
+      "absolute_difference": 1.0736966871149889e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 13,
+      "identity": {
+        "repeat": "3",
+        "seed": "20260919",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.9276055401314977",
+      "mac": "0.9276055401294369",
+      "absolute_difference": 2.0607959783092156e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 18,
+      "identity": {
+        "repeat": "4",
+        "seed": "20260920",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8619838368817434",
+      "mac": "0.8619838368770739",
+      "absolute_difference": 4.669487019270946e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 23,
+      "identity": {
+        "repeat": "5",
+        "seed": "20260921",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8261127337355558",
+      "mac": "0.8261127337070286",
+      "absolute_difference": 2.8527180617743397e-11
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 28,
+      "identity": {
+        "repeat": "6",
+        "seed": "20260922",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8995580720755469",
+      "mac": "0.8995580719889457",
+      "absolute_difference": 8.66012817013484e-11
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 30,
+      "identity": {
+        "repeat": "6",
+        "seed": "20260922",
+        "model": "catboost_depth6",
+        "family": "catboost"
+      },
+      "field": "threshold",
+      "desktop": "0.9113061088624865",
+      "mac": "0.9101966491316164",
+      "absolute_difference": 0.001109459730870177
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 30,
+      "identity": {
+        "repeat": "6",
+        "seed": "20260922",
+        "model": "catboost_depth6",
+        "family": "catboost"
+      },
+      "field": "roc_auc",
+      "desktop": "0.9823690343499848",
+      "mac": "0.9822677069611916",
+      "absolute_difference": 0.00010132738879320424
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 30,
+      "identity": {
+        "repeat": "6",
+        "seed": "20260922",
+        "model": "catboost_depth6",
+        "family": "catboost"
+      },
+      "field": "average_precision",
+      "desktop": "0.9899634964710123",
+      "mac": "0.9898560716654593",
+      "absolute_difference": 0.0001074248055530358
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 33,
+      "identity": {
+        "repeat": "7",
+        "seed": "20260923",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8296114306640986",
+      "mac": "0.8296114307352669",
+      "absolute_difference": 7.116829348063902e-11
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 38,
+      "identity": {
+        "repeat": "8",
+        "seed": "20260924",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.6892206603668362",
+      "mac": "0.6892206603685659",
+      "absolute_difference": 1.7297274723659939e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 42,
+      "identity": {
+        "repeat": "9",
+        "seed": "20260925",
+        "model": "logistic_C0.1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.9134021157810345",
+      "mac": "0.9134021157426904",
+      "absolute_difference": 3.834410566838642e-11
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 43,
+      "identity": {
+        "repeat": "9",
+        "seed": "20260925",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.9667579361696779",
+      "mac": "0.9667579361213482",
+      "absolute_difference": 4.832967359647e-11
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 58,
+      "identity": {
+        "repeat": "12",
+        "seed": "20260928",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8522449094429195",
+      "mac": "0.8522449094393914",
+      "absolute_difference": 3.528177749956285e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 63,
+      "identity": {
+        "repeat": "13",
+        "seed": "20260929",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8915330123266055",
+      "mac": "0.8915330123202514",
+      "absolute_difference": 6.3541394368371584e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 78,
+      "identity": {
+        "repeat": "16",
+        "seed": "20260932",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8819878869939312",
+      "mac": "0.8819878870214697",
+      "absolute_difference": 2.7538527014314695e-11
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 83,
+      "identity": {
+        "repeat": "17",
+        "seed": "20260933",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.9014799642414287",
+      "mac": "0.9014799642379817",
+      "absolute_difference": 3.447020446856186e-12
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 88,
+      "identity": {
+        "repeat": "18",
+        "seed": "20260934",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.795711798276188",
+      "mac": "0.795711985501807",
+      "absolute_difference": 1.8722561900830215e-07
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 93,
+      "identity": {
+        "repeat": "19",
+        "seed": "20260935",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8099429870703023",
+      "mac": "0.809942987130932",
+      "absolute_difference": 6.062972346398965e-11
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "row": 98,
+      "identity": {
+        "repeat": "20",
+        "seed": "20260936",
+        "model": "logistic_C1",
+        "family": "logistic"
+      },
+      "field": "threshold",
+      "desktop": "0.8736210713312639",
+      "mac": "0.8736210714069479",
+      "absolute_difference": 7.568401461099938e-11
+    }
+  ],
+  "note": "Recorded discrepancies; no tolerance change or model changes made to force agreement."
+}

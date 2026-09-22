@@ -1,0 +1,373 @@
+{
+  "started_utc": "2026-09-22T04:15:04.386269+00:00",
+  "finished_utc": "2026-09-22T04:15:48.644721+00:00",
+  "elapsed_seconds": 44.25922995799988,
+  "python": "3.12.13",
+  "dependencies": {
+    "catboost": "1.2.10",
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "input_manifest": "data/manifest.json",
+  "input_manifest_sha256": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6",
+  "source": {
+    "file": "experiments/rejection_public/run.py",
+    "sha256": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62"
+  },
+  "sources": [
+    {
+      "file": "experiments/rejection_public/run.py",
+      "sha256": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/experiments/rejection_public/run.py"
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "d2116e54d649c31bd4527b33b7f7c7955a9611cf0372814e9beb3f2d9604ca8a",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/pyproject.toml"
+    },
+    {
+      "file": "uv.lock",
+      "sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/uv.lock"
+    },
+    {
+      "file": "scripts/verify_local_data.py",
+      "sha256": "046983f51133b558081023143776f6128db067810106bfc55bd1ba239ccda897",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/scripts/verify_local_data.py"
+    },
+    {
+      "file": "src/kidney_biopsy/__init__.py",
+      "sha256": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/__init__.py"
+    },
+    {
+      "file": "src/kidney_biopsy/__main__.py",
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/__main__.py"
+    },
+    {
+      "file": "src/kidney_biopsy/api.py",
+      "sha256": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/api.py"
+    },
+    {
+      "file": "src/kidney_biopsy/cli.py",
+      "sha256": "b39046bc311f9db801ac5c5f4f49835d3e20d5e62bd6cadda525935ea60315bc",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/cli.py"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "sha256": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/prediction.py"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/preprocessing.py"
+    },
+    {
+      "file": "src/kidney_biopsy/source.py",
+      "sha256": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/source.py"
+    },
+    {
+      "file": "src/kidney_biopsy/walkthrough.py",
+      "sha256": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d",
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/walkthrough.py"
+    }
+  ],
+  "environment_lock": {
+    "file": "uv.lock",
+    "sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581"
+  },
+  "seeds": {
+    "discovery_split": 20260915,
+    "catboost": 2026,
+    "extra_trees": 2026,
+    "hist_boosting": 2026
+  },
+  "fit_count": 27,
+  "output_dir": "results/reproduction/20260922_mac_clone",
+  "model_dir": "data/processed/models/20260922_mac_clone",
+  "artifacts": [
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_catboost_all_depth6_screen_predictions.csv",
+      "bytes": 10249,
+      "sha256": "0b70aed2188134523e2274de81b8b38d9f75714120f1ec0fe209a2e8cccfd4d8"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "bytes": 13519,
+      "sha256": "3fbc68520b52f740bdb31bb5fb8b37e0fd2725aad4aba6bbb6ad11b61d49380d"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_frozen.json",
+      "bytes": 21998,
+      "sha256": "104d90576b244b196395cacf0112a391534ce7b7cec66474ec60b675df4a8f66"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_logistic_all_screen_predictions.csv",
+      "bytes": 10225,
+      "sha256": "7098b08cf0ced2a4c22a2fc068e27411b59eed0f0cff5ce3037a4eb97476c050"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_logistic_all_test_predictions.csv",
+      "bytes": 13543,
+      "sha256": "c2470aa7cc908132029ca7094758010aaa8d57d3741320401ff9e1b24d1f280f"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_single_gene_IFNG_screen_predictions.csv",
+      "bytes": 9935,
+      "sha256": "9ec027acaecf4ede4bbe5ae698dcb1d13db062e97d7992cc38194605ede06514"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "bytes": 13062,
+      "sha256": "ede9813cc67b345b67f598b5bed833431ffa280e2a60fedc4f69aa2c1462d422"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_catboost_all_depth4_screen_predictions.csv",
+      "bytes": 9980,
+      "sha256": "1a224e3794e1bea1ecac2088b15d2660f2ecf2eaf50f8f96b1ff8662e31b00ea"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "bytes": 13221,
+      "sha256": "69bc1f6180c55550b607058a666b1b0176c938c925526fa1559d24fe52369385"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_frozen.json",
+      "bytes": 21969,
+      "sha256": "f171cea5a3bda6b00b21eb8f96665738190f0386c007df9b647388f69eb4b533"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_gene_importance.csv",
+      "bytes": 14469,
+      "sha256": "3bfa846f6271563429e9cbd62496d35ac2b103b5c661d9568a26f35042487ccf"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_logistic_all_screen_predictions.csv",
+      "bytes": 9991,
+      "sha256": "03082e28788557bd0277cc5fa0b156e04dc8eb4a7a6818625c3a750dab81d5d0"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_logistic_all_test_predictions.csv",
+      "bytes": 13254,
+      "sha256": "d917c1fcf405c084de0c8f35e39719f240538196c2176f07a4afa5eee50052b3"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_single_gene_IFNG_screen_predictions.csv",
+      "bytes": 9834,
+      "sha256": "5072719ed65b533c31e65f668566fed3c9c041e536a8f8ebeb43ae65c819f38d"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_single_gene_IFNG_test_predictions.csv",
+      "bytes": 12952,
+      "sha256": "4e717bbe17f71ad0d24126430a4ad2cfe24d32e7e1d097daf6ad872a6afee1a1"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/biopsy_results.json",
+      "bytes": 9472,
+      "sha256": "3cdda3c5e1ed895e28d8a9787c2a5a0b57942d396525a532024d54c3a66bdc40"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/biopsy_screen.csv",
+      "bytes": 6904,
+      "sha256": "0ccb27e0cb620f9dc0d0d1ffa8c5e26574ea384b69c4a819d5650bad81c6b9a0"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/biopsy_split.csv",
+      "bytes": 101120,
+      "sha256": "2e6eda3b04d24e872919fe2a69fc6a9f671f337c9dcba2da6766a585067e29d6"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/configuration.json",
+      "bytes": 1976,
+      "sha256": "39ed0237db1a28543eb4ad4b13d47d22564b6eaf3cf82f0b5e7ab83d601b26ba"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/data_audit.json",
+      "bytes": 963,
+      "sha256": "d95174762dadb6fb1b884ec9d85d116d83737130217079d4e69a07b416cdcd13"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/raw_batch_identifiers.csv",
+      "bytes": 65478,
+      "sha256": "56c099f2c006ad72634fb8cb02caf141530cabf2d4eff432b450a7854185ed06"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/experiments/rejection_public/run.py",
+      "bytes": 21766,
+      "sha256": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/pyproject.toml",
+      "bytes": 1469,
+      "sha256": "d2116e54d649c31bd4527b33b7f7c7955a9611cf0372814e9beb3f2d9604ca8a"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/scripts/verify_local_data.py",
+      "bytes": 2852,
+      "sha256": "046983f51133b558081023143776f6128db067810106bfc55bd1ba239ccda897"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/__init__.py",
+      "bytes": 708,
+      "sha256": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/__main__.py",
+      "bytes": 30,
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/api.py",
+      "bytes": 14353,
+      "sha256": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/cli.py",
+      "bytes": 3091,
+      "sha256": "b39046bc311f9db801ac5c5f4f49835d3e20d5e62bd6cadda525935ea60315bc"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/prediction.py",
+      "bytes": 8511,
+      "sha256": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/preprocessing.py",
+      "bytes": 8595,
+      "sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/source.py",
+      "bytes": 5031,
+      "sha256": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/walkthrough.py",
+      "bytes": 2635,
+      "sha256": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/source/uv.lock",
+      "bytes": 68586,
+      "sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_catboost_all_depth4_screen_predictions.csv",
+      "bytes": 10143,
+      "sha256": "9f6c0e4691bcec6e864b72f659f1195370d6801021f757b55dd6d4905443789d"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "bytes": 13363,
+      "sha256": "6abca43cf1d7781eeb75c2f607bd957891ec5da3e7e11a2a583b5a204d3c95e1"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_frozen.json",
+      "bytes": 21993,
+      "sha256": "4189ace14ed88ac2a6c5390e965973ab1f52d37a906780e6867705b5c2c1f431"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_logistic_all_screen_predictions.csv",
+      "bytes": 10170,
+      "sha256": "74a55919ba56bdc03b60841b71cca88ac43e70c73d10001232be24eee9d16cc7"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_logistic_all_test_predictions.csv",
+      "bytes": 13384,
+      "sha256": "299643a4a8e12e817eba4cc76db81ddcd71c82fec726898a59d76c4cf6b0bf86"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_single_gene_IFNG_screen_predictions.csv",
+      "bytes": 9936,
+      "sha256": "78bc966cfe85389585c7b744d8bfbf7593ea27fa3fd2354288856ff58b756135"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "bytes": 13071,
+      "sha256": "dd6e9fc5d21f102ce5fda5b760cc4299c14229645cbe9d33a2f58ba8771a3f71"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/antibody_mediated_component_catboost_all_depth6.joblib",
+      "bytes": 391101,
+      "sha256": "4baff1e32f0514aeb6c1a9ea37e712d4ca59440c90e08abce531fec9bf936c83"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/antibody_mediated_component_logistic_all.joblib",
+      "bytes": 31937,
+      "sha256": "f49131530cd01c29676abdc06d34fed85826569bd4e9baa4012e47ddef6333de"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/antibody_mediated_component_selected_model.cbm",
+      "bytes": 376352,
+      "sha256": "f4afb6efab638e48065c7f5e900e0f69899f36acc69db2bca8bc79235d9a29b7"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/antibody_mediated_component_selected_model.joblib",
+      "bytes": 391101,
+      "sha256": "4baff1e32f0514aeb6c1a9ea37e712d4ca59440c90e08abce531fec9bf936c83"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/antibody_mediated_component_single_gene_IFNG.joblib",
+      "bytes": 1617,
+      "sha256": "081e408a5b3161a9bf95d80c656e1ace6bfe61b70dd3e101a84f3fa06683ae3e"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/any_rejection_catboost_all_depth4.joblib",
+      "bytes": 153509,
+      "sha256": "51546292885db0ad3801d72529899c27de220c137a3964982cd12803cff69404"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/any_rejection_logistic_all.joblib",
+      "bytes": 31937,
+      "sha256": "6bdbb92fdfd707cd3e5038537d845aa33163662e06af319b33fe91db76aab702"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/any_rejection_selected_model.cbm",
+      "bytes": 138760,
+      "sha256": "c7a80299defa83bc41bc5d9016fdb051391f5bfb69fbbabf503d8d34187cfa58"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/any_rejection_selected_model.joblib",
+      "bytes": 153509,
+      "sha256": "51546292885db0ad3801d72529899c27de220c137a3964982cd12803cff69404"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/any_rejection_single_gene_IFNG.joblib",
+      "bytes": 1617,
+      "sha256": "e47ca1b8e2dfeac002997257dc4f5bd99b53ff7444a5b2f1522d2596daa3aeb1"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/t_cell_mediated_component_catboost_all_depth4.joblib",
+      "bytes": 153661,
+      "sha256": "469174055f0cbd842904fece1cc69505900f7c1f75f7a9e26a4c16c1a79db04f"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/t_cell_mediated_component_logistic_all.joblib",
+      "bytes": 31937,
+      "sha256": "f22ccb4348a8ed44ab2807b6390276126dc1335815cadb9e636934ece27e3bde"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/t_cell_mediated_component_selected_model.cbm",
+      "bytes": 138912,
+      "sha256": "4de53340f620ee94ebd822db1a97ebb777f11ce92692fbea121f6730f825100c"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/t_cell_mediated_component_selected_model.joblib",
+      "bytes": 153661,
+      "sha256": "469174055f0cbd842904fece1cc69505900f7c1f75f7a9e26a4c16c1a79db04f"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/t_cell_mediated_component_single_gene_IFNG.joblib",
+      "bytes": 1617,
+      "sha256": "8b7e30df6e28a47aa355968f722e863cd6dc7e82b92c7d8652f1f111d36400fb"
+    }
+  ],
+  "configuration": "configuration.json"
+}

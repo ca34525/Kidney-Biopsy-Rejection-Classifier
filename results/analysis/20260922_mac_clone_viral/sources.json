@@ -1,0 +1,24 @@
+[
+  {
+    "title": "GSE212160 study deposit",
+    "url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160",
+    "checked": "2026-09-15"
+  },
+  {
+    "title": "Banff 2019 B-HOT panel consensus, Table 2",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7496585/",
+    "checked": "2026-09-15"
+  },
+  {
+    "title": "Zhang et al. Supplementary Table S3",
+    "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc5.docx",
+    "local_source": "data/reference/study/rejection_supplement_5.txt",
+    "checked": "2026-09-15"
+  },
+  {
+    "title": "Zhang et al. Supplementary Methods",
+    "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc6.docx",
+    "local_source": "data/reference/study/rejection_supplement_6.txt",
+    "checked": "2026-09-15"
+  }
+]

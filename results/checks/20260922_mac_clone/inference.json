@@ -1,0 +1,102 @@
+{
+  "verified_utc": "2026-09-22T04:16:55.759660+00:00",
+  "run_dir": "results/reproduction/20260922_mac_clone",
+  "inference_csv": "data/processed/predictions/20260922_mac_clone.csv",
+  "inference_sha256": "604709ae0b1e9322c5b0ff068dfbf8e2eb85700039ab010bcd074eeb3c264a38",
+  "run_manifest_sha256": "8f9689279a2f5fb4c20025e89e2891df578766c6fca917bd22567f476a699bc2",
+  "verified_artifacts": 55,
+  "specimens": 345,
+  "max_absolute_probability_difference": 0.0,
+  "predicted_positive": 152,
+  "predicted_negative": 193,
+  "threshold": 0.8765880870219773,
+  "numeric_tolerance": 1e-12,
+  "source_status": [
+    {
+      "file": "experiments/rejection_public/run.py",
+      "recorded_sha256": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62",
+      "current_sha256": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/experiments/rejection_public/run.py"
+    },
+    {
+      "file": "pyproject.toml",
+      "recorded_sha256": "d2116e54d649c31bd4527b33b7f7c7955a9611cf0372814e9beb3f2d9604ca8a",
+      "current_sha256": "d2116e54d649c31bd4527b33b7f7c7955a9611cf0372814e9beb3f2d9604ca8a",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/pyproject.toml"
+    },
+    {
+      "file": "uv.lock",
+      "recorded_sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581",
+      "current_sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/uv.lock"
+    },
+    {
+      "file": "scripts/verify_local_data.py",
+      "recorded_sha256": "046983f51133b558081023143776f6128db067810106bfc55bd1ba239ccda897",
+      "current_sha256": "046983f51133b558081023143776f6128db067810106bfc55bd1ba239ccda897",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/scripts/verify_local_data.py"
+    },
+    {
+      "file": "src/kidney_biopsy/__init__.py",
+      "recorded_sha256": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37",
+      "current_sha256": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/__init__.py"
+    },
+    {
+      "file": "src/kidney_biopsy/__main__.py",
+      "recorded_sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "current_sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/__main__.py"
+    },
+    {
+      "file": "src/kidney_biopsy/api.py",
+      "recorded_sha256": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442",
+      "current_sha256": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/api.py"
+    },
+    {
+      "file": "src/kidney_biopsy/cli.py",
+      "recorded_sha256": "b39046bc311f9db801ac5c5f4f49835d3e20d5e62bd6cadda525935ea60315bc",
+      "current_sha256": "b39046bc311f9db801ac5c5f4f49835d3e20d5e62bd6cadda525935ea60315bc",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/cli.py"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "recorded_sha256": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5",
+      "current_sha256": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/prediction.py"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "recorded_sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08",
+      "current_sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/preprocessing.py"
+    },
+    {
+      "file": "src/kidney_biopsy/source.py",
+      "recorded_sha256": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03",
+      "current_sha256": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/source.py"
+    },
+    {
+      "file": "src/kidney_biopsy/walkthrough.py",
+      "recorded_sha256": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d",
+      "current_sha256": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d",
+      "current_matches_run": true,
+      "snapshot": "results/reproduction/20260922_mac_clone/source/src/kidney_biopsy/walkthrough.py"
+    }
+  ],
+  "source_note": "Changed current source or lockfiles are recorded as development since the run; immutable artifacts and available source snapshots must still match their hashes.",
+  "comparison": "Shared inference versus evaluation produced by this local training run."
+}

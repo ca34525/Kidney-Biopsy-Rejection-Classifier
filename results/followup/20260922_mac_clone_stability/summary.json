@@ -1,0 +1,228 @@
+{
+  "repetitions": 20,
+  "assessment_n_each": 210,
+  "assessment_rejection_n": {
+    "median": 139.0,
+    "p10": 139.0,
+    "p90": 139.0,
+    "min": 139.0,
+    "max": 139.0
+  },
+  "selection_counts": {
+    "catboost": 13,
+    "logistic": 7
+  },
+  "selected_candidate_counts": {
+    "catboost_depth6": 7,
+    "catboost_depth4": 6,
+    "logistic_C0.01": 3,
+    "logistic_C1": 2,
+    "logistic_C0.1": 2
+  },
+  "within_family_choice_counts": {
+    "logistic": {
+      "logistic_C0.01": 13,
+      "logistic_C0.1": 5,
+      "logistic_C1": 2
+    },
+    "catboost": {
+      "catboost_depth4": 11,
+      "catboost_depth6": 9
+    }
+  },
+  "screen_false_flags_tied_count": 5,
+  "screen_false_flag_difference": {
+    "median": -0.5,
+    "p10": -2.0,
+    "p90": 1.0,
+    "min": -4.0,
+    "max": 2.0
+  },
+  "assessment": {
+    "logistic": {
+      "fn": {
+        "median": 14.0,
+        "p10": 9.700000000000001,
+        "p90": 19.1,
+        "min": 7.0,
+        "max": 31.0
+      },
+      "fp": {
+        "median": 3.0,
+        "p10": 1.9000000000000001,
+        "p90": 5.100000000000001,
+        "min": 0.0,
+        "max": 8.0
+      },
+      "sensitivity": {
+        "median": 0.8992805755395683,
+        "p10": 0.862589928057554,
+        "p90": 0.9302158273381296,
+        "min": 0.7769784172661871,
+        "max": 0.9496402877697842
+      },
+      "specificity": {
+        "median": 0.9577464788732394,
+        "p10": 0.928169014084507,
+        "p90": 0.9732394366197183,
+        "min": 0.8873239436619719,
+        "max": 1.0
+      },
+      "roc_auc": {
+        "median": 0.9735535515249771,
+        "p10": 0.9672813861586788,
+        "p90": 0.986249873340764,
+        "min": 0.9565305502077212,
+        "max": 0.9884486776775763
+      },
+      "threshold": {
+        "median": 0.7486312507691885,
+        "p10": 0.6836912595354996,
+        "p90": 0.8649387544213917,
+        "min": 0.6661220427338278,
+        "max": 0.9134021157426904
+      },
+      "assessment_sensitivity_at_least_90_count": 9
+    },
+    "catboost": {
+      "fn": {
+        "median": 15.0,
+        "p10": 8.0,
+        "p90": 21.1,
+        "min": 4.0,
+        "max": 23.0
+      },
+      "fp": {
+        "median": 2.0,
+        "p10": 1.0,
+        "p90": 4.100000000000001,
+        "min": 0.0,
+        "max": 6.0
+      },
+      "sensitivity": {
+        "median": 0.8920863309352518,
+        "p10": 0.848201438848921,
+        "p90": 0.9424460431654677,
+        "min": 0.8345323741007195,
+        "max": 0.9712230215827338
+      },
+      "specificity": {
+        "median": 0.971830985915493,
+        "p10": 0.9422535211267605,
+        "p90": 0.9859154929577465,
+        "min": 0.9154929577464789,
+        "max": 1.0
+      },
+      "roc_auc": {
+        "median": 0.979329212686189,
+        "p10": 0.9700881548282502,
+        "p90": 0.9856520417468841,
+        "min": 0.9603809909818624,
+        "max": 0.9921977910629243
+      },
+      "threshold": {
+        "median": 0.8447097966295473,
+        "p10": 0.8092329052487783,
+        "p90": 0.9063113991570261,
+        "min": 0.6999053145249073,
+        "max": 0.933419429650956
+      },
+      "assessment_sensitivity_at_least_90_count": 8
+    },
+    "selected": {
+      "fn": {
+        "median": 14.5,
+        "p10": 9.0,
+        "p90": 21.1,
+        "min": 4.0,
+        "max": 23.0
+      },
+      "fp": {
+        "median": 3.0,
+        "p10": 1.0,
+        "p90": 4.100000000000001,
+        "min": 0.0,
+        "max": 8.0
+      },
+      "sensitivity": {
+        "median": 0.89568345323741,
+        "p10": 0.848201438848921,
+        "p90": 0.935251798561151,
+        "min": 0.8345323741007195,
+        "max": 0.9712230215827338
+      },
+      "specificity": {
+        "median": 0.9577464788732394,
+        "p10": 0.9422535211267605,
+        "p90": 0.9859154929577465,
+        "min": 0.8873239436619719,
+        "max": 1.0
+      },
+      "roc_auc": {
+        "median": 0.9790758942142062,
+        "p10": 0.9679298814469551,
+        "p90": 0.9862600060796433,
+        "min": 0.9565305502077212,
+        "max": 0.9921977910629243
+      },
+      "threshold": {
+        "median": 0.8432833077069454,
+        "p10": 0.7137359744998408,
+        "p90": 0.9063113991570261,
+        "min": 0.6926817939666479,
+        "max": 0.933419429650956
+      },
+      "assessment_sensitivity_at_least_90_count": 7
+    }
+  },
+  "paired_catboost_minus_logistic": {
+    "fn_catboost_minus_logistic": {
+      "median": 0.5,
+      "p10": -6.0,
+      "p90": 5.0,
+      "min": -8.0,
+      "max": 7.0
+    },
+    "fp_catboost_minus_logistic": {
+      "median": 0.0,
+      "p10": -2.0,
+      "p90": 1.0,
+      "min": -2.0,
+      "max": 2.0
+    },
+    "sensitivity_catboost_minus_logistic": {
+      "median": -0.003597122302158251,
+      "p10": -0.03597122302158273,
+      "p90": 0.043165467625899345,
+      "min": -0.050359712230215736,
+      "max": 0.05755395683453235
+    },
+    "specificity_catboost_minus_logistic": {
+      "median": 0.0,
+      "p10": -0.014084507042253613,
+      "p90": 0.028169014084507116,
+      "min": -0.028169014084507116,
+      "max": 0.028169014084507116
+    },
+    "roc_auc_catboost_minus_logistic": {
+      "median": 0.0026345121086230328,
+      "p10": -0.0018441584760360502,
+      "p90": 0.006647076704833221,
+      "min": -0.007092917215523409,
+      "max": 0.016820346539669684
+    }
+  },
+  "assessment_error_comparisons": {
+    "fn": {
+      "catboost_fewer": 9,
+      "tied": 1,
+      "logistic_fewer": 10
+    },
+    "fp": {
+      "catboost_fewer": 9,
+      "tied": 6,
+      "logistic_fewer": 5
+    }
+  },
+  "interpretation": "Repeated partitions overlap; quantiles describe split variability, not independent confidence intervals."
+}

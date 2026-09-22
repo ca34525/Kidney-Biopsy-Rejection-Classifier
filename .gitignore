@@ -6,6 +6,9 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+# macOS Finder metadata and resource forks.
+.DS_Store
+._*
 .coverage
 htmlcov/
 .env
@@ -22,9 +25,7 @@ dist/
 *.pkl
 *.pickle
 catboost_info/
-results/**/biopsy_split.csv
-results/**/raw_batch_identifiers.csv
-results/**/*_test_predictions.csv
-results/**/*_screen_predictions.csv
-results/**/inference.csv
-results/**/smoke_*.csv
+# Generated CSVs stay local. Historical CSVs already tracked by Git are preserved.
+*.[cC][sS][vV]
+# Local command output can contain machine-specific paths and diagnostics.
+results/checks/**/command_log.json

@@ -1,0 +1,72 @@
+[
+  {
+    "field": "title",
+    "origin": "GEO sample metadata",
+    "n_present": 1395,
+    "n_distinct": 1395,
+    "values_if_at_most_10": []
+  },
+  {
+    "field": "source_name_ch1",
+    "origin": "GEO sample metadata",
+    "n_present": 1395,
+    "n_distinct": 1,
+    "values_if_at_most_10": [
+      "renal biopsy tissue"
+    ]
+  },
+  {
+    "field": "histology diganosis of rejection",
+    "origin": "GEO sample metadata",
+    "n_present": 1395,
+    "n_distinct": 4,
+    "values_if_at_most_10": [
+      "Antibody-mediated Rejection",
+      "Mixed Rejection",
+      "No Rejection",
+      "T cell-mediated Rejection"
+    ]
+  },
+  {
+    "field": "tissue",
+    "origin": "GEO sample metadata",
+    "n_present": 1395,
+    "n_distinct": 1,
+    "values_if_at_most_10": [
+      "renal biopsy tissue"
+    ]
+  },
+  {
+    "field": "cohort",
+    "origin": "GEO sample metadata",
+    "n_present": 1395,
+    "n_distinct": 2,
+    "values_if_at_most_10": [
+      "Discovery cohort sample",
+      "Validation cohort sample"
+    ]
+  },
+  {
+    "field": "Date",
+    "origin": "RCC header",
+    "n_present": 1395,
+    "n_distinct": 44,
+    "values_if_at_most_10": []
+  },
+  {
+    "field": "ScannerID",
+    "origin": "RCC header",
+    "n_present": 1395,
+    "n_distinct": 1,
+    "values_if_at_most_10": [
+      "2010C0748"
+    ]
+  },
+  {
+    "field": "CartridgeID",
+    "origin": "RCC header",
+    "n_present": 1395,
+    "n_distinct": 127,
+    "values_if_at_most_10": []
+  }
+]

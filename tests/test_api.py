@@ -214,7 +214,7 @@ class ApiTests(unittest.TestCase):
                     headers={"Content-Type": "text/csv"},
                 )
                 self.assert_invalid(response, 400)
-                loader.assert_called_once_with(self.root, "results/test")
+                loader.assert_called_once_with(self.root.resolve(), "results/test")
 
     def test_missing_corrupted_and_schema_incompatible_models_are_unready(self):
         for problem in ["missing", "corrupt", "schema"]:

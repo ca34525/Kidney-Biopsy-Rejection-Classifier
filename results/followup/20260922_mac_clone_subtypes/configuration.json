@@ -1,0 +1,49 @@
+{
+  "analysis_type": "Follow-up; technical-validation results were already examined in prior work.",
+  "benchmark_run": "results/reproduction/20260922_mac_clone",
+  "benchmark_models": "data/processed/models/20260922_mac_clone",
+  "output_dir": "results/followup/20260922_mac_clone_subtypes",
+  "model_dir": "data/processed/models/20260922_mac_clone_subtypes",
+  "case_dir": "data/processed/analysis/20260922_mac_clone_subtypes",
+  "diagnosis_order": [
+    "No Rejection",
+    "Antibody-mediated Rejection",
+    "T cell-mediated Rejection",
+    "Mixed Rejection"
+  ],
+  "discovery_split_seed": 20260915,
+  "preprocessing": "Shared raw readers and log2(count+1) minus the specimen mean across 12 housekeeping targets; 758 assay predictors.",
+  "catboost_grid": {
+    "depth": [
+      4,
+      6
+    ],
+    "iterations": 300,
+    "learning_rate": 0.04,
+    "loss_function": "MultiClass",
+    "random_seed": 2026,
+    "thread_count": 3
+  },
+  "logistic_grid": {
+    "C": [
+      0.01,
+      0.1,
+      1.0
+    ],
+    "solver": "lbfgs",
+    "max_iter": 3000,
+    "scaler": "StandardScaler fitted on training only",
+    "loss": "multinomial",
+    "penalty": "L2"
+  },
+  "selection": "Within each family maximize screening macro F1, then accuracy; exact ties use lower depth or lower C. No refit.",
+  "threshold_rule": "For each any-rejection or component score, highest screening threshold retaining >=90% of that target's positives.",
+  "diagnosis_rule": "Highest four-class score; ties use diagnosis_order. No binary flag gate.",
+  "separate_component_rule": "Use existing component models and thresholds: neither=none, antibody only=antibody, T-cell only=T-cell, both=mixed.",
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20260915,
+    "unit": "biopsy specimen",
+    "scheme": "paired nonparametric percentile"
+  }
+}
