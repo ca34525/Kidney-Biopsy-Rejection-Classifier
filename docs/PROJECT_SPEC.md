@@ -1,31 +1,36 @@
 # Kidney biopsy rejection classifier project specification
 
 Specification date: September 15, 2026; clinical rationale updated September 18,
-2026; source-population clarification September 19, 2026. Planning horizon: one week. Presentation:
+2026; source-population clarification September 19, 2026; comparative framing
+updated September 21, 2026. Planning horizon: one week. Presentation:
 20 full minutes, with questions outside that time. The exact interview date has
 not been supplied.
 
 ## Objective
 
-Develop an early research prototype toward a **molecular second opinion for
-uncertain kidney transplant biopsies**. RNA measurements could add evidence when
-microscopic findings are borderline, incomplete, or inconsistent with other
-clinical information. The aim is to get more useful information from tissue
-already collected. The dated clinical sources and related UNOS research are
-recorded in [Research context](RESEARCH_CONTEXT.md#why-a-molecular-second-opinion-could-be-useful).
+Compare the tested classifiers in distinguishing **any recorded rejection from
+no rejection in the public B-HOT biopsy dataset**, particularly their missed
+rejection and false positives. The principal comparison is regularized multigene
+logistic regression versus CatBoost. IFNG and a constant model supply supporting
+benchmarks. Package the selected classifier as a small, tested application and
+explain the work in a 20-minute interview presentation.
 
-The analysis objective is to build a reproducible classifier that uses molecular
-measurements from an already collected kidney biopsy to predict its
-recorded rejection diagnosis. Package it as a small, tested application and explain
-the work in a 20-minute interview presentation.
+Molecular measurements already have a recognized role in parts of transplant
+rejection assessment. Banff includes thoroughly validated biopsy transcript tests
+in defined settings for antibody-mediated rejection. This project uses that
+established application to investigate a modeling choice: how much does the
+classifier change missed rejection and false flags? The purpose is to assess
+what a more complex model contributes before further validation, and to build
+scoring software that preserves the evaluated procedure. The dated sources are in
+[Research context](RESEARCH_CONTEXT.md#established-application-and-project-purpose).
 
 The intended research user is a transplant pathology or molecular laboratory team
-developing an additional assessment for difficult biopsies. This project's current
-contribution is to test agreement with recorded diagnoses and make the scoring
-procedure reproducible. A useful demonstration shows an assay-compatible specimen,
-its model score, the chosen threshold, and the kinds of errors observed in
-evaluation. Added benefit in uncertain cases would require a separate comparison
-of standard assessment with and without molecular information.
+developing diagnostic support for rejection assessment. This project measures
+agreement with recorded diagnoses and makes scoring reproducible. A useful
+demonstration shows an assay-compatible specimen, its model score, the threshold,
+and the observed errors. Added diagnostic value from this particular score needs
+direct evaluation. Banff's recognition of validated tests supplies clinical
+context without validating this classifier.
 
 The role emphasizes developing data products and taking analytical prototypes
 toward maintainable software. Success therefore means a credible analysis, working
@@ -136,9 +141,11 @@ a guaranteed evaluation result. Report any shortfall in straightforward terms.
 
 Evaluate the selected model, the IFNG model, a full-panel regularized logistic
 baseline, and a training-derived constant baseline on the same rows. Freeze the
-logistic configuration using discovery data before evaluating it. The comparison
-should show whether the more complicated model improves results enough to justify
-its use.
+logistic configuration using discovery data before evaluating it. Report the
+observed differences and their uncertainty without treating the selected model
+as an established winner. The September 21 narrative revision preserves this
+completed procedure. A balanced comparison using cross-validation within discovery
+is a proposed follow-up, not a replacement for the existing results.
 
 Report:
 

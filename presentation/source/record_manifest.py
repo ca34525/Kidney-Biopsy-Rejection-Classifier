@@ -14,9 +14,10 @@ OUT = ROOT / "presentation"
 EXPECTED_MAIN_SLIDES = 19
 EXPECTED_BACKUP_SLIDES = 0
 EXPECTED_CHART_SLIDES = [12]
-REVISED_SLIDES = [12]
+REVISED_SLIDES = [3, 4, 19]
+REVISED_NARRATION_SLIDES = [1, 2, 3, 4, 19]
 PRESERVED_SLIDES = [n for n in range(1, EXPECTED_MAIN_SLIDES + 1) if n not in REVISED_SLIDES]
-BASELINE = ROOT / "build/presentation/before-chart-label-fix-20260921/presentation/unos_kidney_biopsy.pptx"
+BASELINE = ROOT / "build/presentation/before-banff-purpose-20260921/presentation/unos_kidney_biopsy.pptx"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 NS = {
     "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
@@ -103,7 +104,7 @@ with zipfile.ZipFile(OUT / "unos_kidney_biopsy.pptx") as archive:
                     f"Preserved slide {number} changed its content, formatting, or geometry."
                 )
             for name in charts:
-                assert semantic_xml(archive, name, normalize_chart_whitespace=True) == semantic_xml(original, name, normalize_chart_whitespace=True), (
+                assert semantic_xml(archive, name) == semantic_xml(original, name), (
                     f"Preserved chart changed: {name}"
                 )
         preservation = {
@@ -111,11 +112,18 @@ with zipfile.ZipFile(OUT / "unos_kidney_biopsy.pptx") as archive:
             "baseline_sha256": sha(BASELINE),
             "status": "passed",
             "slides": PRESERVED_SLIDES,
-            "comparison": "Unchanged slide XML preserved. Chart content, formatting and geometry preserved except category-label whitespace. Generated creation IDs ignored and relationship IDs resolved.",
+            "comparison": "Unchanged slide XML and chart content, formatting and geometry preserved. Generated creation IDs ignored and relationship IDs resolved.",
         }
+        previous_script = json.loads((BASELINE.parent / "source/speaking_script.json").read_text(encoding="utf-8"))
+        for current, previous in zip(data["slides"], previous_script["slides"], strict=True):
+            assert current["id"] == previous["id"]
+            assert current["seconds"] == previous["seconds"]
+            if current["id"] not in REVISED_NARRATION_SLIDES:
+                assert current == previous, f"Unrevised narration changed on slide {current['id']}"
 assert len(PdfReader(OUT / "unos_kidney_biopsy.pdf").pages) == len(slides)
 assert sum(slide["seconds"] for slide in data["slides"]) == 1200
 sources = [
+    "results/reproduction/baseline/biopsy_screen.csv",
     "results/analysis/20260915_baseline/REPORT.md",
     "results/reproduction/20260915_shared/configuration.json",
     "results/analysis/20260915_baseline/model_metrics.csv",
@@ -140,6 +148,8 @@ sources = [
     "scripts/verify_container.py",
     "scripts/verify_fresh_setup.py",
     "docs/JOB_REQUIREMENTS.md",
+    "docs/PROJECT_SPEC.md",
+    "docs/NEXT_STEPS.md",
     "docs/references/JOB_DESCRIPTION.txt",
     "docs/API.md",
     "docs/CODE_GUIDE.md",
@@ -155,6 +165,8 @@ sources = [
     "docs/references/STUDY_AUDIT_20260919.md",
     "docs/references/BIOPSY_CARE_20260919.md",
     "docs/references/PRESENTATION_WORDING_20260921.md",
+    "docs/references/PRESENTATION_REFRAMING_20260921.md",
+    "docs/references/PRESENTATION_PURPOSE_20260921.md",
     "docs/references/rejection_source_manifest.json",
 ]
 
@@ -173,6 +185,7 @@ manifest = {
     "native_chart_slides": chart_slides,
     "preserved_slides": preservation,
     "revised_slides": REVISED_SLIDES,
+    "revised_narration_slides": REVISED_NARRATION_SLIDES,
     "rehearsals": "pending",
     "sources": {name: sha(ROOT / name) for name in sources},
     "outputs_and_authoring_sources": {

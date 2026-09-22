@@ -5,12 +5,13 @@ reports and verification records remain evidence of what was checked at the time
 
 ## Read the project in this order
 
-1. **Purpose and question:** A molecular second opinion could give specialists
-   additional evidence when a kidney transplant biopsy is uncertain. The
-   [research context](RESEARCH_CONTEXT.md) documents the Banff guidance and B-HOT
-   research supporting this intended use. This project tests an early step:
-   can molecular measurements from existing tissue classify its recorded
-   rejection diagnosis? The [README](../README.md) states the input and comparison.
+1. **Purpose and question:** Use an established molecular application in
+   transplant rejection assessment to assess what a more complex classifier
+   contributes before further validation. Compare missed rejection and false
+   flags against recorded diagnoses, and preserve the evaluated procedure in
+   scoring software. The [research context](RESEARCH_CONTEXT.md) explains Banff's
+   recognized role for validated tests and this project's contribution. The
+   [README](../README.md) states the input and results.
 2. **Primary result:** The [frozen analysis](../results/analysis/20260915_baseline/REPORT.md)
    compares the same 345 specimens. CatBoost missed 25 of 169 rejection cases and
    falsely flagged 8 of 176 no-rejection cases. Logistic regression missed 33 with
@@ -36,8 +37,11 @@ reports and verification records remain evidence of what was checked at the time
 5. **Presentation draft:** The [presentation package](../presentation/README.md)
    contains the editable deck, matching PDF, separate HTML speaking script, and
    static demonstration fallback. The revised talk has 19 main slides and no
-   backup slides, with a full script planned for 20 minutes. Slides 1–12 preserve
-   the accepted context, methods, and results. The new section shows the
+   backup slides, with a full script planned for 20 minutes. The September 21
+   revision connects an established molecular application to the classifier
+   choice, restores Banff, and preserves the screening counts, validation
+   advantage and split-stability evidence. Cross-validation remains
+   a proposed follow-up. The technical section shows the
    [analysis report](../presentation/analysis_report.html) and application live,
    then uses slides for shared preparation, the API, verification, and handoff.
    The full Code Guide and detailed reports remain available for questions.
@@ -62,7 +66,7 @@ reports and verification records remain evidence of what was checked at the time
 | [Hosted Software checks #8](https://github.com/ca34525/Kidney-Biopsy-Rejection-Classifier/actions/runs/35270209322) | Installed package, lint, tests, and synthetic-container checks succeeded | PR #2 head `ce34d4c79442098308c89ca4ccb34542c4010216`; previous revision |
 | [Subtype follow-up](../results/followup/20260915_subtypes/REPORT.md) | Four-class comparisons did not justify replacing the binary service | Follow-up on an already examined validation cohort |
 | [Viral-target review](../results/analysis/20260915_viral/REPORT.md) | Describes BK signals and study composition | No viral-feature removal or independent assay-QC experiment |
-| [Presentation draft](../presentation/README.md) | 19 editable slides, matching PDF, separate HTML script, offline report, and static demo fallback | Slides 1–12 preserved; no backup slides; 20-minute timing is planned and rehearsals remain pending |
+| [Presentation draft](../presentation/README.md) | 19 editable slides, matching PDF, separate HTML script, offline report, and static demo fallback | Comparative question and model-selection explanation revised; no backup slides; 20-minute timing is planned and rehearsals remain pending |
 
 The September 17 application work added a walkthrough
 of a prepared public specimen, a bounded discovery-only stability comparison,
@@ -93,7 +97,7 @@ prediction path form the main talk. Keep the subtype follow-up, detailed
 reliability tables, assay-group tables, and implementation history available for
 questions. The completed work supplies a reproducible prototype for further
 evaluation. A direct comparison of usual assessment with and without molecular
-scores in uncertain biopsies would test its added benefit. Independent-cohort
+scores during rejection assessment would test its added benefit. Independent-cohort
 evaluation and laboratory quality checks would strengthen that study.
 
 Background: [project specification](PROJECT_SPEC.md), [research context](RESEARCH_CONTEXT.md),

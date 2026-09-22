@@ -71,11 +71,11 @@ export async function addTechnicalSlides({ root, slide, text, bullets, table, li
   }
   {
     const s=slide('What this project accomplished','Public data: Zhang et al. (2024), GSE212160. Development and presentation used AI assistance.',true);
-    text(s,'A reproducible model comparison',64,180,1152,54,37,C.white,true);
-    text(s,'Combined measurements reduced false flags, with a tradeoff in missed cases.\nThe practical advantage over logistic regression remains uncertain.',64,249,1152,101,31,C.white);
+    text(s,'Evidence for the classifier choice',64,180,1152,54,37,C.white,true);
+    text(s,'CatBoost missed 8 fewer rejection cases than logistic, with 8 false flags each.\nA dependable advantage remains uncertain.',64,249,1152,101,31,C.white);
     line(s,64,383,1152,'#78949B');
     text(s,'Working software that preserves the calculation',64,417,1152,53,36,C.white,true);
     text(s,'A versioned score, clear input errors and checks against the saved results.',64,489,1152,74,32,C.white);
-    text(s,'Added value for uncertain biopsies still needs direct evaluation.',64,591,1152,48,28,C.white);
+    text(s,'Next: cross-validation within discovery.\nAdded diagnostic value of this particular score needs direct evaluation.',64,579,1152,70,26,C.white);
   }
 }

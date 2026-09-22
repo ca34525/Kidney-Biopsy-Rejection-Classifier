@@ -1,48 +1,64 @@
 # Research context
 
 Public-source context first captured on 2026-09-15; clinical rationale updated
-2026-09-18; full source study reviewed on 2026-09-19. This document defines the research question and its motivation. Model
+2026-09-18; full source study reviewed on 2026-09-19; comparative framing updated
+2026-09-21. This document defines the research question and its motivation. Model
 findings must come from runs performed in this project.
 
-## Why a molecular second opinion could be useful
+## Established application and project purpose
 
-The intended application is to support the review of kidney transplant biopsies
-whose conventional interpretation is uncertain. Histology examines tissue
-appearance; RNA measurements describe gene activity within that tissue. A molecular
-assessment could supply additional evidence when microscopic findings are
-borderline, incomplete, or inconsistent with other clinical information. The
-practical aim is to get more useful information from tissue already collected.
+Molecular measurements already have a recognized role in parts of transplant
+rejection assessment. Banff includes thoroughly validated biopsy transcript tests
+in defined settings for antibody-mediated rejection and microvascular
+inflammation. That established application gives this project its clinical
+context. The project does not need to establish that molecular evidence can be
+useful in general.
 
-This project develops an early research prototype for that application. It tests
-whether molecular measurements identify recorded rejection diagnoses, compares
-models, and provides tested software for reproducible scoring. Agreement with
-established diagnoses is a useful development step before studying difficult
-cases. Showing that the score improves interpretation in those cases requires a
-separate evaluation: compare the standard assessment with and without molecular
-information, using independent case review or outcomes to judge added value.
+The purpose is to **assess what a more complex classifier contributes before
+further validation**, and to build scoring software that preserves the evaluated
+procedure. The research question makes that purpose measurable: **How do the
+tested classifiers compare in distinguishing any recorded rejection from no
+rejection in the public B-HOT biopsy dataset, particularly in missed rejection
+and false positives?** Regularized multigene logistic regression and CatBoost are
+the main comparison; IFNG and a constant model supply supporting benchmarks.
 
-The sources below support this motivation. They do not validate this project's
-classifier for clinical use.
+The contribution is an independent applied comparison with an explicit binary
+endpoint, preprocessing and error analysis, plus reproducible scoring software.
+Zhang's source study already compared several model families. This project is
+not a claim of a previously unstudied clinical application or the first algorithm
+comparison. It examines the evidence for carrying a candidate classifier forward.
+
+The data measure agreement with recorded diagnoses. Added diagnostic value from
+this particular score would require a separate evaluation, for example comparing
+assessment with and without it. Banff's recognition of validated tests supports
+the application without conferring that validation on this classifier.
+
+The [September 21 purpose revision](references/PRESENTATION_PURPOSE_20260921.md)
+records the approved explanation and its sources.
 
 ### Evidence supporting the application
 
-All three sources were checked on **2026-09-18**.
+Zhang's study is the direct classification precedent and was reviewed in full on
+**2026-09-19**. The related clinical and UNOS sources were checked on
+**2026-09-18**; they provide background rather than the endpoint for this project.
+The current Banff reference was checked again on **2026-09-21**.
 
 | Source and date | What it supports | Scope of the evidence |
 | --- | --- | --- |
+| Zhang et al., [Development and Validation of a Multiclass Model Defining Molecular Archetypes of Kidney Transplant Rejection](https://pubmed.ncbi.nlm.nih.gov/38092179/), *Laboratory Investigation*, 2024 | Uses B-HOT measurements and regularized regression to classify four recorded diagnoses. Provides the public data and a reason to include regularized multigene regression. | This project compares binary classifiers. Its L2 logistic model does not reproduce the published four-class LASSO, and headline accuracies across those tasks are not directly comparable. |
 | Banff Foundation, [Current Reference Guide to the Banff Classification](https://banfffoundation.org/central-repository-for-banff-classification-resources-3/), version Banff-Kidney-2024-3, updated April 20, 2026 | The current diagnostic framework includes thoroughly validated biopsy transcript tests for antibody-mediated rejection/microvascular inflammation and discusses their use in complex cases. | A recognized role for molecular evidence, conditional on validation for the stated purpose. This living reference supersedes older meeting reports; the source dataset's diagnoses were rescored under Banff 2019. |
 | Rosales et al., [Banff Human Organ Transplant Transcripts Correlate with Renal Allograft Pathology and Outcome: Importance of Capillaritis and Subpathologic Rejection](https://pubmed.ncbi.nlm.nih.gov/36450597/), *JASN*, December 2022; published online August 31, 2022 | This study used the NanoString B-HOT panel on 326 archived biopsies. Among 108 patients without histological chronic active antibody-mediated rejection, 23 developed it within five years; that group had higher initial antibody-mediated rejection pathway scores. | Evidence that measurements from this panel can contain information not captured by the initial histological category. These were different scores in a separate study; this project's classifier does not test future rejection prediction. |
 | Thoreson and Stuart, UNOS, [Using AI to identify kidney anatomy issues](https://unos.org/news/using-ai-to-identify-kidney-anatomy-issues/), June 2, 2026 | UNOS researchers trained an image model using donor-kidney photographs and labels derived from transplantation or refusal for anatomical concerns. They describe supporting clinical decisions and improving consistency as potential benefits. | A related research approach in transplantation. The connection to this project is our interpretation: existing clinical records can support development of an additional assessment. It is a different task and provides no UNOS endorsement of this classifier. |
 
-The strongest supported project claim is therefore: **a reproducible molecular
-classifier is an early step toward a molecular second opinion for uncertain
-transplant biopsies**. The present evaluation establishes classification performance
-against recorded diagnoses; the proposed benefit in difficult cases remains the
-next research question.
+The project measures the tested classifiers' performance against recorded
+diagnoses in this dataset. Its purpose is to assess the evidence for a modeling
+choice within an established application. Added diagnostic value from this
+particular score remains a separate research question. Rosales's later-outcome findings do not make future rejection prediction
+an endpoint here.
 
 ## What is being classified?
 
-The task is to classify **any histologically defined rejection versus no rejection** from molecular measurements of an already obtained kidney transplant biopsy. Antibody-mediated, T-cell-mediated, and mixed rejection count as positive. Histological diagnosis supplies the reference label. The output describes agreement with that diagnosis; it does not predict a future rejection episode or remove the need for a biopsy.
+The task is to classify **any recorded rejection versus no rejection** from molecular measurements of an already obtained kidney biopsy. Antibody-mediated, T-cell-mediated, and mixed rejection count as positive. Recorded histological diagnosis supplies the reference label. The output describes agreement with that diagnosis; it does not predict a future rejection episode or remove the need for a biopsy.
 
 [GSE212160](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE212160) provides public measurements from 1,395 archived kidney-biopsy specimens. The source study's Tables 5 and 6 show that these comprise 1,193 allograft biopsies and 202 native-kidney controls. Its NanoString B-HOT assay contains 758 targets and 12 housekeeping targets. The deposited raw RCC files support an explicit, reproducible preprocessing procedure. Sample metadata identifies an author discovery cohort of 1,050 specimens and a technical-validation cohort of 345 specimens. The native-kidney controls are included in the recorded No Rejection class; their specimen-level identities are not supplied by the deposited metadata, so the current results are not a transplant-only evaluation.
 
@@ -50,7 +66,7 @@ The task is to classify **any histologically defined rejection versus no rejecti
 
 [Zhang et al., Laboratory Investigation, 2024](https://doi.org/10.1016/j.labinv.2023.100304) studied molecular classification of four histological categories, with allograft diagnoses reviewed using Banff 2019 criteria. Native-kidney controls did not undergo Banff lesion scoring (Table 2). Their published task differs from this project's binary endpoint, so accuracy across the two tasks is not a direct model comparison.
 
-The authors' [Supplementary Methods](https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc6.docx) compare several model families and select LASSO for a smaller set of weighted features. This makes regularized multigene regression a meaningful comparator. Fitting a different algorithm alone does not establish a new biological finding.
+The authors' [Supplementary Methods](https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc6.docx) compare several model families, including regularized regression and gradient boosting. They report similar accuracy and select LASSO for a smaller set of weighted features. This makes regularized multigene regression a meaningful comparator. Fitting a different algorithm alone does not establish a new biological finding.
 
 The full article and six supplements were reviewed on September 19, 2026;
 findings and page references are recorded in the
@@ -68,8 +84,9 @@ specimen-level training/screening split within discovery.
 The Discussion explicitly excludes borderline acute T-cell-mediated rejection,
 chronic inactive antibody-mediated rejection, and chronic active T-cell-mediated
 rejection with minimal or mild interstitial inflammation. These specific exclusions
-strengthen the need for a direct study of the proposed uncertain-biopsy use. They
-do not justify saying that every ambiguous presentation was excluded.
+limit the diagnostic categories represented in the comparison. They do not
+justify saying that every ambiguous presentation was excluded, or establish
+usefulness in those excluded categories.
 
 The authors deliberately included inflammatory infection controls in the No
 Rejection group. Their stated concern was that a false rejection diagnosis could
@@ -125,7 +142,7 @@ completed its assay quality checks.
 
 ## Questions the implementation should answer
 
-- Does CatBoost improve on regularized multigene logistic regression on identical specimens, using the same target and preprocessing? Include an IFNG-only model and a constant baseline to make the comparison understandable.
+- How do CatBoost and regularized multigene logistic regression compare on identical specimens, using the same target and preprocessing? Include an IFNG-only model and a constant baseline to make the comparison understandable.
 - At a threshold chosen within discovery, how many rejection cases are missed and how many non-rejection cases are flagged? Report counts alongside sensitivity, specificity, and ROC-AUC.
 - How do errors differ across antibody-mediated, T-cell-mediated, and mixed rejection? Examine available assay-quality and batch information without using diagnosis or cohort identifiers as predictors.
 - Does preprocessing use only information available for the specimen being scored? Can the prediction interface validate the required assay targets and return a versioned score and threshold interpretation?

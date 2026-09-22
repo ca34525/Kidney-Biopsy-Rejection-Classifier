@@ -3,38 +3,65 @@
 These ideas are deferred. They are not changes to the frozen service or additions
 to the current implementation scope. The latest completed work is a specimen
 walkthrough, a [discovery-only stability comparison](../results/followup/20260917_stability/REPORT.md),
-presentation figures, and small consistency fixes. The presentation now explains
-the molecular-second-opinion rationale, supported by the sources in
+presentation figures, and small consistency fixes. The presentation now centers
+what the classifier comparison contributes within an established molecular application,
+supported by the sources in
 [Research context](RESEARCH_CONTEXT.md). Timed rehearsals remain required delivery
 work.
 
 ## Short version for a slide
 
-1. **Does the score help specialists assess uncertain biopsies?** Compare usual
-   assessment with assessment that also includes the molecular score.
-2. **Does the comparison hold in a new, assay-compatible cohort?** Establish
+1. **Compare models using cross-validation within discovery.** Tune logistic
+   regression and CatBoost on common folds and separate selection from assessment.
+2. **Does adding the score improve rejection diagnosis?** Compare usual assessment
+   with assessment that also includes the molecular score.
+3. **Does the comparison hold in a new, assay-compatible cohort?** Establish
    patient and center identities and review laboratory quality before evaluation.
 
 Calibration and feature-sensitivity analyses remain useful supporting questions.
 
 ## What each question would add
 
-### Added benefit for uncertain biopsies
+### Cross-validation within discovery
 
-The intended use is additional evidence for specialists interpreting an uncertain
-kidney transplant biopsy, including cases whose tissue findings conflict with
-other evidence. A direct study would compare usual assessment with assessment
-that also includes a molecular score. It would predefine what counts as an
-uncertain case, separate training from evaluation, and use independent expert
-review or relevant follow-up outcomes to assess the interpretations. Simply
-agreeing with the original training labels would not answer this question.
+This is proposed follow-up work after the presentation. The original
+787-training/263-screening procedure and the demonstrated model remain fixed.
+The completed [stability follow-up](../results/followup/20260917_stability/REPORT.md)
+already shows variation across 20 overlapping development splits; it is not
+k-fold cross-validation.
 
-Measure whether the score helps resolve uncertainty correctly and how often it
-misleads review. Record assay failures, time, and cost so that an improvement in
-interpretation can be weighed against the extra work. This would test the
-project's proposed clinical role. It is future research, supported by the
-clinical rationale in [Research context](RESEARCH_CONTEXT.md), rather than a
-change to the frozen classifier or the current implementation scope.
+Use common stratified folds within the 1,050 discovery specimens for a balanced,
+bounded comparison of logistic regression and CatBoost. Preserve the separate
+345-specimen author cohort. Fit scaling and any feature selection within each
+training partition. When reporting cross-validation assessment performance,
+choose candidate settings and thresholds inside each outer training partition,
+leaving the assessment fold out of those decisions. Define how a final fitted
+model receives a compatible threshold rather than transferring the old one.
+
+Specify the comparison and what improvement would justify greater complexity
+before running it. The original evaluation has already been inspected, so this
+would be follow-up analysis. It would not establish patient or center separation
+or turn the author cohort into fresh independent confirmation. Methods:
+[nested cross-validation](https://scikit-learn.org/stable/auto_examples/model_selection/plot_nested_cross_validation_iris.html)
+and [threshold selection](https://scikit-learn.org/stable/modules/classification_threshold.html),
+reviewed September 21, 2026.
+
+### Added benefit during rejection assessment
+
+Molecular tests already have a recognized role in defined parts of transplant
+rejection assessment. A separate question is whether this particular score adds
+diagnostic value alongside histology and other clinical findings. A direct study
+would compare usual assessment with
+assessment that also includes the score. It would define the eligible population
+and decision being supported, separate development from evaluation, and use
+independent expert review or relevant outcomes to assess the interpretations.
+Agreement with the original training labels alone would not answer this question.
+
+Measure how often the score improves or worsens the assessment. Record assay
+failures, time and cost so that any benefit can be weighed against the extra work.
+This would test the proposed clinical role described in
+[Research context](RESEARCH_CONTEXT.md), beyond the current classification and
+software evidence.
 
 ### An independent comparison
 

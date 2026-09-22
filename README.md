@@ -1,17 +1,18 @@
 # Kidney biopsy rejection classifier
 
-Can molecular measurements from an existing kidney biopsy classify
-its recorded rejection diagnosis? This project compares models on public
-NanoString B-HOT data and serves the selected model through a small research app.
+How do the tested classifiers compare in distinguishing **any recorded rejection
+from no rejection**, particularly in missed rejection and false positives? This
+project compares models on public NanoString B-HOT biopsy data and serves the
+selected model through a small research app.
 
-The clinical motivation is a **molecular second opinion for uncertain transplant
-biopsies**. RNA measurements could provide additional evidence when microscopic
-findings are borderline or conflict with other clinical information. This tested,
-reproducible prototype is an early step toward that use: it evaluates agreement
-with recorded diagnoses and makes scoring available for further research. Its
-added benefit in difficult cases remains to be evaluated. The
-[research context](docs/RESEARCH_CONTEXT.md#why-a-molecular-second-opinion-could-be-useful)
-records the supporting Banff guidance, B-HOT study, and related UNOS research.
+Molecular measurements already have a recognized role in parts of transplant
+rejection assessment. This project uses that established application to ask
+**what a more complex classifier contributes before further validation**, and
+builds scoring software that preserves the evaluated procedure. It compares
+missed rejection and false flags against recorded diagnoses. Added diagnostic
+value from this particular score needs direct evaluation. The
+[research context](docs/RESEARCH_CONTEXT.md#established-application-and-project-purpose)
+explains the Banff guidance and how this comparison relates to the source study.
 
 Start with the [current status and reading order](docs/STATUS.md). It distinguishes
 completed evidence, the frozen service, and the remaining presentation work.
@@ -38,9 +39,13 @@ metadata do not identify the native-kidney specimens individually. See the
 | IFNG alone | 14 | 75 |
 | Training constant | 0 | 176 |
 
-CatBoost won the discovery-screen comparison by one fewer false flag than
-logistic regression; both detected 157 of 174 rejection cases. Its advantage over
-logistic regression remains uncertain. The experimental 90% screening sensitivity
+CatBoost won the discovery-screen comparison with five false flags versus six for
+logistic regression; both detected 157 of 174 rejection cases. On technical
+validation, it missed eight fewer rejection cases with the same false-flag count.
+That adds evidence in its favor, but the paired sensitivity-difference interval
+includes zero. A discovery-only follow-up selected CatBoost in 13 of 20 overlapping
+splits and logistic in seven. A dependable preference remains unsettled.
+The experimental 90% screening sensitivity
 target was not maintained in technical validation: CatBoost detected 85.2%.
 See the [analysis report](results/analysis/20260915_baseline/REPORT.md) for thresholds,
 uncertainty intervals, error review, and editable charts.
@@ -58,8 +63,8 @@ assay quality.
 
 The draft includes [editable slides](presentation/unos_kidney_biopsy.pptx), a
 [PDF backup](presentation/unos_kidney_biopsy.pdf), and the separate
-[HTML speaking script](presentation/speaking_script.html). It has 20 main slides
-and 8 backup slides, with 20 minutes of planned delivery. All spoken text is in
+[HTML speaking script](presentation/speaking_script.html). It has 19 main slides
+and no backup slides, with 20 minutes of planned delivery. All spoken text is in
 the HTML file; PowerPoint notes are empty. See the
 [presentation guide](presentation/README.md) for source files and the demo fallback.
 Full timed rehearsals remain pending.

@@ -4,15 +4,19 @@
 
 Build an independent, reproducible kidney biopsy rejection classifier and a
 20-minute presentation for a UNOS Associate Data Scientist interview. The main
-question is whether molecular measurements from an existing transplant biopsy
-can classify its recorded rejection diagnosis. The project should demonstrate
+question is how the tested classifiers compare in distinguishing any recorded
+rejection from no rejection in the public B-HOT biopsy dataset, particularly
+their missed rejection and false positives. The project should demonstrate
 sound analysis and the ability to turn a model into understandable, tested software.
 
-The clinical motivation is a molecular second opinion for specialists interpreting
-uncertain transplant biopsies. Explain why RNA could add useful evidence from tissue
-already collected, using the sources in `docs/RESEARCH_CONTEXT.md`. Present this
-purpose positively and distinguish it from the current project's evidence of
-classification performance. Added value in uncertain cases needs direct evaluation.
+Molecular measurements already have a recognized role in parts of transplant
+rejection assessment. Banff includes thoroughly validated biopsy transcript tests
+in defined settings for antibody-mediated rejection. This project uses that
+established application to assess what a more complex classifier contributes
+before further validation, and to build software that preserves the evaluated
+procedure. Use `docs/RESEARCH_CONTEXT.md` for the evidence. Explain the comparison
+against recorded diagnoses without claiming a new clinical application or added
+diagnostic value for this particular score.
 
 Read `docs/PROJECT_SPEC.md`, `docs/JOB_REQUIREMENTS.md`, and `docs/PLAN.md` before
 substantial implementation. For presentation work, also read
@@ -90,9 +94,9 @@ Use the dated external sources in `docs/PRESENTATION_GUIDE.md`. The talk lasts
 20 full minutes, with questions afterward. Slides are a required project deliverable.
 They must show the project's own results and working software, with editable
 evidence and a separate HTML speaking script. Keep PowerPoint notes empty. After
-the biopsy explanation on slide 2, explain the molecular second-opinion purpose
-on slide 3, then show the supporting research. Put secondary methods and detailed
-tables in backup slides.
+the biopsy explanation on slide 2, explain the established application and the
+modeling choice on slide 3, then show Banff and the supporting research. Keep the current 19-slide sequence
+without backup slides. Put secondary methods and detailed tables in linked reports.
 
 Use plain English and a human voice. Prefer one concrete point over jargon,
 buzzwords, abstract claims, and keyword lists. Use literal wording instead of

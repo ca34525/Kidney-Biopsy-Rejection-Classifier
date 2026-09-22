@@ -1,6 +1,6 @@
 {
   "title": "Classifying Kidney Transplant Rejection from Biopsy RNA — speaking script",
-  "status": "September 21 RNA and cohort terminology revision for aloud rehearsal. Slide 7 uses the accepted measurement and reference bullets. The slide 9 script briefly distinguishes screening from the authors’ validation cohort. Only the report walkthrough and application demonstration leave the deck. Timings are approximate and have not been measured.",
+  "status": "September 21 purpose revision: an established molecular application motivates the classifier comparison. Banff and the source study supply context. Screening selection, validation results and discovery-only stability are preserved. Cross-validation remains a proposed next step. Timings are approximate and have not been measured.",
   "delivery": "Spoken text belongs in the separate HTML deliverable. PowerPoint notes must remain empty.",
   "planned_seconds": 1200,
   "rehearsal": {
@@ -17,10 +17,10 @@
       "title": "Classifying Kidney Transplant Rejection from Biopsy RNA",
       "seconds": 20,
       "paragraphs": [
-        "For this personal project, I asked a specific question: once a kidney transplant biopsy has been collected, can its RNA measurements classify the rejection diagnosis recorded for that tissue? I will explain the measurements, compare four models, and show the prediction software."
+        "Molecular measurements already have a recognized role in parts of transplant rejection assessment. I used this application to examine what a more complex classifier contributes: how missed rejection and false flags change compared with logistic regression. I will show the evidence and the software that preserves the evaluated calculation."
       ],
       "actions": [
-        "State the research question, then introduce transplant rejection."
+        "Introduce the established application and the modeling choice, then explain transplant rejection."
       ],
       "visible_cues": [
         "Classifying Kidney Transplant Rejection from Biopsy RNA"
@@ -37,6 +37,14 @@
         {
           "label": "Project research context",
           "path": "docs/RESEARCH_CONTEXT.md"
+        },
+        {
+          "label": "Banff Reference Guide, Banff-Kidney-2024-3, updated April 20, 2026: validated biopsy transcript diagnostics in antibody-mediated rejection assessment",
+          "url": "https://banfffoundation.org/central-repository-for-banff-classification-resources-3/"
+        },
+        {
+          "label": "Established application and the purpose of this project, September 21 revision",
+          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
         }
       ]
     },
@@ -48,10 +56,10 @@
         "A kidney transplant gives a person a donor kidney. The recipient's immune system can recognize it as foreign and attack it. That immune response is rejection.",
         "A kidney biopsy is a small tissue sample collected from the kidney for examination. It can supply two kinds of evidence. Histology is the microscopic examination of tissue. It reveals injury and inflammation that can support a rejection diagnosis.",
         "Molecular measurements count selected types of RNA, which include messages cells make when genes are active. Those measurements reflect both gene activity within cells and the mix of cells in the tissue. More immune cells in a specimen can also change its RNA pattern.",
-        "The tissue's appearance and its RNA pattern describe different aspects of the biopsy. That is why molecular evidence might help when the microscopic interpretation is uncertain."
+        "The tissue's appearance and its RNA pattern describe different aspects of the biopsy. Molecular tests already have a recognized role in parts of rejection assessment. That established application provides the context for this project."
       ],
       "actions": [
-        "Explain tissue appearance and RNA measurements as two forms of biopsy evidence. Introduce the possible use on the next slide."
+        "Explain tissue appearance and RNA measurements as two forms of biopsy evidence. Connect them to the established application and the project purpose on the next slide."
       ],
       "visible_cues": [
         "Rejection: the recipient's immune system attacks the donated kidney.",
@@ -79,97 +87,98 @@
         {
           "label": "September 19 full-study review with exact source pages",
           "path": "docs/references/STUDY_AUDIT_20260919.md"
+        },
+        {
+          "label": "Banff Reference Guide, Banff-Kidney-2024-3, updated April 20, 2026: validated biopsy transcript diagnostics in antibody-mediated rejection assessment",
+          "url": "https://banfffoundation.org/central-repository-for-banff-classification-resources-3/"
         }
       ]
     },
     {
       "id": 3,
-      "title": "Possible Use: Molecular Second Opinion for Ambiguous Biopsies",
+      "title": "Purpose of this project",
       "seconds": 65,
       "paragraphs": [
-        "The possible use is a molecular second opinion for ambiguous biopsies. Sometimes the histology findings are ambiguous. A specialist then needs to weigh the available information.",
-        "For example, a biopsy can show mild inflammation without enough evidence to diagnose rejection. Nankivell and colleagues examined 146 borderline diagnoses. The inflammation later disappeared in some patients. Other patients went on to develop acute rejection. The original appearance alone left uncertainty about what that inflammation meant. The 146 diagnoses describe one clinical study, not a general frequency for all transplant programs.",
-        "As a step towards potentially helping resolve ambiguous biopsies, I used RNA counts to classify recorded diagnoses. A high rejection score could add evidence for specialist review.",
-        "The aim is to get more useful information from tissue already collected. My evaluation measured agreement with the existing diagnoses. It did not establish that the score improves specialists' assessment of ambiguous cases."
+        "Molecular measurements already have a recognized role in parts of transplant rejection assessment. I used this established application to investigate a practical modeling choice: how much does the classifier change the rejection cases missed and the false flags produced?",
+        "The purpose was to assess what a more complex model contributes before pursuing further validation, and to build scoring software that preserves the evaluated procedure.",
+        "The main comparison is CatBoost against regularized multigene logistic regression. I compare them on the same specimens, using the diagnoses recorded in the public dataset as the reference. That lets me examine both the size of an observed difference and how much confidence to place in it.",
+        "The next slide shows where this application is already recognized and why both kinds of error matter."
       ],
       "actions": [
-        "Use the single example to explain the uncertainty, then connect the project to the proposed specialist review. The example describes a documented diagnostic situation, not a patient from this dataset."
+        "Explain why the comparison is useful within an established application. Connect the modeling decision to the software that preserves it."
       ],
       "visible_cues": [
-        "Sometimes the histology findings are ambiguous.",
-        "Example: A biopsy shows mild inflammation, but not enough to diagnose rejection. In a study of 146 borderline diagnoses, inflammation disappeared in some patients. Others later developed acute rejection.",
-        "As a step towards potentially helping resolve ambiguous biopsies, I used RNA counts to classify recorded diagnoses. A high rejection score could add evidence for specialist review."
+        "Molecular measurements already have a recognized role in parts of transplant rejection assessment.",
+        "This project uses that established application to compare missed rejection and false flags across classifiers.",
+        "The aim is to assess what a more complex model contributes before further validation.",
+        "The scoring software preserves the procedure evaluated here."
       ],
       "sources": [
         {
-          "label": "Banff current reference guide: molecular assessment in difficult cases",
+          "label": "Banff Reference Guide, Banff-Kidney-2024-3, updated April 20, 2026: validated biopsy transcript diagnostics in antibody-mediated rejection assessment",
           "url": "https://banfffoundation.org/central-repository-for-banff-classification-resources-3/"
         },
         {
-          "label": "Project research context",
-          "path": "docs/RESEARCH_CONTEXT.md"
+          "label": "Zhang et al., 2024: molecular classification of recorded biopsy diagnoses",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
         },
         {
-          "label": "Nankivell et al., 2019: clinical outcomes of 146 borderline diagnoses; this is a study count, not general prevalence",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/30501008/"
-        },
-        {
-          "label": "September 21 wording and source review",
-          "path": "docs/references/PRESENTATION_WORDING_20260921.md"
+          "label": "Established application and the purpose of this project, September 21 revision",
+          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
         }
       ]
     },
     {
       "id": 4,
-      "title": "Evidence for a molecular second opinion",
+      "title": "Clinical and research context",
       "seconds": 70,
       "paragraphs": [
-        "Banff guidance considers validated molecular tests in selected difficult biopsy interpretations. This supports investigating RNA as additional evidence when the microscopic findings leave uncertainty.",
-        "Rosales and colleagues used B-HOT, the same fixed panel of RNA measurements used here. Patients who later developed chronic active antibody-mediated rejection had higher initial rejection-related molecular scores as a group, despite lacking that diagnosis on the initial biopsy. Antibody-mediated rejection involves immune proteins called antibodies. That later-outcome finding belongs to their study.",
-        "Both kinds of diagnostic error matter. Missing rejection can leave immune injury untreated. A false rejection diagnosis can lead to extra medicines that suppress the immune system. If the problem is an infection, that treatment can weaken the body’s defenses and make it worse. These consequences motivate examining both errors. Their relative importance depends on how specialists use the result.",
-        "This project measured agreement with recorded diagnoses. It has not established usefulness in ambiguous biopsies. Establishing that would require comparing specialist assessment with and without the RNA score, using an independent case review or patient outcomes to judge whether the added information helps."
+        "Banff is a framework specialists use to classify transplant biopsy findings. Its current guidance includes thoroughly validated biopsy transcript tests in defined settings for antibody-mediated rejection. That gives molecular assessment an established clinical context. It does not confer that validation on my classifier.",
+        "Zhang and colleagues provide the public B-HOT data. Their four-class study already compared regularized regression with other approaches, including gradient boosting. They selected LASSO, a form of regularized regression, because accuracy was similar and it can use fewer weighted features. Their result is a reason to take the simpler comparator seriously.",
+        "My contribution is an independent binary comparison of any recorded rejection versus no rejection, with explicit preprocessing, error counts and reproducible scoring software. It does not reproduce their four-class model.",
+        "Both errors matter in this application. Missed rejection can leave kidney injury untreated. A false rejection diagnosis can lead to medicines that suppress the immune system and worsen an infection. This project measures classifier errors against recorded diagnoses. Added clinical value from this particular score would need direct evaluation."
       ],
       "actions": [
-        "Explain the two research findings, then why both missed rejection and unnecessary treatment matter. Close with the limitation and the comparison needed to establish usefulness."
+        "Explain Banff briefly, then the source study and its reason for choosing LASSO. Connect both errors to the established application."
       ],
       "visible_cues": [
-        "Banff guidance, 2026: considers validated molecular tests for difficult biopsy interpretations",
-        "B-HOT study, Rosales, 2022: higher initial molecular scores before later chronic active antibody-mediated rejection",
-        "Why both kinds of error matter: missed rejection can leave kidney injury untreated. Unnecessary treatment can weaken the body’s defenses and worsen an infection.",
-        "This project has not established usefulness in ambiguous biopsies. That requires comparing specialist assessment with and without RNA scores."
+        "Banff diagnostic framework: validated biopsy transcript tests have a defined role in antibody-mediated rejection assessment.",
+        "Published B-HOT study, Zhang 2024: four-class study compared regression and boosting. Selected LASSO for similar accuracy with fewer features.",
+        "Missed rejection can leave kidney injury untreated. Unnecessary treatment can weaken the body's defenses and worsen an infection.",
+        "This project compares binary classifier errors against recorded diagnoses."
       ],
       "sources": [
         {
-          "label": "Banff current reference guide: molecular assessment in difficult cases",
+          "label": "Banff Reference Guide, Banff-Kidney-2024-3, updated April 20, 2026: validated biopsy transcript diagnostics in antibody-mediated rejection assessment",
           "url": "https://banfffoundation.org/central-repository-for-banff-classification-resources-3/"
         },
         {
-          "label": "Rosales et al., 2022: B-HOT transcripts, biopsy findings, and later outcomes",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/36450597/"
+          "label": "Zhang et al., 2024: four-class regularized regression",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
         },
         {
-          "label": "Project research context",
-          "path": "docs/RESEARCH_CONTEXT.md"
+          "label": "Implemented methods compared with the source study",
+          "path": "docs/METHODOLOGY_REVIEW.md"
         },
         {
-          "label": "KDIGO transplant-recipient guideline (2009), recommendations 6.1 and 6.3, summarized in the clinical guide",
+          "label": "KDIGO transplant-recipient guideline, 2009, recommendations 6.1 and 6.3",
           "url": "https://kdigo.org/wp-content/uploads/2017/02/KDIGO_TX_NephsTool-Managing-Kidney-Transplant-Recipients.pdf"
         },
         {
-          "label": "Second International Consensus Guidelines on BK Polyomavirus (2024), Pathology and Management",
+          "label": "Second International Consensus Guidelines on BK Polyomavirus, 2024",
           "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11335089/"
         },
         {
-          "label": "September 19 research note: biopsy findings, care decisions, and the model tradeoff",
+          "label": "Source review of biopsy findings, care decisions and error consequences",
           "path": "docs/references/BIOPSY_CARE_20260919.md"
         },
         {
-          "label": "Nankivell et al., 2019: borderline diagnoses, later rejection and tissue injury",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/30501008/"
+          "label": "Zhang et al., Supplementary Methods: algorithm comparison and LASSO selection",
+          "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc6.docx"
         },
         {
-          "label": "September 21 wording and source review",
-          "path": "docs/references/PRESENTATION_WORDING_20260921.md"
+          "label": "Established application and the purpose of this project, September 21 revision",
+          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
         }
       ]
     },
@@ -303,17 +312,17 @@
           "label": "Shared normalization implementation",
           "path": "src/kidney_biopsy/preprocessing.py"
         },
-      {
-        "label": "Project preprocessing specification",
-        "path": "docs/PROJECT_SPEC.md"
-      },
-      {
-        "label": "NanoString analysis guidelines: housekeeping normalization as a reference for RNA input",
-        "url": "https://nanostring.com/wp-content/uploads/Gene_Expression_Data_Analysis_Guidelines.pdf"
-      },
-      {
-        "label": "NanoString normalization technical note: reference-gene stability across expression levels",
-        "url": "https://nanostring.com/wp-content/uploads/TN_Normalization_of_Expression_Data.pdf"
+        {
+          "label": "Project preprocessing specification",
+          "path": "docs/PROJECT_SPEC.md"
+        },
+        {
+          "label": "NanoString analysis guidelines: housekeeping normalization as a reference for RNA input",
+          "url": "https://nanostring.com/wp-content/uploads/Gene_Expression_Data_Analysis_Guidelines.pdf"
+        },
+        {
+          "label": "NanoString normalization technical note: reference-gene stability across expression levels",
+          "url": "https://nanostring.com/wp-content/uploads/TN_Normalization_of_Expression_Data.pdf"
         }
       ]
     },
@@ -422,7 +431,7 @@
         "IFNG encodes interferon gamma, an immune-signalling protein associated with T-cell-mediated rejection. I used logistic regression with this one normalized measurement as a simple benchmark. It was fixed in the starting recipe, rather than selected as the best individual predictor.",
         "The all-RNA model also used logistic regression, but combined all 758 normalized measurements using learned weights. Regularization limited those weights to reduce overfitting.",
         "CatBoost can capture nonlinear patterns and interactions. One RNA measurement's relationship with rejection can depend on another measurement's level. It works with numerical inputs, so categorical features are not required. Shallow trees and a small learning rate help limit overfitting.",
-        "The comparison uses the same specimens and normalization. It asks whether combining measurements helps, and whether CatBoost offers enough improvement over logistic regression to justify its complexity."
+        "The comparison uses the same specimens and normalization. The main comparison is all-RNA logistic regression versus CatBoost, with IFNG and the constant model as supporting benchmarks. I examine how their missed rejection and false positives differ."
       ],
       "actions": [
         "Explain each model in table order."
@@ -471,58 +480,37 @@
     },
     {
       "id": 11,
-      "title": "Choosing a rejection threshold",
+      "title": "Selecting the model and threshold",
       "seconds": 55,
       "paragraphs": [
-        "A threshold turns a score into a rejection flag. Recorded means the diagnosis supplied with the biopsy data.",
-        "For recall, start with all cases diagnosed as rejection. Count how many the model flags correctly. Fewer missed cases means higher recall.",
-        "For precision, start with all rejection flags. Count how many agree with a rejection diagnosis. Both fractions have the same numerator. Removing a false positive improves precision if the number of correct flags stays the same. It removes an incorrect flag from the denominator.",
-        "I chose a screening target of at least 90 percent recall, then minimized false positives among qualifying choices. I kept the selected model and threshold together for evaluation. That target guides this comparison and may not hold on new specimens. Choosing a threshold does not calibrate the score."
+        "A threshold turns a score into a rejection flag. Recall starts with all cases diagnosed as rejection and counts how many the model flags correctly. Precision starts with all rejection flags and counts how many agree with a recorded rejection diagnosis.",
+        "I chose a screening target of at least 90 percent recall, then minimized false positives. ROC-AUC broke ties. This was an experiment choice, not a clinical requirement.",
+        "Both models detected 157 of 174 screening rejection cases. CatBoost made five false positives among 89 no-rejection specimens. Logistic regression made six. That one-case difference selected CatBoost under the rule.",
+        "I kept the selected model and threshold fixed for evaluation. Screening explains the original selection. The separate validation results show how the models compared afterward. Choosing a threshold does not calibrate the score."
       ],
       "actions": [
-        "Explain each fraction from the denominator first. Both numerators count true positives. Fewer false positives reduce the precision denominator when true positives stay fixed. Then explain the screening rule."
+        "Explain each denominator, then the screening rule and the five-versus-six result. Keep the original selection distinct from the later validation comparison."
       ],
       "visible_cues": [
         "Recall = correctly flagged rejection cases / all cases diagnosed as rejection. False negatives are missed cases.",
         "Precision = correctly flagged rejection cases / all rejection flags. False positives are incorrect flags.",
-        "My selection rule for screening specimens",
-        "1. Detect at least 90% of cases diagnosed as rejection.",
-        "2. Among qualifying choices, minimize false positives.",
-        "3. Keep the chosen model and threshold for evaluation.",
-        "Reference: recorded biopsy diagnoses."
+        "Screening rule: detect at least 90% of recorded rejection cases, then minimize false positives. ROC-AUC breaks ties.",
+        "Rejection detected: CatBoost 157 / 174; all-RNA logistic 157 / 174.",
+        "False positives: CatBoost 5 / 89; all-RNA logistic 6 / 89.",
+        "One fewer false positive selected CatBoost. The model and threshold then stayed fixed for evaluation."
       ],
       "sources": [
         {
-          "label": "Saved primary configuration",
-          "path": "results/reproduction/20260915_shared/configuration.json"
+          "label": "Saved discovery screening counts",
+          "path": "results/reproduction/baseline/biopsy_screen.csv"
         },
         {
-          "label": "Frozen primary analysis",
-          "path": "results/analysis/20260915_baseline/REPORT.md"
+          "label": "Training, threshold and selection procedure",
+          "path": "experiments/rejection_public/run.py"
         },
         {
-          "label": "Same-specimen error comparison",
-          "path": "results/analysis/20260915_baseline/REPORT.md"
-        },
-        {
-          "label": "Editable presentation evidence",
-          "path": "results/presentation/20260917_evidence/README.md"
-        },
-        {
-          "label": "Application and API contract",
-          "path": "docs/API.md"
-        },
-        {
-          "label": "Shared prediction implementation",
-          "path": "src/kidney_biopsy/prediction.py"
-        },
-        {
-          "label": "Zhang et al., 2024, Discussion, page 13: infection controls and consequences of an incorrect rejection diagnosis",
-          "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
-        },
-        {
-          "label": "September 19 full-study review with exact source pages",
-          "path": "docs/references/STUDY_AUDIT_20260919.md"
+          "label": "Review of the model-selection evidence",
+          "path": "docs/METHODOLOGY_REVIEW.md"
         }
       ]
     },
@@ -531,16 +519,15 @@
       "title": "Validation results",
       "seconds": 100,
       "paragraphs": [
-        "Here are the results on the same 345 validation specimens. False negatives are missed cases among the 169 specimens recorded as rejection. False positives are incorrect flags among the 176 recorded as no rejection. The count labels let me compare both errors directly.",
-        "The IFNG-only logistic regression model has 14 false negatives and 75 false positives. It detects many rejection cases, but also produces many incorrect positive flags.",
-        "The all-RNA logistic regression model uses all 758 normalized measurements. It has 33 false negatives and eight false positives. CatBoost has 25 false negatives and also eight false positives.",
-        "Compared with IFNG, CatBoost makes 67 fewer false positives but 11 more false negatives. Its validation recall is 85.2 percent, below the 90 percent screening target. The criterion used during development gives a different result in this evaluation group.",
-        "If the intended use prioritizes avoiding missed rejection, those additional false negatives matter. I cannot settle the preferred tradeoff from total error counts alone. I would need to know how specialists act on the score and what those actions change.",
-        "Compared with logistic regression, CatBoost detects eight more rejection specimens with the same false-positive count. Combining measurements reduces false positives here. The smaller difference between the two models using all measurements needs closer examination before I treat it as a dependable advantage.",
-        "The constant model flags every specimen at its fixed threshold of 0.5. It has zero false negatives out of 169 rejection specimens, but 176 false positives out of 176 no-rejection specimens. That shows why finding every rejection case alone does not make a useful classifier."
+        "Here are the results on the same 345 validation specimens. False negatives are missed cases among 169 specimens recorded as rejection. False positives are incorrect flags among 176 recorded as no rejection.",
+        "The IFNG-only model has 14 false negatives and 75 false positives. All-RNA logistic regression has 33 false negatives and eight false positives. CatBoost has 25 false negatives and also eight false positives.",
+        "CatBoost therefore missed eight fewer rejection cases than logistic regression, with the same false-positive count. That validation result adds evidence in its favor beyond the narrow screening result. However, the paired uncertainty interval for the recall difference includes zero.",
+        "I also completed a discovery-only follow-up with 20 different splits, each separating fitting, selection and assessment. CatBoost was selected 13 times and logistic regression seven. The repetitions overlap, and the choice varied with the split. Taken together, the results leave a dependable preference between the models unsettled.",
+        "Compared with IFNG, CatBoost makes 67 fewer false positives but 11 more false negatives. Its validation recall is 85.2 percent, below the 90 percent screening target. Which tradeoff is preferable would depend on how specialists use the result.",
+        "The constant model flags everyone at its fixed threshold of 0.5. It misses none of the 169 rejection cases but falsely flags all 176 no-rejection cases."
       ],
       "actions": [
-        "State both denominators before comparing the bars. Explain the CatBoost-versus-IFNG tradeoff and comparison with all-RNA logistic regression before discussing the constant baseline."
+        "State the denominators. Explain the validation evidence favoring CatBoost, then its uncertainty and the discovery-only stability result. Keep the IFNG tradeoff before the constant baseline."
       ],
       "visible_cues": [
         "Same 345 specimens: 169 rejection and 176 no rejection",
@@ -548,7 +535,8 @@
         "IFNG only (Logistic regression): 14 false negatives and 75 false positives",
         "All RNA (Logistic Regression): 33 false negatives and 8 false positives",
         "CatBoost: 25 false negatives and 8 false positives",
-        "Constant baseline: 0 / 169 false negatives and 176 / 176 false positives; it flags everyone"
+        "Constant baseline: 0 / 169 false negatives and 176 / 176 false positives; it flags everyone",
+        "Across 20 discovery splits: CatBoost selected 13 times, logistic 7."
       ],
       "sources": [
         {
@@ -558,6 +546,10 @@
         {
           "label": "Editable presentation evidence",
           "path": "results/presentation/20260917_evidence/README.md"
+        },
+        {
+          "label": "Discovery-only stability follow-up, 20 overlapping repetitions",
+          "path": "results/followup/20260917_stability/REPORT.md"
         }
       ]
     },
@@ -828,21 +820,22 @@
       "title": "What this project accomplished",
       "seconds": 45,
       "paragraphs": [
-        "I completed a reproducible model comparison. Compared with IFNG alone, the combined measurements reduced false flags but missed more rejection cases. CatBoost's practical advantage over logistic regression remains uncertain.",
-        "I also built working software that preserves the calculation. It returns a versioned score, explains incomplete input, and reproduces the saved results across all 345 validation specimens.",
-        "The next research question is whether the molecular score adds useful evidence when specialists assess uncertain biopsies. That needs direct evaluation.",
+        "Within an established molecular application, this comparison shows what CatBoost contributed: eight fewer missed validation rejection cases than logistic regression, with eight false positives each. A dependable advantage remains uncertain.",
+        "I also built software that preserves the calculation, with a versioned score, clear input errors and checks against saved results.",
+        "Cross-validation within discovery is the next modeling step. Whether adding this particular score improves clinical assessment still needs direct evaluation.",
         "Zhang and colleagues supplied the public data. AI assisted with development and this presentation. Thank you."
       ],
       "actions": [
-        "Summarize the model comparison first, then the software. State the remaining research question briefly and thank the panel. Questions follow the full 20-minute talk."
+        "Return to the project purpose: evidence for the classifier choice and software that preserves the calculation. State the next step and thank the panel. Questions follow the full 20-minute talk."
       ],
       "visible_cues": [
-        "A reproducible model comparison",
-        "Combined measurements reduced false flags, with a tradeoff in missed cases.",
-        "The practical advantage over logistic regression remains uncertain.",
+        "Evidence for the classifier choice",
+        "CatBoost missed 8 fewer rejection cases than logistic, with 8 false flags each.",
+        "A dependable advantage remains uncertain.",
         "Working software that preserves the calculation",
         "A versioned score, clear input errors and checks against the saved results.",
-        "Added value for uncertain biopsies still needs direct evaluation.",
+        "Next: cross-validation within discovery.",
+        "Added diagnostic value of this particular score needs direct evaluation.",
         "Public data: Zhang et al. (2024), GSE212160. Development and presentation used AI assistance."
       ],
       "sources": [
@@ -861,10 +854,18 @@
         {
           "label": "Original study",
           "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
+        },
+        {
+          "label": "Proposed cross-validation follow-up and clinical evaluation",
+          "path": "docs/NEXT_STEPS.md"
+        },
+        {
+          "label": "Established application and the purpose of this project, September 21 revision",
+          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
         }
       ]
     }
   ],
   "backups": [],
-  "revision": "2026-09-21: remove line breaks from slide 12 chart category labels so chart viewers reserve the full label width. All wording, values, other slides and spoken text remain unchanged. PowerPoint notes remain empty."
+  "revision": "2026-09-21: restore Banff and explain the purpose as assessing what a more complex classifier contributes within an established molecular application, with software that preserves the evaluated procedure. This round revises visible slides 3, 4 and 19 and narration on 1, 2, 3, 4 and 19. Preserve the earlier screening, validation and stability explanation, all results and fitted models, 19 slides, planned 20 minutes and empty notes."
 }
