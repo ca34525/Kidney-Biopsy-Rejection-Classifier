@@ -1,28 +1,38 @@
 # Presentation guide
 
+The [September 22 wording pass](references/PRESENTATION_CONTEXT_PASS_20260922.md)
+and [practical-purpose revision](references/PRACTICAL_PURPOSE_20260922.md) take
+precedence over earlier wording preferences. Review each edit against the full
+story and adjacent slides. Use definitions that read naturally aloud. Slide 3
+connects the binary endpoint to treatment-related assessment and gives model
+comparison and software engineering equal weight, leaving Banff and Zhang to
+slide 4. The [engineering demonstration](references/ENGINEERING_DEMO_20260922.md)
+now replaces the technical slide sequence. Use one browser page between
+transition slide 13 and closing slide 14, with the full demonstration script
+in the separate HTML reader.
+
 ## Purpose
 
 Prepare a **20-minute presentation** for the UNOS Associate Data Scientist interview about this kidney biopsy gene-expression classifier. The user confirmed that the full 20 minutes is presentation time. Questions come separately.
 
-The user's September 18, 2026 instruction puts all spoken text and delivery cues in a **separate HTML speaking script**. Do not use PowerPoint notes. The [current draft](../presentation/README.md) has 19 main slides, no backup slides, and a complete script planned for 20 minutes. Real timed rehearsals remain pending.
+The user's September 18, 2026 instruction puts all spoken text and delivery cues in a **separate HTML speaking script**. Do not use PowerPoint notes. The [current draft](../presentation/README.md) has 14 main slides, no backup slides, and a continuous browser demonstration. The complete script is planned for 20 minutes, including 7:30 in the browser. Real timed rehearsals remain pending.
 
-The current September 21 revision opens with only the title, **Classifying Kidney
-Transplant Rejection from Biopsy RNA**. State the comparative research question
-aloud. Explain rejection and the biopsy, then the established molecular
-application and the purpose of examining the classifier choice. Restore Banff's
-role for validated tests and explain Zhang's model comparison and preference for
-LASSO. The earlier borderline-biopsy example is replaced. Follow with the dataset,
-outcome, measurements, methods and results.
+The talk opens with only the title, **Classifying Kidney Transplant Rejection
+from Biopsy RNA**. Briefly introduce the analysis and software. Define rejection
+and the biopsy, then explain why detecting rejection can matter for treatment.
+Give the research question and software purpose on slide 3. Follow with Banff's
+role for validated tests and Zhang's model comparison and preference for LASSO
+on slide 4, then the dataset, outcome, measurements, methods and results.
 
-Keep the 19-slide sequence and planned timings. Slides 11–12 now explain the
-screening selection, validation advantage and existing split-stability result
-together. The report and application remain live demonstrations on slides 13–14.
-The rest of the technical section uses short code excerpts and editable diagrams.
-Slide 19 closes on completed work, cross-validation as a proposed methodological
-step, and the separate clinical evaluation needed. The full Code Guide and
-detailed reports remain available for questions. The
+Keep slides 1–12 in their established order and retain their planned timings.
+Slides 11–12 explain the screening selection, validation advantage and existing
+split-stability result together. Slide 13 introduces the engineering demonstration.
+The browser covers evidence, the application, shared calculation, API, checks
+and handoff. Slide 14 closes on completed work and the next research questions.
+The full Code Guide and detailed reports remain available in the browser's
+reference library. The
 [specification](PRESENTATION_SPEC.md) records the sequence, and the
-[purpose note](references/PRESENTATION_PURPOSE_20260921.md) records the final framing.
+[purpose note](references/PRACTICAL_PURPOSE_20260922.md) records the current framing.
 The [earlier revision](references/PRESENTATION_REFRAMING_20260921.md) records the
 model-choice evidence.
 
@@ -59,7 +69,7 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 
 - The panel includes one data scientist, two biostatisticians, and a manager with a master's in public health. Explain the prediction target before introducing model terminology. Explain software through useful behavior and checks rather than a tour of Python modules.
 - Define biopsy and RNA in plain language before explaining the measurements. Keep detailed assay, instrument, and panel terminology in supporting documents. Give only the biological context needed to understand the data and label in the main talk.
-- Immediately after explaining the biopsy, connect the project to an established application: molecular measurements already have a recognized role in parts of transplant rejection assessment. Explain the purpose as assessing what a more complex classifier contributes before further validation and building software that preserves the evaluated procedure.
+- Immediately after explaining the biopsy, connect rejection assessment to decisions about further treatment to suppress the immune system. A molecular score could provide additional evidence during that assessment. Give the binary comparison against recorded diagnoses and the software build equal prominence. Include reproducible preprocessing, training and evaluation as well as the scoring service and prototype application.
 - Use Banff to establish the defined role of validated biopsy transcript tests in antibody-mediated rejection assessment. Use Zhang's B-HOT study as the direct research precedent. It already compared model families, including boosting, and selected LASSO for similar accuracy with fewer features. Explain this project's independent binary comparison and the added diagnostic value still untested for this particular score.
 - Keep the title slide to **Classifying Kidney Transplant Rejection from Biopsy RNA**, with no subtitle, tagline, or other content. State the research question aloud. Introduce the model comparison and error counts after the audience understands the specimens, diagnoses, and evaluation groups.
 - Draft the central question in one sentence. State what information the model receives, what label it predicts, and which biopsy population the analysis covers.
@@ -76,11 +86,11 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 ### Make each slide understandable
 
 - Give each substantive slide one job. Prefer a short topic title for definitions, processes, and setup. Use a factual takeaway title when the slide establishes a result. Do not force background material into a conclusion.
-- On slide 2, describe histology as: "Microscopic examination reveals injury and inflammation that can support a rejection diagnosis." Explain that counts of selected RNA types provide information about gene activity. Do not describe raw counts as the model inputs; the processing explanation comes later. Keep the gaps between visible definition blocks consistent, accounting for wrapped lines. Avoid an oversized gap after the single-line rejection definition.
-- On slide 3, explain the established application and why this comparison is useful: assess the contribution of a more complex classifier before further validation. Include the purpose of preserving the evaluated procedure in software. Use the user's approved explanation in the separate script.
-- On slide 4, show Banff and the source study, then explain both potential harms: missed rejection can leave kidney injury untreated, and unnecessary rejection treatment can worsen an infection. Keep that clinical rationale separate from any claim that this project's error tradeoff improves care; the [biopsy-care review](references/BIOPSY_CARE_20260919.md) and [wording source note](references/PRESENTATION_WORDING_20260921.md) record the evidence and the inference.
-- Slides 13–14 introduce the live report and application stops. Resume the deck on slide 15. Use slides 15–18 to explain the shared calculation, API, verification, and handoff. On slide 19, distinguish the completed analysis from the scoring application and close on what each supplies.
-- Under that title, show the relevant evidence. Use ordinary dark-text bullets for parallel statements and numbered steps for a calculation. Retain diagrams for the study split and prediction software. Use definition bullets and biopsy-evidence sub-bullets on slide 2, and the established application and project purpose on slide 3.
+- On slide 2, describe histology as: "A microscopic examination that reveals injury and inflammation, which can support a rejection diagnosis." Define molecular measurements as: "Counts of selected RNA types that reflect gene activity in the mix of cells in the tissue." Explain the transformation into model inputs later. Keep the gaps between visible definition blocks consistent, accounting for wrapped lines. Avoid an oversized gap after the single-line rejection definition.
+- On slide 3, explain why identifying rejection can matter for treatment, then give model comparison and software engineering equal visual weight. Ask the binary question against recorded diagnoses. Explain the prototype through the RNA counts a user submits and the score, threshold and flag they can inspect. Keep Banff and Zhang on slide 4.
+- On slide 4, retain Banff and Zhang. In the existing error-consequence section, connect biopsy findings to rejection treatment through KDIGO. The script paraphrases recommendation 6.1, including its exception when biopsy would substantially delay treatment. Explain both potential harms: missed rejection can leave injury untreated, and unnecessary treatment can worsen infection. The [biopsy-care review](references/BIOPSY_CARE_20260919.md) records the evidence and its scope.
+- Slide 13 introduces the continuous browser demonstration. Its three stops cover evidence, a public specimen in the app, and the calculation/interface/checks. Resume the deck only on slide 14, which closes on the model comparison and software engineering.
+- Under that title, show the relevant evidence. Use ordinary dark-text bullets for parallel statements and numbered steps for a calculation. Retain diagrams for the study split and prediction software. Use definition bullets and biopsy-evidence sub-bullets on slide 2, and a brief motivation followed by the two aims on slide 3.
 - Use bold labels to distinguish a term from its explanation. Reserve color for consistent meanings, including the requested unbulleted summary lines. Keep bullet hierarchy clear without relying on color alone.
 - Place explanations beside the number, table, or diagram they explain. For the 758/12 measurement breakdown, group the meaning of target counts under 758 and the role of housekeeping references under 12. Avoid unrelated statements tacked onto the bottom of a slide.
 - On slide 5, preserve two compact table schemas with specimen ID as the one-to-one key. Explain in the script that code assembles these analysis tables from public files. Omit the redundant on-slide caption about assembling the tables.
@@ -116,9 +126,8 @@ Nicolas P. Rougier, Michael Droettboom, and Philip E. Bourne's **September 11, 2
 - Use the live report stop to show how someone can inspect the analysis after the talk. Open the offline view of the preserved primary report. Briefly identify its comparison or error-review section without repeating the results already explained on slide 12. Keep the original report and follow-up links available for questions.
 - On slide 12, explain the observed eight-case validation advantage with the same false-positive count. The paired-bootstrap 95% interval for the recall difference is approximately −0.01 to +9.74 percentage points and includes zero. Briefly present the discovery-only follow-up: CatBoost selected 13 of 20 times, logistic seven. The repetitions overlap and do not establish a dependable winner. Keep detailed methods in the saved reports.
 - Demonstrate one prepared public specimen, its score, threshold, and model version, then show the incomplete-file response. A missing measurement is different from a measurement of zero. A rejected input should yield an explanation and no score. Do not invent clinical history for a public example.
-- Explain why the shared preprocessing code matters: the application should perform the calculation that was evaluated. Show the actual short prediction excerpt on slide 15. On slide 16, explain the API through a concrete request and response so another developer can understand how to call it.
-- On slide 17, use the recorded check across all 345 validation specimens. HTTP, command-line, and saved scores agreed within numerical tolerance, including reordered columns, and the flags matched. This is a software-consistency check, not another classifier evaluation. Show a short assertion excerpt and consequential failure cases.
-- On slide 18, connect the setup instructions, automated checks, and tested local container to another developer's ability to run and maintain the application. Date the evidence. Distinguish local research-container checks from hosted checks on an earlier revision. Keep cloud deployment identified as uncompleted work.
+- In the browser's Shared calculation view, explain why shared preprocessing matters and show the actual training and prediction excerpts. In API request and response, show how another program can send counts and interpret the result fields.
+- In Verification and handoff, use the recorded check across all 345 validation specimens. HTTP, command-line and saved scores agreed within numerical tolerance, including reordered columns, and the flags matched. Identify this as software consistency, show the actual assertion and consequential failures, then the setup instructions and tested local container. Date the evidence and distinguish local records from earlier hosted CI. Cloud deployment remains future work.
 - Explain consequential errors using actual counts or de-identified examples from the evaluation. Keep hypothetical examples clearly labeled.
 - Retain units, denominators, axis labels, and relevant baselines. If simplifying a chart for the talk, preserve the values and comparisons.
 - Describe a gene's model contribution as an association. A useful predictor does not by itself establish a biological cause.
@@ -133,7 +142,7 @@ These evidence requirements are project choices. The presentation sources above 
 ### Use all 20 minutes deliberately
 
 - Plan for a full **20-minute** talk, including the opening and conclusion. Questions follow it. Use approximate section allocations rather than optimizing individual slides to exact elapsed seconds.
-- Use 19 main slides and no backup slides for this revision. Preserve slides 1–12, including their planned timings. Allocate the remaining 8:35 to the live report and application, four implementation slides, and the closing slide. There is no universal bullets-per-slide formula.
+- Use 14 main slides without backups. Preserve the order and timings of slides 1–12. Allocate the remaining 8:35 to the 0:15 transition, 7:30 continuous browser demonstration and 0:50 closing. There is no universal bullets-per-slide formula.
 - Rehearse the complete talk aloud, with the real figures and transitions. Record elapsed time at section boundaries.
 - Treat per-slide and cumulative times in the HTML as rough pacing aids. They are not measured performance or a reason to spend extensive effort tuning estimates. Let actual rehearsals determine which sections need more or less time.
 - If the talk runs long, remove secondary material. If it runs short, explain an important result or decision more clearly. Do not fill the time with generic background.
@@ -150,7 +159,7 @@ Before accepting a draft, check these points:
 | --- | --- |
 | The opening contains a subtitle, tagline, model name, or results | Keep only the agreed title. State the research question aloud and introduce results after the relevant context. |
 | A substantive topic has no visible support | Add a short cue where it aids understanding. Spoken elaboration and transitions can remain in the script. |
-| The audience understands the research question but still asks why the project matters | Explain the established molecular application, the evidence needed to judge a more complex classifier, and the software that preserves the evaluated procedure. |
+| The audience understands the research question but still asks why the project matters | Connect identifying rejection to treatment-related assessment, then explain the binary model comparison and the user of the scoring prototype. |
 | A technical label has several possible meanings | Define it with ordinary words and use the same term on the slide and in the script. |
 | The deck lists tools and job-description keywords | Show a decision, the work that supports it, and its consequence. |
 | Every slide uses the same three-box layout | Choose the layout from the information the slide needs to explain. |
@@ -176,7 +185,7 @@ Before accepting a draft, check these points:
 - [ ] The separate HTML speaking script contains the complete spoken text and only useful delivery cues, and PowerPoint notes are empty.
 - [ ] The presentation targets 20 minutes with approximate pacing, and actual final rehearsal times are recorded.
 - [ ] The local deck, PDF, offline report, and demonstration fallback open successfully.
-- [ ] Slides 1–4, 10–12 and 19 reflect the September 21 comparative framing and model-choice explanation. The 19-slide sequence and planned timings are unchanged.
+- [ ] Slides 1–12 preserve the agreed purpose, context and model-choice explanation. Slide 4 includes the KDIGO treatment connection and slide 12 uses teal emphasis. The 14-slide sequence and three browser stops total a planned 20 minutes.
 - [ ] Source acknowledgments and links to supporting documents are complete.
 
 Presentation-design source verification date: September 15, 2026. Clinical-rationale

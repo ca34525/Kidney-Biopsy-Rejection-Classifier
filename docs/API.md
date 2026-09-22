@@ -7,6 +7,19 @@ follow-up does not replace this model or its threshold.
 
 ## Start the demonstration
 
+For the interview's single-page engineering demonstration, use the presentation
+launcher from the project root:
+
+```powershell
+uv run --frozen python presentation/source/serve_demo.py
+```
+
+Open [the engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html).
+It embeds this same application alongside the saved evidence and software
+explanation. The launcher adds presentation-file serving without changing
+prediction behavior. Its HTML also contains clearly labeled saved responses for
+offline use. The ordinary standalone application command follows.
+
 Run from this project's root after setting up the environment and generating the
 shared reproduction run described in the README. If `data/demo/` already exists,
 skip the example-preparation command:

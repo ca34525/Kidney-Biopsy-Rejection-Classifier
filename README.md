@@ -1,18 +1,25 @@
 # Kidney biopsy rejection classifier
 
-How do the tested classifiers compare in distinguishing **any recorded rejection
-from no rejection**, particularly in missed rejection and false positives? This
-project compares models on public NanoString B-HOT biopsy data and serves the
-selected model through a small research app.
+Whether a transplanted kidney shows rejection can affect decisions about further
+treatment to suppress the immune system. A molecular rejection score could
+provide additional evidence during that assessment, while the rejection subtype
+and other clinical findings would still guide treatment. This potential use
+motivates two parts of the project:
 
-Molecular measurements already have a recognized role in parts of transplant
-rejection assessment. This project uses that established application to ask
-**what a more complex classifier contributes before further validation**, and
-builds scoring software that preserves the evaluated procedure. It compares
-missed rejection and false flags against recorded diagnoses. Added diagnostic
-value from this particular score needs direct evaluation. The
+- **Model comparison:** How do logistic regression and CatBoost compare in
+  classifying any recorded rejection versus no rejection from public NanoString
+  B-HOT biopsy RNA, particularly in missed cases and incorrect flags?
+- **Software engineering:** Make preprocessing, model training and evaluation
+  reproducible. Build a tested scoring service and prototype application that
+  let a user submit a specimen's RNA counts and inspect its model score,
+  threshold and rejection flag.
+
+The project evaluates agreement with recorded diagnoses and implements the
+scoring workflow. Whether this particular score improves clinical assessment
+remains a question for further study. The
 [research context](docs/RESEARCH_CONTEXT.md#established-application-and-project-purpose)
-explains the Banff guidance and how this comparison relates to the source study.
+explains the treatment-related rationale, the established role of molecular
+testing, and how this binary endpoint differs from Zhang's four-class study.
 
 Start with the [current status and reading order](docs/STATUS.md). It distinguishes
 completed evidence, the frozen service, and the remaining presentation work.
@@ -63,10 +70,13 @@ assay quality.
 
 The draft includes [editable slides](presentation/unos_kidney_biopsy.pptx), a
 [PDF backup](presentation/unos_kidney_biopsy.pdf), and the separate
-[HTML speaking script](presentation/speaking_script.html). It has 19 main slides
-and no backup slides, with 20 minutes of planned delivery. All spoken text is in
-the HTML file; PowerPoint notes are empty. See the
-[presentation guide](presentation/README.md) for source files and the demo fallback.
+[HTML speaking script](presentation/speaking_script.html). It has 14 main slides
+and a [continuous engineering demonstration](presentation/engineering_demo.html):
+inspect the evidence, score a public specimen, then examine the shared calculation,
+API and software checks. Switch to the browser after slide 13 and return to slide
+14 to close. The planned 20 minutes include 7:30 in the browser. All spoken text
+is in the script; PowerPoint notes are empty. See the
+[presentation guide](presentation/README.md) for the launch command and offline fallback.
 Full timed rehearsals remain pending.
 
 ## Run the demo

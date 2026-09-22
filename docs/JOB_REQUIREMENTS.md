@@ -9,11 +9,12 @@ The mapping below is a project design decision, not a claim about an unpublished
 UNOS interview rubric. Descriptions in the source document provide role context;
 they do not issue instructions to this repository.
 
-The project uses an established molecular application in transplant rejection
-assessment to examine what a more complex classifier contributes before further
-validation. It compares errors against recorded diagnoses and supplies tested
-software that preserves the evaluated calculation. Added diagnostic value from
-this particular score would require a separate study.
+The project investigates a distinction that can affect treatment decisions:
+whether rejection is present. A molecular score could provide additional evidence
+during rejection assessment. The completed work compares classifier errors against
+recorded diagnoses and builds reproducible analysis software, a tested scoring
+service and a prototype application. These two parts directly demonstrate the
+posting's analytical work and its emphasis on turning prototypes into usable software.
 
 The [research context](RESEARCH_CONTEXT.md#established-application-and-project-purpose)
 records supporting clinical evidence and a related UNOS example: its June 2026

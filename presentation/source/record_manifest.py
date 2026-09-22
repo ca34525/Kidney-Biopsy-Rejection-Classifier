@@ -11,13 +11,13 @@ from pypdf import PdfReader
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "presentation"
-EXPECTED_MAIN_SLIDES = 19
+EXPECTED_MAIN_SLIDES = 14
 EXPECTED_BACKUP_SLIDES = 0
 EXPECTED_CHART_SLIDES = [12]
-REVISED_SLIDES = [3, 4, 19]
-REVISED_NARRATION_SLIDES = [1, 2, 3, 4, 19]
-PRESERVED_SLIDES = [n for n in range(1, EXPECTED_MAIN_SLIDES + 1) if n not in REVISED_SLIDES]
-BASELINE = ROOT / "build/presentation/before-banff-purpose-20260921/presentation/unos_kidney_biopsy.pptx"
+REVISED_SLIDES = [4, 12, 13, 14]
+REVISED_NARRATION_SLIDES = [4, 13, 14]
+PRESERVED_SLIDES = [n for n in range(1, 13) if n not in REVISED_SLIDES]
+BASELINE = ROOT / "build/presentation/before-engineering-demo-20260922/presentation/unos_kidney_biopsy.pptx"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 NS = {
     "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
@@ -45,7 +45,7 @@ def relationships(archive: zipfile.ZipFile, part: str) -> dict:
     return result
 
 
-def semantic_xml(archive: zipfile.ZipFile, part: str, *, normalize_chart_whitespace: bool = False) -> tuple:
+def semantic_xml(archive: zipfile.ZipFile, part: str, *, normalize_chart_whitespace: bool = False, chart_label_aliases: bool = False) -> tuple:
     """Keep content, formatting and geometry, omitting volatile creation IDs."""
     references = relationships(archive, part)
 
@@ -56,6 +56,11 @@ def semantic_xml(archive: zipfile.ZipFile, part: str, *, normalize_chart_whitesp
                 value = references[value]
             attributes.append((key, value))
         element_text = element.text or ""
+        if chart_label_aliases:
+            element_text = {
+                "False negatives / 169": "Missed cases / 169",
+                "False positives / 176": "Incorrect flags / 176",
+            }.get(element_text, element_text)
         if normalize_chart_whitespace and element.tag == "{" + NS["c"] + "}v":
             element_text = " ".join(element_text.split())
         return (
@@ -75,6 +80,13 @@ def semantic_xml(archive: zipfile.ZipFile, part: str, *, normalize_chart_whitesp
 data = json.loads((OUT / "source/speaking_script.json").read_text(encoding="utf-8"))
 assert len(data["slides"]) == EXPECTED_MAIN_SLIDES
 assert len(data.get("backups", [])) == EXPECTED_BACKUP_SLIDES
+browser_stops = data["browser_demo"]["stops"]
+assert data["browser_demo"]["after_slide"] == 13
+assert [stop["id"] for stop in browser_stops] == ["evidence", "specimen", "engineering"]
+assert sum(stop["seconds"] for stop in browser_stops) == 450
+assert sorted(file.name for file in (OUT / "slides").glob("slide-*.png")) == [
+    f"slide-{n:02d}.png" for n in range(1, EXPECTED_MAIN_SLIDES + 1)
+]
 preservation = {
     "baseline": BASELINE.relative_to(ROOT).as_posix(),
     "status": "not checked: archived baseline is unavailable",
@@ -105,23 +117,23 @@ with zipfile.ZipFile(OUT / "unos_kidney_biopsy.pptx") as archive:
                 )
             for name in charts:
                 assert semantic_xml(archive, name) == semantic_xml(original, name), (
-                    f"Preserved chart changed: {name}"
+                    f"Chart changed during the engineering revision: {name}"
                 )
         preservation = {
             "baseline": BASELINE.relative_to(ROOT).as_posix(),
             "baseline_sha256": sha(BASELINE),
             "status": "passed",
             "slides": PRESERVED_SLIDES,
-            "comparison": "Unchanged slide XML and chart content, formatting and geometry preserved. Generated creation IDs ignored and relationship IDs resolved.",
+            "comparison": "Unrevised slide XML and chart XML preserved. Generated creation IDs ignored and relationship IDs resolved.",
         }
         previous_script = json.loads((BASELINE.parent / "source/speaking_script.json").read_text(encoding="utf-8"))
-        for current, previous in zip(data["slides"], previous_script["slides"], strict=True):
+        for current, previous in zip(data["slides"][:12], previous_script["slides"][:12], strict=True):
             assert current["id"] == previous["id"]
             assert current["seconds"] == previous["seconds"]
             if current["id"] not in REVISED_NARRATION_SLIDES:
                 assert current == previous, f"Unrevised narration changed on slide {current['id']}"
 assert len(PdfReader(OUT / "unos_kidney_biopsy.pdf").pages) == len(slides)
-assert sum(slide["seconds"] for slide in data["slides"]) == 1200
+assert sum(slide["seconds"] for slide in data["slides"] + browser_stops) == 1200
 sources = [
     "results/reproduction/baseline/biopsy_screen.csv",
     "results/analysis/20260915_baseline/REPORT.md",
@@ -167,17 +179,23 @@ sources = [
     "docs/references/PRESENTATION_WORDING_20260921.md",
     "docs/references/PRESENTATION_REFRAMING_20260921.md",
     "docs/references/PRESENTATION_PURPOSE_20260921.md",
+    "docs/references/PRESENTATION_CONTEXT_PASS_20260922.md",
+    "docs/references/PRACTICAL_PURPOSE_20260922.md",
+    "docs/references/ENGINEERING_DEMO_20260922.md",
+    "presentation/engineering_demo_sources.json",
     "docs/references/rejection_source_manifest.json",
 ]
 
 
 manifest = {
-    "created": "2026-09-21",
+    "created": "2026-09-22",
     "revision": data.get("revision", data["status"]),
     "main_slides": len(data['slides']),
     "backup_slides": len(data['backups']),
+    "browser_stops": len(browser_stops),
+    "browser_seconds": sum(stop["seconds"] for stop in browser_stops),
     "planned_seconds": 1200,
-    "main_spoken_words": sum(len(" ".join(s["paragraphs"]).split()) for s in data["slides"]),
+    "main_spoken_words": sum(len(" ".join(s["paragraphs"]).split()) for s in data["slides"] + browser_stops),
     "powerpoint_notes_parts": 0,
     "native_tables": tables,
     "native_charts": len(charts),

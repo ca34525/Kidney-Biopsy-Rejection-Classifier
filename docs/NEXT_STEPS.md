@@ -4,7 +4,8 @@ These ideas are deferred. They are not changes to the frozen service or addition
 to the current implementation scope. The latest completed work is a specimen
 walkthrough, a [discovery-only stability comparison](../results/followup/20260917_stability/REPORT.md),
 presentation figures, and small consistency fixes. The presentation now centers
-what the classifier comparison contributes within an established molecular application,
+the potential use of molecular evidence during rejection assessment, the binary
+classifier comparison and the software build,
 supported by the sources in
 [Research context](RESEARCH_CONTEXT.md). Timed rehearsals remain required delivery
 work.
@@ -21,6 +22,27 @@ work.
 Calibration and feature-sensitivity analyses remain useful supporting questions.
 
 ## What each question would add
+
+### Possible changes to the prediction task
+
+Two longer-term directions raised in the presentation discussion would answer
+different questions. They do not replace the current classifier or service.
+
+- **Reconstruct Zhang's published four-class model.** A faithful reconstruction
+  would require matching the endpoint, preprocessing, feature selection and
+  model-selection procedure, followed by evaluation. The existing subtype
+  follow-up is not that reconstruction. Some service code could be reused, but
+  supporting multiple class scores would also change the response and interface.
+  This is more than refactoring the current binary model.
+- **Predict later rejection.** Find a dataset with measurements taken before a
+  defined future outcome and sufficient follow-up, such as rejection within a
+  prespecified time interval. Define the population, prediction time and handling
+  of incomplete follow-up before training. The present specimen's recorded
+  diagnosis cannot serve as evidence of future rejection prediction.
+
+The [research context](RESEARCH_CONTEXT.md) links the Zhang methods and Rosales's
+longitudinal B-HOT findings. These are possible extensions, not completed work
+or reasons the current applied project lacks practical relevance.
 
 ### Cross-validation within discovery
 

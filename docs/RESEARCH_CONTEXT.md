@@ -2,39 +2,58 @@
 
 Public-source context first captured on 2026-09-15; clinical rationale updated
 2026-09-18; full source study reviewed on 2026-09-19; comparative framing updated
-2026-09-21. This document defines the research question and its motivation. Model
+2026-09-21; practical-purpose framing updated 2026-09-22. This document defines the research question and its motivation. Model
 findings must come from runs performed in this project.
 
 ## Established application and project purpose
 
-Molecular measurements already have a recognized role in parts of transplant
-rejection assessment. Banff includes thoroughly validated biopsy transcript tests
-in defined settings for antibody-mediated rejection and microvascular
-inflammation. That established application gives this project its clinical
-context. The project does not need to establish that molecular evidence can be
-useful in general.
+Whether a transplanted kidney shows rejection can affect decisions about further
+treatment to suppress the immune system. That gives rejection detection a
+practical reason even when a binary result does not specify the rejection subtype
+or select a treatment. A molecular score could provide additional evidence during
+this assessment, alongside histology and other clinical findings. This is the
+potential use motivating the project.
 
-The purpose is to **assess what a more complex classifier contributes before
-further validation**, and to build scoring software that preserves the evaluated
-procedure. The research question makes that purpose measurable: **How do the
-tested classifiers compare in distinguishing any recorded rejection from no
-rejection in the public B-HOT biopsy dataset, particularly in missed rejection
-and false positives?** Regularized multigene logistic regression and CatBoost are
-the main comparison; IFNG and a constant model supply supporting benchmarks.
+The clinical connection is concrete: Zhang's Discussion (page 13) emphasizes
+whether a biopsy diagnosis prompts further immunosuppression and explains the
+inclusion of infection controls. [KDIGO's transplant-recipient guideline](https://kdigo.org/wp-content/uploads/2017/02/KITxpGL_summary.pdf),
+recommendations 6.1–6.4, links biopsy assessment to rejection treatment and
+distinguishes treatment for different rejection types. A binary score could
+inform part of that assessment; the type, activity and other findings remain
+important for care. The proposed role for **this score** is an inference from
+that clinical context, not an observed benefit in the current experiment.
 
-The contribution is an independent applied comparison with an explicit binary
-endpoint, preprocessing and error analysis, plus reproducible scoring software.
-Zhang's source study already compared several model families. This project is
-not a claim of a previously unstudied clinical application or the first algorithm
-comparison. It examines the evidence for carrying a candidate classifier forward.
+The project has two equally prominent aims:
 
-The data measure agreement with recorded diagnoses. Added diagnostic value from
-this particular score would require a separate evaluation, for example comparing
-assessment with and without it. Banff's recognition of validated tests supports
-the application without conferring that validation on this classifier.
+- **Model comparison:** How do logistic regression and CatBoost compare in
+  classifying any recorded rejection versus no rejection from B-HOT biopsy RNA,
+  particularly in missed cases and incorrect flags? IFNG and a constant model
+  supply supporting benchmarks.
+- **Software engineering:** Make preprocessing, training and evaluation
+  reproducible. Build a tested scoring service and prototype application that
+  let a user submit a specimen's RNA counts and inspect its model score,
+  threshold and rejection flag.
 
-The [September 21 purpose revision](references/PRESENTATION_PURPOSE_20260921.md)
-records the approved explanation and its sources.
+The prototype gives an analyst or molecular laboratory researcher a way to try
+the selected model on compatible input, inspect its output, and integrate the
+same scoring procedure into other software. This is a useful research
+demonstration while the potential clinical role remains open for investigation.
+
+The completed analysis measures agreement with recorded diagnoses. A comparison
+of assessment with and without the score would address added diagnostic value.
+That is a next research question, rather than a prerequisite for motivating an
+applied analysis and software project. Molecular measurements already have a
+recognized role in defined Banff settings, which supplies related clinical context.
+
+Training for the binary endpoint is a substantive difference from Zhang's
+four-class study. It does not establish that a binary approach is clinically
+preferable: a four-class model can also supply an overall rejection flag. The
+project's binary accuracy and the paper's four-class accuracy measure different
+tasks and must not be presented as evidence of outperforming Zhang.
+
+The [September 22 purpose revision](references/PRACTICAL_PURPOSE_20260922.md)
+records this framing. The [September 21 note](references/PRESENTATION_PURPOSE_20260921.md)
+preserves the earlier wording and sources.
 
 ### Evidence supporting the application
 
@@ -50,11 +69,10 @@ The current Banff reference was checked again on **2026-09-21**.
 | Rosales et al., [Banff Human Organ Transplant Transcripts Correlate with Renal Allograft Pathology and Outcome: Importance of Capillaritis and Subpathologic Rejection](https://pubmed.ncbi.nlm.nih.gov/36450597/), *JASN*, December 2022; published online August 31, 2022 | This study used the NanoString B-HOT panel on 326 archived biopsies. Among 108 patients without histological chronic active antibody-mediated rejection, 23 developed it within five years; that group had higher initial antibody-mediated rejection pathway scores. | Evidence that measurements from this panel can contain information not captured by the initial histological category. These were different scores in a separate study; this project's classifier does not test future rejection prediction. |
 | Thoreson and Stuart, UNOS, [Using AI to identify kidney anatomy issues](https://unos.org/news/using-ai-to-identify-kidney-anatomy-issues/), June 2, 2026 | UNOS researchers trained an image model using donor-kidney photographs and labels derived from transplantation or refusal for anatomical concerns. They describe supporting clinical decisions and improving consistency as potential benefits. | A related research approach in transplantation. The connection to this project is our interpretation: existing clinical records can support development of an additional assessment. It is a different task and provides no UNOS endorsement of this classifier. |
 
-The project measures the tested classifiers' performance against recorded
-diagnoses in this dataset. Its purpose is to assess the evidence for a modeling
-choice within an established application. Added diagnostic value from this
-particular score remains a separate research question. Rosales's later-outcome findings do not make future rejection prediction
-an endpoint here.
+These sources motivate investigating molecular evidence in rejection assessment.
+The current experiment evaluates recorded diagnoses and produces reproducible
+software. Rosales's later-outcome findings suggest a possible extension with
+appropriate longitudinal data; future rejection prediction is a different endpoint.
 
 ## What is being classified?
 

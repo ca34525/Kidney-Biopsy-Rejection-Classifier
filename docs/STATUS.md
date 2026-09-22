@@ -1,16 +1,17 @@
 # Current project status
 
-Updated September 21, 2026. Start here for the current reading order; dated run
+Updated September 22, 2026. Start here for the current reading order; dated run
 reports and verification records remain evidence of what was checked at the time.
 
 ## Read the project in this order
 
-1. **Purpose and question:** Use an established molecular application in
-   transplant rejection assessment to assess what a more complex classifier
-   contributes before further validation. Compare missed rejection and false
-   flags against recorded diagnoses, and preserve the evaluated procedure in
-   scoring software. The [research context](RESEARCH_CONTEXT.md) explains Banff's
-   recognized role for validated tests and this project's contribution. The
+1. **Purpose and question:** Whether rejection is present can affect decisions
+   about further treatment to suppress the immune system. A molecular score could
+   supply additional evidence during that assessment. Compare logistic regression
+   and CatBoost against recorded diagnoses, emphasizing missed cases and incorrect
+   flags. Give equal prominence to reproducible analysis software, the tested
+   scoring service and prototype application. The [research context](RESEARCH_CONTEXT.md)
+   explains the potential use and what this project evaluates. The
    [README](../README.md) states the input and results.
 2. **Primary result:** The [frozen analysis](../results/analysis/20260915_baseline/REPORT.md)
    compares the same 345 specimens. CatBoost missed 25 of 169 rejection cases and
@@ -36,15 +37,20 @@ reports and verification records remain evidence of what was checked at the time
    evidence below; a previous passing revision is not a test of later edits.
 5. **Presentation draft:** The [presentation package](../presentation/README.md)
    contains the editable deck, matching PDF, separate HTML speaking script, and
-   static demonstration fallback. The revised talk has 19 main slides and no
-   backup slides, with a full script planned for 20 minutes. The September 21
-   revision connects an established molecular application to the classifier
-   choice, restores Banff, and preserves the screening counts, validation
-   advantage and split-stability evidence. Cross-validation remains
-   a proposed follow-up. The technical section shows the
-   [analysis report](../presentation/analysis_report.html) and application live,
-   then uses slides for shared preparation, the API, verification, and handoff.
-   The full Code Guide and detailed reports remain available for questions.
+   continuous engineering HTML demonstration and saved responses for offline use.
+   The revised talk has 14 main slides and no backup slides, with a full script
+   planned for 20 minutes including 7:30 in the browser. The September 21
+   revision restores Banff and preserves the screening counts, validation
+   advantage and split-stability evidence. The September 22 purpose revision
+   gives the treatment-related motivation and equal model-comparison and
+   software-engineering aims on slide 3. Cross-validation remains
+   a proposed follow-up. After transition slide 13, the
+   [engineering demonstration](../presentation/engineering_demo.html) covers
+   saved evidence, a public specimen in the application, shared preparation,
+   the API, verification and handoff. Return to closing slide 14 afterward.
+   Full reports, the Code Guide and saved check records are included in the HTML
+   reference library. Slide 4 includes the KDIGO treatment connection, and slide
+   12 uses teal emphasis consistent with the rest of the deck.
    PowerPoint notes are not used. Two full timed rehearsals and one
    interruption/fallback rehearsal remain pending.
    The [AWS guide](AWS_DEPLOYMENT.md) is a procedure; a cloud deployment has not

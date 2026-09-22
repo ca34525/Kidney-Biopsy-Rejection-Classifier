@@ -9,14 +9,17 @@ rejection from no rejection in the public B-HOT biopsy dataset, particularly
 their missed rejection and false positives. The project should demonstrate
 sound analysis and the ability to turn a model into understandable, tested software.
 
-Molecular measurements already have a recognized role in parts of transplant
-rejection assessment. Banff includes thoroughly validated biopsy transcript tests
-in defined settings for antibody-mediated rejection. This project uses that
-established application to assess what a more complex classifier contributes
-before further validation, and to build software that preserves the evaluated
-procedure. Use `docs/RESEARCH_CONTEXT.md` for the evidence. Explain the comparison
-against recorded diagnoses without claiming a new clinical application or added
-diagnostic value for this particular score.
+Whether rejection is present can affect decisions about further treatment to
+suppress the immune system. A binary molecular score could supply additional
+evidence during that assessment, while subtype and other findings would still
+guide treatment. This plausible use motivates the comparison against recorded
+diagnoses and the software build. Give model comparison and software engineering
+equal prominence, including reproducible preprocessing, training and evaluation
+alongside the tested scoring service and prototype application.
+Use `docs/RESEARCH_CONTEXT.md` for the evidence. Explain potential clinical use
+clearly without requiring proven benefit as a condition of project relevance.
+Keep demonstrated agreement with diagnoses distinct from untested added clinical
+value. Banff's recognition of validated molecular tests provides related context.
 
 Read `docs/PROJECT_SPEC.md`, `docs/JOB_REQUIREMENTS.md`, and `docs/PLAN.md` before
 substantial implementation. For presentation work, also read
@@ -94,9 +97,14 @@ Use the dated external sources in `docs/PRESENTATION_GUIDE.md`. The talk lasts
 20 full minutes, with questions afterward. Slides are a required project deliverable.
 They must show the project's own results and working software, with editable
 evidence and a separate HTML speaking script. Keep PowerPoint notes empty. After
-the biopsy explanation on slide 2, explain the established application and the
-modeling choice on slide 3, then show Banff and the supporting research. Keep the current 19-slide sequence
-without backup slides. Put secondary methods and detailed tables in linked reports.
+the biopsy explanation on slide 2, explain the treatment-related motivation and
+the model-comparison and software aims on slide 3, then show Banff and the supporting
+research. Slide 4 also connects biopsy findings to treatment through KDIGO.
+Use 14 main slides without backup slides: slides 1–12, transition slide 13,
+one continuous browser demonstration, then closing slide 14. Put the engineering
+explanation and its full spoken script in the HTML deliverables. Keep the whole
+talk, including the demonstration, planned for 20 minutes. Put secondary methods
+and detailed tables in linked reports.
 
 Use plain English and a human voice. Prefer one concrete point over jargon,
 buzzwords, abstract claims, and keyword lists. Use literal wording instead of

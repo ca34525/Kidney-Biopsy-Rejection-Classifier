@@ -1,0 +1,26 @@
+{
+  "built": "2026-09-22",
+  "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+  "sources": {
+    "presentation/source/demo_snapshot.json": "c0073356033e48e9461ed6309133dadc161aca82b66686147cf31514a63d8b22",
+    "results/followup/20260917_stability/summary.json": "e31a297e06eeb19d0bc116f2d036c5184e8fd3e9198ea88304073e794bc6cffc",
+    "results/analysis/20260915_baseline/REPORT.md": "a5562e1ee7ba45e5f754ebc5f07b557b73f47fc1743e8373bdbd525d9fc9ea55",
+    "results/followup/20260917_stability/REPORT.md": "e8e84b05e781ac4081cea4a2aec80bc124b50c49745183b01e76942fa2a08efd",
+    "docs/API.md": "a7688ebe06f21252d39dc7929cda39636ee4cd2ccc84a09488018aa852f8cb63",
+    "docs/VERIFICATION.md": "c24bc11b4f9375c1c8c5a57393181d3f3caa0afe483fba4352d4c2d974d47601",
+    "docs/CODE_GUIDE.md": "117fcaf7d71747837d86cdcbdfa79543702831f1ae97ef8c5e58e9efdab6f316",
+    "docs/METHODOLOGY_REVIEW.md": "62413628b475ffa4f6ed885d7e06d106e27245183b3c7f1e2bed25cdb468e1eb",
+    "results/checks/20260917_coherence/http/http.json": "47c94032872aa389c800158f1ad316e8683b26c134290054ddd1851c459d0834",
+    "results/checks/20260917_coherence/container.json": "b379bcbbb6d58a7245852d08deecde42752397ac63d34a83232b97eaf1fae49f",
+    "results/analysis/20260915_baseline/errors_by_diagnosis.csv": "4048a7ffad8776bfa89c43371328bd1708f6bfa2aeddb030d020545117e1d9ee",
+    "results/followup/20260917_stability/selections.csv": "972fd8e3cf5d1ec74f2b91b18a38025de6c3a74b95142140db6ddcfc3f5f9424",
+    "results/followup/20260917_stability/design.json": "831a8a10a6b5023f1da9dc933fc0eed4a292dd8f82712f46cb7bf7d9824480d3",
+    "results/reproduction/20260915_shared/configuration.json": "1704a1e4ce9ffce95127d83b8843177cd8aab4e7e46cc42565af206f5763c7b6",
+    "src/kidney_biopsy/prediction.py": "6004e22d8690bc21b943b776c7715bcdcf2a3097a1c8825dd7bb992115882f19",
+    "src/kidney_biopsy/preprocessing.py": "c206612ee9febecde4132e674ba7ce920cd65caeef17917a4d861d5c1fed4d67",
+    "experiments/rejection_public/run.py": "014f4f7f5ff9c73004ae23829af75c5f512455ddbdd3d0c2c623a81d7b08a2e2",
+    "scripts/verify_http_service.py": "4c0cf2c4847c0dbbdc3c498c86f9c3dcfce3ecd0ee29746cff774753bc34beb0",
+    ".github/workflows/checks.yml": "ee75ee79dfa093f51c698b256fdcb23a57b6191426aa1c5cdc33b20c879181ee"
+  },
+  "output_sha256": "0cbdae5aa6e171b02a633a1c0c9839f5e04bf9290891fa0a27a586d260bde55d"
+}

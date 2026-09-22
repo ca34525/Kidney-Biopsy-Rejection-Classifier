@@ -14,7 +14,6 @@ import re
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
-
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -186,34 +185,48 @@ def main() -> None:
     args = parser.parse_args()
     data = json.loads((ROOT / args.source).read_text(encoding="utf-8-sig"))
     main_slides = data["slides"]
-    slides = [
-        {**slide, "number": index, "backup": False}
-        for index, slide in enumerate(main_slides, start=1)
-    ] + [
+    demo = data.get("browser_demo", {})
+    demo_stops = demo.get("stops", [])
+    slides = []
+    for index, slide in enumerate(main_slides, start=1):
+        slides.append({**slide, "number": index, "backup": False, "browser": False})
+        if index == demo.get("after_slide"):
+            slides.extend(
+                {**stop, "number": None, "backup": False, "browser": True, "stop_number": n}
+                for n, stop in enumerate(demo_stops, start=1)
+            )
+    slides += [
         {**slide, "number": index, "backup": True}
         for index, slide in enumerate(data.get("backups", []), start=len(main_slides) + 1)
     ]
-    total = sum(int(s["seconds"]) for s in main_slides)
+    total = sum(int(s["seconds"]) for s in main_slides + demo_stops)
     if total != 1200:
         raise ValueError(f"Main presentation must total 20:00, got {clock(total)}.")
     sections, main_links, backup_links, main_options, backup_options = [], [], [], [], []
     elapsed = image_count = words = 0
     backup_started = False
     for position, slide in enumerate(slides, start=1):
-        number = int(slide.get("number", position))
+        browser_stop = bool(slide.get("browser", False))
+        number = slide.get("number", position)
         title = slide["title"]
         backup = bool(slide.get("backup", False))
         seconds = int(slide.get("seconds", 0))
-        ident = f"slide-{number:02d}"
-        label = f"Backup {number - len(main_slides)}" if backup else f"Slide {number}"
-        timing = "For questions after the 20-minute talk" if backup else f"Approximate pacing: {clock(seconds)} on this slide"
+        ident = f"demo-{slide['id']}" if browser_stop else f"slide-{number:02d}"
+        label = (f"Browser stop {slide['stop_number']} of {len(demo_stops)}" if browser_stop
+                 else f"Backup {number - len(main_slides)}" if backup else f"Slide {number}")
+        section_start = elapsed
+        timing = ("For questions after the 20-minute talk" if backup else
+                  f"Approximate pacing: {clock(seconds)} {'in the browser' if browser_stop else 'on this slide'} · Talk {clock(section_start)}–{clock(section_start + seconds)}")
         if not backup:
             elapsed += seconds
         if backup and not backup_started:
             sections.append('<div class="backup-divider"><h2>Backup slides</h2><p>Use these for questions. They are outside the planned 20 minutes.</p></div>')
             backup_started = True
-        image_path = ROOT / "presentation" / "slides" / f"slide-{number:02d}.png"
-        if image_path.exists():
+        image_path = None if browser_stop else ROOT / "presentation" / "slides" / f"slide-{number:02d}.png"
+        if browser_stop:
+            visual = (f'<div class="stage"><h3>On screen</h3><p><a href="engineering_demo.html#{escape(slide["id"])}">Open {escape(slide["title"].lower())}</a></p>'
+                      '<p>Use the same HTML page for the evidence, application and engineering stops. Return to PowerPoint on slide 14 after the final stop.</p></div>')
+        elif image_path.exists():
             encoded = base64.b64encode(image_path.read_bytes()).decode("ascii")
             visual = f'<button class="preview-button" aria-label="Enlarge {escape(label.lower())}"><img src="data:image/png;base64,{encoded}" alt="{escape(label + ": " + title)}" width="1600" height="900"></button>'
             image_count += 1
@@ -230,14 +243,16 @@ def main() -> None:
         cue_list = slide.get("visible_cues", [])
         screen_cues = ''
         if cue_list:
-            screen_cues = '<details class="sources"><summary>On this slide</summary><ul>' + ''.join(f'<li>{escape(cue)}</li>' for cue in cue_list) + '</ul></details>'
-        sections.append(f'''<section class="slide-section" id="{ident}" aria-labelledby="title-{number}">
-<p class="slide-label">{escape(label)}</p><div class="slide-heading"><h2 id="title-{number}">{escape(title)}</h2></div>
+            screen_cues = '<details class="sources"><summary>' + ('On this browser stop' if browser_stop else 'On this slide') + '</summary><ul>' + ''.join(f'<li>{escape(cue)}</li>' for cue in cue_list) + '</ul></details>'
+        caption = 'Browser demonstration; no additional slide page.' if browser_stop else f'{label} as shown to the audience. Click to enlarge.'
+        sections.append(f'''<section class="slide-section" id="{ident}" aria-labelledby="title-{ident}">
+<p class="slide-label">{escape(label)}</p><div class="slide-heading"><h2 id="title-{ident}">{escape(title)}</h2></div>
 <p class="timing">{escape(timing)}</p><div class="reader-grid"><div>{stage_html}<div class="spoken">{paragraphs(spoken)}</div>{source_list(slide.get("sources", []))}</div>
-<figure class="visual">{visual}<figcaption>{escape(label)} as shown to the audience. Click to enlarge.</figcaption>{screen_cues}</figure></div></section>''')
+<figure class="visual">{visual}<figcaption>{escape(caption)}</figcaption>{screen_cues}</figure></div></section>''')
         nav_time = "Questions" if backup else f"About {clock(seconds)}"
-        link = f'<li><a href="#{ident}"><span class="slide-number">{number:02d}</span><span>{escape(title)}<small>{nav_time}</small></span></a></li>'
-        option = f'<option value="{ident}">{number:02d}. {escape(title)}</option>'
+        nav_number = f'D{slide["stop_number"]}' if browser_stop else f'{number:02d}'
+        link = f'<li><a href="#{ident}"><span class="slide-number">{nav_number}</span><span>{escape(title)}<small>{nav_time}</small></span></a></li>'
+        option = f'<option value="{ident}">{nav_number}. {escape(title)}</option>'
         (backup_links if backup else main_links).append(link)
         (backup_options if backup else main_options).append(option)
     title = data.get("title", "Kidney biopsy rejection classifier")
@@ -248,16 +263,16 @@ def main() -> None:
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Offline speaking script for the 20-minute kidney biopsy classifier presentation."><title>{escape(title)} · Speaking script</title><style>{CSS}</style></head>
 <body><a class="skip" href="#script">Skip to speaking script</a>
-<header class="toolbar"><span class="brand">Speaking script</span><label class="visually-hidden" for="slide-picker">Go to slide</label>
+<header class="toolbar"><span class="brand">Speaking script</span><label class="visually-hidden" for="slide-picker">Go to presentation section</label>
 <select class="picker" id="slide-picker"><optgroup label="Main talk · 20 minutes">{''.join(main_options)}</optgroup>{backup_picker}</select>
-<div class="tools"><button id="previous" aria-label="Previous slide" title="Previous slide (left arrow)">←</button><button id="next" aria-label="Next slide" title="Next slide (right arrow)">→</button></div>
+<div class="tools"><button id="previous" aria-label="Previous section" title="Previous section (left arrow)">←</button><button id="next" aria-label="Next section" title="Next section (right arrow)">→</button></div>
 <div class="tools font-tools"><button id="smaller" aria-label="Decrease script font size">A−</button><span class="font-size" id="font-value" aria-live="polite">21px</span><button id="larger" aria-label="Increase script font size">A+</button></div>
 <div class="tools"><span class="tool-label">Rehearsal</span><output class="timer" id="elapsed" aria-label="Elapsed rehearsal time">0:00</output><button id="timer-toggle">Start</button><button id="timer-reset">Reset</button></div></header>
-<div class="layout"><nav class="index" aria-label="Slide index"><h2>Main talk · 20:00</h2><ol>{''.join(main_links)}</ol>{backup_navigation}</nav>
+<div class="layout"><nav class="index" aria-label="Presentation index"><h2>Main talk · 20:00</h2><ol>{''.join(main_links)}</ol>{backup_navigation}</nav>
 <main id="script"><div class="page-head"><h1>{escape(title)}</h1>
-<p class="intro">Words to say aloud, with delivery cues and the matching slides. The main talk is planned for 20 minutes. Questions follow.</p>
-<div class="file-links"><a href="unos_kidney_biopsy.pptx">PowerPoint slides</a><a href="unos_kidney_biopsy.pdf">PDF backup</a><a href="analysis_report.html">Analysis report</a><a href="http://127.0.0.1:8765">Local demonstration</a><a href="demo_fallback.html">Captured demo backup</a></div>
-<p class="reader-help">Use the slide index or <kbd>←</kbd> / <kbd>→</kbd> to move between slides. <kbd>A−</kbd> / <kbd>A+</kbd> changes the reading size. This file works offline. Links to the local demo require the application to be running.</p></div>
+<p class="intro">Words to say aloud for 14 slides and three browser stops. Switch to the browser after slide 13 and return to slide 14. The full talk is planned for 20 minutes, including the 7:30 demonstration. Questions follow.</p>
+<div class="file-links"><a href="unos_kidney_biopsy.pptx">PowerPoint slides</a><a href="unos_kidney_biopsy.pdf">PDF backup</a><a href="engineering_demo.html">Engineering demonstration</a><a href="http://127.0.0.1:8766/presentation/engineering_demo.html">Live demonstration</a><a href="demo_fallback.html">Captured app images</a></div>
+<p class="reader-help">Use the index or <kbd>←</kbd> / <kbd>→</kbd> to move through slides and browser stops. <kbd>A−</kbd> / <kbd>A+</kbd> changes the reading size. This file works offline. The live demonstration requires the local service.</p></div>
 {''.join(sections)}
 <section class="closing" id="rehearsal"><h2>Rehearsal record</h2><p>The timings above are a plan. No completed rehearsal is recorded in this deliverable. Complete two full timed runs and one run using the demonstration fallback before presenting.</p>
 <p>Check the time at section boundaries. Keep the result counts, the report walkthrough, and the valid and invalid demonstration. If delivery runs long, shorten secondary explanations. Use rehearsal to adjust the pace. The report and Code Guide remain available for questions.</p>
@@ -269,7 +284,7 @@ def main() -> None:
 </main></div><dialog class="slide-dialog" id="slide-dialog" aria-label="Enlarged slide"><div class="dialog-actions"><button type="button">Close slide</button></div><img alt=""></dialog><script>{JS}</script></body></html>'''
     output = ROOT / args.output
     output.write_text(document, encoding="utf-8", newline="\n")
-    print(json.dumps({"output": output.relative_to(ROOT).as_posix(), "main_slides": len(main_slides), "backup_slides": len(slides) - len(main_slides), "planned_seconds": total, "main_spoken_words": words, "embedded_images": image_count, "bytes": output.stat().st_size}, indent=2))
+    print(json.dumps({"output": output.relative_to(ROOT).as_posix(), "main_slides": len(main_slides), "browser_stops": len(demo_stops), "backup_slides": len(data.get("backups", [])), "planned_seconds": total, "main_spoken_words": words, "embedded_images": image_count, "bytes": output.stat().st_size}, indent=2))
 
 
 if __name__ == "__main__":

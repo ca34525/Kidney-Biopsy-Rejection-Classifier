@@ -107,18 +107,17 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  const s=slide('Transplant rejection and kidney biopsy','Sources: NIDDK, Kidney Transplant and Kidney Biopsy; Zhang et al. (2024)');
  definition(s,'Rejection: ','The recipient’s immune system attacks the donated kidney.',177,{h:60});
  definition(s,'Kidney biopsy: ','A small tissue sample collected from the kidney for examination.',257,{h:93});
- definition(s,'Histology: ','Microscopic examination reveals injury and inflammation that can support a rejection diagnosis.',377,{nested:true,h:92});
- definition(s,'Molecular measurements: ','Counts of selected RNA types reflect gene activity and the mix of cells in the tissue.',493,{nested:true,h:116});
+ definition(s,'Histology: ','A microscopic examination that reveals injury and inflammation, which can support a rejection diagnosis.',377,{nested:true,h:92});
+ definition(s,'Molecular measurements: ','Counts of selected RNA types that reflect gene activity in the mix of cells in the tissue.',493,{nested:true,h:116});
 }
-// Established molecular application and the purpose of this comparison.
+// Practical motivation followed by equally prominent analysis and software aims.
 {
- const s=slide('Purpose of this project','Clinical context: Banff Reference Guide (2026). Public data: Zhang et al. (2024).');
- bullets(s,[
-  'Molecular measurements already have a recognized role in parts of transplant rejection assessment.',
-  'This project uses that established application to compare missed rejection and false flags across classifiers.',
-  'The aim is to assess what a more complex model contributes before further validation.'
- ],64,197,1152,338,34,C.ink,30);
- text(s,'The scoring software preserves the procedure evaluated here.',64,568,1152,75,29,C.teal,true);
+ const s=slide('Purpose of this project','Clinical rationale: Zhang et al. (2024), Discussion, p. 13; KDIGO (2009).');
+ text(s,'Whether rejection is present can affect decisions about further treatment to suppress the immune system.',64,164,1152,80,31,C.teal);
+ text(s,'Model comparison',64,271,1152,47,33,C.ink,true);
+ text(s,'How do logistic regression and CatBoost compare in classifying any recorded rejection versus no rejection from B-HOT biopsy RNA, particularly in missed cases and incorrect flags?',64,320,1152,128,30);
+ text(s,'Software engineering',64,468,1152,47,33,C.ink,true);
+ text(s,'Make preprocessing, training and evaluation reproducible. Build a tested scoring service and prototype application that let a user submit a specimen’s RNA counts and inspect its model score, threshold and rejection flag.',64,517,1152,126,30);
 }
 {
  const s=slide('Clinical and research context','Sources: Banff Reference Guide (2026); Zhang et al. (2024); KDIGO (2009); BK consensus (2024)');
@@ -129,8 +128,7 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  text(s,'Four-class study compared regression and boosting.\nSelected LASSO for similar accuracy with fewer features.',365,300,851,113,30);
  line(s,64,433,1152);
  text(s,'Why both kinds\nof error matter',64,455,274,103,28,C.ink,true);
- text(s,'Missed rejection can leave kidney injury untreated.\nUnnecessary treatment can weaken the body’s defenses\nand worsen an infection.',365,451,851,117,29);
- text(s,'This project compares binary classifier errors against recorded diagnoses.',64,599,1152,43,27,C.teal,true);
+ text(s,'Biopsy findings help guide treatment for rejection.\nMissed rejection can leave kidney injury untreated.\nUnnecessary treatment can worsen an infection.',365,448,851,151,29);
 }
 datasetSlide();
 // Give the biological labels their own visual explanation.
@@ -217,11 +215,12 @@ function datasetSlide(){
  const s=slide('Validation results','Sources: primary evaluation (15 Sep) and discovery-only stability follow-up (17 Sep 2026).');
  text(s,'Same 345 specimens: 169 rejection and 176 no rejection',64,145,1152,48,32);
  // Single-line categories let chart viewers reserve the full label width.
- chart(s,'bar',{position:{left:56,top:202,width:1170,height:327},categories:[modelLabels.ifng.replace('\n',' '),modelLabels.logistic.replace('\n',' '),'CatBoost'],series:[{name:'False negatives / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'False positives / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:25}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
- bullets(s,[`Constant baseline: ${constant.fn} false negatives, ${constant.fp} false positives. It flags everyone.`],64,546,1152,60,29,C.ink,11);
- text(s,`Across ${stability.repetitions} discovery splits: CatBoost selected ${stability.selection_counts.catboost} times, logistic ${stability.selection_counts.logistic}.`,64,614,1152,35,25,C.ink);
+ chart(s,'bar',{position:{left:56,top:202,width:1170,height:327},categories:[modelLabels.ifng.replace('\n',' '),modelLabels.logistic.replace('\n',' '),'CatBoost'],series:[{name:'Missed cases / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'Incorrect flags / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:25}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
+ bullets(s,[`Constant baseline: ${constant.fn} missed cases, ${constant.fp} incorrect flags. It flags everyone.`],64,546,1152,60,29,C.ink,11);
+ // Use the same teal emphasis as the deck's other summary statements.
+ text(s,`Across ${stability.repetitions} discovery splits: CatBoost selected ${stability.selection_counts.catboost} times, logistic ${stability.selection_counts.logistic}.`,64,614,1152,35,25,C.teal,true);
 }
-// Context and results are followed by the slide-based technical section.
+// The browser demonstration sits between one transition and the closing slide.
 await addTechnicalSlides({root,slide,text,bullets,table,line,node,connect,C,codeFont:CODE_FONT});
 
 await fs.mkdir(build,{recursive:true});await fs.mkdir(path.join(out,'slides'),{recursive:true});
