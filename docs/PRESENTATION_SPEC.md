@@ -3,16 +3,15 @@
 ## Deliverable
 
 Prepare a full 20-minute presentation about this project's question, analysis,
-results, and software. Questions follow the presentation. The user's first September
-21, 2026 instruction preserved slides 1–12 and replaced every later slide,
-including the old backups. The later wording pass revises slides 2, 3, 4, 10,
-11, and 12, superseding that preservation instruction for those slides. The
-clarity pass further revises slides 2–4. The latest pass accepts slide 7's RNA and
-housekeeping bullets and clarifies slide 9's terminology in the script while
-retaining its diagram. This revision retains **19 main slides and no backup slides**. The report
-and application are the only live demonstrations. Put the
-remaining implementation explanation on slides, with short code excerpts and
-editable diagrams where they help explain a decision.
+results, and software. Questions follow it. The September 21 reframing centers
+the tested classifiers' missed rejection and false positives, connects that
+comparison to an established molecular application, and explains the evidence behind
+CatBoost selection. Cross-validation remains a proposed next step.
+
+Keep **19 main slides and no backup slides**, the existing sequence and planned
+timings. The report and application are the only live demonstrations. The
+remaining implementation explanation uses short code excerpts and editable
+diagrams where they help explain a decision.
 
 Deliver an editable `presentation/unos_kidney_biopsy.pptx`, a matching PDF,
 `presentation/speaking_script.html`, an offline report view at
@@ -24,9 +23,8 @@ notes empty.**
 The [presentation package](../presentation/README.md) records the current files
 and preparation instructions. The script allocates 20 minutes. Actual timed
 rehearsals remain pending. Planned timing does not establish measured delivery
-time. The deck and accompanying deliverables before this RNA/cohort wording pass are
-preserved privately under
-`build/presentation/before-rna-cohort-pass-20260921/presentation/`.
+time. The deck and accompanying deliverables before this reframing are preserved
+privately under `build/presentation/before-reframing-20260921/presentation/`.
 
 Follow [Presentation guide](PRESENTATION_GUIDE.md), whose design advice draws on
 sources published from 2007 through 2014. The newer clinical-rationale sources
@@ -44,14 +42,19 @@ The [job requirements](JOB_REQUIREMENTS.md) support emphasizing shared
 preprocessing, an understandable API, consequential tests, and handoff evidence.
 
 The title slide contains only **Classifying Kidney Transplant Rejection from
-Biopsy RNA**. State the research question aloud. Preserve the accepted sequence
-through slide 12: biopsy explanation, molecular-second-opinion purpose,
-supporting research, data, methods, and validation results.
+Biopsy RNA**. State the comparative question aloud: how do the tested classifiers
+differ in missed rejection and false positives when classifying any recorded
+rejection versus no rejection in the public B-HOT dataset?
 
-The intended use is additional molecular evidence for specialists interpreting
-uncertain transplant biopsies. This project evaluates agreement with recorded
-diagnoses and supplies reproducible scoring software. Added value in uncertain
-cases needs direct evaluation. Keep this distinction proportional to the claim.
+After explaining the biopsy, state the purpose: use an established molecular
+application to assess what a more complex classifier contributes before further
+validation, and build software that preserves the evaluated procedure. Restore
+Banff's recognized role for validated biopsy transcript tests in defined settings
+for antibody-mediated rejection. Explain that Zhang's source study already
+compared model families and selected LASSO for similar accuracy with fewer
+features. This project's contribution is an independent binary comparison with
+explicit error analysis and tested software. Added diagnostic value from this
+particular score needs direct evaluation.
 
 ## Content and time budget
 
@@ -76,23 +79,23 @@ than treating a per-slide estimate as a deadline.
 | ---: | --- | --- |
 | 1 | Classifying Kidney Transplant Rejection from Biopsy RNA | Title only |
 | 2 | Transplant rejection and kidney biopsy | Definition labels and biopsy-evidence sub-bullets |
-| 3 | Possible Use: Molecular Second Opinion for Ambiguous Biopsies | One Example box supported by a study of 146 borderline diagnoses, then the project's possible use |
-| 4 | Evidence for a molecular second opinion | Banff guidance, B-HOT research, both clinical error consequences, and the project's scope |
+| 3 | Purpose of this project | Established application, the contribution of a more complex classifier and software that preserves the evaluated procedure |
+| 4 | Clinical and research context | Banff's role for validated transcript tests, Zhang's model comparison and choice of LASSO, and why both errors matter |
 | 5 | What the dataset contains | Linked analysis-table schemas, specimen counts, and the patient/referring-center separation qualification |
 | 6 | Outcome: rejection versus no rejection | Binary mapping of the included diagnoses and exclusion qualification |
 | 7 | The measurements used to build the features | Three bullets each explain the 758 model measurements and 12 housekeeping references |
 | 8 | Normalization | Numbered calculation and a concrete example |
 | 9 | Development and evaluation groups | Authors' discovery/validation division and the training/screening split; brief terminology clarification in the script |
 | 10 | Model comparison | Constant, IFNG logistic regression, all-RNA logistic regression, and CatBoost; Approach and rationale column |
-| 11 | Threshold selection | Word fractions with the same true-positive numerator and different denominators, then the screening rule without an asterisk |
-| 12 | Validation results | Missed rejection and false flags on the same rows, with class denominators; CatBoost-versus-IFNG comparison remains spoken |
+| 11 | Selecting the model and threshold | Recall and precision fractions, the screening rule, and a native table showing 157/174 detected by both models with five versus six false positives |
+| 12 | Validation results | Preserved error chart, the eight-case CatBoost advantage and its uncertainty in narration, plus the 13-to-seven discovery-only selection counts |
 | 13 | Inspecting the analysis report | Open the offline rendering of the preserved report and show how another analyst can inspect the evidence |
 | 14 | One public specimen through the service | Show a valid public example, its versioned score and threshold, then the incomplete-file response |
 | 15 | Shared preparation and scoring | Short source excerpt and editable explanation of the calculation shared by research and prediction |
 | 16 | An interface other software can call | Concrete request/response example and the boundary between the application and calling software |
 | 17 | Checking the application against the analysis | Saved all-specimen agreement check, a readable assertion excerpt, and consequential input failures |
 | 18 | Running and maintaining the application | Documented setup, automated checks, tested local container, and the limits of existing deployment evidence |
-| 19 | What this project accomplished | Completed analysis and usable scoring software, with the clinical-evaluation limit stated briefly |
+| 19 | What this project accomplished | Observed CatBoost advantage, remaining uncertainty, working software, cross-validation as a next step and the untested clinical benefit |
 
 The report stop demonstrates an inspectable deliverable. Do not repeat the
 validation chart or add another results lecture. The application stop follows
@@ -102,8 +105,8 @@ selected implementation content directly on slides.
 
 ## Required evidence
 
-- Preserve the model labels, counts, and explanatory sequence through slide 12,
-  with the later September 21 wording changes described below. Use absolute counts and
+- Preserve the model labels, counts and explanatory sequence through slide 12,
+  with the September 21 reframing described below. Use absolute counts and
   denominators alongside percentages. The 90% screening recall target was an
   experiment choice, and validation recall fell below it.
 - Call the output a model score. Keep threshold selection separate from
@@ -140,52 +143,36 @@ selected implementation content directly on slides.
   diagnosis categories were excluded. Do not claim all ambiguous biopsies were
   absent or that this project evaluated their clinical benefit.
 
-## September 21 wording pass
+## September 21 reframing
 
-- Slide 2 describes histology as: "Microscopic examination reveals injury and
-  inflammation that can support a rejection diagnosis." Counts of selected RNA
-  types provide information about gene activity. Raw counts are not described as
-  the model inputs; processing is explained later.
-- Slide 3 opens with "Sometimes the histology findings are ambiguous." Its one
-  Example box reads: "A biopsy shows mild inflammation, but not enough to diagnose
-  rejection. In a study of 146 borderline diagnoses, inflammation disappeared in
-  some patients. Others later developed acute rejection." This is evidence of a
-  real clinical problem, not a general prevalence estimate or an individual
-  patient's history. The second bullet is: "As a step towards potentially helping
-  resolve ambiguous biopsies, I used RNA counts to classify recorded diagnoses.
-  A high rejection score could add evidence for specialist review." Remove the
-  continued-example box.
-- Slide 4 explains why missed rejection and unnecessary rejection treatment can
-  both matter. State the project limitation: "This project has not established
-  usefulness in ambiguous biopsies. That requires comparing specialist assessment
-  with and without RNA scores."
-- Slide 7 uses three bullets for model measurements: "Selected human and viral
-  RNA measurements"; "Signals reflect gene activity and the mixture of cells in
-  the biopsy"; "Normalized values become the model's inputs." Its three
-  housekeeping-reference bullets are: "Relatively stable RNAs provide a reference
-  for each specimen"; "Help adjust for differences in overall measurable RNA
-  input"; "Used for normalization, then excluded
-  from the model."
-- Slide 9's script briefly clarifies: "The screening split serves the role often
-  called a validation set. The authors' validation cohort is my final test set."
-  Keep the diagram unchanged.
-- Slide 10 uses "Approach and rationale" for the explanatory column. CatBoost
-  can represent nonlinear RNA patterns and interactions; shallow trees limit
-  overfitting. Do not imply that categorical predictors are required or that
-  this rationale proves superiority over another boosting library.
-- Slide 11 uses "Correctly flagged rejection cases" as both fraction numerators.
-  Recall divides by "All cases diagnosed as rejection"; precision divides by
-  "All rejection flags." Explain the denominators first in the script. Reducing
-  false positives at a fixed true-positive count reduces the precision
-  denominator; it does not create true positives. Use "My selection rule for
-  screening specimens" without an asterisk or separate experimental-target
-  footnote.
-- Slide 12 removes the final CatBoost-versus-IFNG bullet. Retain the spoken
-  comparison before discussing the constant baseline.
+- Slides 1 and 2 introduce the established molecular application and the modeling
+  choice. Keep the opening visual title unchanged.
+- Slide 3 explains the purpose: assess what a more complex classifier contributes
+  before further validation, and preserve the evaluated procedure in software.
+- Slide 4 restores Banff's defined role for validated molecular tests and explains
+  Zhang's comparison of model families and preference for LASSO. This binary
+  comparison does not reproduce the published LASSO. Retain the reason both
+  error types matter.
+- Slide 10 keeps the model table and uses the comparative question in narration.
+- Slide 11 retains the recall/precision definitions and shows why the fixed rule
+  selected CatBoost: both detected 157 of 174 screening rejection cases, with
+  five versus six false positives among 89 no-rejection specimens. The rule uses
+  at least 90% recall, then the fewest false positives, with ROC-AUC breaking ties.
+- Slide 12 retains the validation chart. State that CatBoost missed eight fewer
+  rejection cases with eight false positives for each model. This adds evidence
+  in its favor, while the paired recall-difference interval includes zero. Add
+  the completed discovery-only follow-up: CatBoost selected 13 of 20 times and
+  logistic seven. Those overlapping splits leave a dependable preference unsettled.
+- Slide 19 returns to the purpose: evidence for the classifier choice and software
+  that preserves the calculation. Propose cross-validation within discovery and
+  identify added diagnostic value from this particular score as untested.
 
-The [wording source note](references/PRESENTATION_WORDING_20260921.md) records
-the clinical evidence, its limits, and the CatBoost rationale. These edits do not
-change model results, the 19-slide sequence, or the planned 20-minute allocation.
+Slides 5–9 and 13–18 retain their visual content and narration. Slide 7's accepted
+RNA/reference bullets and slide 9's terminology distinction remain. Historical
+wording and study reviews remain evidence of their dates. The
+[purpose note](references/PRESENTATION_PURPOSE_20260921.md) records the final
+framing; the [earlier revision](references/PRESENTATION_REFRAMING_20260921.md)
+records the model-choice counts. No experiments, thresholds or model artifacts change.
 
 ## Design and delivery checks
 

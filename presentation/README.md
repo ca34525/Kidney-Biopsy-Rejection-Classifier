@@ -2,12 +2,11 @@
 
 Revised September 21, 2026. **Classifying Kidney Transplant Rejection from Biopsy
 RNA** has **19 main slides and no backup slides**, planned for a full
-**20-minute talk** with questions afterward. The latest pass updates slide 7's
-measurement and reference bullets and briefly clarifies slide 9's terminology
-in the script. Earlier changes to slides 2–4 and 10–12 remain. The sequence and
-planned timings are unchanged. The
-technical section shows the report and application live, then uses slides to
-explain the implementation.
+**20-minute talk** with questions afterward. The current revision centers the
+classifier choice within an established molecular application in rejection assessment. It explains
+the screening selection, validation advantage and existing split-stability result.
+Cross-validation remains a proposed next step. The sequence and planned timings
+are unchanged. The report and application are the only live demonstrations.
 
 - [Editable PowerPoint](unos_kidney_biopsy.pptx)
 - [Separate HTML speaking script](speaking_script.html)
@@ -23,8 +22,10 @@ reading-size controls, and rehearsal timer help with practice. Printing includes
 the full script. Repository source links require keeping the file in this folder.
 
 **The PowerPoint contains no speaker notes or notes pages.** All spoken material
-belongs in the HTML file. The presentation before this RNA/cohort wording pass is
-preserved privately under `build/presentation/before-rna-cohort-pass-20260921/presentation/`.
+belongs in the HTML file. The presentation before this reframing is preserved
+privately under `build/presentation/before-reframing-20260921/presentation/`.
+The version before restoring Banff is preserved under
+`build/presentation/before-banff-purpose-20260921/presentation/`.
 
 ## Story and timing
 
@@ -45,8 +46,10 @@ HTML's per-slide times as pacing aids. Complete two full aloud rehearsals and on
 fallback rehearsal before the interview. The HTML page can export a measured
 rehearsal record. Review the account of personal contributions before presenting.
 
-The opening explains the biopsy, the possible molecular second opinion, and its
-supporting research before the dataset and methods. Slide 12 shows the validation
+The opening connects an established molecular application to a modeling decision:
+what does a more complex classifier contribute before further validation? It
+explains the biopsy, the project purpose, Banff and Zhang's model comparison
+before the dataset and methods. Slide 12 shows the validation
 errors. The next report stop demonstrates how another analyst can inspect the
 saved analysis. It does not repeat the results presentation. After the application
 demo, the implementation slides explain shared preparation, the API, agreement
@@ -60,19 +63,27 @@ user's presentation preferences and the dated design and rehearsal sources.
 The former detailed-results and backup slides are removed from the current deck.
 Their saved analyses and source documentation remain available.
 
-The wording pass explains RNA counts through gene activity, uses one
-research-supported borderline-biopsy example, and states both potential clinical
-error consequences. The clarity pass makes the example's outcomes concrete and
-frames untested usefulness in ambiguous biopsies as a project limitation. The
-accepted slide 7 bullets explain RNA activity and cell mixture, how housekeeping
-references adjust for overall measurable RNA input, and the two groups' roles in
-normalization and modeling. Slide 9's script briefly identifies screening as the
-usual validation-set role and the authors' validation cohort as the final test
-set; its diagram is unchanged. The earlier pass also clarifies the model rationale
-and metric fractions, removes the screening-target asterisk, and keeps the CatBoost-versus-IFNG
-comparison in the script before the constant baseline. The
-[source note](../docs/references/PRESENTATION_WORDING_20260921.md) records the
-evidence and its limits; the example does not claim a general prevalence.
+## What changed in this revision
+
+| Slide | Change |
+| --- | --- |
+| 1 | Narration connects the established application to the classifier choice; the visual title is unchanged. |
+| 2 | Spoken transition introduces the recognized molecular application. |
+| 3 | States the purpose: assess what a more complex classifier contributes before further validation, and preserve the evaluated procedure in software. |
+| 4 | Restores Banff's role for validated transcript tests. Explains Zhang's model comparison and choice of LASSO. Retains why both errors matter. |
+| 10 | Narration makes logistic versus CatBoost the main comparison, supported by IFNG and the constant benchmark. |
+| 11 | Shows both models detecting 157/174 screening rejection cases, with five versus six false positives among 89 no-rejection specimens. |
+| 12 | Retains the validation chart and explains the eight fewer misses with equal false positives, the paired uncertainty and the 13-to-seven discovery split result. |
+| 19 | Returns to evidence for the classifier choice and software that preserves it, then proposes cross-validation and direct evaluation of this score's added diagnostic value. |
+
+Across the September 21 revisions, visible slides 3, 4, 11, 12 and 19 change.
+Narration also changes on slides 1, 2 and 10. This final purpose revision changes
+visible slides 3, 4 and 19 and narration on 1, 2, 3, 4 and 19; it preserves the
+earlier model-choice explanation. See the
+[purpose note](../docs/references/PRESENTATION_PURPOSE_20260921.md) and the
+[earlier reframing record](../docs/references/PRESENTATION_REFRAMING_20260921.md).
+The 787/263 development split, fitted models, thresholds and saved results remain
+the completed analysis. No k-fold experiment was run for this revision.
 
 ## Report and application demonstrations
 
@@ -127,10 +138,13 @@ the final slide pages.
   1,395 specimens, processing at one laboratory, undocumented patient and
   referring-center separation, and excluded diagnosis categories. The existing
   results still use every deposited specimen.
-- Clinical rationale: Banff guidance and Rosales et al. (2022), documented in
-  [Research context](../docs/RESEARCH_CONTEXT.md). The intended use is additional
-  evidence for uncertain biopsies. This project measures agreement with recorded
-  diagnoses. Added clinical value needs direct evaluation.
+- Clinical context: Banff includes validated biopsy transcript tests in defined
+  settings for antibody-mediated rejection. Zhang et al. (2024) compared model
+  families for four recorded diagnoses and selected LASSO for similar accuracy
+  with fewer features. This project examines a binary classifier choice within
+  that established application. Added diagnostic value from this particular
+  score needs direct evaluation. See
+  [Research context](../docs/RESEARCH_CONTEXT.md).
 - Basic biology: NIDDK's kidney transplant and biopsy pages. The script contains
   full links beside the relevant passages. The
   [biopsy-care review](../docs/references/BIOPSY_CARE_20260919.md) and
