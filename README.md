@@ -81,8 +81,19 @@ Full timed rehearsals remain pending.
 
 ## Run the demo
 
-Use Python 3.12 and uv. Run all commands from this project's root. In this populated
-folder, the data and frozen model are already available:
+Run all commands from this project's root. On this populated Mac checkout, the
+Python 3.12 environment, frozen Mac model and public examples are already available:
+
+```sh
+.venv/bin/python presentation/source/serve_demo.py
+```
+
+Open [the engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html)
+or [the scoring application](http://127.0.0.1:8766/). The launcher explicitly selects
+the run and examples in `presentation/source/demo_config.json`; it does not retrain.
+Keep its terminal running. Stop it with Ctrl+C.
+
+For the original default run, with its model artifacts present and uv installed:
 
 ```powershell
 uv sync --frozen

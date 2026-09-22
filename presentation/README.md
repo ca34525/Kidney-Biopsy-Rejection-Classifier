@@ -41,14 +41,24 @@ excerpts and original evidence CSV/JSON. It uses the slide palette: teal
 
 ## Start the live demonstration
 
-From this project's root, with the existing environment, frozen model and public
-examples prepared:
+From this project's root on the Mac, use the existing environment:
+
+```sh
+.venv/bin/python presentation/source/serve_demo.py
+```
+
+With uv installed (including from PowerShell):
 
 ```powershell
 uv run --frozen python presentation/source/serve_demo.py
 ```
 
 Open [the local engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html).
+The launcher and saved-response capture both use `source/demo_config.json`, which
+explicitly selects `results/reproduction/20260922_mac_clone` and its prepared examples.
+Keep the terminal running; Ctrl+C stops the server. Port 8766 serves both the
+engineering page and scoring app. The standalone application on port 8765 is a
+separate process and does not inherit this presentation configuration.
 The Application tab links to the scoring app at the server root. The integration
 check verifies the served model version and threshold against the saved example.
 The launcher binds to localhost and adds presentation-file serving around the
@@ -62,9 +72,9 @@ the [project README](../README.md). The presentation launcher does not train mod
 Before presenting, follow **Kidney biopsy application** from the Application tab.
 Choose **No Rejection**, click **Get research score**, and then
 **Try an incomplete file**. The complete specimen is GSM6510425, with score
-`0.27493421380277305` and frozen threshold `0.8765880870219778`.
+`0.2749342138027727` and frozen threshold `0.8765880870219773`.
 Removing IFNG returns HTTP 422 and no score. The model version is
-`20260915_shared:any_rejection:catboost_all_depth4`.
+`20260922_mac_clone:any_rejection:catboost_all_depth4`.
 
 ## Offline use and speaking script
 

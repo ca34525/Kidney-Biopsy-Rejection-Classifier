@@ -1,20 +1,33 @@
 # Local research application
 
-The application scores raw B-HOT counts with the frozen binary model from
-`results/reproduction/20260915_shared`. It uses the same `Predictor`, CSV reader,
+The standalone application defaults to the frozen binary model from
+`results/reproduction/20260915_shared`. The presentation launcher explicitly selects
+the Mac run in `presentation/source/demo_config.json`. Both use the same `Predictor`, CSV reader,
 and housekeeping normalization as the command-line prediction path. The subtype
 follow-up does not replace this model or its threshold.
 
 ## Start the demonstration
 
 For the interview's single-page engineering demonstration, use the presentation
-launcher from the project root:
+launcher from the project root. On the populated Mac checkout:
+
+```sh
+.venv/bin/python presentation/source/serve_demo.py
+```
+
+With uv installed (including from PowerShell):
 
 ```powershell
 uv run --frozen python presentation/source/serve_demo.py
 ```
 
 Open [the engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html).
+The scoring app is at [the same server's root](http://127.0.0.1:8766/). Keep the
+launcher running in its terminal. Its configuration selects the completed
+`20260922_mac_clone` run and `data/demo/20260922_mac_clone` examples, including
+their actual model version and threshold. Missing artifacts for the original
+default run cause the standalone service to report "model not ready"; loading
+the page alone does not establish that scoring is available.
 Its Application tab shows a real CSV excerpt and one link to this application
 in a separate tab. The launcher adds presentation-file serving without changing
 prediction behavior. The engineering explanation includes clearly labeled saved

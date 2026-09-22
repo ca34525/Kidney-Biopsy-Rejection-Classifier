@@ -93,6 +93,7 @@
   if (location.protocol === 'http:' || location.protocol === 'https:') {
     applicationLink.href = new URL('/', location.href).href;
   }
+  document.getElementById('application-url').textContent = applicationLink.href;
   selectStop(location.hash.slice(1));
   window.addEventListener('load', () => requestAnimationFrame(() => window.scrollTo(0, 0)), {once: true});
 })();

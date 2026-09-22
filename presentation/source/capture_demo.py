@@ -7,13 +7,13 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from kidney_biopsy.api import create_app
+from serve_demo import presentation_app
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
 def main():
-    with TestClient(create_app(project_root=ROOT)) as client:
+    with TestClient(presentation_app()) as client:
         assert client.get("/health").status_code == 200
         model = client.get("/model").json()
         valid_csv = client.get("/demo/examples/no-rejection")

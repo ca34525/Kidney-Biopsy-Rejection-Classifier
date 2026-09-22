@@ -59,6 +59,8 @@ for (const [id,title,description,source] of definitions) {
   references[id] = {title,description,path:source,raw,html,sha256:digest(await fs.readFile(path.join(root, source)))};
 }
 const snapshot = JSON.parse(await read('presentation/source/demo_snapshot.json'));
+const config = JSON.parse(await read('presentation/source/demo_config.json'));
+const applicationUrl = `http://127.0.0.1:${config.port}/`;
 const errors = csv(references.errors.raw);
 const selections = csv(references.selections.raw);
 const stability = JSON.parse(await read('results/followup/20260917_stability/summary.json'));
@@ -88,7 +90,7 @@ const csvPreview = [previewColumns.join(','), previewColumns.map(name => input[n
 const assessmentComparison = stability.assessment_error_comparisons;
 const fullResponse = esc(JSON.stringify(snapshot.valid_response, null, 2));
 const requestExample = [
-  'curl http://127.0.0.1:8766/predict \\',
+  `curl ${applicationUrl}predict \\`,
   "  -H 'Content-Type: text/csv' \\",
   '  --data-binary @no-rejection.csv',
 ].join('\n');
@@ -179,8 +181,11 @@ const html = `<!doctype html>
   <section class="content-section" aria-labelledby="application-heading">
     <h2 id="application-heading">Local application</h2>
     <p>The following command starts the service from the project root. The application opens in a separate tab, keeping this explanation available.</p>
-    <pre>uv run --frozen python presentation/source/serve_demo.py</pre>
-    <p><a class="button" id="application-link" href="http://127.0.0.1:8766/" target="_blank" rel="noopener">Kidney biopsy application</a></p>
+    <p>On this Mac, use the existing virtual environment:</p>
+    <pre>.venv/bin/python presentation/source/serve_demo.py</pre>
+    <p>With uv installed, the equivalent command is <code>uv run --frozen python presentation/source/serve_demo.py</code>.</p>
+    <p>The launcher uses the frozen run and prepared examples selected in <code>presentation/source/demo_config.json</code>.</p>
+    <p><a class="button" id="application-link" href="${applicationUrl}" target="_blank" rel="noopener">Kidney biopsy application</a> <span id="application-url">${applicationUrl}</span></p>
   </section>
 </section>
 <section id="engineering" role="tabpanel" aria-labelledby="tab-engineering" hidden>
@@ -276,7 +281,7 @@ const html = `<!doctype html>
 <script type="application/json" id="demo-data">${payload}</script><script>${js}</script>
 </body></html>`;
 await fs.writeFile(path.join(root,'presentation/engineering_demo.html'),html);
-const inputs = ['presentation/source/demo_snapshot.json','results/followup/20260917_stability/summary.json',...definitions.map(x=>x[3])];
+const inputs = ['presentation/source/demo_config.json','presentation/source/demo_snapshot.json','results/followup/20260917_stability/summary.json',...definitions.map(x=>x[3])];
 const hashes = Object.fromEntries(await Promise.all(inputs.map(async name=>[name,digest(await fs.readFile(path.join(root,name)))])));
 await fs.writeFile(path.join(root,'presentation/engineering_demo_sources.json'),JSON.stringify({built:'2026-09-22',model_version:snapshot.model_version,sources:hashes,output_sha256:digest(html)},null,2)+'\n');
 console.log(JSON.stringify({output:'presentation/engineering_demo.html',bytes:Buffer.byteLength(html),references:Object.keys(references).length,model_version:snapshot.model_version}));
