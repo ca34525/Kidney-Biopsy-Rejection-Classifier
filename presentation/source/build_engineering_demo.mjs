@@ -134,38 +134,40 @@ const html = `<!doctype html>
   </div>
   <div id="splits-view" role="tabpanel" aria-labelledby="tab-splits" hidden>
     <h2>How the discovery specimens were reassigned</h2>
-    <p>This follow-up examined whether the preferred model family changed when the discovery specimens were assigned differently to training, screening and assessment.</p>
-    <p>Each of <strong>${selections.length} repetitions</strong> randomly divided the same <strong>1,050 discovery specimens</strong>, using a recorded random seed. Both splitting steps were stratified by the four recorded diagnoses: no rejection, antibody-mediated, T-cell-mediated and mixed rejection. This preserved approximately their proportions in each group.</p>
-    <p>The procedure first set aside 210 assessment specimens, then selected 210 screening specimens from the remaining 840, leaving 630 for training.</p>
+    <p>CatBoost’s original screening advantage was one fewer false positive at the same sensitivity. This follow-up checked how consistently screening preferred either model across discovery splits.</p>
+    <p>Each of <strong>${selections.length} repetitions</strong> randomly reassigned the same <strong>1,050 discovery specimens</strong> using a recorded seed. The procedure reserved 210 for assessment, then 210 of the remaining 840 for screening, leaving 630 for training. Both steps preserved approximately the four diagnosis proportions.</p>
     <div class="table-wrap"><table class="design-table">
       <caption>Three separate groups within each repetition</caption>
       <thead><tr><th scope="col">Group</th><th scope="col">Specimens</th><th scope="col">Role</th></tr></thead>
       <tbody>
-        <tr><th scope="row">Training</th><td class="num">${design.split_sizes.fit}</td><td>Both model families were fitted on the same specimens.</td></tr>
-        <tr><th scope="row">Screening</th><td class="num">${design.split_sizes.screen}</td><td>These specimens determined model settings, thresholds and the preferred family.</td></tr>
-        <tr><th scope="row">Assessment</th><td class="num">${design.split_sizes.assessment}</td><td>Both family winners were compared after their models and thresholds were fixed.</td></tr>
+        <tr><th scope="row">Training</th><td class="num">${design.split_sizes.fit}</td><td>Both model families use the same training specimens.</td></tr>
+        <tr><th scope="row">Screening</th><td class="num">${design.split_sizes.screen}</td><td>Screening determines settings, thresholds and the preferred family.</td></tr>
+        <tr><th scope="row">Assessment</th><td class="num">${design.split_sizes.assessment}</td><td>Both family winners score these specimens after selection.</td></tr>
       </tbody>
     </table></div>
-    <p class="note">The authors’ 345-specimen technical-validation cohort was unused in this follow-up. Within a repetition, the three groups were separate. Across repetitions, specimens were reused; the repetitions are not independent validation trials.</p>
+    <p class="note">Groups were separate within each repetition. Repetitions reused specimens and are not independent trials. The authors’ 345 validation specimens were unused.</p>
     <section class="content-section" aria-labelledby="selection-heading">
       <h2 id="selection-heading">Model selection using screening specimens</h2>
-      <p>The candidates were three logistic regression settings and two CatBoost depths. Each candidate’s threshold retained at least 90% of screening rejection cases. Within each family, then between the family winners, selection favored fewer false positives; ROC-AUC broke ties. An exact tie between families favored logistic regression.</p>
+      <p>This follow-up used 630 training specimens instead of 787 and revised the candidates to three logistic settings and two CatBoost depths. The candidate settings stayed fixed across repetitions.</p>
+      <p>Each threshold retained at least 90% of screening rejection cases. Selection within and between families favored fewer false positives, then higher ROC-AUC. Exact ties between families favored logistic regression.</p>
       <table class="selection-table"><caption>Preferred family across the 20 repetitions</caption><thead><tr><th scope="col">Model family</th><th scope="col">Repetitions selected</th></tr></thead><tbody>
         <tr><th scope="row">CatBoost</th><td class="selection-value">${families.catboost} <span>of ${selections.length}</span></td></tr>
         <tr><th scope="row">Logistic regression</th><td class="selection-value">${families.logistic} <span>of ${selections.length}</span></td></tr>
       </tbody></table>
+      <p>Screening selected CatBoost more often, but selected logistic regression in seven repetitions. The model choice depended on the discovery split.</p>
       <details class="records"><summary>All 20 selections and random seeds</summary><div class="table-wrap records-body"><table><thead><tr><th scope="col">Repetition</th><th scope="col">Seed</th><th scope="col">Selected family</th><th scope="col">Selected candidate</th></tr></thead><tbody>${selectionRows}</tbody></table></div></details>
     </section>
-    <section class="content-section" aria-labelledby="assessment-heading">
-      <h2 id="assessment-heading">Errors on the discovery assessment specimens</h2>
-      <p>In each repetition, both family winners were evaluated on the same 210 discovery specimens reserved for assessment. These specimens had no role in fitting or selection. Each assessment contained 139 rejection and 71 no-rejection specimens.</p>
+    <details class="records content-section" aria-labelledby="assessment-heading">
+      <summary id="assessment-heading">Supporting results: errors on held-out discovery specimens</summary>
+      <div class="records-body">
+      <p>Both family winners were assessed on the same 210 reserved specimens: 139 rejection and 71 no rejection. These errors did not determine the 13/7 screening selection count.</p>
       <div class="table-wrap"><table><caption>Repetitions with fewer errors on the assessment specimens</caption><thead><tr><th scope="col">Error compared</th><th scope="col">CatBoost had fewer</th><th scope="col">Logistic had fewer</th><th scope="col">Equal counts</th></tr></thead><tbody>
         <tr><th scope="row">Missed rejection</th><td class="num">${assessmentComparison.fn.catboost_fewer} / 20</td><td class="num">${assessmentComparison.fn.logistic_fewer} / 20</td><td class="num">${assessmentComparison.fn.tied} / 20</td></tr>
         <tr><th scope="row">False rejection flags</th><td class="num">${assessmentComparison.fp.catboost_fewer} / 20</td><td class="num">${assessmentComparison.fp.logistic_fewer} / 20</td><td class="num">${assessmentComparison.fp.tied} / 20</td></tr>
       </tbody></table></div>
-      <p>CatBoost was selected more often, but neither family consistently missed fewer rejection cases. Selection frequency alone does not establish a dependable performance advantage.</p>
-      <p>This follow-up examined models fitted on 630 specimens. It does not re-estimate the accuracy of the application’s saved model, which was fitted on 787 specimens.</p>
-    </section>
+      <p>Neither family consistently missed fewer rejection cases. These results describe the follow-up procedure, not the application’s saved model.</p>
+      </div>
+    </details>
     <div class="action-row">${source('stability','Repeated-split analysis report')}${source('split-design','Saved partition and selection design')}</div>
   </div>
   <p class="source">Primary analysis: 15 Sep 2026. Discovery follow-up: 17 Sep 2026. The primary report includes paired uncertainty and score reliability.</p>

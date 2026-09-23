@@ -223,7 +223,7 @@ function datasetSlide(){
  }
  bullets(s,[`Constant baseline: ${constant.fn} missed cases, ${constant.fp} incorrect flags. It flags everyone.`],64,546,1152,60,29,C.ink,11);
  // Use the same teal emphasis as the deck's other summary statements.
- text(s,`Across ${stability.repetitions} discovery splits: CatBoost selected ${stability.selection_counts.catboost} times, logistic ${stability.selection_counts.logistic}.`,64,614,1152,35,25,C.teal,true);
+ text(s,`Follow-up screening selections across ${stability.repetitions} discovery splits: CatBoost ${stability.selection_counts.catboost}, logistic ${stability.selection_counts.logistic}.`,64,614,1152,35,25,C.teal,true);
 }
 // The browser demonstration sits between one transition and the closing slide.
 await addTechnicalSlides({root,slide,text,bullets,table,line,node,connect,C,codeFont:CODE_FONT});

@@ -513,13 +513,13 @@
         "These results use the same 345 validation specimens: missed cases among 169 recorded as rejection, and incorrect flags among 176 recorded as no rejection.",
         "IFNG missed 14 cases and incorrectly flagged 75. All-RNA logistic regression missed 33 and incorrectly flagged eight. CatBoost missed 25 and also incorrectly flagged eight.",
         "CatBoost therefore missed eight fewer cases than logistic regression, with the same number of incorrect flags. That adds evidence in its favor beyond the narrow screening result. The paired 95 percent bootstrap interval for the recall difference includes zero, though, so a dependable advantage remains uncertain.",
-        "I then checked how much model choice depended on the split, using only the 1,050 discovery specimens. In each of 20 repetitions, I reshuffled them into 630 for training, 210 for screening, and 210 held out for a final assessment, keeping diagnosis proportions similar. Training fitted the candidates. Screening chose the model and threshold. I then checked that fitted model and threshold on the held-out discovery specimens. Those specimens play the validation role within each repetition. The original 345-specimen validation cohort was not used in this follow-up.",
-        "CatBoost was selected 13 times and logistic regression seven. The repetitions reuse specimens, and the choice varies with the split. This is further reason to keep logistic regression in consideration.",
+        "CatBoost’s narrow screening advantage prompted a follow-up with 20 random discovery splits, keeping diagnosis proportions similar. Each used 630 specimens for training, 210 for screening and 210 for assessment. This procedure used fewer training specimens and revised candidate settings, held fixed across repetitions. Screening chose settings, thresholds and the preferred family. Assessment checked both family winners afterward. The original 345 validation specimens were unused.",
+        "Screening selected CatBoost 13 times and logistic regression seven. The preferred model changed with the discovery split, so logistic regression remains a credible simpler alternative. The repetitions reuse specimens.",
         "Compared with IFNG, CatBoost makes 67 fewer incorrect flags but misses 11 more cases. Its validation recall is 85.2 percent, below the 90 percent screening target. The preferred tradeoff depends on how the result would be used.",
         "The constant model flags everyone at its threshold of 0.5. It misses no rejection cases but incorrectly flags all 176 no-rejection specimens."
       ],
       "actions": [
-        "Use the chart's missed-cases and incorrect-flags labels. Explain the CatBoost/logistic difference and uncertainty. Point to the colored follow-up sentence while explaining training, screening, and held-out discovery assessment. Distinguish that assessment from the original validation cohort. End with the IFNG tradeoff, then the constant baseline."
+        "Use the chart's missed-cases and incorrect-flags labels. Explain the CatBoost/logistic difference and uncertainty. Identify the colored sentence as follow-up screening selections. Describe the revised discovery procedure and distinguish its supporting assessment from author validation. End with the IFNG tradeoff, then the constant baseline."
       ],
       "visible_cues": [
         "Same 345 specimens: 169 rejection and 176 no rejection",
@@ -528,7 +528,7 @@
         "All RNA (Logistic Regression): 33 missed cases and 8 incorrect flags",
         "CatBoost: 25 missed cases and 8 incorrect flags",
         "Constant baseline: 0 missed cases, 176 incorrect flags. It flags everyone.",
-        "Across 20 discovery splits: CatBoost selected 13 times, logistic 7."
+        "Follow-up screening selections across 20 discovery splits: CatBoost 13, logistic 7."
       ],
       "sources": [
         {
@@ -609,7 +609,7 @@
     }
   ],
   "backups": [],
-  "revision": "2026-09-23: Biopsy and treatment row on slide 4; error consequences in slide 3 narration; ordered legend keys on slide 12; Software Engineering Demo title without bullets on slide 13; next-steps text removed from slide 14 and its narration.",
+  "revision": "2026-09-23: Biopsy and treatment row on slide 4; error consequences in slide 3 narration; ordered legend keys on slide 12; Software Engineering Demo title without bullets on slide 13; next-steps text removed from slide 14 and its narration. Concise screening-selection framing on slide 12 and in the repeated-splits demo, with expandable assessment results and matching narration.",
   "browser_demo": {
     "after_slide": 13,
     "seconds": 450,
@@ -621,19 +621,19 @@
         "seconds": 75,
         "paragraphs": [
           "The first table compares errors on the same three hundred and forty-five specimens from the authors’ technical-validation cohort. Each fraction shows errors out of the specimens with that diagnosis. Most missed rejection cases were T-cell-mediated: eighteen for CatBoost and twenty-five for logistic regression. Mixed rejection has only eighteen specimens, so its error rates are particularly uncertain.",
-          "The next view asks whether model choice changes with the discovery split. Each repetition randomly reassigned the same one thousand and fifty discovery specimens. Both splitting steps preserved approximately the proportions of the four diagnoses. Six hundred and thirty specimens were used for training, two hundred and ten for screening, and two hundred and ten for assessment. The authors’ validation cohort was unused, and specimens were reused across repetitions.",
-          "Screening selected settings and thresholds, then the preferred family: CatBoost thirteen times and logistic regression seven. Both family winners were then evaluated on the reserved discovery assessment specimens. CatBoost missed fewer rejection cases in nine repetitions, logistic in ten, with one tie. Neither consistently missed fewer cases. The complete reports and all twenty selections are available here."
+          "The next view follows up on CatBoost’s narrow screening advantage. Each of twenty repetitions randomly reassigned the discovery specimens, preserving approximately the diagnosis proportions. For each split, I fitted models on six hundred and thirty specimens, used two hundred and ten for screening, and reserved two hundred and ten for assessment. The candidate settings differed from the original experiment but stayed fixed across repetitions. The authors’ validation cohort was unused.",
+          "Screening selected CatBoost thirteen times and logistic regression seven. Model choice changed with the discovery split. The expandable assessment results provide supporting evidence and did not determine those selections. The repetitions reuse specimens. All twenty selections and the full reports are available here."
         ],
         "actions": [
           "Model comparison opens on Validation errors by diagnosis. The cohort explanation precedes the table. The Primary analysis report opens in the source dialog.",
-          "Model choice across repeated splits presents the partition design first, the screening rule and selection counts next, and assessment errors afterward. All 20 selections and random seeds is expandable. Next: application advances to the CSV preview."
+          "Model choice across repeated splits explains the motivation and design before the screening selections. Supporting results: errors on held-out discovery specimens expands the assessment table. All 20 selections and random seeds is also expandable. Next: application advances to the CSV preview."
         ],
         "visible_cues": [
           "Validation errors by diagnosis",
           "Model choice across repeated splits",
           "Three separate groups within each repetition",
           "Preferred family across the 20 repetitions",
-          "Errors on the discovery assessment specimens"
+          "Supporting results: errors on held-out discovery specimens"
         ],
         "sources": [
           {

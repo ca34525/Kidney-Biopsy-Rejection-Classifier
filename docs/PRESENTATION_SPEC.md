@@ -89,7 +89,8 @@ PowerPoint for slide 14. Detailed methods and likely answers stay in the reports
   false positive reduces the precision denominator; it does not add a true positive.
 - Slide 12 retains the spoken IFNG comparison before the constant baseline, but
   omits the extra CatBoost-versus-IFNG bullet. Use teal, not purple, for the 13/7
-  emphasis. Keep the legend order and error colors specified above.
+  emphasis: “Follow-up screening selections across 20 discovery splits: CatBoost 13,
+  logistic 7.” Keep the legend order and error colors specified above.
 - Slide 14 and its narration close on completed analysis and software, followed
   by acknowledgments. Deferred research remains in the linked reports.
 
@@ -126,9 +127,12 @@ and frozen model. The source JSON and report hashes identify the displayed evide
 The page title is **Software Engineering**. It has no speaking-script link.
 Explanations use named subjects and declarative sentences. Each view identifies
 its question, population and method before presenting results. The repeated-split
-view explains the two random, diagnosis-stratified splitting steps, all three
-discovery groups and reuse across repetitions before the 13/7 selection table.
-The later error comparison explicitly concerns discovery assessment specimens.
+view explains the narrow original screening advantage, then the two random,
+diagnosis-stratified splitting steps, all three discovery groups and specimen reuse.
+Identify the smaller training set and revised candidate settings, fixed across
+repetitions. The 13/7 screening selection table supplies the main result. Place
+assessment errors in an expandable supporting section and state that they did not
+determine those selections. Keep the revised tab text no longer than its prior version.
 Engineering sections explain the shared calculation, programmatic access,
 verification and setup before showing their supporting code and records.
 
