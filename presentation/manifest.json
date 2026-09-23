@@ -1,6 +1,6 @@
 {
   "created": "2026-09-23",
-  "revision": "2026-09-23: Biopsy and treatment row on slide 4; error consequences in slide 3 narration; ordered legend keys on slide 12; Software Engineering Demo title without bullets on slide 13; next-steps text removed from slide 14 and its narration. Concise screening-selection framing on slide 12 and in the repeated-splits demo, with expandable assessment results and matching narration.",
+  "revision": "2026-09-23: Biopsy and treatment row on slide 4; error consequences in slide 3 narration; ordered legend keys on slide 12; Software Engineering Demo title without bullets on slide 13; next-steps text removed from slide 14 and its narration. Concise screening-selection framing on slide 12 and in the repeated-splits demo, with expandable assessment results and matching narration. Slide 4 now places Biopsy and treatment before Published B-HOT study, with matching narration.",
   "main_slides": 14,
   "backup_slides": 0,
   "browser_stops": 3,
@@ -86,10 +86,10 @@
     "docs/RESEARCH_CONTEXT.md": "0101c3c5fd8058bc450ec8ea984a912871b09b3bcaea7dfdca6dc38ed9ef1ef8",
     "docs/METHODOLOGY_REVIEW.md": "2ef24c24a3a283474024317424e55c798b33838f8da107047be8f78780190ebf",
     "docs/PRESENTATION_GUIDE.md": "857dc7a9c00df7fcca0e8a6c66685385f45617e9506671ca9f15c6dfc32acc53",
-    "docs/PRESENTATION_SPEC.md": "94f43ba94f94e71d3547ef42fda1cbae50fd5872644e639df74a4de0f149f5d7",
+    "docs/PRESENTATION_SPEC.md": "feb9f1f01e0bc2b1e88b041f43fe4d8686f3b8b5ae397c431aedd2803ac8a994",
     "docs/references/STUDY_AUDIT_20260919.md": "fcaff2ddcb04309ec183f1dfd404a24797a1376ae97dd82d8ec8d4c418dc827b",
     "docs/references/BIOPSY_CARE_20260919.md": "79c50df752b75fe5216690b5be1721a0ee6127123c39805a3bfd637d36c9f5c9",
-    "presentation/engineering_demo_sources.json": "98d1677f3fb22bcadb8dd774186c128d391aaabeed57be4c2872b65b6ca7b7e3",
+    "presentation/engineering_demo_sources.json": "cad7c4e116a0c2438706b29ea406878cf4d72cae6f425a9eafe12e7a2e7beb51",
     "docs/references/rejection_source_manifest.json": "e7be0c5ffbbeee217156ab04ef72a459960a475ef1ce3192db8bbf28c7f6af9c"
   },
   "outputs_and_authoring_sources": {
@@ -103,7 +103,7 @@
     "presentation/slides/slide-01.png": "73a4c359b214d4076c10a766344a80a5b6dacfe2cf636b72f60a2d554c9f282a",
     "presentation/slides/slide-02.png": "ba902fb615ff228a47c312cf1615e29aa920df5ac53d31b7a55bd32635545927",
     "presentation/slides/slide-03.png": "6d53c72f42ac6c1468f784e1f827a0d7db9f0e5fb249a0bd84bdd4a94ff4b95a",
-    "presentation/slides/slide-04.png": "924eabb9bb006632fc78f999163b54bcd1e7a835708c392d30ec9a909f13f6bb",
+    "presentation/slides/slide-04.png": "2fc8c83596a02c839be0220530ca4a9dfff9ec18646abcdb809c05386f40c647",
     "presentation/slides/slide-05.png": "f6e0a7a3aa1ffccf9d1c59ed56528763c758baff622416c57c11078e25578850",
     "presentation/slides/slide-06.png": "e878306e904ea0a83ce8967662e40283d5111778558db02feea29c91ecdf2587",
     "presentation/slides/slide-07.png": "36ac13de26380712864c945b6db747d5e7fbca5621e58b29248181684a4edc5d",
@@ -119,7 +119,7 @@
     "presentation/source/__pycache__/serve_demo.cpython-312.pyc": "59801d1ead50696588435c4341896c9dbcedabbc67c4fe53fdb12610c278d942",
     "presentation/source/build_analysis_report.mjs": "28a58fa07383c1d09ca9b170575dbb94d10088168edb880dbd1d92c76d876900",
     "presentation/source/build_backups.py": "5ef54a7190e1bcb664b5e53158266db6b12d635f57b2f5a06959f2b0e463f998",
-    "presentation/source/build_deck.mjs": "572cbf99eeef2c864ff0218e09aa1d11cbb479e8b61505a3c6bcf03aea4edbfc",
+    "presentation/source/build_deck.mjs": "e13e8afc1c73d9271724a57a57a53b40672313b9466df8d25ff2b1d4140b9862",
     "presentation/source/build_engineering_demo.mjs": "a7b1574b5f7e829987585965c264b1db3cb4983714dbdb1ee92e6e455ff2bb2a",
     "presentation/source/build_script_html.py": "b77e0cd1387ce17c6a6ec2be0f3e4f9804005f57ca177c6fc6080c67d0e2ecbf",
     "presentation/source/capture_demo.py": "6b4e277e3b68e6da588aefd47bfd9471e6e83c777b5c8bbba7d568740930dbf6",
@@ -132,10 +132,10 @@
     "presentation/source/remove_notes.py": "1f1d2c2d1b063133195df9b1540e66960d05f142b7bc4637850d335d36114e83",
     "presentation/source/render_final.mjs": "194813d56c31acf083e72753034a115baaf6af50e70c3e943cb885c778109ce7",
     "presentation/source/serve_demo.py": "367aae9f42f95c1896e804c68d0e427dad80bfd2fa901f3456b60f5bcef9523a",
-    "presentation/source/speaking_script.json": "5a13cb9b5ba95ea4ee51efc51c8935dc3a6c491409ccedba57addd68367bd271",
+    "presentation/source/speaking_script.json": "6f7f74222287ff8a60d715be5ae15f5add04f01efc1c8fe981ebf8b9df539f88",
     "presentation/source/technical_slides.mjs": "386ccf054600aacf488338889b18cdbdf5344a0fb40e63fd7e2fc70c54b79b0a",
-    "presentation/speaking_script.html": "6a0a7e3d8ec69a1c24af477a4b19ed5f1a246fd53788d916233e874ce173e2e3",
-    "presentation/unos_kidney_biopsy.pdf": "4b2668930a14e1efe3c27e627a99b0b2ab4cf9980237878b2d3de63bd9144cad",
-    "presentation/unos_kidney_biopsy.pptx": "6dbcb455f55bab90cd50bea4deec42b47eebb89da2c7a2cbb9ad754598604614"
+    "presentation/speaking_script.html": "e4adb064c9e49c5f95030d6def8e8f202ea032ed40a11c520db4564162c9e553",
+    "presentation/unos_kidney_biopsy.pdf": "b0a34555bb07e3d3d35d36d774b9cca689e19de2f1d42465f22479c0bf07da9c",
+    "presentation/unos_kidney_biopsy.pptx": "7d818b7aa69b58322c4efd5a4cb3a394e0683131fb106e740be33fffffaaa87a"
   }
 }

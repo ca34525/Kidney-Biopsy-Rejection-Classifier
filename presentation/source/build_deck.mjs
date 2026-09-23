@@ -124,11 +124,11 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  text(s,'Banff diagnostic\nframework',64,170,274,90,29,C.ink,true);
  text(s,'Validated biopsy transcript tests have a defined role\nin antibody-mediated rejection assessment.',365,170,851,90,30);
  line(s,64,282,1152);
- text(s,'Published B-HOT study\nZhang, 2024',64,310,274,90,29,C.ink,true);
- text(s,'Four-class study compared regression and boosting.\nSelected LASSO for similar accuracy with fewer features.',365,300,851,113,30);
+ text(s,'Biopsy and\ntreatment',64,310,274,90,29,C.ink,true);
+ text(s,'KDIGO recommends biopsy before treating acute rejection,\nunless waiting would substantially delay treatment.',365,300,851,113,30);
  line(s,64,433,1152);
- text(s,'Biopsy and\ntreatment',64,455,274,103,29,C.ink,true);
- text(s,'KDIGO recommends biopsy before treating acute rejection,\nunless waiting would substantially delay treatment.',365,448,851,151,30);
+ text(s,'Published B-HOT study\nZhang, 2024',64,455,274,103,29,C.ink,true);
+ text(s,'Four-class study compared regression and boosting.\nSelected LASSO for similar accuracy with fewer features.',365,448,851,151,30);
 }
 datasetSlide();
 // Give the biological labels their own visual explanation.

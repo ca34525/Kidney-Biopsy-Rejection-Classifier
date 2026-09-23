@@ -43,7 +43,7 @@ These are planned allocations. The presenter reports rehearsing as of September 
 | 1 | Classifying Kidney Transplant Rejection from Biopsy RNA. Title only. |
 | 2 | Rejection, kidney biopsy, histology and molecular measurements, with the user's wording suited to reading aloud. |
 | 3 | Treatment-related motivation, with both error consequences explained aloud; binary question against recorded diagnoses; equally prominent software-engineering aim. |
-| 4 | Banff's defined role for validated transcript tests; Zhang's regression/boosting comparison and choice of LASSO; a Biopsy and treatment row with KDIGO recommendation 6.1 and its exception for substantial treatment delay. |
+| 4 | Banff's defined role for validated transcript tests; a Biopsy and treatment row with KDIGO recommendation 6.1 and its exception for substantial treatment delay; Zhang's regression/boosting comparison and choice of LASSO. |
 | 5 | Linked count/metadata tables, specimen totals, native-kidney controls and undocumented patient/referring-center separation. |
 | 6 | Any recorded rejection versus no rejection, with examples of excluded diagnoses explained in the script. |
 | 7 | The 758 model measurements and 12 housekeeping references. |

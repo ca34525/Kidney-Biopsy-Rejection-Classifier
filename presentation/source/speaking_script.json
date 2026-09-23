@@ -140,16 +140,16 @@
       "seconds": 70,
       "paragraphs": [
         "Banff is a framework specialists use to classify transplant biopsy findings. Its current guidance includes thoroughly validated biopsy transcript tests in defined settings for antibody-mediated rejection. That gives molecular assessment an established clinical context. It does not confer that validation on my classifier.",
-        "Zhang and colleagues provide the public B-HOT data. Their four-class study already compared regularized regression with other approaches, including gradient boosting. They selected LASSO, a form of regularized regression, because accuracy was similar and it can use fewer weighted features. Their result is a reason to take the simpler comparator seriously.",
-        "Biopsy findings also help guide treatment. KDIGO recommends biopsy before treating acute rejection, unless waiting would substantially delay treatment. This connects the assessment of biopsy findings to a treatment decision. It does not establish that my model improves that decision."
+        "Biopsy findings also help guide treatment. KDIGO recommends biopsy before treating acute rejection, unless waiting would substantially delay treatment. This connects the assessment of biopsy findings to a treatment decision. It does not establish that my model improves that decision.",
+        "Zhang and colleagues provide the public B-HOT data. Their four-class study already compared regularized regression with other approaches, including gradient boosting. They selected LASSO, a form of regularized regression, because accuracy was similar and it can use fewer weighted features. Their result is a reason to take the simpler comparator seriously."
       ],
       "actions": [
-        "Explain Banff and Zhang, then the Biopsy and treatment row. Expand KDIGO as Kidney Disease: Improving Global Outcomes if needed. Retain the exception for substantial treatment delay. The two error consequences were introduced on slide 3."
+        "Explain Banff, then the Biopsy and treatment row, followed by Zhang’s study. Expand KDIGO as Kidney Disease: Improving Global Outcomes if needed. Retain the exception for substantial treatment delay. The two error consequences were introduced on slide 3."
       ],
       "visible_cues": [
         "Banff diagnostic framework: validated biopsy transcript tests have a defined role in antibody-mediated rejection assessment.",
-        "Published B-HOT study, Zhang 2024: four-class study compared regression and boosting. Selected LASSO for similar accuracy with fewer features.",
-        "Biopsy and treatment: KDIGO recommends biopsy before treating acute rejection, unless waiting would substantially delay treatment."
+        "Biopsy and treatment: KDIGO recommends biopsy before treating acute rejection, unless waiting would substantially delay treatment.",
+        "Published B-HOT study, Zhang 2024: four-class study compared regression and boosting. Selected LASSO for similar accuracy with fewer features."
       ],
       "sources": [
         {
@@ -609,7 +609,7 @@
     }
   ],
   "backups": [],
-  "revision": "2026-09-23: Biopsy and treatment row on slide 4; error consequences in slide 3 narration; ordered legend keys on slide 12; Software Engineering Demo title without bullets on slide 13; next-steps text removed from slide 14 and its narration. Concise screening-selection framing on slide 12 and in the repeated-splits demo, with expandable assessment results and matching narration.",
+  "revision": "2026-09-23: Biopsy and treatment row on slide 4; error consequences in slide 3 narration; ordered legend keys on slide 12; Software Engineering Demo title without bullets on slide 13; next-steps text removed from slide 14 and its narration. Concise screening-selection framing on slide 12 and in the repeated-splits demo, with expandable assessment results and matching narration. Slide 4 now places Biopsy and treatment before Published B-HOT study, with matching narration.",
   "browser_demo": {
     "after_slide": 13,
     "seconds": 450,
