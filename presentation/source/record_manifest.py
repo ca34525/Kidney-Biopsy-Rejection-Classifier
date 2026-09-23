@@ -136,7 +136,10 @@ with zipfile.ZipFile(OUT / "unos_kidney_biopsy.pptx") as archive:
             assert current["id"] == previous["id"]
             assert current["seconds"] == previous["seconds"]
             if current["id"] not in REVISED_NARRATION_SLIDES:
-                assert current == previous, f"Unrevised narration changed on slide {current['id']}"
+                # Consolidating citations must not alter spoken text or delivery cues.
+                assert {k: v for k, v in current.items() if k != "sources"} == {
+                    k: v for k, v in previous.items() if k != "sources"
+                }, f"Unrevised narration changed on slide {current['id']}"
 assert len(PdfReader(OUT / "unos_kidney_biopsy.pdf").pages) == len(slides)
 assert sum(slide["seconds"] for slide in data["slides"] + browser_stops) == 1200
 sources = [
@@ -177,17 +180,11 @@ sources = [
     "uv.lock",
     "Dockerfile",
     "docs/RESEARCH_CONTEXT.md",
+    "docs/METHODOLOGY_REVIEW.md",
     "docs/PRESENTATION_GUIDE.md",
     "docs/PRESENTATION_SPEC.md",
     "docs/references/STUDY_AUDIT_20260919.md",
     "docs/references/BIOPSY_CARE_20260919.md",
-    "docs/references/PRESENTATION_WORDING_20260921.md",
-    "docs/references/PRESENTATION_REFRAMING_20260921.md",
-    "docs/references/PRESENTATION_PURPOSE_20260921.md",
-    "docs/references/PRESENTATION_CONTEXT_PASS_20260922.md",
-    "docs/references/PRACTICAL_PURPOSE_20260922.md",
-    "docs/references/ENGINEERING_DEMO_20260922.md",
-    "docs/references/PRESENTATION_FINAL_PASS_20260923.md",
     "presentation/engineering_demo_sources.json",
     "docs/references/rejection_source_manifest.json",
 ]

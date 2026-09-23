@@ -29,3 +29,7 @@ catboost_info/
 *.[cC][sS][vV]
 # Local command output can contain machine-specific paths and diagnostics.
 results/checks/**/command_log.json
+
+# Office editor lock files.
+.~lock.*#
+~$*

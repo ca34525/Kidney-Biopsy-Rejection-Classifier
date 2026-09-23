@@ -92,8 +92,43 @@ The presenter reports rehearsing as of September 23. The listed timings remain
 planned allocations; measured durations have not been supplied. If time runs long, shorten source-dialog inspection or
 secondary implementation detail before cutting the valid/invalid example.
 
-The [September 23 final pass](../docs/references/PRESENTATION_FINAL_PASS_20260923.md)
-records the current slide, narration and source changes.
+## Frozen run and evidence
+
+The September 22 laptop decision selects the completed Mac run for the live
+application and its saved-response snapshot. Keep its fitted models, threshold,
+dependencies and results fixed for the talk.
+
+| Item | Source |
+| --- | --- |
+| Launcher settings | [demo_config.json](source/demo_config.json) |
+| Primary run | `results/reproduction/20260922_mac_clone` |
+| Model files | `data/processed/models/20260922_mac_clone` |
+| Prepared examples | `data/demo/20260922_ui_examples` |
+| Mac analysis and checks | [Report](../results/analysis/20260922_mac_clone/REPORT.md), [setup/checks](../results/checks/20260922_mac_clone/README.md) |
+| Cross-platform comparison | [Windows/Mac investigation](../results/checks/20260922_windows_mac_investigation/README.md) |
+
+The browser library and slide evidence also retain the dated desktop baseline
+report, September 17 stability results and desktop container check. The primary
+error counts and 13/7 selections agree with the Mac run; this does not mean every
+numeric output reproduced exactly. Embedded source paths and hashes identify
+those records. A prepared Mac serving bundle is not evidence of a Mac Docker run.
+No cloud deployment has been performed.
+
+## Rehearsal and backup
+
+1. Complete two full timed rehearsals including the transition after slide 13,
+   all three browser stops and the return to slide 14. Record actual times and
+   rough spots using the script's export. Questions follow the 20-minute talk.
+2. Rehearse an interruption: stop the service and continue with the saved response
+   and captured screenshots. Check that the PDF and HTML open independently,
+   including local links with the network unavailable.
+3. Keep a separate local backup of the final deck, PDF, script, engineering page,
+   source/version manifest, and required ignored model/example files. Copy it to
+   external storage when available. Git does not back up ignored files; use the
+   lockfile to recreate environments on another operating system.
+4. On presentation day, start the launcher and test the complete and incomplete
+   examples once. Check display scaling, sharing and both application transitions.
+   Keep the PDF and offline fallback ready. Limit changes to material problems.
 
 ## Source and build files
 
@@ -144,6 +179,5 @@ retained slide renders when the local pre-revision backup is available.
 
 The previous 19-slide deck and documents are preserved privately under
 `build/presentation/before-engineering-demo-20260922/`. The
-[revision note](../docs/references/ENGINEERING_DEMO_20260922.md) explains the
-selection of browser content and the UNOS role connection. The project's saved
-model, threshold and analysis outputs remain unchanged.
+[presentation specification](../docs/PRESENTATION_SPEC.md) records the current
+content requirements.

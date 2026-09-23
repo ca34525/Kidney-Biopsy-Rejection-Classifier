@@ -169,7 +169,7 @@ The [verification guide](docs/VERIFICATION.md) records tests, clean package
 installation, and real HTTP/CLI agreement across all 345 validation specimens.
 The [audit](docs/AUDIT.md) records the defensibility review, implementation fixes,
 and remaining gaps. The GitHub Actions workflow also builds and checks a container
-using a small synthetic model. The [current status](docs/STATUS.md#evidence-available)
+using a small synthetic model. The [current status](docs/STATUS.md#runs-and-evidence)
 links the verified hosted pass and identifies its revision. A cloud deployment
 has not been performed.
 

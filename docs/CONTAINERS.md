@@ -6,7 +6,7 @@ and the prepared public examples. It starts without training or downloading data
 
 The [current research-container check](../results/checks/20260917_coherence/container.json)
 also verifies all four public-specimen walkthroughs. See the
-[verification guide](VERIFICATION.md#current-application-checks-september-17-2026)
+[verification guide](VERIFICATION.md#desktop-container-checks-september-17-2026)
 for the checked application and accompanying tests.
 
 Run these commands from the project root. Use Python 3.12, uv, and a running

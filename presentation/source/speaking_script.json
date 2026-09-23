@@ -41,10 +41,6 @@
         {
           "label": "Banff Reference Guide, Banff-Kidney-2024-3, updated April 20, 2026: validated biopsy transcript diagnostics in antibody-mediated rejection assessment",
           "url": "https://banfffoundation.org/central-repository-for-banff-classification-resources-3/"
-        },
-        {
-          "label": "Established application and the purpose of this project, September 21 revision",
-          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
         }
       ]
     },
@@ -122,10 +118,6 @@
         },
         {
           "label": "Clinical motivation, potential use and the two project aims",
-          "path": "docs/references/PRACTICAL_PURPOSE_20260922.md"
-        },
-        {
-          "label": "Project research context and the different binary endpoint",
           "path": "docs/RESEARCH_CONTEXT.md"
         },
         {
@@ -181,8 +173,8 @@
           "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc6.docx"
         },
         {
-          "label": "Established application and the purpose of this project, September 21 revision",
-          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
+          "label": "Established application and project purpose",
+          "path": "docs/RESEARCH_CONTEXT.md"
         }
       ]
     },
@@ -224,10 +216,6 @@
         {
           "label": "September 19 full-study review with exact source pages",
           "path": "docs/references/STUDY_AUDIT_20260919.md"
-        },
-        {
-          "label": "September 22 source recheck and presentation discussion",
-          "path": "docs/references/PRESENTATION_CONTEXT_PASS_20260922.md"
         }
       ]
     },
@@ -272,10 +260,6 @@
         {
           "label": "Full-study review: label definitions and excluded categories",
           "path": "docs/references/STUDY_AUDIT_20260919.md"
-        },
-        {
-          "label": "September 22 source recheck and presentation discussion",
-          "path": "docs/references/PRESENTATION_CONTEXT_PASS_20260922.md"
         }
       ]
     },
@@ -322,10 +306,6 @@
         {
           "label": "Shared normalization implementation",
           "path": "src/kidney_biopsy/preprocessing.py"
-        },
-        {
-          "label": "Project preprocessing specification",
-          "path": "docs/PROJECT_SPEC.md"
         },
         {
           "label": "NanoString analysis guidelines: housekeeping normalization as a reference for RNA input",
@@ -484,8 +464,8 @@
           "url": "https://catboost.ai/docs/en/concepts/python-reference_catboostclassifier"
         },
         {
-          "label": "September 21 wording and source review",
-          "path": "docs/references/PRESENTATION_WORDING_20260921.md"
+          "label": "Methodology review and CatBoost rationale",
+          "path": "docs/METHODOLOGY_REVIEW.md"
         }
       ]
     },
@@ -564,8 +544,8 @@
           "path": "results/followup/20260917_stability/REPORT.md"
         },
         {
-          "label": "September 22 source recheck and presentation discussion",
-          "path": "docs/references/PRESENTATION_CONTEXT_PASS_20260922.md"
+          "label": "Full-study review and September 22 source recheck",
+          "path": "docs/references/STUDY_AUDIT_20260919.md"
         }
       ]
     },
@@ -624,10 +604,6 @@
         {
           "label": "Original study",
           "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
-        },
-        {
-          "label": "Established application and the purpose of this project, September 21 revision",
-          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
         }
       ]
     }

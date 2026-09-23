@@ -133,3 +133,13 @@ the current talk count to 20 main slides. The script now identifies the constant
 baseline's fixed 0.5 threshold, and the model-settings backup identifies C = 0.1
 as the all-RNA logistic setting. Preserved reports and numerical runs remain
 records of their original dates.
+
+### CatBoost rationale
+
+The September 21 source review checked the official
+[CatBoostClassifier reference](https://catboost.ai/docs/en/concepts/python-reference_catboostclassifier)
+and [parameter-tuning guide](https://catboost.ai/docs/en/concepts/parameter-tuning).
+Numerical predictors are supported without categorical inputs. Shallow trees
+limit complexity while allowing nonlinear patterns and interactions; this does
+not establish superiority over other boosting libraries or guarantee against
+overfitting. Do not imply early stopping was used in the saved recipe.

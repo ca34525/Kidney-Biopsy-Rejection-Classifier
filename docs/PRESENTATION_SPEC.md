@@ -22,7 +22,7 @@ The clinical motivation is that whether rejection is present can affect decision
 about further treatment to suppress the immune system. A molecular score could
 provide additional evidence during that assessment. Give the model comparison
 and software engineering equal prominence, as recorded in the
-[purpose note](references/PRACTICAL_PURPOSE_20260922.md).
+[research context](RESEARCH_CONTEXT.md#established-application-and-project-purpose).
 
 ## Sequence and time budget
 
@@ -55,9 +55,43 @@ These are planned allocations. The presenter reports rehearsing as of September 
 | 13 | Title: Software Engineering Demo. Retain Reports, application and scoring service as the subtitle. No bullets. Introduce the browser stops aloud. |
 | 14 | Completed model comparison and software engineering. Remove the next-steps text from both the slide and spoken closing. |
 
-Slides 1–12 retain their established order and time allocations. Replace the
-former technical slides 13–18 with browser material. Return once to PowerPoint
-for slide 14; do not keep alternate technical slides or backups in the deck.
+Slides 1–12 retain their established order and time allocations. Return once to
+PowerPoint for slide 14. Detailed methods and likely answers stay in the reports.
+
+### Specific wording and layout
+
+- Slide 2 uses ordinary definition bullets with biopsy-evidence sub-bullets and
+  even spacing. Histology: “A microscopic examination that reveals injury and
+  inflammation, which can support a rejection diagnosis.” Molecular measurements:
+  “Counts of selected RNA types that reflect gene activity in the mix of cells
+  in the tissue.” Explain model-input transformation later.
+- Slide 3 gives the two aims equal visual weight. Explain both potential harms
+  aloud: missed rejection can leave kidney injury untreated, while unnecessary
+  immunosuppression can worsen an infection. These are potential consequences,
+  not measured outcomes of this classifier.
+- Slide 4's treatment row says: “KDIGO recommends biopsy before treating acute
+  rejection, unless waiting would substantially delay treatment.” Keep the
+  exception in the script. Leave the project's binary question on slide 3.
+- Slide 5 keeps the two table schemas joined by specimen ID. Explain their
+  assembly from public files in narration, without a redundant on-slide caption.
+- Slide 7 groups three bullets under each count. Under 758: selected human and
+  viral RNAs; signals reflect gene activity and cell mixture; normalized values
+  become inputs. Under 12: relatively stable reference RNAs; adjustment for
+  overall measurable RNA input; normalization followed by removal from predictors.
+  Slide 8 shows the numbered calculation without repeating those explanations.
+- Slide 10 uses “Approach and rationale.” CatBoost can represent nonlinear
+  patterns and interactions; shallow trees limit complexity without guaranteeing
+  against overfitting. Numerical features are supported without categorical inputs.
+  Distinguish IFNG-only from all-RNA logistic regression explicitly.
+- Slide 11 uses stacked word fractions. Both numerators say “Correctly flagged
+  rejection cases”; recall divides by “All cases diagnosed as rejection” and
+  precision by “All rejection flags.” Explain denominators first. Removing a
+  false positive reduces the precision denominator; it does not add a true positive.
+- Slide 12 retains the spoken IFNG comparison before the constant baseline, but
+  omits the extra CatBoost-versus-IFNG bullet. Use teal, not purple, for the 13/7
+  emphasis. Keep the legend order and error colors specified above.
+- Slide 14 and its narration close on completed analysis and software, followed
+  by acknowledgments. Deferred research remains in the linked reports.
 
 ## Browser demonstration
 
@@ -102,8 +136,9 @@ verification and setup before showing their supporting code and records.
 
 - The main comparison uses the same 345 technical-validation specimens. CatBoost
   missed 25/169 rejection cases and incorrectly flagged 8/176 no-rejection cases;
-  logistic missed 33 with 8 incorrect flags. The paired recall-difference interval
-  includes zero. The discovery follow-up selected CatBoost 13 times and logistic 7.
+  logistic missed 33 with 8 incorrect flags. The paired-bootstrap 95% interval
+  for the recall difference is approximately −0.01 to +9.74 percentage points,
+  including zero. The discovery follow-up selected CatBoost 13 times and logistic 7.
 - Each of the 20 follow-up repetitions partitions discovery into 630 training,
   210 screening and 210 held-out assessment specimens. The author validation cohort
   is unused. Repetitions overlap and are not independent validation trials.
@@ -120,16 +155,20 @@ verification and setup before showing their supporting code and records.
   Separation between cohorts is not documented, which does not prove overlap.
 - The source excluded borderline acute T-cell-mediated rejection, chronic inactive
   antibody-mediated rejection and some chronic active T-cell-mediated rejection.
-  The diagnostic exclusion counts are not reported. Assay QC exclusions are a
-  separate step and cannot supply those counts.
+  Name the first two in the script; their exclusion counts are not reported.
+  Assay QC exclusions are separate and cannot supply those counts. The
+  [source-study review](references/STUDY_AUDIT_20260919.md) gives exact categories
+  and pages. Do not claim that all difficult cases were excluded.
 - KDIGO recommendation 6.1 supports the biopsy/treatment connection. Retain the
   exception for substantial treatment delay on slide 4 and in its script. Explain
   the two error consequences in slide 3 narration.
   It does not establish the clinical usefulness of this model. Banff and Zhang
   provide distinct context and remain on slide 4.
-- The demonstrated model version is `20260915_shared:any_rejection:catboost_all_depth4`.
-  Its threshold is `0.8765880870219778`; the public example score is
-  `0.27493421380277305`. This is a demonstration, not new classifier validation.
+- The demonstration uses the frozen Mac run selected in
+  `presentation/source/demo_config.json`. The
+  [presentation README](../presentation/README.md#frozen-run-and-evidence) records
+  its version, threshold, example and the older desktop evidence still included.
+  This demonstration is not a new classifier evaluation.
 - The saved HTTP verification covers all 345 specimens, including reordered
   measurement columns, with matching flags and scores within 1e-12 across routes.
   Date the record. Distinguish software consistency from classifier performance,
@@ -154,8 +193,5 @@ Rehearsal must include both screen-share transitions. The script contains its
 planned timing and a way to record measured duration. Detailed methods, sources
 and likely question answers remain in the reports and reference library.
 
-The [September 23 final pass](references/PRESENTATION_FINAL_PASS_20260923.md)
-records the current slide and narration changes. The
-[engineering revision note](references/ENGINEERING_DEMO_20260922.md) records
-the browser-demo structure. Earlier dated notes and the archived 19-slide deck
-preserve history; they do not describe the current sequence.
+Current requirements are consolidated here. Earlier presentation revisions
+remain in Git history; source reviews remain under `docs/references/`.

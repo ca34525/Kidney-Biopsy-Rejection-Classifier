@@ -8,9 +8,9 @@
     "results/analysis/20260915_baseline/REPORT.md": "a5562e1ee7ba45e5f754ebc5f07b557b73f47fc1743e8373bdbd525d9fc9ea55",
     "results/followup/20260917_stability/REPORT.md": "e8e84b05e781ac4081cea4a2aec80bc124b50c49745183b01e76942fa2a08efd",
     "docs/API.md": "8f363f47cfd90c69c6b88889923fec9270a2723cd6146c783d384e99b98084e7",
-    "docs/VERIFICATION.md": "7377555f104275776f694052bd4dbddbb5d25a4b5b4f35ce6d7d607e42b5f6b9",
-    "docs/CODE_GUIDE.md": "6991a088efdd7a08a86ca2cee20b84d2568dfab6fc18ebcf218069896a8dfe3a",
-    "docs/METHODOLOGY_REVIEW.md": "62413628b475ffa4f6ed885d7e06d106e27245183b3c7f1e2bed25cdb468e1eb",
+    "docs/VERIFICATION.md": "f015a7ccd65ec06c61178cb920be11202b0c9ea226a5798b96f8fcb8434b4aa2",
+    "docs/CODE_GUIDE.md": "e92112b27ae5fac7928689dc154287e9101b6e9e7dcc46061b0a9957e7f1485b",
+    "docs/METHODOLOGY_REVIEW.md": "2ef24c24a3a283474024317424e55c798b33838f8da107047be8f78780190ebf",
     "results/checks/20260917_coherence/http/http.json": "47c94032872aa389c800158f1ad316e8683b26c134290054ddd1851c459d0834",
     "results/checks/20260917_coherence/container.json": "b379bcbbb6d58a7245852d08deecde42752397ac63d34a83232b97eaf1fae49f",
     "results/analysis/20260915_baseline/errors_by_diagnosis.csv": "4048a7ffad8776bfa89c43371328bd1708f6bfa2aeddb030d020545117e1d9ee",
@@ -24,5 +24,5 @@
     "scripts/verify_http_service.py": "85623b728d637e4cff6866eabf2617da9e7617c2304dfe2760530550c59c2b97",
     ".github/workflows/checks.yml": "0469e5381f6d127318584ec4a495dede15c55d81ba2982e50677856376dd4354"
   },
-  "output_sha256": "2151e18141fd12d88009bf9ed7273421b505c6c5afc0cef4da88ca725afb651f"
+  "output_sha256": "ba849a03c9d886a329a740ea3acedc3bfa5ddeccb826c544ab15720cf15a9827"
 }

@@ -21,7 +21,7 @@ clearly without requiring proven benefit as a condition of project relevance.
 Keep demonstrated agreement with diagnoses distinct from untested added clinical
 value. Banff's recognition of validated molecular tests provides related context.
 
-Read `docs/PROJECT_SPEC.md`, `docs/JOB_REQUIREMENTS.md`, and `docs/PLAN.md` before
+Read `docs/PROJECT_SPEC.md`, `docs/JOB_REQUIREMENTS.md`, and `docs/STATUS.md` before
 substantial implementation. For presentation work, also read
 `docs/PRESENTATION_SPEC.md` and `docs/PRESENTATION_GUIDE.md`.
 

@@ -52,3 +52,7 @@ check preserves the build's recorded revision context, so a documentation-only
 commit does not falsely make the guide stale; actual input changes are detected
 through regenerated content and hashes. Embedded source excerpts are refreshed
 on every build. No application behavior is changed by this documentation.
+
+The stored specimen's calculation-source check accepts LF/CRLF conversion across
+Git checkouts. Other source changes still require refreshing the example. The
+original specimen hashes stay intact; build inputs record the current file bytes.

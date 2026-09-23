@@ -1,11 +1,8 @@
 # Software verification
 
-Run these commands from the project root using Python 3.12 and uv. Every saved
-check record uses a new destination so earlier results remain available.
-
-See [current status](STATUS.md) for the reading order and the revision attached
-to each result. Completed records below are preserved; later edits require their
-own checks.
+Run checks from the project root using Python 3.12 and uv. Use a new output
+name for each check. Saved records establish behavior at their recorded revision;
+a historical pass does not verify later edits.
 
 ## Fast checks
 
@@ -59,162 +56,59 @@ The workflow uses the documented interfaces for [checkout](https://github.com/ac
 September 15, 2026. The workflow has a verified hosted pass, recorded below.
 That pass covers its listed revision rather than every subsequent local edit.
 
-## Hosted CI: verified September 17, 2026
+## HTTP and fresh-install checks
 
-[Software checks #8](https://github.com/ca34525/Kidney-Biopsy-Rejection-Classifier/actions/runs/35270209322)
-completed successfully for PR #2 head
-`ce34d4c79442098308c89ca4ccb34542c4010216`. The run includes installed-package,
-lint, formatting, test, and synthetic-container checks. It establishes hosted
-execution for that previous revision, not for the current
-`codex/coherent-demo-and-stability` branch's additions. It does not
-deploy the research model or establish a cloud endpoint.
-
-## Current application checks: September 17, 2026
-
-The [current verification record](../results/checks/20260917_coherence/README.md)
-covers the public-specimen walkthrough, aligned CLI/API defaults, presentation
-figures, and consistency fixes. These are local checks; the hosted run above
-covers the earlier revision.
-
-- [Installed-package checks](../results/checks/20260917_coherence/checks.json):
-  **94 tests passed**. Ruff lint and formatting also passed on 35 active Python files.
-- [Real HTTP check](../results/checks/20260917_coherence/http/http.json): all 345
-  author-validation scores agree across CLI, API, and saved results within
-  `1.11e-16`, with identical flags.
-- [Rebuilt research container](../results/checks/20260917_coherence/container.json):
-  four public walkthroughs verified, one invalid example rejected, and maximum
-  score difference zero. Nonroot operation, a read-only filesystem, and the
-  container health check passed.
-- [Preserved prediction comparison](../results/checks/20260917_coherence/reproduction.json):
-  all nine existing prediction tables agree exactly. This check compares saved
-  runs; it does not represent new model fits.
-- [Preserved artifacts](../results/checks/20260917_coherence/preserved_runs_after.json):
-  all 167 recorded artifacts match their original manifests.
-
-The preservation check found line-ending conversion in eleven historical source
-snapshots. [Restoration evidence](../results/checks/20260917_coherence/snapshot_line_endings.json)
-records only byte sequences that match the original manifests. `.gitattributes`
-now preserves every file under `results/` without newline conversion. The
-[Git-byte check](../results/checks/20260917_coherence/git_evidence_bytes.json)
-records 86 evidence files that differ from the previous Git blobs only in line
-endings. The original manifests, model parameters, thresholds, and numeric results
-were not changed.
-The [evidence-portability check](../results/checks/20260917_coherence/evidence_portability.json)
-also verifies recorded analysis/figure hashes and that Git retains evidence bytes
-with either automatic line-ending setting.
-
-## CI and container checks: September 17, 2026
-
-The [verification record](../results/checks/20260917_ci_docker/README.md) contains
-78 passing tests and successful runs of both the real research image and the
-synthetic CatBoost image used in CI. Four public examples matched local research
-scores exactly, and the invalid example was rejected. Both images served the
-expected page, examples, and evaluation counts with an unprivileged user and a
-read-only filesystem. See [container setup](CONTAINERS.md) and the prepared
-[AWS deployment steps](AWS_DEPLOYMENT.md). No AWS deployment has been performed.
-
-## Fresh environment and application check
-
-This check uses the current project files and the frozen model from the selected
-local run. It makes physical copies in a new ignored directory, creates a new
-environment and package cache, and installs dependencies from the lockfile.
-
-```powershell
-$checkName = Get-Date -Format 'yyyyMMdd-HHmmss'
-uv run --no-sync python scripts/verify_fresh_setup.py --run-dir results/reproduction/20260915_shared --check-dir "data/processed/setup_checks/$checkName" --output "results/checks/$checkName/fresh_setup.json"
-```
-
-The command verifies:
-
-1. Source, raw data, and the selected model were physically copied with matching
-   hashes. Source folders are explicitly selected; environments, caches, other
-   analyses, and nested setup-check directories are excluded.
-2. The copy installs its own package and dependencies with
-   `uv sync --frozen --no-editable`. It imports the installed package from that
-   environment, including the web assets.
-3. The documented downloader accepts and verifies the existing local public
-   inputs. The separate source-manifest verification also passes.
-4. The fast software checks and tests pass inside the copy.
-5. The installed API serves its page, assets, health, and model information. Its
-   predictions for two real public specimens match the installed CLI within
-   `1e-12`, and a missing-target batch returns a structured error with no scores.
-
-The fresh environment downloads dependency packages, so network access is needed.
-Public assay files and this project's selected model are copied for this setup
-check; models are not retrained. Raw specimen inputs and CLI outputs stay under
-the ignored copy. The aggregate JSON records each copied file's hash, commands,
-exit statuses, test evidence, model version, and score agreement. Completed copies
-are preserved. This check does not establish container or cloud deployment.
-
-### Completed check: September 15, 2026
-
-The [final fresh-setup record](../results/checks/20260915_application/fresh_setup_final.json)
-documents 64 physically copied files, a new environment and installed package,
-and **55 passing tests**. Setup and checks took 68.7 seconds. All five checked
-page/API routes returned successfully. CLI and API scores differed by at most
-`1.11e-16` for the two source specimens, within the `1e-12` tolerance. The
-missing-target batch returned HTTP 422 with a structured error. The earlier
-passing copy is preserved in the same check directory's first setup record.
-
-## Real HTTP and browser checks
-
-The [HTTP verification record](../results/checks/20260915_application/http/http.json)
-compares all 345 saved validation specimens through a real local Uvicorn server,
-the command-line predictor, and the preserved evaluation table. Targets are sent
-in reverse column order. The largest score difference was `1.11e-16`, within the
-`1e-12` tolerance; all flags agreed. Invalid input and a 17-specimen request were
-rejected as complete batches.
+The HTTP check starts its own local server, sends targets in reverse order,
+compares all 345 validation specimens with CLI and saved scores at tolerance
+1e-12, checks flags, and rejects malformed or oversized batches.
 
 ```powershell
 $checkName = Get-Date -Format 'yyyyMMdd-HHmmss'
 uv run --frozen python scripts/verify_http_service.py --output-dir "results/checks/$checkName/http" --case-dir "data/processed/application_checks/$checkName"
 ```
 
-The script starts and stops its own server on an available local port. The
-[browser record](../results/checks/20260915_application/browser.json) documents
-visible valid/invalid results, a two-specimen file upload, clearing stale scores
-when changing input, and rejecting a response from a changed server model until
-the page is reloaded. JavaScript syntax was checked with
-`node --check src/kidney_biopsy/static/app.js`. The demo requires no Node runtime;
-Node was used only for this syntax check.
+Use `--run-dir results/reproduction/20260922_mac_clone` for the laptop's run.
+Otherwise the verifier uses the generic desktop default. The presentation has
+its own [launcher and integration check](../presentation/README.md).
 
-## Existing analysis evidence
+The fresh-install check physically copies selected source, raw data and the
+configured model into a new ignored directory. It installs the locked package
+noneditably, verifies hashes and packaged assets, runs tests, and compares two
+public specimens through CLI/API. It needs network access for dependencies;
+it does not redownload assay inputs or retrain models.
 
-### Defensibility and implementation audit: September 15, 2026
+```powershell
+$checkName = Get-Date -Format 'yyyyMMdd-HHmmss'
+uv run --no-sync python scripts/verify_fresh_setup.py --run-dir results/reproduction/20260915_shared --check-dir "data/processed/setup_checks/$checkName" --output "results/checks/$checkName/fresh_setup.json"
+```
 
-The [audit report](AUDIT.md) explains the fixes and the retained methodological
-limits. The [final check record](../results/checks/20260915_audit/final.json)
-contains **64 passing tests**. The new
-[HTTP check](../results/checks/20260915_audit/http/http.json) reproduces all 345
-validation scores within `1.11e-16` with identical flags. The
-[report comparison](../results/checks/20260915_audit/report_comparison.json) confirms
-byte-for-byte agreement for all 14 aggregate CSVs and the primary metrics JSON.
-New analysis manifests include the source hashes of the shared helpers they use.
-The [preserved-run check](../results/checks/20260915_audit/preserved_runs.json)
-verifies existing model and run artifacts. No model fitting or dependency changes
-were part of that initial pass.
+Select the Mac run with the same `--run-dir` option when that is the available
+model. Keep specimen inputs and outputs in the ignored case directories.
+Container build and verification commands are in [Containers](CONTAINERS.md).
 
-### Readability refactor: September 15, 2026
+## Saved evidence
 
-The second pass reorganized the main workflows and expanded dense calculations.
-All [64 existing tests](../results/checks/20260915_readability/checks.json) pass.
-A [full 27-fit reproduction](../results/checks/20260915_readability/reproduction.json)
-matches all nine original evaluation tables exactly, including split assignments,
-model choices, and thresholds. The new run has its own source snapshots.
+| Date and scope | Result and source |
+| --- | --- |
+| September 22: Mac setup | [94 tests](../results/checks/20260922_mac_clone/checks_after_path_fix.json), [345-specimen HTTP agreement](../results/checks/20260922_mac_clone/http/http.json), [model reload](../results/checks/20260922_mac_clone/inference.json), and [public examples](../results/checks/20260922_mac_clone/demo_service.json). The [setup record](../results/checks/20260922_mac_clone/README.md) separates reproduction differences from software checks. |
+| September 21: source and presentation corrections | [Check record](../results/checks/20260921_source_review/README.md), including preservation of baseline and service artifacts. |
+| September 17: local application | [94 tests, HTTP agreement, research container and artifact checks](../results/checks/20260917_coherence/README.md). |
+| September 17: initial containers | [78 tests and research/synthetic image checks](../results/checks/20260917_ci_docker/README.md). |
+| September 15: fresh installation | [55 tests and installed CLI/API agreement](../results/checks/20260915_application/fresh_setup_final.json); [browser behavior](../results/checks/20260915_application/browser.json). |
+| September 15: audit and readability | [Audit findings and acceptance evidence](AUDIT.md), including the complete 27-fit reproduction and report comparisons. |
+| September 15: shared-code extraction | [Fixed-procedure reproduction](../results/checks/20260915_shared/reproduction.json), [tests](../results/checks/20260915_shared/tests.json), and [reloaded-model agreement](../results/checks/20260915_shared/reproduced_inference.json). |
 
-The [HTTP check](../results/checks/20260915_readability/http/http.json) confirms
-CLI/API/saved-score agreement on all 345 validation specimens. The
-[browser check](../results/checks/20260915_readability/browser.json) covers valid,
-invalid, batch, stale-result, and changed-model behavior. The
-[analysis comparison](../results/checks/20260915_readability/analysis_comparison.json)
-confirms byte-for-byte agreement for eight aggregate tables, the metrics JSON,
-and all six PNG charts on the real data. No dependencies were changed.
+### Hosted CI: verified September 17, 2026
 
-### Earlier analysis checks
+[Software checks #8](https://github.com/ca34525/Kidney-Biopsy-Rejection-Classifier/actions/runs/35270209322)
+passed for PR #2 head `ce34d4c79442098308c89ca4ccb34542c4010216`:
+installed-package tests, lint, formatting and a synthetic-container check.
+This is evidence for that revision, not a cloud deployment or a pass for later edits.
 
-The [shared-code reproduction](../results/checks/20260915_shared/reproduction.json)
-compares the fixed training procedure with the preserved baseline. The associated
-[test record](../results/checks/20260915_shared/tests.json) and
-[model reload check](../results/checks/20260915_shared/reproduced_inference.json)
-document the earlier acceptance checks. New application checks supplement those
-records and do not overwrite them.
+### Desktop container checks: September 17, 2026
+
+The [September 17 record](../results/checks/20260917_coherence/README.md) verifies
+four public walkthroughs in a research container and all 345 HTTP/CLI/saved scores.
+It also records restored line endings matching the original artifact manifests.
+Later Mac checks are listed above; they did not run Docker on the Mac. No cloud
+deployment has been performed.
