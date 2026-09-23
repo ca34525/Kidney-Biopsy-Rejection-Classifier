@@ -73,6 +73,27 @@ const predictionCode = references['prediction-code'].raw.match(/    def predict\
 const trainingCode = references['training-code'].raw.split(/\r?\n/).filter(line=>/^    features = normalize_counts/.test(line)).map(s=>s.slice(4)).join('\n');
 const verificationCode = references['http-code'].raw.match(/                np\.testing\.assert_allclose\(\r?\n                    actual\.rejection_score, cli\.rejection_score, rtol=0, atol=1e-12\r?\n                \)/)?.[0].split(/\r?\n/).map(s=>s.slice(16)).join('\n');
 if (!predictionCode || !verificationCode || !trainingCode) throw new Error('Code excerpt no longer matches actual source');
+// Keep the walkthrough excerpts tied to exact lines in the working source.
+function excerpt(raw, first, last, indent = 0) {
+  const lines = raw.split(/\r?\n/);
+  const start = lines.findIndex(line => line.trim() === first);
+  const end = lines.findIndex((line, index) => index >= start && line.trim() === last);
+  if (start < 0 || end < start) throw new Error(`Source excerpt changed: ${first}`);
+  return lines.slice(start, end + 1).map(line => line.slice(indent)).join('\n');
+}
+const normalizationCode = excerpt(references['preprocessing-code'].raw,
+  'numeric_counts = validate_counts(counts, schema)', 'return normalized.loc[:, feature_names]', 4);
+const scoringCode = references['prediction-code'].raw.split(/\r?\n/)
+  .filter(line => /^\s*(?:scores = predict_scores\(self\.model, features\)|"rejection_flag": scores >= self\.threshold,)$/.test(line))
+  .map(line => line.trim()).join('\n…\n');
+if (scoringCode.split('\n').length !== 3) throw new Error('Scoring excerpt changed');
+const apiSource = await read('src/kidney_biopsy/api.py');
+const apiCallCode = excerpt(apiSource,
+  'predictions = await run_in_threadpool(predictor.predict, counts)',
+  'predictions = await run_in_threadpool(predictor.predict, counts)', 12);
+const reorderTestCode = excerpt(references['prediction-tests'].raw,
+  'training = normalize_counts(self.raw)',
+  'assert_frame_equal(training, prediction, check_exact=True)', 8);
 const label = {'Antibody-mediated Rejection':'Antibody-mediated rejection','T cell-mediated Rejection':'T-cell-mediated rejection','Mixed Rejection':'Mixed rejection','No Rejection':'No rejection'};
 const diagnoses = Object.keys(label);
 const errorRows = diagnoses.map(diagnosis => {
@@ -100,11 +121,11 @@ const js = await read('presentation/source/engineering_demo.js');
 const payload = JSON.stringify({snapshot,references}).replace(/</g,'\\u003c');
 const html = `<!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#16343E"><title>Software Engineering · Kidney biopsy classifier</title><style>${css}</style></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#16343E"><title>Project walkthrough · Kidney biopsy classifier</title><style>${css}</style></head>
 <body>
 <a class="skip" href="#main">Demonstration content</a>
 <header>
-  <div class="topline"><div><p class="brand">Software Engineering</p><p class="project">Kidney biopsy rejection classifier</p></div><button class="quiet" id="reference-library">Reports and sources</button></div>
+  <div class="topline"><div><p class="brand">Project walkthrough</p><p class="project">Kidney biopsy rejection classifier</p></div><button class="quiet" id="reference-library">Reports and sources</button></div>
   <nav class="stops" role="tablist" aria-label="Demonstration sections">
     <button id="tab-evidence" role="tab" aria-selected="true" aria-controls="evidence" data-stop="evidence"><span>01</span>Model comparison</button>
     <button id="tab-specimen" role="tab" aria-selected="false" aria-controls="specimen" data-stop="specimen" tabindex="-1"><span>02</span>Application</button>
@@ -191,88 +212,88 @@ const html = `<!doctype html>
   </section>
 </section>
 <section id="engineering" role="tabpanel" aria-labelledby="tab-engineering" hidden>
-  <h1>From research code to a scoring service</h1>
-  <p class="lead">The application needs to reproduce the calculation used during model evaluation. Shared preprocessing, a saved model and its fixed threshold connect the research procedure to the service.</p>
+  <h1>How the scoring service works</h1>
+  <p class="lead">Training and the application share preparation and scoring code. The saved model and threshold preserve the evaluated calculation.</p>
   <div class="subtabs" role="tablist" aria-label="Engineering views">
-    <button id="tab-shared" role="tab" aria-selected="true" aria-controls="shared-view">Shared calculation</button>
-    <button id="tab-interface" role="tab" aria-selected="false" aria-controls="interface-view" tabindex="-1">Programmatic access</button>
-    <button id="tab-checks" role="tab" aria-selected="false" aria-controls="checks-view" tabindex="-1">Verification and setup</button>
+    <button id="tab-shared" role="tab" aria-selected="true" aria-controls="shared-view">Shared prediction code</button>
+    <button id="tab-interface" role="tab" aria-selected="false" aria-controls="interface-view" tabindex="-1">Using the API</button>
+    <button id="tab-checks" role="tab" aria-selected="false" aria-controls="checks-view" tabindex="-1">Tests and reproducibility</button>
   </div>
   <div id="shared-view" role="tabpanel" aria-labelledby="tab-shared">
-    <h2>One implementation of specimen preparation</h2>
-    <p>Training and prediction call the same normalization function. The browser collects input and displays results; the service and command line use the shared Python prediction code.</p>
-    <ol class="process">
-      <li><h3>Input validation</h3><p>The service checks that every required target is present exactly once and that counts are finite and nonnegative. Invalid input produces an explanation and no predictions.</p></li>
-      <li><h3>Specimen normalization</h3><p>The shared function calculates log₂(count + 1), then subtracts the mean of the 12 housekeeping log counts. The remaining 758 targets become model inputs.</p></li>
-      <li><h3>Model output</h3><p>The saved model produces a score. A score at or above its fixed threshold produces a positive rejection flag.</p></li>
-    </ol>
-    <section class="content-section" aria-labelledby="shared-source-heading">
-      <h2 id="shared-source-heading">The shared function in the actual source</h2>
-      <p>Both excerpts call <code>normalize_counts</code>. Prediction also supplies the saved schema, which identifies the required targets and their model input order.</p>
-      <div class="code-columns">
-        <div><p class="code-label">Training</p><pre>${esc(trainingCode)}</pre>${source('training-code','Training source')}</div>
-        <div><p class="code-label">Service and command-line prediction</p><pre>${esc(predictionCode)}</pre>${source('prediction-code','Prediction source')}</div>
+    <h2>The same preparation in training and prediction</h2>
+    <p><code>normalize_counts</code> checks the input, normalizes each specimen and returns targets in the saved model’s order. The browser and command line both use <code>Predictor</code>.</p>
+    <div class="code-columns">
+      <div>
+        <p class="code-label">preprocessing.py · normalize_counts</p>
+        <pre>${esc(normalizationCode)}</pre>
+        ${source('preprocessing-code','Full preprocessing source')}
       </div>
-      <p>Normalization uses only that specimen’s counts. Models with learned scaling or feature selection fit those steps on training specimens only and retain them with the fitted model.</p>
-      <div class="action-row">${source('preprocessing-code','Shared preprocessing source')}${source('code','Complete code guide')}</div>
+      <div>
+        <p class="code-label">prediction.py · Predictor.predict</p>
+        <pre>${esc(predictionCode)}</pre>
+        <p class="code-label">Score and flag · selected lines from predict_normalized</p>
+        <pre>${esc(scoringCode)}</pre>
+        ${source('prediction-code','Full prediction source')}
+      </div>
+    </div>
+    <section class="content-section" aria-labelledby="training-heading">
+      <h2 id="training-heading">Where training fits</h2>
+      <p>The research script prepares the data, fits candidates and uses discovery screening to select the model and threshold. Each run saves the fitted models, split assignments and results with its configuration and input hashes.</p>
+      <p>Training calls the same normalization function. Learned scaling and feature selection fit only the training rows.</p>
+      <pre>${esc(trainingCode)}</pre>
+      <div class="action-row">${source('training-code','Training source')}${source('code','Code guide')}</div>
     </section>
   </div>
   <div id="interface-view" role="tabpanel" aria-labelledby="tab-interface" hidden>
-    <h2>The same service is available to other software</h2>
-    <p>A batch script or research tool can send a CSV directly to <code>POST /predict</code>. The service applies the same input checks and calculation used by the browser application, then returns a structured response.</p>
-    <section class="content-section" aria-labelledby="request-heading">
-      <h3 id="request-heading">Request: one specimen and all 770 counts</h3>
-      <p>This request uses the complete public example shown in the Application tab. The CSV download contains the exact input used for the saved response.</p>
-      <pre>${esc(requestExample)}</pre>
-      <button class="quiet" id="download-example">Complete example CSV</button>
-    </section>
-    <section class="content-section" aria-labelledby="response-heading">
-      <h3 id="response-heading">Successful response: HTTP 200</h3>
-      <p>The caller receives a result for each specimen. Separate fields describe the numerical result, the threshold decision and the version of the calculation.</p>
-      <div class="table-wrap"><table class="field-table"><thead><tr><th scope="col">Response field</th><th scope="col">Meaning</th></tr></thead><tbody>
-        <tr><th scope="row"><code>specimen</code></th><td>The identifier supplied with the input row.</td></tr>
-        <tr><th scope="row"><code>rejection_score</code></th><td>The model’s numerical score.</td></tr>
-        <tr><th scope="row"><code>threshold</code> and <code>rejection_flag</code></th><td>The fixed cutoff and whether the score reached it.</td></tr>
-        <tr><th scope="row"><code>model_version</code> and <code>schema_version</code></th><td>The saved model and the expected input format.</td></tr>
-        <tr><th scope="row"><code>input_checks</code></th><td>The batch’s input-check status and specimen count.</td></tr>
-      </tbody></table></div>
+    <h2>Other software can request the same score</h2>
+    <p><code>POST /predict</code> accepts a CSV and returns each specimen’s score, threshold decision and model version.</p>
+    <div class="code-columns">
+      <div>
+        <p class="code-label">Request · one specimen with all 770 counts</p>
+        <pre>${esc(requestExample)}</pre>
+        <button class="quiet" id="download-example">Complete example CSV</button>
+      </div>
+      <div>
+        <p class="code-label">Saved response · HTTP 200 · selected fields</p>
+        <pre>${esc(JSON.stringify({specimen:pred.specimen,rejection_score:pred.rejection_score,threshold:pred.threshold,rejection_flag:pred.rejection_flag,model_version:pred.model_version},null,2))}</pre>
+      </div>
+    </div>
+    <section class="content-section" aria-labelledby="handler-heading">
+      <h2 id="handler-heading">The handler calls the shared predictor</h2>
+      <p>After validating the CSV, the API calls <code>Predictor.predict</code> and returns its result rows as JSON.</p>
+      <p class="code-label">src/kidney_biopsy/api.py · inside POST /predict</p>
+      <pre>${esc(apiCallCode)}</pre>
       <details class="records"><summary>Complete saved JSON response</summary><pre>${fullResponse}</pre><p class="source">Captured ${esc(snapshot.captured_utc.slice(0,10))} from the local application and saved model.</p></details>
+      <p>Missing IFNG produces <strong>HTTP 422</strong>. The whole batch fails, with no predictions.</p>
+      <details class="records"><summary>Saved error response</summary><pre>${esc(JSON.stringify(snapshot.invalid_response,null,2))}</pre></details>
+      <div class="action-row">${source('api','Application and API guide')}</div>
     </section>
-    <section class="content-section" aria-labelledby="invalid-heading">
-      <h3 id="invalid-heading">Incomplete input: HTTP 422</h3>
-      <p>When IFNG is missing, the whole batch is rejected. The response identifies the missing target and contains no predictions.</p>
-      <pre>${esc(JSON.stringify(snapshot.invalid_response,null,2))}</pre>
-    </section>
-    <div class="action-row">${source('api','Application and API guide')}</div>
   </div>
   <div id="checks-view" role="tabpanel" aria-labelledby="tab-checks" hidden>
-    <h2>Agreement between research results and the service</h2>
-    <p>The recorded check sent all <strong>${http.specimens} specimens from the authors’ technical-validation cohort</strong> through the HTTP service. It compared their results with command-line predictions and the saved research results, using the same model and threshold.</p>
-    <p>Measurement columns were reordered to check that the service matched targets by name. This comparison tests software consistency; it does not provide another estimate of classifier performance.</p>
+    <h2>The service agrees with the saved research results</h2>
+    <p>The recorded check compared HTTP, command-line and saved predictions for all <strong>${http.specimens} technical-validation specimens</strong>, using the same model and threshold. It also reordered the CSV columns.</p>
     <div class="table-wrap"><table><caption>Recorded agreement check · 17 Sep 2026</caption><thead><tr><th scope="col">Comparison</th><th scope="col">Requirement</th><th scope="col">Observed result</th></tr></thead><tbody>
-      <tr><th scope="row">Model scores</th><td>Absolute difference no greater than 10⁻¹²</td><td>Largest HTTP-to-saved difference: ${http.max_http_saved_score_difference.toExponential(2)}</td></tr>
+      <tr><th scope="row">Model scores</th><td>Absolute difference ≤ 10⁻¹²</td><td>Largest HTTP-to-saved difference: ${http.max_http_saved_score_difference.toExponential(2)}</td></tr>
       <tr><th scope="row">Rejection flags</th><td>Identical across all three routes</td><td>All ${http.specimens} matched</td></tr>
     </tbody></table></div>
-    <details class="records"><summary>Source assertion for HTTP and command-line score agreement</summary><pre>${esc(verificationCode)}</pre></details>
+    <p>This checks software consistency. The earlier evaluation measures classifier performance.</p>
     <div class="action-row">${source('http','Recorded agreement check')}${source('http-code','HTTP verification source')}</div>
-    <section class="content-section" aria-labelledby="failure-heading">
-      <h2 id="failure-heading">Failures that must prevent scoring</h2>
-      <p>Separate tests check that invalid input and incompatible model metadata cannot produce a result.</p>
-      <div class="table-wrap"><table><thead><tr><th scope="col">Failure</th><th scope="col">Expected behavior</th><th scope="col">Supporting record or source</th></tr></thead><tbody>
-        <tr><th scope="row">Missing assay target</th><td>The batch is rejected without predictions.</td><td>${source('http','HTTP check record')}</td></tr>
-        <tr><th scope="row">Duplicate targets or non-finite counts</th><td>The input fails validation before scoring.</td><td>${source('prediction-tests','Input validation tests')}</td></tr>
-        <tr><th scope="row">Incompatible model metadata</th><td>The model does not load.</td><td>${source('prediction-tests','Model compatibility tests')}</td></tr>
-      </tbody></table></div>
+    <section class="content-section" aria-labelledby="test-heading">
+      <h2 id="test-heading">A test for reordered columns</h2>
+      <p>This test reverses the CSV columns and checks that preparation still produces identical model inputs.</p>
+      <p class="code-label">tests/test_shared_prediction.py · test excerpt</p>
+      <pre>${esc(reorderTestCode)}</pre>
+      <p>Other tests reject missing or duplicate targets, non-finite counts and incompatible model metadata.</p>
+      <div class="action-row">${source('prediction-tests','Input and model compatibility tests')}</div>
     </section>
     <section class="content-section" aria-labelledby="setup-heading">
-      <h2 id="setup-heading">Reproducing and running the software</h2>
-      <p>The repository includes the environment definition, commands and checks another developer needs to reproduce the analysis and run the saved model.</p>
-      <div class="table-wrap"><table><thead><tr><th scope="col">Included in the project</th><th scope="col">Purpose and evidence</th></tr></thead><tbody>
-        <tr><th scope="row">Python 3.12, uv lockfile and run instructions</th><td>The dependency versions and commands are recorded in the ${source('code','code guide')} and ${source('api','application guide')}.</td></tr>
-        <tr><th scope="row">Automated checks on code changes</th><td>The ${source('workflow','CI workflow')} runs installed-package tests and a synthetic-model container check. A hosted pass is recorded for an earlier revision.</td></tr>
-        <tr><th scope="row">Local container with the research model</th><td>The ${source('container','17 Sep 2026 container record')} covers the running service, public examples and invalid input.</td></tr>
+      <h2 id="setup-heading">Running and checking the project</h2>
+      <div class="table-wrap"><table><thead><tr><th scope="col">Included</th><th scope="col">Purpose and evidence</th></tr></thead><tbody>
+        <tr><th scope="row">Python 3.12 and uv lockfile</th><td>The ${source('code','code guide')} and ${source('api','application guide')} document setup and run commands.</td></tr>
+        <tr><th scope="row">Automated checks</th><td>The ${source('workflow','CI workflow')} tests the installed package and a container with a synthetic model. A hosted pass covers an earlier revision.</td></tr>
+        <tr><th scope="row">Local research-model container</th><td>The ${source('container','17 Sep 2026 record')} verifies startup, predictions and invalid input.</td></tr>
       </tbody></table></div>
-      <p>The application and research-container checks cited here were local. Cloud deployment remains future work.</p>
+      <p>Cloud deployment remains future work.</p>
       <div class="action-row">${source('verification','Software verification guide')}</div>
     </section>
   </div>
@@ -283,7 +304,7 @@ const html = `<!doctype html>
 <script type="application/json" id="demo-data">${payload}</script><script>${js}</script>
 </body></html>`;
 await fs.writeFile(path.join(root,'presentation/engineering_demo.html'),html);
-const inputs = ['presentation/source/demo_config.json','presentation/source/demo_snapshot.json','results/followup/20260917_stability/summary.json',...definitions.map(x=>x[3])];
+const inputs = ['src/kidney_biopsy/api.py','presentation/source/demo_config.json','presentation/source/demo_snapshot.json','results/followup/20260917_stability/summary.json',...definitions.map(x=>x[3])];
 const hashes = Object.fromEntries(await Promise.all(inputs.map(async name=>[name,digest(await fs.readFile(path.join(root,name)))])));
 await fs.writeFile(path.join(root,'presentation/engineering_demo_sources.json'),JSON.stringify({built:'2026-09-22',model_version:snapshot.model_version,sources:hashes,output_sha256:digest(html)},null,2)+'\n');
 console.log(JSON.stringify({output:'presentation/engineering_demo.html',bytes:Buffer.byteLength(html),references:Object.keys(references).length,model_version:snapshot.model_version}));

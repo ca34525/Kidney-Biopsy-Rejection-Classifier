@@ -2,6 +2,7 @@
   "built": "2026-09-22",
   "model_version": "20260922_mac_clone:any_rejection:catboost_all_depth4",
   "sources": {
+    "src/kidney_biopsy/api.py": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442",
     "presentation/source/demo_config.json": "c3c42e9c11621650d5450f9b1b095d87b0be4ff792169e7a32212a5ed0d561dd",
     "presentation/source/demo_snapshot.json": "c34098673aa6b35b9dcc46d66bd9df8aa7fafe015ef31d5b4448e1d35fcd5985",
     "results/followup/20260917_stability/summary.json": "e31a297e06eeb19d0bc116f2d036c5184e8fd3e9198ea88304073e794bc6cffc",
@@ -24,5 +25,5 @@
     "scripts/verify_http_service.py": "85623b728d637e4cff6866eabf2617da9e7617c2304dfe2760530550c59c2b97",
     ".github/workflows/checks.yml": "0469e5381f6d127318584ec4a495dede15c55d81ba2982e50677856376dd4354"
   },
-  "output_sha256": "ad4d389615bb8077dabd3f8675391a4563c4953463ca9fd476c8a7cc87e92504"
+  "output_sha256": "5f87cf29ed5a8bf9746c46b2fb35b02bf14c8e8c9de42c275bf892fe1e13d148"
 }

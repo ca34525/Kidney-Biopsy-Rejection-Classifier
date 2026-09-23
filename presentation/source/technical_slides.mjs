@@ -1,7 +1,7 @@
 // Detailed engineering evidence lives in the browser deliverable and speaking script.
 export async function addTechnicalSlides({ slide, text, line, C }) {
   {
-    const s = slide('Software Engineering Demo');
+    const s = slide('Project walkthrough');
     text(s, 'Reports, application and scoring service', 64, 186, 1152, 73, 39, C.teal);
   }
   {

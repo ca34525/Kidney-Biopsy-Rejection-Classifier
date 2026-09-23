@@ -98,8 +98,8 @@
     "presentation/assets/demo-invalid.png": "423bc4cc7db298fa8a188f8920c0524be00b2193f63cfcb58026693f465b6684",
     "presentation/assets/demo-valid.png": "05bdf5ad80780a862d31343f9fcec392d3bd06788f0e2692eb13f63247f1027f",
     "presentation/demo_fallback.html": "2891a54d219d9f937e31959549db5fce4eeac3b715f5e54197e3149541b7790b",
-    "presentation/engineering_demo.html": "ad4d389615bb8077dabd3f8675391a4563c4953463ca9fd476c8a7cc87e92504",
-    "presentation/engineering_demo_sources.json": "98d1677f3fb22bcadb8dd774186c128d391aaabeed57be4c2872b65b6ca7b7e3",
+    "presentation/engineering_demo.html": "5f87cf29ed5a8bf9746c46b2fb35b02bf14c8e8c9de42c275bf892fe1e13d148",
+    "presentation/engineering_demo_sources.json": "cad7c4e116a0c2438706b29ea406878cf4d72cae6f425a9eafe12e7a2e7beb51",
     "presentation/slides/slide-01.png": "73a4c359b214d4076c10a766344a80a5b6dacfe2cf636b72f60a2d554c9f282a",
     "presentation/slides/slide-02.png": "ba902fb615ff228a47c312cf1615e29aa920df5ac53d31b7a55bd32635545927",
     "presentation/slides/slide-03.png": "6d53c72f42ac6c1468f784e1f827a0d7db9f0e5fb249a0bd84bdd4a94ff4b95a",
@@ -112,7 +112,7 @@
     "presentation/slides/slide-10.png": "7b2e24715fe543ccdc2c5fb7653ddede9d378c71c89512916021431e3519ae37",
     "presentation/slides/slide-11.png": "ad240d05e525b351f6035e5ab5e66993349204c1698a888c4a73acbabce897be",
     "presentation/slides/slide-12.png": "6fb5f5487da7dfd8c9afbe544984828f4209e655a0fb71e5d5c3b2ef782bc0d4",
-    "presentation/slides/slide-13.png": "0fa99e6882e1b5b34b503e28535754f3625f8b83ba51d0fcf3526f97006e31d6",
+    "presentation/slides/slide-13.png": "f663a333340b4d7c12deaf53952c360a68c60a31d58ef55fc1d8c81f6c0dd76c",
     "presentation/slides/slide-14.png": "303fdcb15ca0bb259321a55282186d37f8c78f339bf6a13fe8ee20c1b6569660",
     "presentation/source/__pycache__/capture_demo.cpython-312.pyc": "c22e29b5ee3a03dd40b812dc13c3d83cf6a8094841736da92fb99d0f346bc435",
     "presentation/source/__pycache__/check_demo.cpython-312.pyc": "2b2a3be9065a4e8738a90841317c66538e153b91ba61e788973688d2cdddace2",
@@ -120,7 +120,7 @@
     "presentation/source/build_analysis_report.mjs": "28a58fa07383c1d09ca9b170575dbb94d10088168edb880dbd1d92c76d876900",
     "presentation/source/build_backups.py": "5ef54a7190e1bcb664b5e53158266db6b12d635f57b2f5a06959f2b0e463f998",
     "presentation/source/build_deck.mjs": "572cbf99eeef2c864ff0218e09aa1d11cbb479e8b61505a3c6bcf03aea4edbfc",
-    "presentation/source/build_engineering_demo.mjs": "05d00b8b4cfc001492e115888f863015564053b31bf2612d021ae4bef95adeeb",
+    "presentation/source/build_engineering_demo.mjs": "a7b1574b5f7e829987585965c264b1db3cb4983714dbdb1ee92e6e455ff2bb2a",
     "presentation/source/build_script_html.py": "b77e0cd1387ce17c6a6ec2be0f3e4f9804005f57ca177c6fc6080c67d0e2ecbf",
     "presentation/source/capture_demo.py": "6b4e277e3b68e6da588aefd47bfd9471e6e83c777b5c8bbba7d568740930dbf6",
     "presentation/source/check_demo.py": "76b65620a74ef8c285873dff111fd0ec451d48594c7f6aff644268ccbfdb95cb",
@@ -133,9 +133,9 @@
     "presentation/source/render_final.mjs": "194813d56c31acf083e72753034a115baaf6af50e70c3e943cb885c778109ce7",
     "presentation/source/serve_demo.py": "367aae9f42f95c1896e804c68d0e427dad80bfd2fa901f3456b60f5bcef9523a",
     "presentation/source/speaking_script.json": "5a13cb9b5ba95ea4ee51efc51c8935dc3a6c491409ccedba57addd68367bd271",
-    "presentation/source/technical_slides.mjs": "f8f5dcaa44d2d6525437b22539a2824aa7b159c2030659118efb6dba2d298a1f",
+    "presentation/source/technical_slides.mjs": "386ccf054600aacf488338889b18cdbdf5344a0fb40e63fd7e2fc70c54b79b0a",
     "presentation/speaking_script.html": "6a0a7e3d8ec69a1c24af477a4b19ed5f1a246fd53788d916233e874ce173e2e3",
-    "presentation/unos_kidney_biopsy.pdf": "a3d5447072ec94f31300706fa40abbff922467f38d11cc17e6c06fa7c58eeeef",
-    "presentation/unos_kidney_biopsy.pptx": "c221310c3b756ac6765492212f991eb56195ece7b0bfa2c3d96d7ea5407dde64"
+    "presentation/unos_kidney_biopsy.pdf": "4b2668930a14e1efe3c27e627a99b0b2ab4cf9980237878b2d3de63bd9144cad",
+    "presentation/unos_kidney_biopsy.pptx": "6dbcb455f55bab90cd50bea4deec42b47eebb89da2c7a2cbb9ad754598604614"
   }
 }
