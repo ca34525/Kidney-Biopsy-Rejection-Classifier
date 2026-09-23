@@ -72,7 +72,7 @@ reports and verification records remain evidence of what was checked at the time
 | [Hosted Software checks #8](https://github.com/ca34525/Kidney-Biopsy-Rejection-Classifier/actions/runs/35270209322) | Installed package, lint, tests, and synthetic-container checks succeeded | PR #2 head `ce34d4c79442098308c89ca4ccb34542c4010216`; previous revision |
 | [Subtype follow-up](../results/followup/20260915_subtypes/REPORT.md) | Four-class comparisons did not justify replacing the binary service | Follow-up on an already examined validation cohort |
 | [Viral-target review](../results/analysis/20260915_viral/REPORT.md) | Describes BK signals and study composition | No viral-feature removal or independent assay-QC experiment |
-| [Presentation draft](../presentation/README.md) | 19 editable slides, matching PDF, separate HTML script, offline report, and static demo fallback | Comparative question and model-selection explanation revised; no backup slides; 20-minute timing is planned and rehearsals remain pending |
+| [Presentation draft](../presentation/README.md) | 14 editable slides, matching PDF, separate HTML script, continuous engineering demonstration, offline report, and static demo fallback | September 23 slide and script updates complete; no backup slides; 20-minute timing is planned and the presenter reports rehearsing |
 
 The September 17 application work added a walkthrough
 of a prepared public specimen, a bounded discovery-only stability comparison,
@@ -86,7 +86,7 @@ The September 19 presentation and source pass revised the slide sequence and
 checked the full study and supplements. The 1,395 specimens include 1,193
 transplant biopsies and 202 native-kidney controls, some with native-kidney disease.
 The updated population description qualifies the existing results; it does not
-change saved runs. Timed rehearsals remain pending.
+change saved runs. The presenter reports rehearsing as of September 23; measured durations have not been supplied.
 
 The September 21 review reconciles the dated source-review statement, adds the
 native-control qualification to the demo and future generated reports, and

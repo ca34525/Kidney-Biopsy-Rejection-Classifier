@@ -1,6 +1,6 @@
 # Interview presentation
 
-Updated September 22, 2026. The presentation has **14 main slides**, one continuous
+Updated September 23, 2026. The presentation has **14 main slides**, one continuous
 browser demonstration and a separate speaking script. Its planned **20 minutes**
 include the demonstration; questions follow. PowerPoint notes are empty.
 
@@ -16,11 +16,11 @@ include the demonstration; questions follow. PowerPoint notes are empty.
 | Part | Planned time | Cumulative time |
 | --- | ---: | ---: |
 | Slides 1–12: purpose, context, methods and results | 11:25 | 11:25 |
-| Slide 13: software engineering transition | 0:15 | 11:40 |
+| Slide 13: Software Engineering Demo | 0:15 | 11:40 |
 | Browser: inspect the saved evidence | 1:15 | 12:55 |
 | Browser: score a public specimen | 2:15 | 15:10 |
 | Browser: shared calculation, API, checks and handoff | 4:00 | 19:10 |
-| Slide 14: completed analysis, software and next steps | 0:50 | 20:00 |
+| Slide 14: completed analysis and software | 0:50 | 20:00 |
 
 Switch from PowerPoint to the browser after slide 13. The Application stop opens the scoring app in a separate tab. Return to the
 engineering page for the third stop, then to PowerPoint on slide 14. The former technical
@@ -88,9 +88,12 @@ fallback wording and pacing. Its index places browser stops D1–D3 between slid
 13 and 14, without creating extra slide pages. It embeds all 14 slide images.
 Use its font controls, timer and rehearsal-record export for practice.
 
-Planned timings are not measured rehearsal results. Complete two full timed runs
-and one fallback run. If time runs long, shorten source-dialog inspection or
+The presenter reports rehearsing as of September 23. The listed timings remain
+planned allocations; measured durations have not been supplied. If time runs long, shorten source-dialog inspection or
 secondary implementation detail before cutting the valid/invalid example.
+
+The [September 23 final pass](../docs/references/PRESENTATION_FINAL_PASS_20260923.md)
+records the current slide, narration and source changes.
 
 ## Source and build files
 

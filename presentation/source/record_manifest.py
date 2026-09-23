@@ -15,9 +15,9 @@ EXPECTED_MAIN_SLIDES = 14
 EXPECTED_BACKUP_SLIDES = 0
 EXPECTED_CHART_SLIDES = [12]
 REVISED_SLIDES = [4, 12, 13, 14]
-REVISED_NARRATION_SLIDES = [4, 13, 14]
+REVISED_NARRATION_SLIDES = [3, 4, 13, 14]
 PRESERVED_SLIDES = [n for n in range(1, 13) if n not in REVISED_SLIDES]
-BASELINE = ROOT / "build/presentation/before-engineering-demo-20260922/presentation/unos_kidney_biopsy.pptx"
+BASELINE = ROOT / "build/presentation/before-final-pass-20260923/presentation/unos_kidney_biopsy.pptx"
 REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 NS = {
     "a": "http://schemas.openxmlformats.org/drawingml/2006/main",
@@ -116,15 +116,20 @@ with zipfile.ZipFile(OUT / "unos_kidney_biopsy.pptx") as archive:
                     f"Preserved slide {number} changed its content, formatting, or geometry."
                 )
             for name in charts:
-                assert semantic_xml(archive, name) == semantic_xml(original, name), (
-                    f"Chart changed during the engineering revision: {name}"
+                # This revision removes the viewer-dependent legend only.
+                current = ET.fromstring(archive.read(name))
+                previous = ET.fromstring(original.read(name))
+                previous_chart = previous.find("c:chart", NS)
+                previous_chart.remove(previous_chart.find("c:legend", NS))
+                assert ET.tostring(current) == ET.tostring(previous), (
+                    f"Chart data or styling changed beyond the requested legend: {name}"
                 )
         preservation = {
             "baseline": BASELINE.relative_to(ROOT).as_posix(),
             "baseline_sha256": sha(BASELINE),
             "status": "passed",
             "slides": PRESERVED_SLIDES,
-            "comparison": "Unrevised slide XML and chart XML preserved. Generated creation IDs ignored and relationship IDs resolved.",
+            "comparison": "Unrevised slide XML preserved. Chart XML preserved except for removing the automatic legend; editable keys on slide 12 set its order. Generated creation IDs ignored and relationship IDs resolved.",
         }
         previous_script = json.loads((BASELINE.parent / "source/speaking_script.json").read_text(encoding="utf-8"))
         for current, previous in zip(data["slides"][:12], previous_script["slides"][:12], strict=True):
@@ -182,13 +187,14 @@ sources = [
     "docs/references/PRESENTATION_CONTEXT_PASS_20260922.md",
     "docs/references/PRACTICAL_PURPOSE_20260922.md",
     "docs/references/ENGINEERING_DEMO_20260922.md",
+    "docs/references/PRESENTATION_FINAL_PASS_20260923.md",
     "presentation/engineering_demo_sources.json",
     "docs/references/rejection_source_manifest.json",
 ]
 
 
 manifest = {
-    "created": "2026-09-22",
+    "created": "2026-09-23",
     "revision": data.get("revision", data["status"]),
     "main_slides": len(data['slides']),
     "backup_slides": len(data['backups']),
@@ -204,12 +210,12 @@ manifest = {
     "preserved_slides": preservation,
     "revised_slides": REVISED_SLIDES,
     "revised_narration_slides": REVISED_NARRATION_SLIDES,
-    "rehearsals": "pending",
+    "rehearsals": "User reports rehearsing as of 2026-09-23; measured times not supplied",
     "sources": {name: sha(ROOT / name) for name in sources},
     "outputs_and_authoring_sources": {
         file.relative_to(ROOT).as_posix(): sha(file)
         for file in sorted(OUT.rglob("*"))
-        if file.is_file() and file.name != "manifest.json"
+        if file.is_file() and file.name != "manifest.json" and not file.name.startswith(".~lock.")
     },
 }
 (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")

@@ -120,15 +120,15 @@ const labelText={typeface:FONT,fontSize:25,bold:true,fill:C.ink};
  text(s,'Make preprocessing, training and evaluation reproducible. Build a tested scoring service and prototype application that let a user submit a specimen’s RNA counts and inspect its model score, threshold and rejection flag.',64,517,1152,126,30);
 }
 {
- const s=slide('Clinical and research context','Sources: Banff Reference Guide (2026); Zhang et al. (2024); KDIGO (2009); BK consensus (2024)');
+ const s=slide('Clinical and research context','Sources: Banff Reference Guide (2026); Zhang et al. (2024); KDIGO (2009), recommendation 6.1');
  text(s,'Banff diagnostic\nframework',64,170,274,90,29,C.ink,true);
  text(s,'Validated biopsy transcript tests have a defined role\nin antibody-mediated rejection assessment.',365,170,851,90,30);
  line(s,64,282,1152);
  text(s,'Published B-HOT study\nZhang, 2024',64,310,274,90,29,C.ink,true);
  text(s,'Four-class study compared regression and boosting.\nSelected LASSO for similar accuracy with fewer features.',365,300,851,113,30);
  line(s,64,433,1152);
- text(s,'Why both kinds\nof error matter',64,455,274,103,28,C.ink,true);
- text(s,'Biopsy findings help guide treatment for rejection.\nMissed rejection can leave kidney injury untreated.\nUnnecessary treatment can worsen an infection.',365,448,851,151,29);
+ text(s,'Biopsy and\ntreatment',64,455,274,103,29,C.ink,true);
+ text(s,'KDIGO recommends biopsy before treating acute rejection,\nunless waiting would substantially delay treatment.',365,448,851,151,30);
 }
 datasetSlide();
 // Give the biological labels their own visual explanation.
@@ -215,7 +215,12 @@ function datasetSlide(){
  const s=slide('Validation results','Sources: primary evaluation (15 Sep) and discovery-only stability follow-up (17 Sep 2026).');
  text(s,'Same 345 specimens: 169 rejection and 176 no rejection',64,145,1152,48,32);
  // Single-line categories let chart viewers reserve the full label width.
- chart(s,'bar',{position:{left:56,top:202,width:1170,height:327},categories:[modelLabels.ifng.replace('\n',' '),modelLabels.logistic.replace('\n',' '),'CatBoost'],series:[{name:'Missed cases / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'Incorrect flags / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:true,legend:{position:'bottom',textStyle:{...axisText,fontSize:25}},xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
+ chart(s,'bar',{position:{left:56,top:202,width:1170,height:290},categories:[modelLabels.ifng.replace('\n',' '),modelLabels.logistic.replace('\n',' '),'CatBoost'],series:[{name:'Missed cases / 169',values:[+ifng.fn,+log.fn,+cat.fn],fill:C.orange},{name:'Incorrect flags / 176',values:[+ifng.fp,+log.fp,+cat.fp],fill:C.teal}],barOptions:{direction:'bar',grouping:'clustered',gapWidth:95},hasLegend:false,xAxis:{textStyle:axisText,majorGridlines:null},yAxis:{min:0,max:80,majorUnit:20,textStyle:axisText,majorGridlines:{fill:C.rule,width:1}},dataLabels:{showValue:true,position:'outEnd',textStyle:labelText},chartFill:C.bg,plotAreaFill:C.bg});
+ // Explicit editable keys preserve top-to-bottom bar order across slide viewers.
+ for (const [label,color,x,width] of [['Incorrect flags / 176',C.teal,402,244],['Missed cases / 169',C.orange,656,250]]) {
+  s.shapes.add({geometry:'rect',position:{left:x,top:505,width:10,height:10},fill:color,line:{fill:'none',width:0}});
+  text(s,label,x+16,490,width,40,25);
+ }
  bullets(s,[`Constant baseline: ${constant.fn} missed cases, ${constant.fp} incorrect flags. It flags everyone.`],64,546,1152,60,29,C.ink,11);
  // Use the same teal emphasis as the deck's other summary statements.
  text(s,`Across ${stability.repetitions} discovery splits: CatBoost selected ${stability.selection_counts.catboost} times, logistic ${stability.selection_counts.logistic}.`,64,614,1152,35,25,C.teal,true);

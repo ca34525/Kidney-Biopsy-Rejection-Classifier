@@ -2,12 +2,12 @@
   "built": "2026-09-22",
   "model_version": "20260922_mac_clone:any_rejection:catboost_all_depth4",
   "sources": {
-    "presentation/source/demo_config.json": "6a2ef85e9c7c1d17de4af7ef9ca8502ee5e22ec796fd02765dfda271ac9710e6",
+    "presentation/source/demo_config.json": "c3c42e9c11621650d5450f9b1b095d87b0be4ff792169e7a32212a5ed0d561dd",
     "presentation/source/demo_snapshot.json": "c34098673aa6b35b9dcc46d66bd9df8aa7fafe015ef31d5b4448e1d35fcd5985",
     "results/followup/20260917_stability/summary.json": "e31a297e06eeb19d0bc116f2d036c5184e8fd3e9198ea88304073e794bc6cffc",
     "results/analysis/20260915_baseline/REPORT.md": "a5562e1ee7ba45e5f754ebc5f07b557b73f47fc1743e8373bdbd525d9fc9ea55",
     "results/followup/20260917_stability/REPORT.md": "e8e84b05e781ac4081cea4a2aec80bc124b50c49745183b01e76942fa2a08efd",
-    "docs/API.md": "bdf00c485dd7dd307e66421daa553555ecc79370db0203a413122e448404778e",
+    "docs/API.md": "8f363f47cfd90c69c6b88889923fec9270a2723cd6146c783d384e99b98084e7",
     "docs/VERIFICATION.md": "7377555f104275776f694052bd4dbddbb5d25a4b5b4f35ce6d7d607e42b5f6b9",
     "docs/CODE_GUIDE.md": "6991a088efdd7a08a86ca2cee20b84d2568dfab6fc18ebcf218069896a8dfe3a",
     "docs/METHODOLOGY_REVIEW.md": "62413628b475ffa4f6ed885d7e06d106e27245183b3c7f1e2bed25cdb468e1eb",
@@ -24,5 +24,5 @@
     "scripts/verify_http_service.py": "85623b728d637e4cff6866eabf2617da9e7617c2304dfe2760530550c59c2b97",
     ".github/workflows/checks.yml": "0469e5381f6d127318584ec4a495dede15c55d81ba2982e50677856376dd4354"
   },
-  "output_sha256": "812811acb7c38e574b8fcdaa66e1f19539390c72aa27db35851ce718ac8736a7"
+  "output_sha256": "2151e18141fd12d88009bf9ed7273421b505c6c5afc0cef4da88ca725afb651f"
 }

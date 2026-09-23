@@ -1,10 +1,10 @@
 {
   "title": "Classifying Kidney Transplant Rejection from Biopsy RNA — speaking script",
-  "status": "Fourteen slides with one continuous three-stop browser demonstration. Planned talk: 20 minutes, including 7:30 in the browser. Timed rehearsal remains pending.",
+  "status": "Fourteen slides with one continuous three-stop browser demonstration. Planned talk: 20 minutes, including 7:30 in the browser. Rehearsals are underway.",
   "delivery": "Spoken text belongs in the separate HTML deliverable. PowerPoint notes must remain empty.",
   "planned_seconds": 1200,
   "rehearsal": {
-    "status": "Pending",
+    "status": "The presenter reports rehearsing as of September 23, 2026. Measured durations have not been supplied.",
     "required": [
       "Two complete timed rehearsals with the demonstration",
       "One interruption and demonstration-fallback rehearsal"
@@ -99,12 +99,12 @@
       "title": "Purpose of this project",
       "seconds": 65,
       "paragraphs": [
-        "Whether rejection is present can affect whether clinicians consider more treatment to suppress the immune system. A binary molecular score could provide additional evidence during that assessment, while subtype and other findings would still guide treatment. That is the potential use motivating this project.",
+        "Whether rejection is present can affect decisions about further treatment to suppress the immune system. Missed rejection can leave kidney injury untreated, while unnecessary treatment can worsen an infection. A binary molecular score could provide additional evidence during that assessment, while subtype and other findings would still guide treatment.",
         "The first part is model comparison. How do logistic regression and CatBoost compare in classifying any recorded rejection versus no rejection from B-HOT biopsy RNA, particularly in missed cases and incorrect flags? I evaluate them against the recorded diagnoses on the same specimens.",
         "The second part is software engineering. I made preprocessing, training and evaluation reproducible, then built a tested scoring service and prototype application. They let a user submit compatible RNA counts and inspect the selected model score, its threshold and the rejection flag. An analyst can try the model through the application, and other software can call the service."
       ],
       "actions": [
-        "Connect the binary endpoint to treatment-related assessment. Give the model comparison and software aims equal weight. Describe the score as a potential additional source of evidence, with the current evaluation against recorded diagnoses. Leave Banff and Zhang to the next slide."
+        "Connect the binary endpoint to treatment-related assessment and briefly explain both error consequences. Give the model comparison and software aims equal weight. Describe the score as a potential additional source of evidence, with the current evaluation against recorded diagnoses. Leave Banff, Zhang and the KDIGO recommendation to the next slide."
       ],
       "visible_cues": [
         "Whether rejection is present can affect decisions about further treatment to suppress the immune system.",
@@ -131,6 +131,14 @@
         {
           "label": "The scoring service and public specimen demonstration",
           "path": "docs/API.md"
+        },
+        {
+          "label": "Second International Consensus Guidelines on BK Polyomavirus, 2024",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11335089/"
+        },
+        {
+          "label": "Source review of biopsy findings, care decisions and error consequences",
+          "path": "docs/references/BIOPSY_CARE_20260919.md"
         }
       ]
     },
@@ -141,15 +149,15 @@
       "paragraphs": [
         "Banff is a framework specialists use to classify transplant biopsy findings. Its current guidance includes thoroughly validated biopsy transcript tests in defined settings for antibody-mediated rejection. That gives molecular assessment an established clinical context. It does not confer that validation on my classifier.",
         "Zhang and colleagues provide the public B-HOT data. Their four-class study already compared regularized regression with other approaches, including gradient boosting. They selected LASSO, a form of regularized regression, because accuracy was similar and it can use fewer weighted features. Their result is a reason to take the simpler comparator seriously.",
-        "Biopsy findings also help guide treatment. KDIGO recommends a biopsy before treating acute rejection, unless waiting would substantially delay treatment. That helps explain why both errors matter: missed rejection can leave kidney injury untreated, while unnecessary treatment to suppress the immune system can worsen an infection."
+        "Biopsy findings also help guide treatment. KDIGO recommends biopsy before treating acute rejection, unless waiting would substantially delay treatment. This connects the assessment of biopsy findings to a treatment decision. It does not establish that my model improves that decision."
       ],
       "actions": [
-        "Explain Banff and Zhang, then connect biopsy findings to treatment through KDIGO recommendation 6.1. Keep the guideline detail in the script and the treatment connection on the slide."
+        "Explain Banff and Zhang, then the Biopsy and treatment row. Expand KDIGO as Kidney Disease: Improving Global Outcomes if needed. Retain the exception for substantial treatment delay. The two error consequences were introduced on slide 3."
       ],
       "visible_cues": [
         "Banff diagnostic framework: validated biopsy transcript tests have a defined role in antibody-mediated rejection assessment.",
         "Published B-HOT study, Zhang 2024: four-class study compared regression and boosting. Selected LASSO for similar accuracy with fewer features.",
-        "Biopsy findings help guide treatment for rejection. Missed rejection can leave kidney injury untreated. Unnecessary treatment can worsen an infection."
+        "Biopsy and treatment: KDIGO recommends biopsy before treating acute rejection, unless waiting would substantially delay treatment."
       ],
       "sources": [
         {
@@ -167,14 +175,6 @@
         {
           "label": "KDIGO transplant-recipient guideline summary, 2009, recommendation 6.1",
           "url": "https://kdigo.org/wp-content/uploads/2017/02/KITxpGL_summary.pdf"
-        },
-        {
-          "label": "Second International Consensus Guidelines on BK Polyomavirus, 2024",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11335089/"
-        },
-        {
-          "label": "Source review of biopsy findings, care decisions and error consequences",
-          "path": "docs/references/BIOPSY_CARE_20260919.md"
         },
         {
           "label": "Zhang et al., Supplementary Methods: algorithm comparison and LASSO selection",
@@ -571,7 +571,7 @@
     },
     {
       "id": 13,
-      "title": "Software engineering",
+      "title": "Software Engineering Demo",
       "seconds": 15,
       "paragraphs": [
         "I will now switch to the browser for the software engineering portion. I will inspect the saved evidence, score a public specimen, and show how the software preserves and checks the calculation."
@@ -580,10 +580,7 @@
         "Switch from PowerPoint to the pre-opened engineering_demo.html page. The Application link opens a separate tab; the engineering page stays open for the third stop. Return to PowerPoint on slide 14 afterward."
       ],
       "visible_cues": [
-        "Reports, application and scoring service",
-        "Inspect the evidence",
-        "Score a public specimen",
-        "Trace and check the calculation"
+        "Reports, application and scoring service"
       ],
       "sources": [
         {
@@ -599,18 +596,16 @@
       "paragraphs": [
         "To return to the two project aims: in the model comparison, CatBoost missed eight fewer validation rejection cases than logistic regression, with eight incorrect flags each. The uncertainty and repeated discovery splits leave a dependable advantage unsettled.",
         "For software engineering, I made the analysis reproducible and built a tested scoring service and prototype application. Another user can inspect the evidence, submit compatible counts and identify the model and threshold behind the result.",
-        "Next, I would compare the models using cross-validation within discovery, then investigate whether the score adds useful information during rejection assessment.",
         "Zhang and colleagues supplied the public data. AI assisted with development and this presentation. Thank you."
       ],
       "actions": [
-        "Return to PowerPoint on slide 14. Summarize both aims and the next research question. Questions follow the full presentation."
+        "Return to PowerPoint on slide 14. Summarize the completed model comparison and software engineering, acknowledge the public data and AI assistance, then invite questions."
       ],
       "visible_cues": [
         "Model comparison",
         "CatBoost missed 8 fewer rejection cases than logistic, with 8 incorrect flags each. A dependable advantage remains uncertain.",
         "Software engineering",
         "Reproducible analysis and a tested scoring service, with a prototype application and checks against saved results.",
-        "Next: cross-validation within discovery. Then investigate whether the score adds useful diagnostic information.",
         "Public data: Zhang et al. (2024), GSE212160. Development and presentation used AI assistance."
       ],
       "sources": [
@@ -631,10 +626,6 @@
           "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
         },
         {
-          "label": "Proposed cross-validation follow-up and clinical evaluation",
-          "path": "docs/NEXT_STEPS.md"
-        },
-        {
           "label": "Established application and the purpose of this project, September 21 revision",
           "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
         }
@@ -642,7 +633,7 @@
     }
   ],
   "backups": [],
-  "revision": "2026-09-22: KDIGO treatment connection on slide 4; teal follow-up emphasis on slide 12; former technical slides replaced by transition slide 13, an engineering HTML demonstration and closing slide 14. Saved models, thresholds and analysis results are unchanged.",
+  "revision": "2026-09-23: Biopsy and treatment row on slide 4; error consequences in slide 3 narration; ordered legend keys on slide 12; Software Engineering Demo title without bullets on slide 13; next-steps text removed from slide 14 and its narration.",
   "browser_demo": {
     "after_slide": 13,
     "seconds": 450,

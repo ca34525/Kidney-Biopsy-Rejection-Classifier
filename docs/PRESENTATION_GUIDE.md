@@ -1,5 +1,9 @@
 # Presentation guide
 
+The [September 23 final pass](references/PRESENTATION_FINAL_PASS_20260923.md)
+records the current slide and script wording and takes precedence over earlier
+revision notes.
+
 The [September 22 wording pass](references/PRESENTATION_CONTEXT_PASS_20260922.md)
 and [practical-purpose revision](references/PRACTICAL_PURPOSE_20260922.md) take
 precedence over earlier wording preferences. Review each edit against the full
@@ -15,20 +19,23 @@ in the separate HTML reader.
 
 Prepare a **20-minute presentation** for the UNOS Associate Data Scientist interview about this kidney biopsy gene-expression classifier. The user confirmed that the full 20 minutes is presentation time. Questions come separately.
 
-The user's September 18, 2026 instruction puts all spoken text and delivery cues in a **separate HTML speaking script**. Do not use PowerPoint notes. The [current draft](../presentation/README.md) has 14 main slides, no backup slides, and a continuous browser demonstration. The complete script is planned for 20 minutes, including 7:30 in the browser. Real timed rehearsals remain pending.
+The user's September 18, 2026 instruction puts all spoken text and delivery cues in a **separate HTML speaking script**. Do not use PowerPoint notes. The [current draft](../presentation/README.md) has 14 main slides, no backup slides, and a continuous browser demonstration. The complete script is planned for 20 minutes, including 7:30 in the browser. The presenter reports rehearsing as of September 23; measured durations have not been supplied.
 
 The talk opens with only the title, **Classifying Kidney Transplant Rejection
 from Biopsy RNA**. Briefly introduce the analysis and software. Define rejection
 and the biopsy, then explain why detecting rejection can matter for treatment.
-Give the research question and software purpose on slide 3. Follow with Banff's
+Give the research question and software purpose on slide 3, with both error
+consequences explained aloud. Follow with Banff's
 role for validated tests and Zhang's model comparison and preference for LASSO
-on slide 4, then the dataset, outcome, measurements, methods and results.
+on slide 4, followed by a Biopsy and treatment row citing KDIGO recommendation
+6.1 and its exception for substantial treatment delay. Then cover the dataset,
+outcome, measurements, methods and results.
 
 Keep slides 1–12 in their established order and retain their planned timings.
 Slides 11–12 explain the screening selection, validation advantage and existing
-split-stability result together. Slide 13 introduces the engineering demonstration.
+split-stability result together. Slide 13 is titled Software Engineering Demo and has no bullets.
 The browser covers evidence, the application, shared calculation, API, checks
-and handoff. Slide 14 closes on completed work and the next research questions.
+and handoff. Slide 14 and its narration close on the completed model comparison and software engineering.
 The full Code Guide and detailed reports remain available in the browser's
 reference library. The
 [specification](PRESENTATION_SPEC.md) records the sequence, and the

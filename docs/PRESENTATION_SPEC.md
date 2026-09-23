@@ -1,6 +1,6 @@
 # Twenty minute UNOS interview presentation
 
-Current revision: September 22, 2026. The requested structure is **slideshow,
+Current revision: September 23, 2026. The requested structure is **slideshow,
 one continuous browser demonstration, then slideshow**. Deliver 14 main slides
 without backup slides. The full talk is planned for 20 minutes; questions follow.
 
@@ -29,21 +29,21 @@ and software engineering equal prominence, as recorded in the
 | Segment | Content | Time |
 | --- | --- | ---: |
 | Slides 1–12 | Context, question, methods and results | 11:25 |
-| Slide 13 | Software engineering transition | 0:15 |
+| Slide 13 | Software Engineering Demo transition | 0:15 |
 | Browser stop 1 | Inspect saved evidence | 1:15 |
 | Browser stop 2 | Score a public specimen | 2:15 |
 | Browser stop 3 | Shared calculation, API, verification and handoff | 4:00 |
-| Slide 14 | Completed work and next research question | 0:50 |
+| Slide 14 | Completed model comparison and software engineering | 0:50 |
 | **Total** | **Questions afterward** | **20:00** |
 
-These are planned allocations. Actual timed rehearsals remain pending.
+These are planned allocations. The presenter reports rehearsing as of September 23; measured durations have not been supplied.
 
 | Slide | Subject and required content |
 | ---: | --- |
 | 1 | Classifying Kidney Transplant Rejection from Biopsy RNA. Title only. |
 | 2 | Rejection, kidney biopsy, histology and molecular measurements, with the user's wording suited to reading aloud. |
-| 3 | Treatment-related motivation; binary question against recorded diagnoses; equally prominent software-engineering aim. |
-| 4 | Banff's defined role for validated transcript tests; Zhang's regression/boosting comparison and choice of LASSO; biopsy findings and treatment through KDIGO, followed by both error consequences. |
+| 3 | Treatment-related motivation, with both error consequences explained aloud; binary question against recorded diagnoses; equally prominent software-engineering aim. |
+| 4 | Banff's defined role for validated transcript tests; Zhang's regression/boosting comparison and choice of LASSO; a Biopsy and treatment row with KDIGO recommendation 6.1 and its exception for substantial treatment delay. |
 | 5 | Linked count/metadata tables, specimen totals, native-kidney controls and undocumented patient/referring-center separation. |
 | 6 | Any recorded rejection versus no rejection, with examples of excluded diagnoses explained in the script. |
 | 7 | The 758 model measurements and 12 housekeeping references. |
@@ -51,9 +51,9 @@ These are planned allocations. Actual timed rehearsals remain pending.
 | 9 | Author discovery/validation cohorts and the 787/263 training/screening split. |
 | 10 | Constant, IFNG, logistic regression and CatBoost, with concise rationale. |
 | 11 | Recall and precision, threshold selection and the recorded screening counts. |
-| 12 | Editable validation error chart; discovery selection count highlighted in the deck's teal, with the 20-repetition design explained aloud. |
-| 13 | Software engineering transition: inspect evidence, score a specimen, trace and check the calculation. |
-| 14 | Model comparison, software engineering and the next research question. |
+| 12 | Editable validation error chart with teal Incorrect flags before orange Missed cases in the legend, matching the bars; discovery selection count highlighted in the deck's teal, with the 20-repetition design explained aloud. |
+| 13 | Title: Software Engineering Demo. Retain Reports, application and scoring service as the subtitle. No bullets. Introduce the browser stops aloud. |
+| 14 | Completed model comparison and software engineering. Remove the next-steps text from both the slide and spoken closing. |
 
 Slides 1–12 retain their established order and time allocations. Replace the
 former technical slides 13–18 with browser material. Return once to PowerPoint
@@ -122,8 +122,9 @@ verification and setup before showing their supporting code and records.
   antibody-mediated rejection and some chronic active T-cell-mediated rejection.
   The diagnostic exclusion counts are not reported. Assay QC exclusions are a
   separate step and cannot supply those counts.
-- KDIGO recommendation 6.1 supports the biopsy/treatment connection. In the script,
-  retain the exception when waiting for biopsy would substantially delay treatment.
+- KDIGO recommendation 6.1 supports the biopsy/treatment connection. Retain the
+  exception for substantial treatment delay on slide 4 and in its script. Explain
+  the two error consequences in slide 3 narration.
   It does not establish the clinical usefulness of this model. Banff and Zhang
   provide distinct context and remain on slide 4.
 - The demonstrated model version is `20260915_shared:any_rejection:catboost_all_depth4`.
@@ -153,6 +154,8 @@ Rehearsal must include both screen-share transitions. The script contains its
 planned timing and a way to record measured duration. Detailed methods, sources
 and likely question answers remain in the reports and reference library.
 
-The [engineering revision note](references/ENGINEERING_DEMO_20260922.md) records
-the implemented change. Earlier dated notes and the archived 19-slide deck
+The [September 23 final pass](references/PRESENTATION_FINAL_PASS_20260923.md)
+records the current slide and narration changes. The
+[engineering revision note](references/ENGINEERING_DEMO_20260922.md) records
+the browser-demo structure. Earlier dated notes and the archived 19-slide deck
 preserve history; they do not describe the current sequence.
