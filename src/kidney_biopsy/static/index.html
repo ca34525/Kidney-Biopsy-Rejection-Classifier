@@ -14,18 +14,12 @@
       <span class="brand-mark" aria-hidden="true">kb</span>
       <span>Kidney biopsy<span class="brand-subtitle">Rejection classifier</span></span>
     </a>
-    <div class="header-right"><span class="research-tag">Research use</span><span class="service-status" id="service-status" role="status">Connecting…</span></div>
+    <div class="header-right"><span class="service-status" id="service-status" role="status">Connecting…</span></div>
   </header>
   <main>
-    <section class="intro" aria-labelledby="page-title">
-      <p class="eyebrow">Molecular measurements · Recorded diagnosis</p>
-      <h1 id="page-title">From biopsy counts<br>to a rejection score.</h1>
-      <p class="intro-copy">Explore how a trained model classifies an existing kidney biopsy using its B-HOT assay measurements.</p>
-    </section>
-
     <div class="workspace">
       <section class="panel input-panel" aria-labelledby="input-title">
-        <div class="section-heading"><span class="step-number">01</span><h2 id="input-title">Choose the counts</h2></div>
+        <div class="section-heading"><span class="step-number">01</span><h2 id="input-title">Choose a Specimen</h2></div>
         <label for="example-select">Public study example</label>
         <select id="example-select" disabled><option value="">Loading examples…</option></select>
         <p id="example-description" class="field-help">Examples come from the saved discovery-screen split.</p>
@@ -35,14 +29,12 @@
         <div class="file-selection" id="file-selection" hidden><span id="file-name"></span><button id="clear-file" type="button" class="text-button">Clear</button></div>
         <p class="field-help" id="input-limits">All 770 targets · Up to 16 specimens · 2 MiB</p>
         <button type="button" id="run-button" class="primary-button" disabled>Get research score <span aria-hidden="true">→</span></button>
-        <button type="button" id="invalid-button" class="invalid-button" disabled>Try an incomplete file</button>
-        <p class="privacy-note">Uploaded counts are processed for this request and are not saved.</p>
       </section>
 
       <section class="panel result-panel" aria-labelledby="result-title">
-        <div class="section-heading"><span class="step-number">02</span><h2 id="result-title">Follow the specimen</h2><span class="fixed-tag">Fixed threshold</span></div>
+        <div class="section-heading"><span class="step-number">02</span><h2 id="result-title">View the Results</h2></div>
         <div id="result-content" aria-live="polite" aria-atomic="true">
-          <div class="empty-result"><span class="empty-icon" aria-hidden="true">↗</span><h3>Ready when you are</h3><p>Choose a public example to follow its counts through normalization, the model score, and the fixed threshold. Compatible CSV uploads return scores through the same model.</p></div>
+          <div class="empty-result"><span class="empty-icon" aria-hidden="true">↗</span><h3>Ready when you are</h3><p>Choose a public specimen or upload a compatible counts CSV to view its model score and result.</p></div>
         </div>
         <div id="threshold-context" class="threshold-context" hidden>
           <div><span>Frozen threshold</span><strong id="threshold-value"></strong></div>
@@ -58,7 +50,6 @@
     </section>
 
     <details class="requirements" id="input-requirements"><summary>Input requirements and model details <span aria-hidden="true">+</span></summary><div class="requirements-content"><p>The CSV starts with a specimen ID column, followed by all required raw assay targets, including the 12 housekeeping targets. Target columns may be reordered. Missing, duplicate, extra, nonnumeric, negative, or non-finite measurements fail the entire batch. Specimen IDs must be present and unique.</p><p>The caller must establish that measurements came from the compatible assay. A valid numeric file alone cannot establish assay compatibility.</p><p><a href="/model" target="_blank" rel="noopener">View required target names and model metadata ↗</a></p><p class="model-version">Model <code id="model-version">Unavailable</code></p></div></details>
-    <footer><p>This score studies agreement with recorded diagnoses. It does not establish a basis for care decisions or predict future rejection.</p><span>Independent research project · GSE212160</span></footer>
   </main>
 </body>
 </html>

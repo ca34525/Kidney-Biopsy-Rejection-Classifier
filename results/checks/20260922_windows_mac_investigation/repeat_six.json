@@ -1,0 +1,31 @@
+{
+  "procedure": "One unchanged depth-6 refit of stability repetition 6 on Mac.",
+  "seed": 20260922,
+  "candidate_parameters": {
+    "iterations": 300,
+    "learning_rate": 0.04,
+    "depth": 6,
+    "loss_function": "Logloss",
+    "thread_count": 3,
+    "random_seed": 2026,
+    "verbose": false,
+    "allow_writing_files": false
+  },
+  "input_sha256": {
+    "GSE212160_series_matrix.txt.gz": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050",
+    "GSE212160_RAW.tar": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8"
+  },
+  "comparisons": {
+    "windows": {
+      "saved_model_on_mac_vs_saved_scores": 0.0,
+      "refit_vs_saved_model_on_same_inputs": 0.0214847200102104,
+      "assignment_rows": 1050
+    },
+    "mac": {
+      "saved_model_on_mac_vs_saved_scores": 0.0,
+      "refit_vs_saved_model_on_same_inputs": 0.0,
+      "assignment_rows": 1050
+    }
+  },
+  "mac_and_windows_assignments_equal": true
+}

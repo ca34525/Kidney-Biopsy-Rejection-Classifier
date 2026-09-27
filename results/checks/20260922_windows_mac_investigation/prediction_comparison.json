@@ -1,0 +1,513 @@
+{
+  "primary": {
+    "antibody_mediated_component_catboost_all_depth6_screen_predictions.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "rejection_score": 5.551115123125783e-16
+      }
+    },
+    "antibody_mediated_component_catboost_all_depth6_test_predictions.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "probability": 3.3306690738754696e-16
+      }
+    },
+    "antibody_mediated_component_logistic_all_screen_predictions.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "rejection_score": 2.9022340086726217e-12
+      }
+    },
+    "antibody_mediated_component_logistic_all_test_predictions.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "probability": 5.2069737410676e-12
+      }
+    },
+    "antibody_mediated_component_single_gene_IFNG_screen_predictions.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "rejection_score": 5.551115123125783e-17
+      }
+    },
+    "antibody_mediated_component_single_gene_IFNG_test_predictions.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "probability": 5.551115123125783e-17
+      }
+    },
+    "any_rejection_catboost_all_depth4_screen_predictions.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "rejection_score": 6.661338147750939e-16
+      }
+    },
+    "any_rejection_catboost_all_depth4_test_predictions.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "probability": 6.661338147750939e-16
+      }
+    },
+    "any_rejection_logistic_all_screen_predictions.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "rejection_score": 8.051337374581635e-13
+      }
+    },
+    "any_rejection_logistic_all_test_predictions.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "probability": 1.2154166562083901e-12
+      }
+    },
+    "any_rejection_single_gene_IFNG_screen_predictions.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "rejection_score": 2.220446049250313e-16
+      }
+    },
+    "any_rejection_single_gene_IFNG_test_predictions.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "probability": 2.220446049250313e-16
+      }
+    },
+    "t_cell_mediated_component_catboost_all_depth4_screen_predictions.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "rejection_score": 3.608224830031759e-16
+      }
+    },
+    "t_cell_mediated_component_catboost_all_depth4_test_predictions.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "probability": 4.440892098500626e-16
+      }
+    },
+    "t_cell_mediated_component_logistic_all_screen_predictions.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "rejection_score": 6.972200594645983e-14
+      }
+    },
+    "t_cell_mediated_component_logistic_all_test_predictions.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "probability": 5.750955267558311e-14
+      }
+    },
+    "t_cell_mediated_component_single_gene_IFNG_screen_predictions.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "rejection_score": 9.14823772291129e-14
+      }
+    },
+    "t_cell_mediated_component_single_gene_IFNG_test_predictions.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "probability": 9.14823772291129e-14
+      }
+    }
+  },
+  "stability": {
+    "01/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 1.8444757721169935e-08
+      }
+    },
+    "01/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 5.495492949592062e-12,
+        "threshold": 2.183586644832758e-12
+      }
+    },
+    "02/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 4.875932990699994e-12
+      }
+    },
+    "02/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 5.440092820663267e-15,
+        "threshold": 1.1102230246251565e-15
+      }
+    },
+    "03/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 9.091227770596788e-12
+      }
+    },
+    "03/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 3.608224830031759e-15,
+        "threshold": 8.881784197001252e-16
+      }
+    },
+    "04/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 6.002520702708125e-11
+      }
+    },
+    "04/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 7.948974811711196e-11,
+        "threshold": 4.669487019270946e-12
+      }
+    },
+    "05/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 3.4940617066325785e-10
+      }
+    },
+    "05/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 3.3438252167172777e-12,
+        "threshold": 7.506217869490683e-13
+      }
+    },
+    "06/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 0.0214847200102104
+      }
+    },
+    "06/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 8.326672684688674e-16,
+        "threshold": 1.1102230246251565e-16
+      }
+    },
+    "07/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 2.09057882116781e-10
+      }
+    },
+    "07/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 7.948641744803808e-13,
+        "threshold": 2.531308496145357e-14
+      }
+    },
+    "08/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 4.109490525650017e-12
+      }
+    },
+    "08/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 3.086420008457935e-14,
+        "threshold": 7.882583474838611e-15
+      }
+    },
+    "09/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 4.1026770869478923e-10
+      }
+    },
+    "09/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 1.070198374364395e-10,
+        "threshold": 3.834410566838642e-11
+      }
+    },
+    "10/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 2.9929669853601126e-12
+      }
+    },
+    "10/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 7.716050021144838e-15,
+        "threshold": 3.774758283725532e-15
+      }
+    },
+    "11/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 1.6368573163560995e-12
+      }
+    },
+    "11/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 7.216449660063518e-16,
+        "threshold": 1.1102230246251565e-16
+      }
+    },
+    "12/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 1.5637602324147792e-11
+      }
+    },
+    "12/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 1.1463052729254741e-14,
+        "threshold": 3.3306690738754696e-15
+      }
+    },
+    "13/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 1.917477288060354e-11
+      }
+    },
+    "13/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 9.673151168954064e-12,
+        "threshold": 6.3541394368371584e-12
+      }
+    },
+    "14/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 4.278910559207816e-12
+      }
+    },
+    "14/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 9.992007221626409e-16,
+        "threshold": 3.3306690738754696e-16
+      }
+    },
+    "15/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 1.4727108421652702e-13
+      }
+    },
+    "15/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 2.220446049250313e-15,
+        "threshold": 3.3306690738754696e-16
+      }
+    },
+    "16/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 5.68823443902744e-09
+      }
+    },
+    "16/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 5.051514762044462e-15,
+        "threshold": 8.881784197001252e-16
+      }
+    },
+    "17/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 1.4934664616106375e-11
+      }
+    },
+    "17/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 6.105116412413736e-13,
+        "threshold": 2.007283228522283e-13
+      }
+    },
+    "18/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 2.2103539252249504e-06
+      }
+    },
+    "18/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 9.048317650695026e-15,
+        "threshold": 2.220446049250313e-16
+      }
+    },
+    "19/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 3.552202698653417e-10
+      }
+    },
+    "19/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 2.7200464103316335e-15,
+        "threshold": 3.3306690738754696e-16
+      }
+    },
+    "20/screen_predictions.csv": {
+      "rows": 1050,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 2.617449812447603e-09
+      }
+    },
+    "20/assessment_predictions.csv": {
+      "rows": 420,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "score": 1.2212453270876722e-15,
+        "threshold": 3.3306690738754696e-16
+      }
+    }
+  },
+  "subtypes": {
+    "author_validation_scores.csv": {
+      "rows": 345,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "four_class_catboost_No Rejection_score": 5.551115123125783e-16,
+        "four_class_catboost_Antibody-mediated Rejection_score": 5.551115123125783e-16,
+        "four_class_catboost_T cell-mediated Rejection_score": 4.440892098500626e-16,
+        "four_class_catboost_Mixed Rejection_score": 2.498001805406602e-16,
+        "four_class_catboost_any_rejection_score": 4.440892098500626e-16,
+        "four_class_catboost_antibody_mediated_component_score": 4.440892098500626e-16,
+        "four_class_catboost_t_cell_mediated_component_score": 4.440892098500626e-16,
+        "four_class_logistic_No Rejection_score": 5.864012053713452e-10,
+        "four_class_logistic_Antibody-mediated Rejection_score": 2.863155268428841e-10,
+        "four_class_logistic_T cell-mediated Rejection_score": 5.843397987703725e-10,
+        "four_class_logistic_Mixed Rejection_score": 4.863409674982222e-10,
+        "four_class_logistic_any_rejection_score": 5.864010388378915e-10,
+        "four_class_logistic_antibody_mediated_component_score": 3.822053784574564e-10,
+        "four_class_logistic_t_cell_mediated_component_score": 5.874516428860943e-10,
+        "benchmark_any_rejection_score": 6.661338147750939e-16,
+        "benchmark_antibody_mediated_component_score": 3.3306690738754696e-16,
+        "benchmark_t_cell_mediated_component_score": 4.440892098500626e-16
+      }
+    },
+    "discovery_screen_scores.csv": {
+      "rows": 263,
+      "changed_labels_or_flags": {},
+      "max_numeric_differences": {
+        "four_class_catboost_No Rejection_score": 3.3306690738754696e-16,
+        "four_class_catboost_Antibody-mediated Rejection_score": 3.3306690738754696e-16,
+        "four_class_catboost_T cell-mediated Rejection_score": 3.3306690738754696e-16,
+        "four_class_catboost_Mixed Rejection_score": 3.3306690738754696e-16,
+        "four_class_catboost_any_rejection_score": 3.885780586188048e-16,
+        "four_class_catboost_antibody_mediated_component_score": 2.7755575615628914e-16,
+        "four_class_catboost_t_cell_mediated_component_score": 3.3306690738754696e-16,
+        "four_class_logistic_No Rejection_score": 2.7302404781437417e-10,
+        "four_class_logistic_Antibody-mediated Rejection_score": 4.2702508196157396e-10,
+        "four_class_logistic_T cell-mediated Rejection_score": 3.118970082205408e-10,
+        "four_class_logistic_Mixed Rejection_score": 3.4132613402348966e-10,
+        "four_class_logistic_any_rejection_score": 2.730239367920717e-10,
+        "four_class_logistic_antibody_mediated_component_score": 4.2780523568097806e-10,
+        "four_class_logistic_t_cell_mediated_component_score": 3.7270647679221725e-10,
+        "benchmark_any_rejection_score": 6.661338147750939e-16,
+        "benchmark_antibody_mediated_component_score": 5.551115123125783e-16,
+        "benchmark_t_cell_mediated_component_score": 3.608224830031759e-16
+      }
+    }
+  },
+  "inputs": {
+    "GSE212160_series_matrix.txt.gz": {
+      "mac_sha256": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050",
+      "windows_sha256": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050"
+    },
+    "GSE212160_RAW.tar": {
+      "mac_sha256": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8",
+      "windows_sha256": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8"
+    }
+  },
+  "source": {
+    "experiments/rejection_public/run.py": {
+      "same_text_ignoring_line_endings": true
+    },
+    "experiments/rejection_stability/run.py": {
+      "same_text_ignoring_line_endings": true
+    },
+    "experiments/rejection_subtypes/run.py": {
+      "same_text_ignoring_line_endings": true
+    },
+    "src/kidney_biopsy/preprocessing.py": {
+      "same_text_ignoring_line_endings": true
+    },
+    "src/kidney_biopsy/source.py": {
+      "same_text_ignoring_line_endings": true
+    },
+    "uv.lock": {
+      "same_text_ignoring_line_endings": true
+    },
+    "pyproject.toml": {
+      "same_text_ignoring_line_endings": true
+    }
+  }
+}

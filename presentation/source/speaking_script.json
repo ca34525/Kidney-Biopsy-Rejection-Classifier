@@ -1,10 +1,10 @@
 {
   "title": "Classifying Kidney Transplant Rejection from Biopsy RNA — speaking script",
-  "status": "Fourteen slides with one continuous three-stop browser demonstration. Planned talk: 20 minutes, including 7:30 in the browser. Timed rehearsal remains pending.",
+  "status": "Fourteen slides with one continuous three-stop browser demonstration. Planned talk: 20 minutes, including 7:30 in the browser. Rehearsals are underway.",
   "delivery": "Spoken text belongs in the separate HTML deliverable. PowerPoint notes must remain empty.",
   "planned_seconds": 1200,
   "rehearsal": {
-    "status": "Pending",
+    "status": "The presenter reports rehearsing as of September 23, 2026. Measured durations have not been supplied.",
     "required": [
       "Two complete timed rehearsals with the demonstration",
       "One interruption and demonstration-fallback rehearsal"
@@ -41,10 +41,6 @@
         {
           "label": "Banff Reference Guide, Banff-Kidney-2024-3, updated April 20, 2026: validated biopsy transcript diagnostics in antibody-mediated rejection assessment",
           "url": "https://banfffoundation.org/central-repository-for-banff-classification-resources-3/"
-        },
-        {
-          "label": "Established application and the purpose of this project, September 21 revision",
-          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
         }
       ]
     },
@@ -99,12 +95,12 @@
       "title": "Purpose of this project",
       "seconds": 65,
       "paragraphs": [
-        "Whether rejection is present can affect whether clinicians consider more treatment to suppress the immune system. A binary molecular score could provide additional evidence during that assessment, while subtype and other findings would still guide treatment. That is the potential use motivating this project.",
+        "Whether rejection is present can affect decisions about further treatment to suppress the immune system. Missed rejection can leave kidney injury untreated, while unnecessary treatment can worsen an infection. A binary molecular score could provide additional evidence during that assessment, while subtype and other findings would still guide treatment.",
         "The first part is model comparison. How do logistic regression and CatBoost compare in classifying any recorded rejection versus no rejection from B-HOT biopsy RNA, particularly in missed cases and incorrect flags? I evaluate them against the recorded diagnoses on the same specimens.",
         "The second part is software engineering. I made preprocessing, training and evaluation reproducible, then built a tested scoring service and prototype application. They let a user submit compatible RNA counts and inspect the selected model score, its threshold and the rejection flag. An analyst can try the model through the application, and other software can call the service."
       ],
       "actions": [
-        "Connect the binary endpoint to treatment-related assessment. Give the model comparison and software aims equal weight. Describe the score as a potential additional source of evidence, with the current evaluation against recorded diagnoses. Leave Banff and Zhang to the next slide."
+        "Connect the binary endpoint to treatment-related assessment and briefly explain both error consequences. Give the model comparison and software aims equal weight. Describe the score as a potential additional source of evidence, with the current evaluation against recorded diagnoses. Leave Banff, Zhang and the KDIGO recommendation to the next slide."
       ],
       "visible_cues": [
         "Whether rejection is present can affect decisions about further treatment to suppress the immune system.",
@@ -122,15 +118,19 @@
         },
         {
           "label": "Clinical motivation, potential use and the two project aims",
-          "path": "docs/references/PRACTICAL_PURPOSE_20260922.md"
-        },
-        {
-          "label": "Project research context and the different binary endpoint",
           "path": "docs/RESEARCH_CONTEXT.md"
         },
         {
           "label": "The scoring service and public specimen demonstration",
           "path": "docs/API.md"
+        },
+        {
+          "label": "Second International Consensus Guidelines on BK Polyomavirus, 2024",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11335089/"
+        },
+        {
+          "label": "Source review of biopsy findings, care decisions and error consequences",
+          "path": "docs/references/BIOPSY_CARE_20260919.md"
         }
       ]
     },
@@ -140,16 +140,16 @@
       "seconds": 70,
       "paragraphs": [
         "Banff is a framework specialists use to classify transplant biopsy findings. Its current guidance includes thoroughly validated biopsy transcript tests in defined settings for antibody-mediated rejection. That gives molecular assessment an established clinical context. It does not confer that validation on my classifier.",
-        "Zhang and colleagues provide the public B-HOT data. Their four-class study already compared regularized regression with other approaches, including gradient boosting. They selected LASSO, a form of regularized regression, because accuracy was similar and it can use fewer weighted features. Their result is a reason to take the simpler comparator seriously.",
-        "Biopsy findings also help guide treatment. KDIGO recommends a biopsy before treating acute rejection, unless waiting would substantially delay treatment. That helps explain why both errors matter: missed rejection can leave kidney injury untreated, while unnecessary treatment to suppress the immune system can worsen an infection."
+        "Biopsy findings also help guide treatment. KDIGO recommends biopsy before treating acute rejection, unless waiting would substantially delay treatment. This connects the assessment of biopsy findings to a treatment decision. It does not establish that my model improves that decision.",
+        "Zhang and colleagues provide the public B-HOT data. Their four-class study already compared regularized regression with other approaches, including gradient boosting. They selected LASSO, a form of regularized regression, because accuracy was similar and it can use fewer weighted features. Their result is a reason to take the simpler comparator seriously."
       ],
       "actions": [
-        "Explain Banff and Zhang, then connect biopsy findings to treatment through KDIGO recommendation 6.1. Keep the guideline detail in the script and the treatment connection on the slide."
+        "Explain Banff, then the Biopsy and treatment row, followed by Zhang’s study. Expand KDIGO as Kidney Disease: Improving Global Outcomes if needed. Retain the exception for substantial treatment delay. The two error consequences were introduced on slide 3."
       ],
       "visible_cues": [
         "Banff diagnostic framework: validated biopsy transcript tests have a defined role in antibody-mediated rejection assessment.",
-        "Published B-HOT study, Zhang 2024: four-class study compared regression and boosting. Selected LASSO for similar accuracy with fewer features.",
-        "Biopsy findings help guide treatment for rejection. Missed rejection can leave kidney injury untreated. Unnecessary treatment can worsen an infection."
+        "Biopsy and treatment: KDIGO recommends biopsy before treating acute rejection, unless waiting would substantially delay treatment.",
+        "Published B-HOT study, Zhang 2024: four-class study compared regression and boosting. Selected LASSO for similar accuracy with fewer features."
       ],
       "sources": [
         {
@@ -169,20 +169,12 @@
           "url": "https://kdigo.org/wp-content/uploads/2017/02/KITxpGL_summary.pdf"
         },
         {
-          "label": "Second International Consensus Guidelines on BK Polyomavirus, 2024",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11335089/"
-        },
-        {
-          "label": "Source review of biopsy findings, care decisions and error consequences",
-          "path": "docs/references/BIOPSY_CARE_20260919.md"
-        },
-        {
           "label": "Zhang et al., Supplementary Methods: algorithm comparison and LASSO selection",
           "url": "https://ars.els-cdn.com/content/image/1-s2.0-S0023683723002477-mmc6.docx"
         },
         {
-          "label": "Established application and the purpose of this project, September 21 revision",
-          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
+          "label": "Established application and project purpose",
+          "path": "docs/RESEARCH_CONTEXT.md"
         }
       ]
     },
@@ -224,10 +216,6 @@
         {
           "label": "September 19 full-study review with exact source pages",
           "path": "docs/references/STUDY_AUDIT_20260919.md"
-        },
-        {
-          "label": "September 22 source recheck and presentation discussion",
-          "path": "docs/references/PRESENTATION_CONTEXT_PASS_20260922.md"
         }
       ]
     },
@@ -272,10 +260,6 @@
         {
           "label": "Full-study review: label definitions and excluded categories",
           "path": "docs/references/STUDY_AUDIT_20260919.md"
-        },
-        {
-          "label": "September 22 source recheck and presentation discussion",
-          "path": "docs/references/PRESENTATION_CONTEXT_PASS_20260922.md"
         }
       ]
     },
@@ -324,10 +308,6 @@
           "path": "src/kidney_biopsy/preprocessing.py"
         },
         {
-          "label": "Project preprocessing specification",
-          "path": "docs/PROJECT_SPEC.md"
-        },
-        {
           "label": "NanoString analysis guidelines: housekeeping normalization as a reference for RNA input",
           "url": "https://nanostring.com/wp-content/uploads/Gene_Expression_Data_Analysis_Guidelines.pdf"
         },
@@ -367,8 +347,8 @@
           "path": "docs/PROJECT_SPEC.md"
         },
         {
-          "label": "Public example provenance",
-          "path": "data/demo/manifest.json"
+          "label": "Captured public example and calculation",
+          "path": "presentation/source/demo_snapshot.json"
         },
         {
           "label": "Demo behavior and exact invalid-input response",
@@ -484,8 +464,8 @@
           "url": "https://catboost.ai/docs/en/concepts/python-reference_catboostclassifier"
         },
         {
-          "label": "September 21 wording and source review",
-          "path": "docs/references/PRESENTATION_WORDING_20260921.md"
+          "label": "Methodology review and CatBoost rationale",
+          "path": "docs/METHODOLOGY_REVIEW.md"
         }
       ]
     },
@@ -533,13 +513,13 @@
         "These results use the same 345 validation specimens: missed cases among 169 recorded as rejection, and incorrect flags among 176 recorded as no rejection.",
         "IFNG missed 14 cases and incorrectly flagged 75. All-RNA logistic regression missed 33 and incorrectly flagged eight. CatBoost missed 25 and also incorrectly flagged eight.",
         "CatBoost therefore missed eight fewer cases than logistic regression, with the same number of incorrect flags. That adds evidence in its favor beyond the narrow screening result. The paired 95 percent bootstrap interval for the recall difference includes zero, though, so a dependable advantage remains uncertain.",
-        "I then checked how much model choice depended on the split, using only the 1,050 discovery specimens. In each of 20 repetitions, I reshuffled them into 630 for training, 210 for screening, and 210 held out for a final assessment, keeping diagnosis proportions similar. Training fitted the candidates. Screening chose the model and threshold. I then checked that fitted model and threshold on the held-out discovery specimens. Those specimens play the validation role within each repetition. The original 345-specimen validation cohort was not used in this follow-up.",
-        "CatBoost was selected 13 times and logistic regression seven. The repetitions reuse specimens, and the choice varies with the split. This is further reason to keep logistic regression in consideration.",
+        "CatBoost’s narrow screening advantage prompted a follow-up with 20 random discovery splits, keeping diagnosis proportions similar. Each used 630 specimens for training, 210 for screening and 210 for assessment. This procedure used fewer training specimens and revised candidate settings, held fixed across repetitions. Screening chose settings, thresholds and the preferred family. Assessment checked both family winners afterward. The original 345 validation specimens were unused.",
+        "Screening selected CatBoost 13 times and logistic regression seven. The preferred model changed with the discovery split, so logistic regression remains a credible simpler alternative. The repetitions reuse specimens.",
         "Compared with IFNG, CatBoost makes 67 fewer incorrect flags but misses 11 more cases. Its validation recall is 85.2 percent, below the 90 percent screening target. The preferred tradeoff depends on how the result would be used.",
         "The constant model flags everyone at its threshold of 0.5. It misses no rejection cases but incorrectly flags all 176 no-rejection specimens."
       ],
       "actions": [
-        "Use the chart's missed-cases and incorrect-flags labels. Explain the CatBoost/logistic difference and uncertainty. Point to the colored follow-up sentence while explaining training, screening, and held-out discovery assessment. Distinguish that assessment from the original validation cohort. End with the IFNG tradeoff, then the constant baseline."
+        "Use the chart's missed-cases and incorrect-flags labels. Explain the CatBoost/logistic difference and uncertainty. Identify the colored sentence as follow-up screening selections. Describe the revised discovery procedure and distinguish its supporting assessment from author validation. End with the IFNG tradeoff, then the constant baseline."
       ],
       "visible_cues": [
         "Same 345 specimens: 169 rejection and 176 no rejection",
@@ -548,7 +528,7 @@
         "All RNA (Logistic Regression): 33 missed cases and 8 incorrect flags",
         "CatBoost: 25 missed cases and 8 incorrect flags",
         "Constant baseline: 0 missed cases, 176 incorrect flags. It flags everyone.",
-        "Across 20 discovery splits: CatBoost selected 13 times, logistic 7."
+        "Follow-up screening selections across 20 discovery splits: CatBoost 13, logistic 7."
       ],
       "sources": [
         {
@@ -564,26 +544,23 @@
           "path": "results/followup/20260917_stability/REPORT.md"
         },
         {
-          "label": "September 22 source recheck and presentation discussion",
-          "path": "docs/references/PRESENTATION_CONTEXT_PASS_20260922.md"
+          "label": "Full-study review and September 22 source recheck",
+          "path": "docs/references/STUDY_AUDIT_20260919.md"
         }
       ]
     },
     {
       "id": 13,
-      "title": "Software engineering",
+      "title": "Software Engineering Demo",
       "seconds": 15,
       "paragraphs": [
         "I will now switch to the browser for the software engineering portion. I will inspect the saved evidence, score a public specimen, and show how the software preserves and checks the calculation."
       ],
       "actions": [
-        "Switch from PowerPoint to the pre-opened engineering_demo.html page. Keep the same browser tab throughout all three stops. Return to PowerPoint on slide 14 afterward."
+        "Switch from PowerPoint to the pre-opened engineering_demo.html page. The Application link opens a separate tab; the engineering page stays open for the third stop. Return to PowerPoint on slide 14 afterward."
       ],
       "visible_cues": [
-        "Reports, application and scoring service",
-        "Inspect the evidence",
-        "Score a public specimen",
-        "Trace and check the calculation"
+        "Reports, application and scoring service"
       ],
       "sources": [
         {
@@ -599,18 +576,16 @@
       "paragraphs": [
         "To return to the two project aims: in the model comparison, CatBoost missed eight fewer validation rejection cases than logistic regression, with eight incorrect flags each. The uncertainty and repeated discovery splits leave a dependable advantage unsettled.",
         "For software engineering, I made the analysis reproducible and built a tested scoring service and prototype application. Another user can inspect the evidence, submit compatible counts and identify the model and threshold behind the result.",
-        "Next, I would compare the models using cross-validation within discovery, then investigate whether the score adds useful information during rejection assessment.",
         "Zhang and colleagues supplied the public data. AI assisted with development and this presentation. Thank you."
       ],
       "actions": [
-        "Return to PowerPoint on slide 14. Summarize both aims and the next research question. Questions follow the full presentation."
+        "Return to PowerPoint on slide 14. Summarize the completed model comparison and software engineering, acknowledge the public data and AI assistance, then invite questions."
       ],
       "visible_cues": [
         "Model comparison",
         "CatBoost missed 8 fewer rejection cases than logistic, with 8 incorrect flags each. A dependable advantage remains uncertain.",
         "Software engineering",
         "Reproducible analysis and a tested scoring service, with a prototype application and checks against saved results.",
-        "Next: cross-validation within discovery. Then investigate whether the score adds useful diagnostic information.",
         "Public data: Zhang et al. (2024), GSE212160. Development and presentation used AI assistance."
       ],
       "sources": [
@@ -629,20 +604,12 @@
         {
           "label": "Original study",
           "url": "https://pubmed.ncbi.nlm.nih.gov/38092179/"
-        },
-        {
-          "label": "Proposed cross-validation follow-up and clinical evaluation",
-          "path": "docs/NEXT_STEPS.md"
-        },
-        {
-          "label": "Established application and the purpose of this project, September 21 revision",
-          "path": "docs/references/PRESENTATION_PURPOSE_20260921.md"
         }
       ]
     }
   ],
   "backups": [],
-  "revision": "2026-09-22: KDIGO treatment connection on slide 4; teal follow-up emphasis on slide 12; former technical slides replaced by transition slide 13, an engineering HTML demonstration and closing slide 14. Saved models, thresholds and analysis results are unchanged.",
+  "revision": "2026-09-23: Biopsy and treatment row on slide 4; error consequences in slide 3 narration; ordered legend keys on slide 12; Software Engineering Demo title without bullets on slide 13; next-steps text removed from slide 14 and its narration. Concise screening-selection framing on slide 12 and in the repeated-splits demo, with expandable assessment results and matching narration. Slide 4 now places Biopsy and treatment before Published B-HOT study, with matching narration.",
   "browser_demo": {
     "after_slide": 13,
     "seconds": 450,
@@ -650,23 +617,23 @@
     "stops": [
       {
         "id": "evidence",
-        "title": "Inspect the saved evidence",
+        "title": "Model comparison results",
         "seconds": 75,
         "paragraphs": [
-          "This page gives another analyst a short route into the saved evidence. The error table retains the original diagnoses even though the model predicts a binary outcome. Most missed cases were T-cell-mediated rejection: eighteen for CatBoost and twenty-five for logistic regression. Mixed rejection has only eighteen specimens, so I would be cautious about its apparent difference.",
-          "The full primary report contains the other model comparisons, uncertainty intervals and score-reliability analysis. The discovery-split follow-up is a separate report, because it asks how the development decision changes with the split.",
-          "Here are the twenty recorded selections behind the thirteen-to-seven count. Each repetition has separate training, screening and held-out assessment partitions within discovery. The partitions overlap across repetitions. On assessment, neither family consistently has fewer missed cases. The saved design and complete results are available from this page."
+          "The first table compares errors on the same three hundred and forty-five specimens from the authors’ technical-validation cohort. Each fraction shows errors out of the specimens with that diagnosis. Most missed rejection cases were T-cell-mediated: eighteen for CatBoost and twenty-five for logistic regression. Mixed rejection has only eighteen specimens, so its error rates are particularly uncertain.",
+          "The next view follows up on CatBoost’s narrow screening advantage. Each of twenty repetitions randomly reassigned the discovery specimens, preserving approximately the diagnosis proportions. For each split, I fitted models on six hundred and thirty specimens, used two hundred and ten for screening, and reserved two hundred and ten for assessment. The candidate settings differed from the original experiment but stayed fixed across repetitions. The authors’ validation cohort was unused.",
+          "Screening selected CatBoost thirteen times and logistic regression seven. Model choice changed with the discovery split. The expandable assessment results provide supporting evidence and did not determine those selections. The repetitions reuse specimens. All twenty selections and the full reports are available here."
         ],
         "actions": [
-          "Evidence tab: show Errors by diagnosis. Point to the T-cell-mediated row and the mixed-rejection denominator. Briefly open Read the full primary analysis, then close the source dialog.",
-          "Choose Discovery splits. Show the 630/210/210 roles and expand Inspect all 20 selections briefly. Close the list before moving on. Do not read every row. Use Next: application."
+          "Model comparison opens on Validation errors by diagnosis. The cohort explanation precedes the table. The Primary analysis report opens in the source dialog.",
+          "Model choice across repeated splits explains the motivation and design before the screening selections. Supporting results: errors on held-out discovery specimens expands the assessment table. All 20 selections and random seeds is also expandable. Next: application advances to the CSV preview."
         ],
         "visible_cues": [
-          "Errors by diagnosis",
-          "Discovery splits",
-          "Inspect all 20 selections",
-          "Read the full primary analysis",
-          "Read the complete follow-up"
+          "Validation errors by diagnosis",
+          "Model choice across repeated splits",
+          "Three separate groups within each repetition",
+          "Preferred family across the 20 repetitions",
+          "Supporting results: errors on held-out discovery specimens"
         ],
         "sources": [
           {
@@ -681,26 +648,27 @@
       },
       {
         "id": "specimen",
-        "title": "Score a public specimen",
+        "title": "A public specimen in the application",
         "seconds": 135,
         "paragraphs": [
-          "This is the working application, embedded in the same browser page. The intended user here is an analyst or molecular laboratory researcher who wants to try the selected model without running the training scripts. Another program can use the same service directly.",
+          "This preview shows selected columns from the actual input CSV. Each row represents a specimen, with its identifier followed by seven hundred and seventy raw counts. The full input includes all twelve housekeeping targets. The application link opens the working service in a separate tab. An analyst or molecular laboratory researcher can use it without running the training scripts.",
           "I will use this public specimen, GSM6510425. It comes from the discovery-screen group and has a recorded no-rejection diagnosis. The prepared examples were selected by accession within each diagnosis, rather than by whether the model got them right. This is a software demonstration, separate from the validation result.",
           "The request supplies all seven hundred and seventy raw counts. The diagnosis is displayed for comparison, but it is not sent as a predictor. The application calls the service and shows the preparation for IFNG as one example. Four counts become about two point three two two after the log transformation. Subtracting the housekeeping reference gives about minus five point five seven eight. The same operation prepares the full model input.",
           "The model score is about zero point two seven five, below the frozen threshold of about zero point eight seven seven. The rejection flag is false. The score and threshold are separate, and the model version tells us which saved calculation produced them.",
           "Now I will remove IFNG. The application clears the previous result, identifies the missing measurement, and returns no new score. It does not silently fill the missing value. The user gets an explanation they can act on."
         ],
         "actions": [
-          "Confirm the page says Live application. In the embedded app, choose the No Rejection public example and click Get research score. Point to IFNG preparation, the score, frozen threshold and flag. Allow time for the audience to follow the fields.",
-          "Click Try an incomplete file. Show that the prior score disappears and Missing required assay targets: IFNG appears.",
-          "If the service is unavailable, use the labeled saved responses already on this page. Say: “These are captured responses from the same application.” Use Show saved complete input, then Show saved missing IFNG. Do not describe them as a live request.",
-          "Use the Engineering tab to continue. Keep the same browser tab open."
+          "The Application tab contains the CSV preview and one Kidney biopsy application link. That link opens a separate tab. The No Rejection example and Get research score control produce the public specimen result.",
+          "Choose Invalid: missing IFNG from Public study example, then click Get research score. The application clears the prior result and displays Missing required assay targets: IFNG.",
+          "If the service is unavailable, the separate demo_fallback.html contains captured application screenshots. The fallback wording is: “These are captured responses from the same application.” They are not live requests.",
+          "The engineering-page tab remains open. Its Engineering tab continues with the shared calculation."
         ],
         "visible_cues": [
-          "Live application or clearly labeled saved responses",
+          "Selected columns from the actual public example",
+          "Kidney biopsy application",
           "Get research score",
-          "Try an incomplete file",
-          "Model score, threshold, rejection flag and model version"
+          "Invalid: missing IFNG",
+          "Model score, threshold, rejection flag and model version in the application"
         ],
         "sources": [
           {
@@ -715,7 +683,7 @@
       },
       {
         "id": "engineering",
-        "title": "Trace and check the calculation",
+        "title": "The shared calculation and software checks",
         "seconds": 240,
         "paragraphs": [
           "The key implementation decision was to share the preparation and prediction code. Otherwise, the application could produce a different result from the analysis even while loading the same fitted model.",
@@ -729,17 +697,17 @@
           "Together, the reports make the analysis inspectable, the application makes the model usable, and the shared code and checks keep the software connected to the evaluated procedure. I will return to the slideshow to close."
         ],
         "actions": [
-          "Shared calculation, about 1:10: point to normalize_counts in both actual source excerpts. Explain the division between browser, service and shared prediction code. The complete code guide is for later reference.",
-          "API request and response, about 1:10: show the request and saved HTTP 200 response. Point to score, threshold, flag and version fields, then the HTTP 422 example. The download is optional; no terminal command needs to be typed during the talk.",
-          "Verification and handoff, about 1:40: show the 345-specimen comparison, open Inspect the recorded check briefly, then close it. Show the failure cases and handoff table. Distinguish the dates and scope of local and hosted checks.",
-          "Return to PowerPoint on slide 14. Do not return to any of the removed technical slides."
+          "Shared calculation, about 1:10: the preparation sequence leads to the training and prediction source excerpts. Both call normalize_counts. The code guide supplies further detail.",
+          "Programmatic access, about 1:10: the request precedes the response-field explanation. Complete saved JSON response expands the actual HTTP 200 response. The missing-IFNG example follows it.",
+          "Verification and setup, about 1:40: the cohort and comparison are explained before the agreement table. Recorded agreement check opens the historical record. Failure cases and setup evidence follow, with dates and local versus hosted scope identified.",
+          "Closing slide 14 provides the transition back to PowerPoint."
         ],
         "visible_cues": [
           "Shared calculation",
-          "API request and response",
-          "Verification and handoff",
-          "345 validation specimens",
-          "What another developer receives"
+          "Programmatic access",
+          "Verification and setup",
+          "Agreement between research results and the service",
+          "Reproducing and running the software"
         ],
         "sources": [
           {

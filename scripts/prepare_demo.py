@@ -16,7 +16,37 @@ from kidney_biopsy.prediction import (
     sha256,
     verify_artifact,
 )
+from kidney_biopsy.preprocessing import map_diagnoses
 from kidney_biopsy.source import read_geo_matrix, read_rcc_archive
+
+
+def select_error_examples(counts, metadata, split, predictor):
+    """Select actual screening errors at the configured model's frozen threshold."""
+    screening = split.index[split["split"].eq("discovery_screen")].sort_values()
+    diagnoses = metadata.loc[screening, "histology_diagnosis"]
+    recorded = map_diagnoses(diagnoses).astype(bool)
+    predictions = predictor.predict(
+        counts.loc[screening, list(predictor.schema.required_targets)]
+    ).set_index("specimen")
+    flagged = predictions.loc[screening, "rejection_flag"]
+    selected = []
+    for ident, eligible in [
+        ("false-positive", flagged & ~recorded),
+        ("false-negative", ~flagged & recorded),
+    ]:
+        specimens = screening[eligible]
+        if len(specimens) == 0:
+            raise ValueError(f"No discovery-screen {ident} example for this model.")
+        specimen = specimens[0]
+        selected.append(
+            (
+                ident,
+                diagnoses.loc[specimen],
+                specimen,
+                counts.loc[[specimen], list(predictor.schema.required_targets)],
+            )
+        )
+    return selected
 
 
 def main():
@@ -72,6 +102,11 @@ def main():
                 counts.loc[[specimen], list(predictor.schema.required_targets)],
             )
         )
+    selected.extend(select_error_examples(counts, metadata, split, predictor))
+    error_labels = {
+        "false-positive": "False positive — false rejection flag",
+        "false-negative": "False negative — missed rejection",
+    }
     output.mkdir(parents=True)
     for ident, diagnosis, specimen, frame in selected:
         path = output / f"{ident}.csv"
@@ -79,7 +114,7 @@ def main():
         examples.append(
             {
                 "id": ident,
-                "label": diagnosis,
+                "label": error_labels.get(ident, diagnosis),
                 "description": f"Public discovery-screen specimen; recorded diagnosis: {diagnosis}.",
                 "valid": True,
                 "specimen": specimen,
@@ -111,7 +146,14 @@ def main():
         "run_dir": args.results_dir,
         "model_version": predictor.model_version,
         "split_artifact": split_record,
-        "selection": "First accession in lexical order within each recorded diagnosis in the saved discovery-screen split. Scores did not guide selection.",
+        "selection": (
+            "The four diagnosis examples use the first accession in lexical order within "
+            "each recorded diagnosis in the saved discovery-screen split; their scores "
+            "did not guide selection. The false-positive and false-negative examples use "
+            "the first accession in lexical order among screening errors of each type "
+            "at the configured model's frozen threshold. These illustrate errors, not "
+            "their frequency. No technical-validation specimens are used as examples."
+        ),
         "examples": examples,
     }
     (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")

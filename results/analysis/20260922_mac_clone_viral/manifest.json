@@ -1,0 +1,145 @@
+{
+  "started_utc": "2026-09-22T04:16:36.505056+00:00",
+  "finished_utc": "2026-09-22T04:16:38.256926+00:00",
+  "analysis": "descriptive follow-up; no fitting or threshold change",
+  "selected_model": "catboost_all_depth4",
+  "frozen_threshold": 0.8765880870219773,
+  "n_specimens": 1395,
+  "n_validation": 345,
+  "higher_signal_reference": "both normalized BK signals > 0; descriptive, not infection criterion",
+  "inputs": [
+    {
+      "file": "data/manifest.json",
+      "sha256": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6",
+      "bytes": 697
+    },
+    {
+      "file": "data/raw/rejection_public/GSE212160_series_matrix.txt.gz",
+      "sha256": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050",
+      "bytes": 2444946
+    },
+    {
+      "file": "data/raw/rejection_public/GSE212160_RAW.tar",
+      "sha256": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8",
+      "bytes": 13547520
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/biopsy_split.csv",
+      "sha256": "2e6eda3b04d24e872919fe2a69fc6a9f671f337c9dcba2da6766a585067e29d6",
+      "bytes": 101120
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "sha256": "69bc1f6180c55550b607058a666b1b0176c938c925526fa1559d24fe52369385",
+      "bytes": 13221
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_frozen.json",
+      "sha256": "f171cea5a3bda6b00b21eb8f96665738190f0386c007df9b647388f69eb4b533",
+      "bytes": 21969
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_gene_importance.csv",
+      "sha256": "3bfa846f6271563429e9cbd62496d35ac2b103b5c661d9568a26f35042487ccf",
+      "bytes": 14469
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/run_manifest.json",
+      "sha256": "8f9689279a2f5fb4c20025e89e2891df578766c6fca917bd22567f476a699bc2",
+      "bytes": 15998
+    }
+  ],
+  "optional_local_references": [
+    {
+      "file": "data/reference/study/rejection_source_manifest.json",
+      "available": false
+    },
+    {
+      "file": "data/reference/study/rejection_supplement_5.txt",
+      "available": false
+    },
+    {
+      "file": "data/reference/study/rejection_supplement_6.txt",
+      "available": false
+    }
+  ],
+  "python": "3.12.13",
+  "dependencies": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.5"
+  },
+  "environment_lock": {
+    "file": "uv.lock",
+    "sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581",
+    "bytes": 68586
+  },
+  "source_code": [
+    {
+      "file": "scripts/review_viral_targets.py",
+      "sha256": "49ea59ad88d1ae6cd75641229aba64bb286a966dc6e87219acae1036158eb313",
+      "bytes": 21882
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08",
+      "bytes": 8595
+    },
+    {
+      "file": "src/kidney_biopsy/source.py",
+      "sha256": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03",
+      "bytes": 5031
+    }
+  ],
+  "outputs": [
+    {
+      "file": "results/analysis/20260922_mac_clone_viral/REPORT.md",
+      "sha256": "3d989817e0e0fd44ca90d5c08d7107d2be13756d498cc9420b2892f350b21383",
+      "bytes": 6158
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone_viral/batch_cohort_overlap.csv",
+      "sha256": "a6d4f9e8f61e558561eacc0a81e84ab0d1b00806c2a283d695ca636502cd12e4",
+      "bytes": 109
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone_viral/higher_signal_counts.csv",
+      "sha256": "968a1d57013296cd808b5f377b66516611fdf38a0da24bc3b2721c00137a3996",
+      "bytes": 442
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone_viral/higher_signal_error_counts.csv",
+      "sha256": "b76663eb344b972c5f55baa09ec94579a4b99cd776472513666e69463f00309b",
+      "bytes": 140
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone_viral/metadata_inventory.json",
+      "sha256": "32c82db29508bfd9aa2265e5f31369066b0ec0b4f5e531c4a3ffa0d647ce6747",
+      "bytes": 1456
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone_viral/signals_by_cohort_diagnosis.csv",
+      "sha256": "f4f0de8f017639e1ae4b0b83d1dedf676ee21d8b868f30186fbb4ec436712632",
+      "bytes": 2460
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone_viral/signals_by_validation_error.csv",
+      "sha256": "e424093a13b30e45ceafd50c1caddfc38a5b0136df11212cb03cb856c49f1dc4",
+      "bytes": 1128
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone_viral/sources.json",
+      "sha256": "447da37d98e026e815b7afe9e762b64470bfa4cd7c20772fc1b4ac5a6cca58b0",
+      "bytes": 806
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone_viral/viral_feature_importance.csv",
+      "sha256": "36a9015683671d22d566634a753c717d4874f928c27b3996f5b1e26fdd6721c6",
+      "bytes": 68
+    },
+    {
+      "file": "data/processed/analysis/20260922_mac_clone_viral/viral_specimen_review.csv",
+      "sha256": "fd4e01f852be9cdb6e3f3c74c75ae60930e548c1622ade3b6b3927894be88a3d",
+      "bytes": 193111
+    }
+  ]
+}

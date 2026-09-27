@@ -1,0 +1,500 @@
+{
+  "primary_inference": {
+    "antibody_mediated_component_catboost_all_depth6": {
+      "rows": 345,
+      "original_model_on_mac_vs_original_saved_scores": 8.673617379884035e-19,
+      "original_model_on_mac_changed_flags": 0,
+      "windows_vs_mac_models_on_same_mac_inputs": 3.3306690738754696e-16
+    },
+    "antibody_mediated_component_logistic_all": {
+      "rows": 345,
+      "original_model_on_mac_vs_original_saved_scores": 7.771561172376096e-16,
+      "original_model_on_mac_changed_flags": 0,
+      "windows_vs_mac_models_on_same_mac_inputs": 5.206501896282134e-12
+    },
+    "antibody_mediated_component_single_gene_IFNG": {
+      "rows": 345,
+      "original_model_on_mac_vs_original_saved_scores": 5.551115123125783e-17,
+      "original_model_on_mac_changed_flags": 0,
+      "windows_vs_mac_models_on_same_mac_inputs": 5.551115123125783e-17
+    },
+    "any_rejection_catboost_all_depth4": {
+      "rows": 345,
+      "original_model_on_mac_vs_original_saved_scores": 3.469446951953614e-18,
+      "original_model_on_mac_changed_flags": 0,
+      "windows_vs_mac_models_on_same_mac_inputs": 6.661338147750939e-16
+    },
+    "any_rejection_logistic_all": {
+      "rows": 345,
+      "original_model_on_mac_vs_original_saved_scores": 1.4432899320127035e-15,
+      "original_model_on_mac_changed_flags": 0,
+      "windows_vs_mac_models_on_same_mac_inputs": 1.2155276785108526e-12
+    },
+    "any_rejection_single_gene_IFNG": {
+      "rows": 345,
+      "original_model_on_mac_vs_original_saved_scores": 1.1102230246251565e-16,
+      "original_model_on_mac_changed_flags": 0,
+      "windows_vs_mac_models_on_same_mac_inputs": 2.220446049250313e-16
+    },
+    "t_cell_mediated_component_catboost_all_depth4": {
+      "rows": 345,
+      "original_model_on_mac_vs_original_saved_scores": 0.0,
+      "original_model_on_mac_changed_flags": 0,
+      "windows_vs_mac_models_on_same_mac_inputs": 4.440892098500626e-16
+    },
+    "t_cell_mediated_component_logistic_all": {
+      "rows": 345,
+      "original_model_on_mac_vs_original_saved_scores": 2.1094237467877974e-15,
+      "original_model_on_mac_changed_flags": 0,
+      "windows_vs_mac_models_on_same_mac_inputs": 5.717648576819556e-14
+    },
+    "t_cell_mediated_component_single_gene_IFNG": {
+      "rows": 345,
+      "original_model_on_mac_vs_original_saved_scores": 2.7755575615628914e-17,
+      "original_model_on_mac_changed_flags": 0,
+      "windows_vs_mac_models_on_same_mac_inputs": 9.14823772291129e-14
+    }
+  },
+  "structures": {
+    "antibody_mediated_component_catboost_all_depth6": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.591949208711867e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "any_rejection_catboost_all_depth4": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 8.326672684688674e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "t_cell_mediated_component_catboost_all_depth4": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 8.326672684688674e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_01/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_01/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_02/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 9.71445146547012e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_02/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_03/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 9.71445146547012e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_03/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 8.326672684688674e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_04/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 9.71445146547012e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_04/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_05/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_05/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 7.155734338404329e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_06/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 7.632783294297951e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_06/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [
+        294,
+        295,
+        296,
+        298,
+        299,
+        300
+      ],
+      "max_leaf_difference": 0.04606558010736108,
+      "parameters_equal": true,
+      "first_changed_tree": {
+        "number": 294,
+        "windows": [
+          {
+            "border": -6.211050987243652,
+            "float_feature_index": 454,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": -5.69765567779541,
+            "float_feature_index": 103,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": -1.662706732749939,
+            "float_feature_index": 705,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": -3.701972246170044,
+            "float_feature_index": 219,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": -1.385756015777588,
+            "float_feature_index": 435,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": -2.773871421813965,
+            "float_feature_index": 445,
+            "split_type": "FloatFeature"
+          }
+        ],
+        "mac": [
+          {
+            "border": 1.0583853721618652,
+            "float_feature_index": 136,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": -3.2335734367370605,
+            "float_feature_index": 364,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": 0.45253080129623413,
+            "float_feature_index": 606,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": -6.091224193572998,
+            "float_feature_index": 342,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": -0.6841071248054504,
+            "float_feature_index": 217,
+            "split_type": "FloatFeature"
+          },
+          {
+            "border": -4.485045433044434,
+            "float_feature_index": 282,
+            "split_type": "FloatFeature"
+          }
+        ]
+      }
+    },
+    "repeat_07/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 8.326672684688674e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_07/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_08/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_08/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.245004513516506e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_09/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_09/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.245004513516506e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_10/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_10/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_11/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 8.326672684688674e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_11/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.591949208711867e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_12/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 9.71445146547012e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_12/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_13/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 8.326672684688674e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_13/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_14/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 7.45931094670027e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_14/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_15/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 7.036472099430924e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_15/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_16/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_16/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_17/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 8.326672684688674e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_17/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_18/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.245004513516506e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_18/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 7.979727989493313e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_19/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 8.326672684688674e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_19/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 6.938893903907228e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_20/catboost_depth4.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 8.326672684688674e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    },
+    "repeat_20/catboost_depth6.joblib": {
+      "trees": 300,
+      "trees_with_different_decisions": [],
+      "max_leaf_difference": 9.71445146547012e-17,
+      "parameters_equal": true,
+      "first_changed_tree": null
+    }
+  },
+  "run_source_functions": {
+    "experiments/rejection_public/run.py": true,
+    "src/kidney_biopsy/preprocessing.py": true,
+    "src/kidney_biopsy/source.py": true
+  },
+  "windows_file_hashes_unchanged": true,
+  "windows_file_hashes": {
+    "data/processed/models/20260915_shared/antibody_mediated_component_catboost_all_depth6.joblib": "cbb8d5e949a5b64bda7df799454fdd5d3e6c4ecd0f7662f9ee65021b6d1676e1",
+    "results/reproduction/20260915_shared/antibody_mediated_component_catboost_all_depth6_test_predictions.csv": "d3f6b663e7fb6490f794056cb707a8a4ce72a0a05618f8a1c73d09326e5e0790",
+    "data/processed/models/20260915_shared/antibody_mediated_component_logistic_all.joblib": "d90fcab9442f4c4fc5114134c5d870175754d0a25c75acef88c38eb7374bfc54",
+    "results/reproduction/20260915_shared/antibody_mediated_component_logistic_all_test_predictions.csv": "8a0d9460951d987fef6aa74c8fd511faa44d941d707338ae3b97ed6d14d5189d",
+    "data/processed/models/20260915_shared/antibody_mediated_component_single_gene_IFNG.joblib": "9ddc57ea2f0e7fcb25e2e3c602f9a181abfc06f0eec16ae544b1be575d5e22b9",
+    "results/reproduction/20260915_shared/antibody_mediated_component_single_gene_IFNG_test_predictions.csv": "aa80d3e8d24f1f94db15695142d3a4dc08444f64855bca95966c709e020329b7",
+    "data/processed/models/20260915_shared/any_rejection_catboost_all_depth4.joblib": "e8d1cc2a4f684b86aa524cac2f21802847999d41a70c1728ceef092811a5f94f",
+    "results/reproduction/20260915_shared/any_rejection_catboost_all_depth4_test_predictions.csv": "2c5fcedb726348ba7a7ac06e4e195f81f4b8d921d186997cb2ab2ee8197ab91a",
+    "data/processed/models/20260915_shared/any_rejection_logistic_all.joblib": "d09bf7d3d214e67a0e7e932cde9fb4f1bbf8aebeaf34c23d832d7eab3adb9803",
+    "results/reproduction/20260915_shared/any_rejection_logistic_all_test_predictions.csv": "7a722fa2ea5766e166557be9b1f6449541edf4ed14040e11d7e975d0c5b89e76",
+    "data/processed/models/20260915_shared/any_rejection_single_gene_IFNG.joblib": "8199ffd118b6476976451874e3c0c1af0ae6657d8d64a88c275c4f0fcdc11392",
+    "results/reproduction/20260915_shared/any_rejection_single_gene_IFNG_test_predictions.csv": "01f67a15880020aca5a085a2e50b526cd3599878fbd4c4ba3cc282a0cdda7835",
+    "data/processed/models/20260915_shared/t_cell_mediated_component_catboost_all_depth4.joblib": "089339b0ba8a63d1d2ce62e947e2f11ab8539a378c82c85527a8aac4c7e4d4e6",
+    "results/reproduction/20260915_shared/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv": "03deba22cee69854910534b228c80e4ea94197ecfcc78504d623e5ba07abde96",
+    "data/processed/models/20260915_shared/t_cell_mediated_component_logistic_all.joblib": "fe10b5137d76289ff3a092005626046dae314cec22128cd4308c9af0ac962d76",
+    "results/reproduction/20260915_shared/t_cell_mediated_component_logistic_all_test_predictions.csv": "b035af173249956498c4e5844fbe80b3dd06cd7d68ae82f01d23e8bef9ccf21e",
+    "data/processed/models/20260915_shared/t_cell_mediated_component_single_gene_IFNG.joblib": "c997ced0a360bad429c24d58a11a141524b50e191ceed28aab1d99bdded7ba1a",
+    "results/reproduction/20260915_shared/t_cell_mediated_component_single_gene_IFNG_test_predictions.csv": "13a0981402f285cfee33b8263503a5592ca5b76bf6d25c166514a4d7c21adabf",
+    "data/processed/stability/20260917_stability/repeat_01/catboost_depth4.joblib": "e913209223417adeef1490b3f125d125187c0660da9070955fda11a735c502d8",
+    "data/processed/stability/20260917_stability/repeat_01/catboost_depth6.joblib": "50873b758acaa96be59a4123cd5498a438ffb8ad226171a9206f805f4e7bef2d",
+    "data/processed/stability/20260917_stability/repeat_02/catboost_depth4.joblib": "d3d01cfb3ef87d6761066ab3a057a69801ebabaceb1a8579c57958812310bd0a",
+    "data/processed/stability/20260917_stability/repeat_02/catboost_depth6.joblib": "cc32bcdbca00ddbdeb8bd3c250da5c5bfa129d0d9f1f3adb4173f180d36450fa",
+    "data/processed/stability/20260917_stability/repeat_03/catboost_depth4.joblib": "6555f94f238efbdaaa7f0fc6fb6ada9153333b44803afc0f365c2b45bcaee597",
+    "data/processed/stability/20260917_stability/repeat_03/catboost_depth6.joblib": "8007a4a99c00fe8a8a118d4357c7d27a79b851bf004282a430c791ce3764ebca",
+    "data/processed/stability/20260917_stability/repeat_04/catboost_depth4.joblib": "bdaad41d28abf5c66ea0edd24416dd252ce0be1eb193ee34caac6c385fa2f9af",
+    "data/processed/stability/20260917_stability/repeat_04/catboost_depth6.joblib": "64517d11587c056fa673cc696187ebdbe5ffcf382ce98e4b2281c38213803339",
+    "data/processed/stability/20260917_stability/repeat_05/catboost_depth4.joblib": "9846dc2e389baa50f4883bc59df1ecf95311918b964054745810e6bd063f7877",
+    "data/processed/stability/20260917_stability/repeat_05/catboost_depth6.joblib": "395623ce27c80047b07ee4156d773353121667dab869129ec1df36126ed6e9b7",
+    "data/processed/stability/20260917_stability/repeat_06/catboost_depth4.joblib": "5ac6a7d7a9ea1f9112ea44fdf4fe343c18568191375b841a043997fa0d72ab03",
+    "data/processed/stability/20260917_stability/repeat_06/catboost_depth6.joblib": "cf9a6f5da17cf2efa6cb9dbe23a40bca0e79bb4419417092c5005fe84afbe9d2",
+    "data/processed/stability/20260917_stability/repeat_07/catboost_depth4.joblib": "0d960bc2df1ace721fb5330785506c7f5c743cc062c6ee42f1789f2a6c2711ed",
+    "data/processed/stability/20260917_stability/repeat_07/catboost_depth6.joblib": "1d3fcc02b661d84aa580e25cae34a2960eb2e8efc29d43c2f210efce4e564052",
+    "data/processed/stability/20260917_stability/repeat_08/catboost_depth4.joblib": "c1f06e497e57ffd4313b6691e905df58c96ac040614e7fe05c49eb750beea240",
+    "data/processed/stability/20260917_stability/repeat_08/catboost_depth6.joblib": "ecf60b824015d4c0a1a4e354981ed32cb143ca0aee55232fe04b80ac837daf1f",
+    "data/processed/stability/20260917_stability/repeat_09/catboost_depth4.joblib": "87a8b01b36ea4358c2a1dcb833aa0b070b6e44ab50d4d1237b5f44a944944386",
+    "data/processed/stability/20260917_stability/repeat_09/catboost_depth6.joblib": "9f383922b248697d2fefbc7f4f6661d1101193248abaa321943efdddcb9eddab",
+    "data/processed/stability/20260917_stability/repeat_10/catboost_depth4.joblib": "809a6fb9753aff0efaeb1fb888689565053693ce902d076106e1dbe4e1bcfaac",
+    "data/processed/stability/20260917_stability/repeat_10/catboost_depth6.joblib": "348c54193be42fa54e599c27a7b2fcb7be4e8fff09bfd817b2b34cd815c19776",
+    "data/processed/stability/20260917_stability/repeat_11/catboost_depth4.joblib": "d65bd0596ada892111b0877ae89cc5c451de0e99861eaf3f57781aa94d79e41d",
+    "data/processed/stability/20260917_stability/repeat_11/catboost_depth6.joblib": "c6aa214b6994464f3b8016db5031aa723b3c0588235876724743f5f2cc5dd428",
+    "data/processed/stability/20260917_stability/repeat_12/catboost_depth4.joblib": "d4fcc943b5b8a4e5f11595d1369fee433986e1b9e174b8ecff0dbfd9ada7861b",
+    "data/processed/stability/20260917_stability/repeat_12/catboost_depth6.joblib": "b51e7366978c120dfc287f42b472c2054e902abfbee2bac25fa9fb6c67a9d203",
+    "data/processed/stability/20260917_stability/repeat_13/catboost_depth4.joblib": "0bd5731ea1fcdbce919efd49a32432cbdc107337d7a806c6d4569ba9942d35c3",
+    "data/processed/stability/20260917_stability/repeat_13/catboost_depth6.joblib": "484f5502f4c3c1e1ee266c5755e1a28a0b4e5742bdfded84d032ef7a0df827a5",
+    "data/processed/stability/20260917_stability/repeat_14/catboost_depth4.joblib": "0e5ad4928149a5f1ada4bf6405fc0e13441a567317efd0d2204a889db5555d8b",
+    "data/processed/stability/20260917_stability/repeat_14/catboost_depth6.joblib": "6963d9d424d385ebe7096d64a77997e8beb73f032700921098ae50929dd772f5",
+    "data/processed/stability/20260917_stability/repeat_15/catboost_depth4.joblib": "ec0e94159d7541a4c1eb13f57b01c1993aea879dcedd3653159bdf51cf727201",
+    "data/processed/stability/20260917_stability/repeat_15/catboost_depth6.joblib": "bfa3a0de2823374114a5c63e7fe9e0472b3c0750633d9bec4546524f2ee53d49",
+    "data/processed/stability/20260917_stability/repeat_16/catboost_depth4.joblib": "703ce4159d47c5105f79531972823187d6c9b60004b0ad058d0c46adeec7e76e",
+    "data/processed/stability/20260917_stability/repeat_16/catboost_depth6.joblib": "9668de769abe9aa6c0abda69c3c22c27f19990391caf0a65ad5f2f1087331c34",
+    "data/processed/stability/20260917_stability/repeat_17/catboost_depth4.joblib": "d8e8e2d8ec708b7ae99e559360e1d6c1e4da1b93c8d98ef049706af946c58998",
+    "data/processed/stability/20260917_stability/repeat_17/catboost_depth6.joblib": "8e6aeb2f252da79621b4ad4bdb3a52a1f9b96384c5254dce0aaf798af16dd23e",
+    "data/processed/stability/20260917_stability/repeat_18/catboost_depth4.joblib": "0f1dbf6e31f458ccbdfa9449955396a4d78729e9a2c39b6945e8131159b95ac2",
+    "data/processed/stability/20260917_stability/repeat_18/catboost_depth6.joblib": "430e50ccc4b88bccfb49eb6cc2cf41488caa6734309857f4ae0a3cd60dbdf0ea",
+    "data/processed/stability/20260917_stability/repeat_19/catboost_depth4.joblib": "add5365a312a9135b8abf52a48d6400f53609456ffb7ec23be0697ec60b0860a",
+    "data/processed/stability/20260917_stability/repeat_19/catboost_depth6.joblib": "471a1c61253415548ca50de2fdb0ab9063f0903cfeec578ce7ec3a3d4b9ee53b",
+    "data/processed/stability/20260917_stability/repeat_20/catboost_depth4.joblib": "e2a16c52a19a0af32cd2699146bd9ef883748c3d0a7c787c62a8c7d6e85beadb",
+    "data/processed/stability/20260917_stability/repeat_20/catboost_depth6.joblib": "ade953aabe5ca2040062abd557d11917255e86711becb3f369008d28b8dec877"
+  }
+}

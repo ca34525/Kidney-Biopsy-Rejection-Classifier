@@ -1,0 +1,222 @@
+{
+  "configuration": {
+    "run_dir": "results/reproduction/20260922_mac_clone",
+    "output_dir": "results/analysis/20260922_mac_clone",
+    "case_dir": "data/processed/analysis/20260922_mac_clone",
+    "bootstrap_replicates": 2000,
+    "seed": 20260915,
+    "bootstrap_unit": "biopsy specimen",
+    "bootstrap_scheme": "ordinary paired nonparametric percentile",
+    "models_and_thresholds": {
+      "catboost_all_depth4": 0.8765880870219773,
+      "logistic_all": 0.8536733723108448,
+      "single_gene_IFNG": 0.5207579856992155,
+      "training_prevalence": 0.5
+    },
+    "reliability_edges": [
+      0.0,
+      0.1,
+      0.2,
+      0.30000000000000004,
+      0.4,
+      0.5,
+      0.6000000000000001,
+      0.7000000000000001,
+      0.8,
+      0.9,
+      1.0
+    ]
+  },
+  "inputs": [
+    {
+      "file": "results/reproduction/20260922_mac_clone/biopsy_split.csv",
+      "sha256": "2e6eda3b04d24e872919fe2a69fc6a9f671f337c9dcba2da6766a585067e29d6"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/raw_batch_identifiers.csv",
+      "sha256": "56c099f2c006ad72634fb8cb02caf141530cabf2d4eff432b450a7854185ed06"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/biopsy_results.json",
+      "sha256": "3cdda3c5e1ed895e28d8a9787c2a5a0b57942d396525a532024d54c3a66bdc40"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_frozen.json",
+      "sha256": "f171cea5a3bda6b00b21eb8f96665738190f0386c007df9b647388f69eb4b533"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/run_manifest.json",
+      "sha256": "8f9689279a2f5fb4c20025e89e2891df578766c6fca917bd22567f476a699bc2"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "sha256": "69bc1f6180c55550b607058a666b1b0176c938c925526fa1559d24fe52369385"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_logistic_all_test_predictions.csv",
+      "sha256": "d917c1fcf405c084de0c8f35e39719f240538196c2176f07a4afa5eee50052b3"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_single_gene_IFNG_test_predictions.csv",
+      "sha256": "4e717bbe17f71ad0d24126430a4ad2cfe24d32e7e1d097daf6ad872a6afee1a1"
+    }
+  ],
+  "source": {
+    "file": "scripts/analyze_results.py",
+    "sha256": "4f366a9935f0f4e010ee4cf95d1b1a861251c1fba59227472f5a8c355a34c9e8"
+  },
+  "source_code": [
+    {
+      "file": "scripts/analyze_results.py",
+      "sha256": "4f366a9935f0f4e010ee4cf95d1b1a861251c1fba59227472f5a8c355a34c9e8"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "sha256": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5"
+    }
+  ],
+  "environment_lock": {
+    "file": "uv.lock",
+    "sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581"
+  },
+  "python": "3.12.13",
+  "dependencies": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2"
+  },
+  "model_version": "results/reproduction/20260922_mac_clone:catboost_all_depth4",
+  "provenance_checks": {
+    "saved_inputs_match_run_manifest": true,
+    "public_manifest_matches_run": true,
+    "physical_raw_files_match_source_manifest": true
+  },
+  "run_manifest_sha256": "8f9689279a2f5fb4c20025e89e2891df578766c6fca917bd22567f476a699bc2",
+  "outputs": [
+    {
+      "file": "results/analysis/20260922_mac_clone/REPORT.md",
+      "sha256": "b710f4144b4bd761f343261424a74dd69ce4bf3613c79ed0d353fefaaea8a10a",
+      "bytes": 12711
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/model_metrics.json",
+      "sha256": "954cfa31ab3bad9811bd00f9ded540fdab658652a4a6f5ee557424c7ae39d32b",
+      "bytes": 2119
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/model_metrics.csv",
+      "sha256": "4fbad54e89bdda9b3412f07ada6819b14dbef8dca9fa845c08c025ccedd191a2",
+      "bytes": 1081
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/metric_intervals.csv",
+      "sha256": "23be887d177c2016143451dce502ef47e3337624e2df728911d636dbaff0f6d0",
+      "bytes": 3384
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/paired_differences.csv",
+      "sha256": "f918b1d513f9767c9414ab1b7be3998eccc7d3d01dd0d10b50cbc9918e48c6ee",
+      "bytes": 1191
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/errors_by_diagnosis.csv",
+      "sha256": "f4d8aba5bbe62fb825129a842e420f5707a2e93dd738b093f2630bb1849087e1",
+      "bytes": 1806
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/assay_group_errors.csv",
+      "sha256": "3dae7b960125fe89952221f25d0c32f959cf8d69d08354764bf1150e24edb962",
+      "bytes": 46767
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/error_overlap.csv",
+      "sha256": "df6fabd61616f189da466113722b80fa8a849ac54035fe881ee53dda3aed0304",
+      "bytes": 854
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/reliability_bins.csv",
+      "sha256": "7f3a6d876c5969a2392485e2519c5f36f5232e36948a2c181702ae2cc6c2bf9f",
+      "bytes": 3614
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/cohort_composition.csv",
+      "sha256": "7c86c3e2c1bc1f64230f488c21c2b1079beb216f207f8d78eff1b9b04498fd0f",
+      "bytes": 20429
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/01_roc_precision_recall.png",
+      "sha256": "8acd8161c7ff9968d9a8bd46ac5ce03566ee754cdac8c104846d34c7f60885d4",
+      "bytes": 142231
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/01_roc_precision_recall.svg",
+      "sha256": "1fb589ebd7fcd88b728125c5912189b75626cb303f32e1d49cf558cb035430d9",
+      "bytes": 50011
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/02_confusion_matrices.png",
+      "sha256": "7a8b0a5d3453087835037067eabf3f665f0179905d5ea703f455d7a0f8088e01",
+      "bytes": 194882
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/02_confusion_matrices.svg",
+      "sha256": "9065c56283147491b6850bb58564facebdd3f0cae3fcdd4cbc86ac2c3f479cef",
+      "bytes": 33488
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/03_absolute_errors.png",
+      "sha256": "2e92d6d1784ba1c8616ddc62161eb2c9a4165ccbe963488c01ce82a57dfbc6f7",
+      "bytes": 48909
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/03_absolute_errors.svg",
+      "sha256": "7df605af7920d50811261e37945d016f74b7208a6b291fb24dbd196fcd1a8b2e",
+      "bytes": 12079
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/04_errors_by_diagnosis.png",
+      "sha256": "43a72f1c9cdf2cb6cfef120babede597437f3342ab57ecd6bee5c90c94952d59",
+      "bytes": 133019
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/04_errors_by_diagnosis.svg",
+      "sha256": "57f3774f746b0f2400dd1f060f88b1204c110aad01dc6933808454f12bb3b204",
+      "bytes": 40746
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/05_score_distributions.png",
+      "sha256": "ae3a4eb77c6c24bea5143f0eaad7d75b6dc6499c89838baff8143de5e5f56f83",
+      "bytes": 157592
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/05_score_distributions.svg",
+      "sha256": "f266ca39c47927dd2cfb9ac269fd3a85b3353d89b058c8067e842a71286ee359",
+      "bytes": 46092
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/06_score_reliability.png",
+      "sha256": "25d6bccf82d901fa1d6785f60c00013282c92e04856955b35405570c674bca88",
+      "bytes": 302088
+    },
+    {
+      "file": "results/analysis/20260922_mac_clone/figures/06_score_reliability.svg",
+      "sha256": "95eb2e6fed537af0e797fc721994ec8ff5ef9ed22245abad07a3e61d208f8a06",
+      "bytes": 64288
+    },
+    {
+      "file": "data/processed/analysis/20260922_mac_clone/specimen_review.csv",
+      "sha256": "89126dfa5248644c9ff0d10dbe375a3b3c251a845a53c3c70ea0b959c8e9ece1",
+      "bytes": 98209
+    },
+    {
+      "file": "data/processed/analysis/20260922_mac_clone/selected_model_errors.csv",
+      "sha256": "358a4a1a6b3084668d3273c8bc1b22b031ae0a13ada860392bb63d8af288fdf2",
+      "bytes": 9713
+    }
+  ]
+}

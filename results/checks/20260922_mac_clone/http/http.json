@@ -1,0 +1,34 @@
+{
+  "verified_utc": "2026-09-22T04:17:03.393993+00:00",
+  "successful": true,
+  "run_dir": "results/reproduction/20260922_mac_clone",
+  "model_version": "20260922_mac_clone:any_rejection:catboost_all_depth4",
+  "run_manifest_sha256": "8f9689279a2f5fb4c20025e89e2891df578766c6fca917bd22567f476a699bc2",
+  "specimens": 345,
+  "http_requests_for_predictions": 22,
+  "numeric_tolerance": 1e-12,
+  "max_http_cli_score_difference": 1.1102230246251565e-16,
+  "max_http_saved_score_difference": 1.1102230246251565e-16,
+  "checks": [
+    "real_http_server_ready",
+    "demo_page_served",
+    "all_345_http_cli_saved_predictions_agree_with_reordered_columns",
+    "invalid_http_batch_rejected_without_predictions",
+    "http_batch_limit_enforced"
+  ],
+  "script_sha256": "85623b728d637e4cff6866eabf2617da9e7617c2304dfe2760530550c59c2b97",
+  "source_hashes": {
+    "src/kidney_biopsy/__init__.py": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37",
+    "src/kidney_biopsy/__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "src/kidney_biopsy/api.py": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442",
+    "src/kidney_biopsy/cli.py": "b39046bc311f9db801ac5c5f4f49835d3e20d5e62bd6cadda525935ea60315bc",
+    "src/kidney_biopsy/prediction.py": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5",
+    "src/kidney_biopsy/preprocessing.py": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08",
+    "src/kidney_biopsy/source.py": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03",
+    "src/kidney_biopsy/static/app.js": "4d6324916e17e0e2073a7ca06c07cd3968ba8dedf2864105309796957ecb1764",
+    "src/kidney_biopsy/static/index.html": "b5fe4f81efe5bd27781b6501452f2ca8e4701e450ea2c6efa5fa4867199ac5d0",
+    "src/kidney_biopsy/static/style.css": "baeade6df956c6e8237013d8946f5a7ab760c5de4c5bfa098924c5dcd983e623",
+    "src/kidney_biopsy/walkthrough.py": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d"
+  },
+  "case_directory": "data/processed/application_checks/20260922_mac_clone"
+}

@@ -51,10 +51,6 @@ preferable: a four-class model can also supply an overall rejection flag. The
 project's binary accuracy and the paper's four-class accuracy measure different
 tasks and must not be presented as evidence of outperforming Zhang.
 
-The [September 22 purpose revision](references/PRACTICAL_PURPOSE_20260922.md)
-records this framing. The [September 21 note](references/PRESENTATION_PURPOSE_20260921.md)
-preserves the earlier wording and sources.
-
 ### Evidence supporting the application
 
 Zhang's study is the direct classification precedent and was reviewed in full on
@@ -73,6 +69,22 @@ These sources motivate investigating molecular evidence in rejection assessment.
 The current experiment evaluates recorded diagnoses and produces reproducible
 software. Rosales's later-outcome findings suggest a possible extension with
 appropriate longitudinal data; future rejection prediction is a different endpoint.
+
+### Supporting sources from the September 21 wording review
+
+[Nankivell et al., 2019](https://pubmed.ncbi.nlm.nih.gov/30501008/)
+(DOI 10.1111/ajt.15197) studied 146 borderline diagnoses, 826 normal controls and
+55 acute T-cell-mediated diagnoses among 551 recipients at one center. The 146
+count is diagnoses, not people or a prevalence estimate. Different subsets had
+resolution or later rejection; their reported percentages are not complementary
+outcomes for all 146 cases.
+[Wiebe et al., 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7496654/)
+(DOI 10.1111/ajt.15860) associated borderline and definite T-cell-mediated
+rejection with lower graft survival in 803 recipients. These studies explain
+clinical concern, without measuring the benefit of this classifier or establishing
+its usefulness in ambiguous biopsies. The
+[biopsy-care review](references/BIOPSY_CARE_20260919.md) retains treatment and
+infection sources.
 
 ## What is being classified?
 

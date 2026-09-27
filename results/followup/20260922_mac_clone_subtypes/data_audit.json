@@ -1,0 +1,72 @@
+{
+  "specimens": 1395,
+  "excluded": 0,
+  "features": 758,
+  "duplicates": 0,
+  "cross_split_duplicate_profiles": 0,
+  "split_matches_saved_and_recomputed": true,
+  "source_labels_match_saved_split": true,
+  "normalization_schema_matches_all_benchmarks": true,
+  "class_counts": [
+    {
+      "split": "train",
+      "diagnosis": "No Rejection",
+      "n": 267
+    },
+    {
+      "split": "train",
+      "diagnosis": "Antibody-mediated Rejection",
+      "n": 207
+    },
+    {
+      "split": "train",
+      "diagnosis": "T cell-mediated Rejection",
+      "n": 256
+    },
+    {
+      "split": "train",
+      "diagnosis": "Mixed Rejection",
+      "n": 57
+    },
+    {
+      "split": "discovery_screen",
+      "diagnosis": "No Rejection",
+      "n": 89
+    },
+    {
+      "split": "discovery_screen",
+      "diagnosis": "Antibody-mediated Rejection",
+      "n": 69
+    },
+    {
+      "split": "discovery_screen",
+      "diagnosis": "T cell-mediated Rejection",
+      "n": 86
+    },
+    {
+      "split": "discovery_screen",
+      "diagnosis": "Mixed Rejection",
+      "n": 19
+    },
+    {
+      "split": "author_validation",
+      "diagnosis": "No Rejection",
+      "n": 176
+    },
+    {
+      "split": "author_validation",
+      "diagnosis": "Antibody-mediated Rejection",
+      "n": 56
+    },
+    {
+      "split": "author_validation",
+      "diagnosis": "T cell-mediated Rejection",
+      "n": 95
+    },
+    {
+      "split": "author_validation",
+      "diagnosis": "Mixed Rejection",
+      "n": 18
+    }
+  ]
+}

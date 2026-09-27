@@ -1,0 +1,21 @@
+{
+  "verified_utc": "2026-09-22T04:18:13.295691+00:00",
+  "successful": true,
+  "verification": "existing_url",
+  "errors": [],
+  "bundle_sha256": "17481a7bea7ceed7ced54aaeaad4d686a08d521474eac04c71ac073f0e59ffbe",
+  "checks": {
+    "model_version": "20260922_mac_clone:any_rejection:catboost_all_depth4",
+    "schema_version": "bhot-v1",
+    "valid_specimens": 4,
+    "invalid_examples_rejected": 1,
+    "public_walkthroughs_verified": 4,
+    "maximum_score_difference": 0.0,
+    "score_tolerance": 1e-12,
+    "flags_and_metadata_agree": true,
+    "page_and_assets_served": true,
+    "example_files_agree": true,
+    "evaluation_counts_agree": true
+  },
+  "elapsed_seconds": 0.868
+}

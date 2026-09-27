@@ -32,6 +32,12 @@ kidney_biopsy = ["static/*.html", "static/*.css", "static/*.js"]
 package = true
 cache-dir = ".uv-cache"
 link-mode = "copy"
+# Rebuild installed wheels after switching branches or changing packaged assets.
+cache-keys = [
+    { file = "pyproject.toml" },
+    { file = "src/**/*.py" },
+    { file = "src/kidney_biopsy/static/*" },
+]
 
 [dependency-groups]
 dev = [

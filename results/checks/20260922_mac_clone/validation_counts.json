@@ -1,0 +1,425 @@
+{
+  "successful": true,
+  "comparisons": [
+    {
+      "reference": "baseline",
+      "target": "any_rejection",
+      "model": "catboost_all_depth4",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 144,
+        "fp": 8,
+        "tn": 168,
+        "fn": 25
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "any_rejection",
+      "model": "single_gene_IFNG",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 155,
+        "fp": 75,
+        "tn": 101,
+        "fn": 14
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "any_rejection",
+      "model": "logistic_all",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 136,
+        "fp": 8,
+        "tn": 168,
+        "fn": 33
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "any_rejection",
+      "model": "training_prevalence",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 169,
+        "fp": 176,
+        "tn": 0,
+        "fn": 0
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "any_rejection",
+      "model": "prevalence_all_positive",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 169,
+        "fp": 176,
+        "tn": 0,
+        "fn": 0
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "antibody_mediated_component",
+      "model": "catboost_all_depth6",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 63,
+        "fp": 14,
+        "tn": 257,
+        "fn": 11
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "antibody_mediated_component",
+      "model": "single_gene_IFNG",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 62,
+        "fp": 158,
+        "tn": 113,
+        "fn": 12
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "antibody_mediated_component",
+      "model": "logistic_all",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 67,
+        "fp": 34,
+        "tn": 237,
+        "fn": 7
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "antibody_mediated_component",
+      "model": "training_prevalence",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 0,
+        "fp": 0,
+        "tn": 271,
+        "fn": 74
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "antibody_mediated_component",
+      "model": "prevalence_all_positive",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 74,
+        "fp": 271,
+        "tn": 0,
+        "fn": 0
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "t_cell_mediated_component",
+      "model": "catboost_all_depth4",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 89,
+        "fp": 17,
+        "tn": 215,
+        "fn": 24
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "t_cell_mediated_component",
+      "model": "single_gene_IFNG",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 108,
+        "fp": 122,
+        "tn": 110,
+        "fn": 5
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "t_cell_mediated_component",
+      "model": "logistic_all",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 100,
+        "fp": 39,
+        "tn": 193,
+        "fn": 13
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "t_cell_mediated_component",
+      "model": "training_prevalence",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 0,
+        "fp": 0,
+        "tn": 232,
+        "fn": 113
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "baseline",
+      "target": "t_cell_mediated_component",
+      "model": "prevalence_all_positive",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 113,
+        "fp": 232,
+        "tn": 0,
+        "fn": 0
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "any_rejection",
+      "model": "catboost_all_depth4",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 144,
+        "fp": 8,
+        "tn": 168,
+        "fn": 25
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "any_rejection",
+      "model": "single_gene_IFNG",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 155,
+        "fp": 75,
+        "tn": 101,
+        "fn": 14
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "any_rejection",
+      "model": "logistic_all",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 136,
+        "fp": 8,
+        "tn": 168,
+        "fn": 33
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "any_rejection",
+      "model": "training_prevalence",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 169,
+        "fp": 176,
+        "tn": 0,
+        "fn": 0
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "any_rejection",
+      "model": "prevalence_all_positive",
+      "counts": {
+        "n": 345,
+        "positives": 169,
+        "tp": 169,
+        "fp": 176,
+        "tn": 0,
+        "fn": 0
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "antibody_mediated_component",
+      "model": "catboost_all_depth6",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 63,
+        "fp": 14,
+        "tn": 257,
+        "fn": 11
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "antibody_mediated_component",
+      "model": "single_gene_IFNG",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 62,
+        "fp": 158,
+        "tn": 113,
+        "fn": 12
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "antibody_mediated_component",
+      "model": "logistic_all",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 67,
+        "fp": 34,
+        "tn": 237,
+        "fn": 7
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "antibody_mediated_component",
+      "model": "training_prevalence",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 0,
+        "fp": 0,
+        "tn": 271,
+        "fn": 74
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "antibody_mediated_component",
+      "model": "prevalence_all_positive",
+      "counts": {
+        "n": 345,
+        "positives": 74,
+        "tp": 74,
+        "fp": 271,
+        "tn": 0,
+        "fn": 0
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "t_cell_mediated_component",
+      "model": "catboost_all_depth4",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 89,
+        "fp": 17,
+        "tn": 215,
+        "fn": 24
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "t_cell_mediated_component",
+      "model": "single_gene_IFNG",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 108,
+        "fp": 122,
+        "tn": 110,
+        "fn": 5
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "t_cell_mediated_component",
+      "model": "logistic_all",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 100,
+        "fp": 39,
+        "tn": 193,
+        "fn": 13
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "t_cell_mediated_component",
+      "model": "training_prevalence",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 0,
+        "fp": 0,
+        "tn": 232,
+        "fn": 113
+      },
+      "exact_match": true
+    },
+    {
+      "reference": "20260915_shared",
+      "target": "t_cell_mediated_component",
+      "model": "prevalence_all_positive",
+      "counts": {
+        "n": 345,
+        "positives": 113,
+        "tp": 113,
+        "fp": 232,
+        "tn": 0,
+        "fn": 0
+      },
+      "exact_match": true
+    }
+  ]
+}

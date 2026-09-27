@@ -25,7 +25,7 @@ Start with the path a single prediction takes:
 3. [Prediction](../src/kidney_biopsy/prediction.py): check model compatibility, calculate scores, apply the threshold.
 4. [API](../src/kidney_biopsy/api.py): expose that same path over HTTP.
 
-The [public-specimen walkthrough](API.md#follow-the-specimen) makes this path
+The [public-specimen walkthrough](API.md#view-the-results) makes this path
 visible in the browser. It shows real IFNG and housekeeping values from a verified
 prepared example, then uses the same predictor and compares its flag with the
 recorded label. It does not add a feature-explanation model or a second scoring path.
@@ -121,25 +121,10 @@ local model. Its file table is the reading order for that work. CI uses the same
 path with a tiny synthetic CatBoost model; the real deployment image contains the
 selected research model and prepared public examples.
 
-## Development record: September 15, 2026
+## AI assistance
 
-The counts below describe those completed checks. The [verification guide](VERIFICATION.md)
-records subsequent checks; the older totals are not the current suite size.
-
-Codex assisted with extracting the package, writing the analysis and checks,
-and reviewing generated charts. Acceptance evidence is the 30 passing tests,
-the 109.7-second local rerun of the fixed procedure (27 fits: nine configurations
-for each of three binary targets), exact agreement
-across nine evaluation prediction tables, and exact agreement after model reload.
-The existing discovery split, model candidates, selection rule, and thresholds
-were preserved. The calibration and error reviews did not change model fitting.
-
-The subsequent subtype comparison fitted five candidates in 117.3 seconds. Codex
-also assisted with the API, example preparation, browser behavior, and automated
-verification. The expanded suite has 55 passing tests. A real HTTP check compared
-all 345 validation specimens with CLI and saved predictions within `1e-12`.
-Browser checks covered a valid example, invalid input, a two-specimen upload,
-clearing stale results after input changes, and refusing results if the configured
-model changed while the page remained open. The fresh-install record in the
-verification guide establishes that the packaged app works in a separate local
-environment. These are software checks, not new clinical validation.
+Codex assisted with the shared package, analysis, service, browser interface,
+checks and documentation. The candidate remains responsible for explaining and
+reviewing the decisions. The [September 15 audit](AUDIT.md) records consequential
+fixes and acceptance checks; [Verification](VERIFICATION.md) links subsequent
+reproduction, interface and installation evidence.

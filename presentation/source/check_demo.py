@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import math
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
@@ -10,6 +11,28 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def check_reference(source, record):
+    """Allow Git's LF/CRLF conversion while still rejecting changed source text."""
+    raw = record["raw"].encode("utf-8")
+    assert hashlib.sha256(raw).hexdigest() == record["sha256"], record["path"]
+    assert source.replace(b"\r\n", b"\n") == raw.replace(b"\r\n", b"\n"), record["path"]
+
+
+def check_response(actual, expected):
+    """Keep identities and flags exact; allow only rounding-level score differences."""
+    assert actual.keys() == expected.keys()
+    assert len(actual["predictions"]) == len(expected["predictions"])
+    for key in actual.keys() - {"predictions"}:
+        assert actual[key] == expected[key], key
+    for found, saved in zip(actual["predictions"], expected["predictions"], strict=True):
+        assert found.keys() == saved.keys()
+        for key in found:
+            if key in {"rejection_score", "threshold"}:
+                assert math.isclose(found[key], saved[key], rel_tol=0, abs_tol=1e-12), key
+            else:
+                assert found[key] == saved[key], key
 
 
 class Page(HTMLParser):
@@ -55,7 +78,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--url", default="http://127.0.0.1:8766")
     parser.add_argument("--output", default="build/presentation/engineering-demo-checks.json")
+    parser.add_argument(
+        "--offline", action="store_true", help="Check tracked content without a server."
+    )
+    parser.add_argument(
+        "--run-dir", help="Verify a different live run against its local frozen model."
+    )
     args = parser.parse_args()
+    if args.offline and args.run_dir:
+        parser.error("--run-dir requires a live service; omit --offline.")
     html = (ROOT / "presentation/engineering_demo.html").read_text(encoding="utf-8")
     page = Page()
     page.feed(html)
@@ -70,30 +101,55 @@ def main():
         "shared-view",
         "interface-view",
         "checks-view",
-        "saved-valid",
-        "saved-invalid",
+        "csv-preview",
+        "application-link",
     ]:
         assert name in page.ids, name
     payload = json.loads(page.script_data)
     snapshot = payload["snapshot"]
     for record in payload["references"].values():
         source = (ROOT / record["path"]).read_bytes()
-        assert hashlib.sha256(source).hexdigest() == record["sha256"], record["path"]
-        assert source.decode("utf-8") == record["raw"], record["path"]
-    status, served = request(args.url, "/presentation/engineering_demo.html")
-    assert status == 200 and served.decode("utf-8") == html
-    status, model_body = request(args.url, "/model")
-    model = json.loads(model_body)
-    assert status == 200 and model["model_version"] == snapshot["model_version"]
-    assert model["threshold"] == snapshot["threshold"]
-    status, valid_body = request(args.url, "/predict", snapshot["valid_csv"].encode("utf-8"))
-    assert status == 200 and json.loads(valid_body) == snapshot["valid_response"]
-    _, invalid_csv = request(args.url, "/demo/examples/missing-target")
-    invalid_status, invalid_body = request(args.url, "/predict", invalid_csv)
-    assert invalid_status == 422 and json.loads(invalid_body) == snapshot["invalid_response"]
-    assert "predictions" not in json.loads(invalid_body)
-    for route in ["/", "/assets/app.js", "/assets/style.css", "/presentation/speaking_script.html"]:
-        assert request(args.url, route)[0] == 200, route
+        check_reference(source, record)
+    model = None
+    if not args.offline:
+        expected_response = snapshot["valid_response"]
+        expected_version = snapshot["model_version"]
+        expected_threshold = snapshot["threshold"]
+        if args.run_dir:
+            import io
+
+            from kidney_biopsy.prediction import load_predictor
+            from kidney_biopsy.preprocessing import read_counts_csv
+
+            predictor = load_predictor(ROOT, args.run_dir)
+            counts = read_counts_csv(io.StringIO(snapshot["valid_csv"]), predictor.schema)
+            expected_response = {
+                **expected_response,
+                "predictions": predictor.predict(counts).to_dict(orient="records"),
+            }
+            expected_version = predictor.model_version
+            expected_threshold = predictor.threshold
+        status, served = request(args.url, "/presentation/engineering_demo.html")
+        assert status == 200 and served.decode("utf-8") == html
+        status, model_body = request(args.url, "/model")
+        model = json.loads(model_body)
+        assert status == 200 and model["model_version"] == expected_version
+        assert math.isclose(model["threshold"], expected_threshold, rel_tol=0, abs_tol=1e-12)
+        status, valid_body = request(args.url, "/predict", snapshot["valid_csv"].encode("utf-8"))
+        assert status == 200
+        check_response(json.loads(valid_body), expected_response)
+        invalid_csv_status, invalid_csv = request(args.url, "/demo/examples/missing-target")
+        assert invalid_csv_status == 200
+        invalid_status, invalid_body = request(args.url, "/predict", invalid_csv)
+        assert invalid_status == 422 and json.loads(invalid_body) == snapshot["invalid_response"]
+        assert "predictions" not in json.loads(invalid_body)
+        for route in [
+            "/",
+            "/assets/app.js",
+            "/assets/style.css",
+            "/presentation/speaking_script.html",
+        ]:
+            assert request(args.url, route)[0] == 200, route
     data = json.loads(
         (ROOT / "presentation/source/speaking_script.json").read_text(encoding="utf-8")
     )
@@ -126,24 +182,40 @@ def main():
         "checked_utc": datetime.now(timezone.utc).isoformat(),
         "successful": True,
         "checks": [
-            "all_embedded_reference_bytes_and_hashes_match_sources",
+            "embedded_reference_hashes_verified_and_sources_match_allowing_lf_crlf",
             "self_contained_static_content_without_external_asset_dependencies",
             "three_stop_navigation_structure_and_unique_ids",
-            "real_http_valid_response_matches_saved_response",
-            "real_http_missing_target_rejected_without_predictions",
-            "expected_model_version_and_threshold",
-            "existing_application_and_assets_available",
             "14_slides_and_three_browser_stops_in_script_order_total_1200_seconds",
-        ],
+        ]
+        + (
+            []
+            if args.offline
+            else [
+                "real_http_valid_response_matches_local_model"
+                if args.run_dir
+                else "real_http_valid_response_matches_saved_response",
+                "real_http_missing_target_rejected_without_predictions",
+                "expected_model_version_and_threshold",
+                "existing_application_and_assets_available",
+            ]
+        ),
         "embedded_reference_count": len(payload["references"]),
-        "model_version": model["model_version"],
+        "model_version": model["model_version"] if model else None,
+        "saved_example_model_version": snapshot["model_version"],
+        "run_dir_override": args.run_dir,
+        "offline": args.offline,
+        "numeric_tolerance": 1e-12,
         "changed_retained_slide_renders": changed,
         "prior_render_comparison": "passed"
         if changed is not None
         else "unavailable: private prior revision is absent",
-        "scope": "Presentation integration and one public example. Does not rerun model comparison, the historical 345-specimen check, hosted CI or container validation.",
+        "scope": "Static presentation checks only."
+        if args.offline
+        else "Presentation integration and one public example. Does not rerun model comparison, the historical 345-specimen check, hosted CI or container validation.",
     }
-    (ROOT / args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    output = ROOT / args.output
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
 
 

@@ -182,3 +182,17 @@ positives is a defensible, explicit research preference. It is neither an
 established clinical requirement nor proof of a clinically optimal tradeoff.
 The presentation should not claim false negatives are always more costly, and
 should make clear that the 90% screening target was not achieved in validation.
+
+## September 22 source recheck
+
+The later review rechecked the preserved article, six supplements and extracted
+texts against the source manifest; all seven file and text hashes matched. It
+also inspected all 1,395 public metadata records and confirmed the absence of
+patient and referring-center identifiers. This records that dated review, not a
+new source check during documentation cleanup.
+
+The diagnostic exclusion counts and their denominator are not reported. The
+35 discovery and five validation assay-QC failures are a separate exclusion
+step and cannot be used to estimate diagnostic exclusions. Tables 5–6 identify
+all 11 native-kidney validation controls as acute pyelonephritis. Patient and
+referring-center separation are undocumented; that does not prove overlap.

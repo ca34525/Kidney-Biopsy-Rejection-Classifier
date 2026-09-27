@@ -1,0 +1,327 @@
+{
+  "analysis_type": "Follow-up; technical-validation results were already examined in prior work.",
+  "started_utc": "2026-09-22T04:16:37.179066+00:00",
+  "finished_utc": "2026-09-22T04:17:25.324863+00:00",
+  "elapsed_seconds": 48.14664583300009,
+  "python": "3.12.13",
+  "dependencies": {
+    "catboost": "1.2.10",
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2"
+  },
+  "sources": [
+    {
+      "file": "experiments/rejection_subtypes/run.py",
+      "snapshot": "results/followup/20260922_mac_clone_subtypes/source/experiments/rejection_subtypes/run.py",
+      "sha256": "acb06f44ac35cc2a7bbe2e04d2dd6f5cb4ab1dd3b89ab9647adb835909bf53aa"
+    },
+    {
+      "file": "scripts/verify_local_data.py",
+      "snapshot": "results/followup/20260922_mac_clone_subtypes/source/scripts/verify_local_data.py",
+      "sha256": "046983f51133b558081023143776f6128db067810106bfc55bd1ba239ccda897"
+    },
+    {
+      "file": "tests/test_subtypes.py",
+      "snapshot": "results/followup/20260922_mac_clone_subtypes/source/tests/test_subtypes.py",
+      "sha256": "87c27f19e8de9846b81b8b08d390e1094a7b387bb71bb67f93d817ac2d6ae5d5"
+    },
+    {
+      "file": "pyproject.toml",
+      "snapshot": "results/followup/20260922_mac_clone_subtypes/source/pyproject.toml",
+      "sha256": "d2116e54d649c31bd4527b33b7f7c7955a9611cf0372814e9beb3f2d9604ca8a"
+    },
+    {
+      "file": "uv.lock",
+      "snapshot": "results/followup/20260922_mac_clone_subtypes/source/uv.lock",
+      "sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581"
+    },
+    {
+      "file": "src/kidney_biopsy/__init__.py",
+      "snapshot": "results/followup/20260922_mac_clone_subtypes/source/src/kidney_biopsy/__init__.py",
+      "sha256": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "snapshot": "results/followup/20260922_mac_clone_subtypes/source/src/kidney_biopsy/preprocessing.py",
+      "sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08"
+    },
+    {
+      "file": "src/kidney_biopsy/source.py",
+      "snapshot": "results/followup/20260922_mac_clone_subtypes/source/src/kidney_biopsy/source.py",
+      "sha256": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "snapshot": "results/followup/20260922_mac_clone_subtypes/source/src/kidney_biopsy/prediction.py",
+      "sha256": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5"
+    }
+  ],
+  "raw_sources": [
+    {
+      "gse": "GSE212160",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/matrix/GSE212160_series_matrix.txt.gz",
+      "file": "data/raw/rejection_public/GSE212160_series_matrix.txt.gz",
+      "retrieved": "2026-09-15",
+      "sha256": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050",
+      "bytes": 2444946
+    },
+    {
+      "gse": "GSE212160",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/suppl/GSE212160_RAW.tar",
+      "file": "data/raw/rejection_public/GSE212160_RAW.tar",
+      "retrieved": "2026-09-15",
+      "sha256": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8",
+      "bytes": 13547520
+    }
+  ],
+  "inputs": [
+    {
+      "file": "results/reproduction/20260922_mac_clone/run_manifest.json",
+      "sha256": "8f9689279a2f5fb4c20025e89e2891df578766c6fca917bd22567f476a699bc2"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/biopsy_split.csv",
+      "sha256": "2e6eda3b04d24e872919fe2a69fc6a9f671f337c9dcba2da6766a585067e29d6"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/biopsy_results.json",
+      "sha256": "3cdda3c5e1ed895e28d8a9787c2a5a0b57942d396525a532024d54c3a66bdc40"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_frozen.json",
+      "sha256": "f171cea5a3bda6b00b21eb8f96665738190f0386c007df9b647388f69eb4b533"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/any_rejection_selected_model.joblib",
+      "sha256": "51546292885db0ad3801d72529899c27de220c137a3964982cd12803cff69404"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_frozen.json",
+      "sha256": "104d90576b244b196395cacf0112a391534ce7b7cec66474ec60b675df4a8f66"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/antibody_mediated_component_selected_model.joblib",
+      "sha256": "4baff1e32f0514aeb6c1a9ea37e712d4ca59440c90e08abce531fec9bf936c83"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_frozen.json",
+      "sha256": "4189ace14ed88ac2a6c5390e965973ab1f52d37a906780e6867705b5c2c1f431"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone/t_cell_mediated_component_selected_model.joblib",
+      "sha256": "469174055f0cbd842904fece1cc69505900f7c1f75f7a9e26a4c16c1a79db04f"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_catboost_all_depth4_screen_predictions.csv",
+      "sha256": "1a224e3794e1bea1ecac2088b15d2660f2ecf2eaf50f8f96b1ff8662e31b00ea"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_catboost_all_depth6_screen_predictions.csv",
+      "sha256": "0b70aed2188134523e2274de81b8b38d9f75714120f1ec0fe209a2e8cccfd4d8"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_catboost_all_depth4_screen_predictions.csv",
+      "sha256": "9f6c0e4691bcec6e864b72f659f1195370d6801021f757b55dd6d4905443789d"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "sha256": "69bc1f6180c55550b607058a666b1b0176c938c925526fa1559d24fe52369385"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "sha256": "3fbc68520b52f740bdb31bb5fb8b37e0fd2725aad4aba6bbb6ad11b61d49380d"
+    },
+    {
+      "file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "sha256": "6abca43cf1d7781eeb75c2f607bd957891ec5da3e7e11a2a583b5a204d3c95e1"
+    }
+  ],
+  "input_manifest_sha256": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6",
+  "fit_count": 5,
+  "environment_lock": {
+    "file": "uv.lock",
+    "snapshot": "results/followup/20260922_mac_clone_subtypes/source/uv.lock",
+    "sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581"
+  },
+  "artifacts": [
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/REPORT.md",
+      "bytes": 10300,
+      "sha256": "38636d549202ee7d6cdf89226a4fe87c1581baaffa24f42fa7efa67747c46e2b"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/any_errors_by_diagnosis.csv",
+      "bytes": 2551,
+      "sha256": "9644cbd48fb3021d44783eb2a253639c279faf0ae1ce4aa3d2c23bd28f5b173e"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/any_rejection_metrics.csv",
+      "bytes": 2450,
+      "sha256": "f5773bfe3f409ef76a73a3b4366e531387adfb231809b7d9ab09ec88efbc6e2e"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/candidate_screen.csv",
+      "bytes": 578,
+      "sha256": "408ae3a55b1f052623f1fcc45625574a19a146858c72bf5a9cba28b2daeb188a"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/class_counts.csv",
+      "bytes": 471,
+      "sha256": "a5a9a386fe48ceb381cc0474eea97211e0e693910089e23fa0da98ad9323a7eb"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/component_metrics.csv",
+      "bytes": 3938,
+      "sha256": "f70c7c2257af9582b89a7ee0d887c542056b47998896ee6fbacd64612bd70c0d"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/configuration.json",
+      "bytes": 1823,
+      "sha256": "600142e35dd16cf72c7e7d24b087214343fc1c638b9e95633e40018bd3659d21"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/confusion_matrices.csv",
+      "bytes": 7836,
+      "sha256": "7f8c545860b0c21baf15dcd3e504016e0867fdf31509347b8b212a5d7db67587"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/data_audit.json",
+      "bytes": 1507,
+      "sha256": "96376dd38fa5729d87952c065515a02be041166d0fc2f2f58bece0f3459c6f8f"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/figures/01_subtype_confusion.png",
+      "bytes": 130941,
+      "sha256": "ef59f70d2771e5a684b6d290b1b6e2a8aca1f1f984d105323667616c51de2767"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/figures/01_subtype_confusion.svg",
+      "bytes": 39727,
+      "sha256": "1587491f76cb7aa616a66993719ed1f0edddddd523702c7db9e0ed65a1e19535"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/figures/02_any_rejection_errors.png",
+      "bytes": 59609,
+      "sha256": "97982656235215d39f252876b3360c80c6b9a889760904c0c2b17c15689c6a01"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/figures/02_any_rejection_errors.svg",
+      "bytes": 11319,
+      "sha256": "0d6042d9b755f3a11883f45f701423549081441d345a0c2ed673450e609bff25"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/figures/03_mixed_rejection.png",
+      "bytes": 65318,
+      "sha256": "2051b7094113b0086fe3e09b49f351086af7ea802b9c94f91f16d94acbee5e97"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/figures/03_mixed_rejection.svg",
+      "bytes": 13211,
+      "sha256": "bbb879a841c60577975dbb019657c4f6d1fcebe28e0daf1678a18d5b7e33f88f"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/frozen.json",
+      "bytes": 98456,
+      "sha256": "77af53d286c45e0c83809dfef78993e5250d1f33833cf4d7505a7163951e379d"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/mixed_rejection.csv",
+      "bytes": 365,
+      "sha256": "8a25de249f688638a986e7f466a29181c379bd2d25aa58e231f0406d9f098196"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/paired_error_differences.csv",
+      "bytes": 461,
+      "sha256": "2f54324714230c6989dde93a2995ab1771a4f3bca589b4da1fbb5311ce81457d"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/per_class_metrics.csv",
+      "bytes": 4608,
+      "sha256": "091541aef643dee3b60db1374329729ea16bedb6b427f253581e3cd4f7e949c5"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/source/experiments/rejection_subtypes/run.py",
+      "bytes": 50776,
+      "sha256": "acb06f44ac35cc2a7bbe2e04d2dd6f5cb4ab1dd3b89ab9647adb835909bf53aa"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/source/pyproject.toml",
+      "bytes": 1469,
+      "sha256": "d2116e54d649c31bd4527b33b7f7c7955a9611cf0372814e9beb3f2d9604ca8a"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/source/scripts/verify_local_data.py",
+      "bytes": 2852,
+      "sha256": "046983f51133b558081023143776f6128db067810106bfc55bd1ba239ccda897"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/source/src/kidney_biopsy/__init__.py",
+      "bytes": 708,
+      "sha256": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/source/src/kidney_biopsy/prediction.py",
+      "bytes": 8511,
+      "sha256": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/source/src/kidney_biopsy/preprocessing.py",
+      "bytes": 8595,
+      "sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/source/src/kidney_biopsy/source.py",
+      "bytes": 5031,
+      "sha256": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/source/tests/test_subtypes.py",
+      "bytes": 8295,
+      "sha256": "87c27f19e8de9846b81b8b08d390e1094a7b387bb71bb67f93d817ac2d6ae5d5"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/source/uv.lock",
+      "bytes": 68586,
+      "sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/subtype_summary.csv",
+      "bytes": 567,
+      "sha256": "0222e2f33cf56a6ef1ee05bea6cd98aedfdaa258e3a96422c418a86eeed6a18f"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_subtypes/verification.json",
+      "bytes": 900,
+      "sha256": "d078bfb8a8da5342108394fb360e590d325f4a8370a33e88b7d31aa490f4d799"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone_subtypes/four_class_catboost.joblib",
+      "bytes": 852960,
+      "sha256": "0922ff526115ef6adfcb40608d6036ae7a21585d8f68f2e93928fc93b062709f"
+    },
+    {
+      "file": "data/processed/models/20260922_mac_clone_subtypes/four_class_logistic.joblib",
+      "bytes": 50169,
+      "sha256": "9f4754bcf3c76db2629740687fcc0698848b4edf4ceee3456a649e86cd51771e"
+    },
+    {
+      "file": "data/processed/analysis/20260922_mac_clone_subtypes/author_validation_scores.csv",
+      "bytes": 167023,
+      "sha256": "cdaf2f470fe54eb3c758bd459fbacbc6147cf377bb53ee1239a4e21a3b917e85"
+    },
+    {
+      "file": "data/processed/analysis/20260922_mac_clone_subtypes/biopsy_split.csv",
+      "bytes": 101120,
+      "sha256": "2e6eda3b04d24e872919fe2a69fc6a9f671f337c9dcba2da6766a585067e29d6"
+    },
+    {
+      "file": "data/processed/analysis/20260922_mac_clone_subtypes/discovery_screen_scores.csv",
+      "bytes": 129183,
+      "sha256": "456292bc2696e6a9a1d1e673c00b254a735f7af06c4eb45d646a690d63b7598c"
+    }
+  ]
+}

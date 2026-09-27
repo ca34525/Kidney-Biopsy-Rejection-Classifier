@@ -81,8 +81,29 @@ Full timed rehearsals remain pending.
 
 ## Run the demo
 
-Use Python 3.12 and uv. Run all commands from this project's root. In this populated
-folder, the data and frozen model are already available:
+Run all commands from this project's root. The [Windows and macOS setup guide](docs/SETUP.md)
+covers both existing checkouts and a clean installation. With the preserved Mac
+model and examples available:
+
+```sh
+uv run --frozen python presentation/source/serve_demo.py
+```
+
+Open [the engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html)
+or [the scoring application](http://127.0.0.1:8766/). The launcher explicitly selects
+the run and examples in `presentation/source/demo_config.json`; it does not retrain.
+Keep its terminal running. Stop it with Ctrl+C.
+
+On this Windows checkout, use its preserved model and prepared examples:
+
+```sh
+uv run --frozen python presentation/source/serve_demo.py --run-dir results/reproduction/20260915_shared --demo-dir data/demo/20260927_windows
+```
+
+Models and examples are Git-ignored. The setup guide explains how to prepare them
+if absent; a Git pull alone does not transfer them between computers.
+
+For the original default run, with its model artifacts present and uv installed:
 
 ```powershell
 uv sync --frozen
@@ -90,11 +111,12 @@ uv run --frozen uvicorn kidney_biopsy.api:app --host 127.0.0.1 --port 8765 --no-
 ```
 
 Open [the local demo](http://127.0.0.1:8765). Choose a public specimen or upload
-raw counts, then try the incomplete-file example. The page shows the score,
+raw counts. The specimen selector includes false-positive and false-negative
+examples and an invalid file missing IFNG. The page shows the score,
 threshold, research flag, and observed error counts. Uploads are processed in
 memory and are not saved or logged.
 
-**Follow the specimen** shows a public example's actual count normalization,
+**View the Results** shows a public example's actual count normalization,
 score, threshold, and agreement with its recorded diagnosis. It illustrates the
 shared prediction path; diagnosis and specimen ID are not model inputs.
 
@@ -157,7 +179,7 @@ The [verification guide](docs/VERIFICATION.md) records tests, clean package
 installation, and real HTTP/CLI agreement across all 345 validation specimens.
 The [audit](docs/AUDIT.md) records the defensibility review, implementation fixes,
 and remaining gaps. The GitHub Actions workflow also builds and checks a container
-using a small synthetic model. The [current status](docs/STATUS.md#evidence-available)
+using a small synthetic model. The [current status](docs/STATUS.md#runs-and-evidence)
 links the verified hosted pass and identifies its revision. A cloud deployment
 has not been performed.
 

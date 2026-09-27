@@ -39,6 +39,16 @@ def digest(relative: str) -> str:
     return hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
 
 
+def matches_calculation_source(path: Path, expected: str) -> bool:
+    """Accept Git's LF/CRLF conversion without changing the saved source hash."""
+    raw = path.read_bytes()
+    lf = raw.replace(b"\r\n", b"\n")
+    return any(
+        hashlib.sha256(content).hexdigest() == expected
+        for content in (raw, lf, lf.replace(b"\n", b"\r\n"))
+    )
+
+
 def esc(value) -> str:
     return html.escape(str(value), quote=True)
 
@@ -343,7 +353,7 @@ def build(recorded_revision: dict | None = None) -> tuple[str, str]:
     diagrams = json.loads(read("docs/code_guide/diagrams.json"))
     example = json.loads(read("docs/code_guide/specimen.json"))
     for path, expected in example["provenance"]["source_sha256"].items():
-        if digest(path) != expected:
+        if not matches_calculation_source(ROOT / path, expected):
             raise ValueError("Specimen calculation source changed; rebuild with --refresh-example.")
     functions = {(f["path"], f["symbol"]): f for chapter in chapters for f in chapter["functions"]}
     count = sum(len(chapter["functions"]) for chapter in chapters)

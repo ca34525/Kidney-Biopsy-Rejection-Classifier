@@ -1,0 +1,33 @@
+{
+  "included_specimens": 1395,
+  "excluded_specimens": 0,
+  "predictor_count": 758,
+  "cohorts": {
+    "Discovery cohort sample": 1050,
+    "Validation cohort sample": 345
+  },
+  "duplicate_normalized_profiles": 0,
+  "cross_split_duplicate_profiles": 0,
+  "class_counts": {
+    "author_validation": {
+      "Antibody-mediated Rejection": 56,
+      "Mixed Rejection": 18,
+      "No Rejection": 176,
+      "T cell-mediated Rejection": 95
+    },
+    "discovery_screen": {
+      "Antibody-mediated Rejection": 69,
+      "Mixed Rejection": 19,
+      "No Rejection": 89,
+      "T cell-mediated Rejection": 86
+    },
+    "train": {
+      "Antibody-mediated Rejection": 207,
+      "Mixed Rejection": 57,
+      "No Rejection": 267,
+      "T cell-mediated Rejection": 256
+    }
+  },
+  "sample_join": "GEO and raw RCC specimen sets match exactly; each appears once.",
+  "predictors": "Assay targets only; housekeeping targets, diagnosis, cohort, IDs, and batch excluded."
+}

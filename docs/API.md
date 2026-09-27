@@ -1,24 +1,38 @@
 # Local research application
 
-The application scores raw B-HOT counts with the frozen binary model from
-`results/reproduction/20260915_shared`. It uses the same `Predictor`, CSV reader,
+The standalone application defaults to the frozen binary model from
+`results/reproduction/20260915_shared`. The presentation launcher explicitly selects
+the Mac run in `presentation/source/demo_config.json`. Both use the same `Predictor`, CSV reader,
 and housekeeping normalization as the command-line prediction path. The subtype
 follow-up does not replace this model or its threshold.
 
 ## Start the demonstration
 
-For the interview's single-page engineering demonstration, use the presentation
-launcher from the project root:
+For the interview's engineering demonstration, use the presentation launcher
+from the project root. The [Windows and macOS setup guide](SETUP.md) lists the
+available runs and the clean-checkout procedure. For the preserved Mac run:
 
 ```powershell
 uv run --frozen python presentation/source/serve_demo.py
 ```
 
+For this Windows checkout's preserved run and prepared examples:
+
+```sh
+uv run --frozen python presentation/source/serve_demo.py --run-dir results/reproduction/20260915_shared --demo-dir data/demo/20260927_windows
+```
+
 Open [the engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html).
-It embeds this same application alongside the saved evidence and software
-explanation. The launcher adds presentation-file serving without changing
-prediction behavior. Its HTML also contains clearly labeled saved responses for
-offline use. The ordinary standalone application command follows.
+The scoring app is at [the same server's root](http://127.0.0.1:8766/). Keep the
+launcher running in its terminal. Its default configuration selects the completed
+`20260922_mac_clone` run and `data/demo/20260922_ui_examples` examples, including
+their actual model version and threshold. Missing artifacts for the original
+default run cause the standalone service to report "model not ready"; loading
+the page alone does not establish that scoring is available.
+Its Application tab shows a real CSV excerpt and one link to this application
+in a separate tab. The launcher adds presentation-file serving without changing
+prediction behavior. The engineering explanation includes clearly labeled saved
+API responses; separate application screenshots remain in `presentation/demo_fallback.html`. The ordinary standalone application command follows.
 
 Run from this project's root after setting up the environment and generating the
 shared reproduction run described in the README. If `data/demo/` already exists,
@@ -31,16 +45,18 @@ uv run --frozen uvicorn kidney_biopsy.api:app --host 127.0.0.1 --port 8765 --no-
 ```
 
 Open `http://127.0.0.1:8765` in a browser. Select a public example, choose **Get
-research score**, and then **Try an incomplete file** to see a missing-target error.
+research score**. The selector includes **False positive — false rejection flag**
+and **False negative — missed rejection** examples. Select **Invalid: missing IFNG**
+and score it to see a missing-target error.
 An upload uses the chosen file; selecting another public example clears that upload.
 For multi-specimen uploads, every result appears in a table. Changing the input
 clears the previous result. If the configured server model changes while the page
 is open, the page refuses the mismatched result and asks for a reload so the
 score, threshold, and evaluation counts stay consistent.
 
-### Follow the specimen
+### View the Results
 
-For a prepared public example, **Follow the specimen** shows the actual IFNG raw
+For a prepared public example, **View the Results** shows the actual IFNG raw
 count, its `log2(count + 1)`, the mean of the 12 housekeeping log counts, and the
 subtraction used to obtain its normalized value. Expand **See the 12 housekeeping
 measurements** to inspect that mean. The same operation produces all 758 model
@@ -55,9 +71,14 @@ The route accepts only prepared, valid public examples and rechecks their file,
 specimen, and model identity. Uploaded files use the ordinary prediction path.
 
 Example preparation verifies the raw source manifest and saved split before
-writing five CSV files and a provenance manifest under ignored `data/demo/`. Four
+writing seven CSV files and a provenance manifest under ignored `data/demo/`. Four
 valid examples are the first accessions in lexical order within each recorded
 diagnosis in the discovery-screen split. Their scores did not guide selection.
+The two error examples use the first accessions in lexical order among actual
+false positives and false negatives in the discovery-screen split, calculated
+with the configured model and frozen threshold. They illustrate each error type;
+they do not estimate error frequency. Preparation fails if either error type is
+absent, rather than assigning an incorrect label.
 The invalid example removes IFNG from the no-rejection example. Example preparation
 refuses to overwrite an existing directory; reuse prepared files or supply a new
 `--output-dir`. Serving examples rechecks their file hashes.

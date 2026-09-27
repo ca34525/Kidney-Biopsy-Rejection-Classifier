@@ -1,0 +1,3032 @@
+{
+  "verified_utc": "2026-09-22T04:21:57.519854+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.12.13",
+  "script_sha256": "23471ddddbd9f4291570dc49349e10b9f8bc94a1f52f80390843568e092518a4",
+  "source_commit": "ccbaf31abcaa049be946efe849b7d2f243378976",
+  "current_manifest_sha256": "8f9689279a2f5fb4c20025e89e2891df578766c6fca917bd22567f476a699bc2",
+  "raw_inputs_sha256_verified": [
+    {
+      "gse": "GSE212160",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/matrix/GSE212160_series_matrix.txt.gz",
+      "file": "data/raw/rejection_public/GSE212160_series_matrix.txt.gz",
+      "retrieved": "2026-09-15",
+      "sha256": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050",
+      "bytes": 2444946
+    },
+    {
+      "gse": "GSE212160",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/suppl/GSE212160_RAW.tar",
+      "file": "data/raw/rejection_public/GSE212160_RAW.tar",
+      "retrieved": "2026-09-15",
+      "sha256": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8",
+      "bytes": 13547520
+    }
+  ],
+  "aggregate_comparisons_passed": false,
+  "absolute_tolerance": 1e-12,
+  "relative_tolerance": 0,
+  "excluded_timing_fields": [
+    "fit_seconds",
+    "seconds"
+  ],
+  "aggregate_comparisons": [
+    {
+      "reference": "results/reproduction/baseline/biopsy_results.json",
+      "current": "results/reproduction/20260922_mac_clone/biopsy_results.json",
+      "reference_sha256": "734dc953c7df5d255896ef08fe7f358090b8415b41e89594856f27879b2ad248",
+      "current_sha256": "3cdda3c5e1ed895e28d8a9787c2a5a0b57942d396525a532024d54c3a66bdc40",
+      "passed": false,
+      "error": "Value differs: /any_rejection/author_validation/training_prevalence/npv: 0.0 != None",
+      "max_absolute_numeric_difference": 1.9562129693895258e-13,
+      "numeric_differences": [
+        {
+          "field": "/any_rejection/screen/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/any_rejection/author_validation/catboost_all_depth4/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/any_rejection/author_validation/catboost_all_depth4/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/any_rejection/author_validation/logistic_all/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/any_rejection/author_validation/logistic_all/brier",
+          "absolute_difference": 1.2934098236883074e-14
+        }
+      ]
+    },
+    {
+      "reference": "results/reproduction/baseline/biopsy_screen.csv",
+      "current": "results/reproduction/20260922_mac_clone/biopsy_screen.csv",
+      "reference_sha256": "ed2a28e20845d745af9dd7eae926c9d144aae2a23693829ee9e7224a9d394832",
+      "current_sha256": "0ccb27e0cb620f9dc0d0d1ffa8c5e26574ea384b69c4a819d5650bad81c6b9a0",
+      "passed": false,
+      "max_absolute_numeric_difference": 1.0,
+      "numeric_differences": [
+        {
+          "field": "/0/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/1/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/1/brier",
+          "absolute_difference": 6.938893903907228e-18
+        },
+        {
+          "field": "/2/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/3/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/4/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/4/brier",
+          "absolute_difference": 2.7824964554667986e-15
+        },
+        {
+          "field": "/5/threshold",
+          "absolute_difference": 1.6653345369377348e-15
+        },
+        {
+          "field": "/5/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/6/roc_auc",
+          "absolute_difference": 0.00019372336303757898
+        },
+        {
+          "field": "/6/average_precision",
+          "absolute_difference": 0.0001554549492184254
+        },
+        {
+          "field": "/6/threshold",
+          "absolute_difference": 0.0007499999999999174
+        },
+        {
+          "field": "/6/brier",
+          "absolute_difference": 4.964195183781994e-06
+        },
+        {
+          "field": "/9/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/10/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/11/threshold",
+          "absolute_difference": 4.996003610813204e-16
+        },
+        {
+          "field": "/12/threshold",
+          "absolute_difference": 8.326672684688674e-17
+        },
+        {
+          "field": "/13/threshold",
+          "absolute_difference": 3.3412161926094086e-13
+        },
+        {
+          "field": "/13/brier",
+          "absolute_difference": 3.226585665316861e-15
+        },
+        {
+          "field": "/14/threshold",
+          "absolute_difference": 7.771561172376096e-16
+        },
+        {
+          "field": "/14/brier",
+          "absolute_difference": 2.636779683484747e-16
+        },
+        {
+          "field": "/15/roc_auc",
+          "absolute_difference": 0.00045454545454548523
+        },
+        {
+          "field": "/15/average_precision",
+          "absolute_difference": 0.0006463725699690226
+        },
+        {
+          "field": "/15/threshold",
+          "absolute_difference": 0.0025000000000000022
+        },
+        {
+          "field": "/15/specificity",
+          "absolute_difference": 0.005714285714285783
+        },
+        {
+          "field": "/15/ppv",
+          "absolute_difference": 0.009555661729574783
+        },
+        {
+          "field": "/15/npv",
+          "absolute_difference": 0.00027199782401743366
+        },
+        {
+          "field": "/15/fp",
+          "absolute_difference": 1.0
+        },
+        {
+          "field": "/15/tn",
+          "absolute_difference": 1.0
+        },
+        {
+          "field": "/15/accuracy",
+          "absolute_difference": 0.0038022813688213253
+        },
+        {
+          "field": "/15/brier",
+          "absolute_difference": 9.550901721597227e-06
+        },
+        {
+          "field": "/18/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/19/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/20/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/20/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/21/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/21/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/22/threshold",
+          "absolute_difference": 1.049160758270773e-14
+        },
+        {
+          "field": "/22/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/23/threshold",
+          "absolute_difference": 8.326672684688674e-16
+        },
+        {
+          "field": "/23/brier",
+          "absolute_difference": 4.163336342344337e-17
+        },
+        {
+          "field": "/24/roc_auc",
+          "absolute_difference": 0.00018083182640138418
+        },
+        {
+          "field": "/24/average_precision",
+          "absolute_difference": 0.00031177227524215034
+        },
+        {
+          "field": "/24/brier",
+          "absolute_difference": 4.999075834399846e-07
+        },
+        {
+          "field": "/26/threshold",
+          "absolute_difference": 5.0487392044828994e-14
+        },
+        {
+          "field": "/26/brier",
+          "absolute_difference": 2.4424906541753444e-15
+        }
+      ]
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_results.json",
+      "current": "results/reproduction/20260922_mac_clone/biopsy_results.json",
+      "reference_sha256": "e01c8b44309ea1d2e25bdec71d388e968309d406606efd83837fc2d611b724d0",
+      "current_sha256": "3cdda3c5e1ed895e28d8a9787c2a5a0b57942d396525a532024d54c3a66bdc40",
+      "passed": true,
+      "max_absolute_numeric_difference": 3.3412161926094086e-13,
+      "numeric_differences": [
+        {
+          "field": "/any_rejection/screen/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/any_rejection/author_validation/catboost_all_depth4/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/any_rejection/author_validation/catboost_all_depth4/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/any_rejection/author_validation/logistic_all/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/any_rejection/author_validation/logistic_all/brier",
+          "absolute_difference": 1.2934098236883074e-14
+        },
+        {
+          "field": "/antibody_mediated_component/screen/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/antibody_mediated_component/author_validation/catboost_all_depth6/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/antibody_mediated_component/author_validation/logistic_all/threshold",
+          "absolute_difference": 3.3412161926094086e-13
+        },
+        {
+          "field": "/antibody_mediated_component/author_validation/logistic_all/brier",
+          "absolute_difference": 2.769312557049375e-14
+        },
+        {
+          "field": "/t_cell_mediated_component/screen/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/t_cell_mediated_component/author_validation/catboost_all_depth4/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/t_cell_mediated_component/author_validation/catboost_all_depth4/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/t_cell_mediated_component/author_validation/single_gene_IFNG/threshold",
+          "absolute_difference": 5.0487392044828994e-14
+        },
+        {
+          "field": "/t_cell_mediated_component/author_validation/single_gene_IFNG/brier",
+          "absolute_difference": 6.467049118441537e-15
+        },
+        {
+          "field": "/t_cell_mediated_component/author_validation/logistic_all/threshold",
+          "absolute_difference": 1.049160758270773e-14
+        },
+        {
+          "field": "/t_cell_mediated_component/author_validation/logistic_all/brier",
+          "absolute_difference": 4.996003610813204e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/biopsy_screen.csv",
+      "current": "results/reproduction/20260922_mac_clone/biopsy_screen.csv",
+      "reference_sha256": "a2af6949101f38cf992d87baadc9fa7dcdb4c05d0c0389d2ed99af153dc419e0",
+      "current_sha256": "0ccb27e0cb620f9dc0d0d1ffa8c5e26574ea384b69c4a819d5650bad81c6b9a0",
+      "passed": false,
+      "max_absolute_numeric_difference": 1.0,
+      "numeric_differences": [
+        {
+          "field": "/0/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/1/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/1/brier",
+          "absolute_difference": 6.938893903907228e-18
+        },
+        {
+          "field": "/2/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/3/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/4/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/4/brier",
+          "absolute_difference": 2.7824964554667986e-15
+        },
+        {
+          "field": "/5/threshold",
+          "absolute_difference": 1.6653345369377348e-15
+        },
+        {
+          "field": "/5/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/6/roc_auc",
+          "absolute_difference": 0.00019372336303757898
+        },
+        {
+          "field": "/6/average_precision",
+          "absolute_difference": 0.0001554549492184254
+        },
+        {
+          "field": "/6/threshold",
+          "absolute_difference": 0.0007499999999999174
+        },
+        {
+          "field": "/6/brier",
+          "absolute_difference": 4.964195183781994e-06
+        },
+        {
+          "field": "/9/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/10/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/11/threshold",
+          "absolute_difference": 4.996003610813204e-16
+        },
+        {
+          "field": "/12/threshold",
+          "absolute_difference": 8.326672684688674e-17
+        },
+        {
+          "field": "/13/threshold",
+          "absolute_difference": 3.3412161926094086e-13
+        },
+        {
+          "field": "/13/brier",
+          "absolute_difference": 3.226585665316861e-15
+        },
+        {
+          "field": "/14/threshold",
+          "absolute_difference": 7.771561172376096e-16
+        },
+        {
+          "field": "/14/brier",
+          "absolute_difference": 2.636779683484747e-16
+        },
+        {
+          "field": "/15/roc_auc",
+          "absolute_difference": 0.00045454545454548523
+        },
+        {
+          "field": "/15/average_precision",
+          "absolute_difference": 0.0006463725699690226
+        },
+        {
+          "field": "/15/threshold",
+          "absolute_difference": 0.0025000000000000022
+        },
+        {
+          "field": "/15/specificity",
+          "absolute_difference": 0.005714285714285783
+        },
+        {
+          "field": "/15/ppv",
+          "absolute_difference": 0.009555661729574783
+        },
+        {
+          "field": "/15/npv",
+          "absolute_difference": 0.00027199782401743366
+        },
+        {
+          "field": "/15/fp",
+          "absolute_difference": 1.0
+        },
+        {
+          "field": "/15/tn",
+          "absolute_difference": 1.0
+        },
+        {
+          "field": "/15/accuracy",
+          "absolute_difference": 0.0038022813688213253
+        },
+        {
+          "field": "/15/brier",
+          "absolute_difference": 9.550901721597227e-06
+        },
+        {
+          "field": "/18/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/19/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/20/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/20/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/21/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/21/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/22/threshold",
+          "absolute_difference": 1.049160758270773e-14
+        },
+        {
+          "field": "/22/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/23/threshold",
+          "absolute_difference": 8.326672684688674e-16
+        },
+        {
+          "field": "/23/brier",
+          "absolute_difference": 4.163336342344337e-17
+        },
+        {
+          "field": "/24/roc_auc",
+          "absolute_difference": 0.00018083182640138418
+        },
+        {
+          "field": "/24/average_precision",
+          "absolute_difference": 0.00031177227524215034
+        },
+        {
+          "field": "/24/brier",
+          "absolute_difference": 4.999075834261069e-07
+        },
+        {
+          "field": "/26/threshold",
+          "absolute_difference": 5.0487392044828994e-14
+        },
+        {
+          "field": "/26/brier",
+          "absolute_difference": 2.4424906541753444e-15
+        }
+      ]
+    },
+    {
+      "reference": "results/analysis/20260915_baseline/assay_group_errors.csv",
+      "current": "results/analysis/20260922_mac_clone/assay_group_errors.csv",
+      "reference_sha256": "447cd27975dcec717e4ad04cf23ec237cd04d0e8e115d1f2bc7a004a80b3076c",
+      "current_sha256": "3dae7b960125fe89952221f25d0c32f959cf8d69d08354764bf1150e24edb962",
+      "passed": true,
+      "max_absolute_numeric_difference": 1.9562129693895258e-13,
+      "numeric_differences": [
+        {
+          "field": "/0/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/0/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/1/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/1/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/1/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/2/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/2/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/2/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/3/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/3/brier",
+          "absolute_difference": 1.734723475976807e-17
+        },
+        {
+          "field": "/3/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/4/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/4/brier",
+          "absolute_difference": 4.163336342344337e-17
+        },
+        {
+          "field": "/4/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/5/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/6/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/6/brier",
+          "absolute_difference": 8.326672684688674e-17
+        },
+        {
+          "field": "/6/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/7/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/7/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/8/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/8/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/8/mean_score",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/9/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/9/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/10/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/10/brier",
+          "absolute_difference": 3.2526065174565133e-19
+        },
+        {
+          "field": "/11/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/11/brier",
+          "absolute_difference": 6.938893903907228e-18
+        },
+        {
+          "field": "/12/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/12/brier",
+          "absolute_difference": 6.938893903907228e-17
+        },
+        {
+          "field": "/12/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/13/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/13/brier",
+          "absolute_difference": 2.2551405187698492e-17
+        },
+        {
+          "field": "/13/mean_score",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/14/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/14/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/14/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/15/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/15/brier",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/15/mean_score",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/16/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/16/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/17/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/17/brier",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/17/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/18/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/18/brier",
+          "absolute_difference": 8.326672684688674e-17
+        },
+        {
+          "field": "/18/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/19/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/19/brier",
+          "absolute_difference": 3.2526065174565133e-19
+        },
+        {
+          "field": "/19/mean_score",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/20/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/20/brier",
+          "absolute_difference": 4.163336342344337e-17
+        },
+        {
+          "field": "/20/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/21/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/21/brier",
+          "absolute_difference": 1.214306433183765e-17
+        },
+        {
+          "field": "/22/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/22/brier",
+          "absolute_difference": 3.122502256758253e-17
+        },
+        {
+          "field": "/22/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/23/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/23/brier",
+          "absolute_difference": 2.0816681711721685e-17
+        },
+        {
+          "field": "/23/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/24/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/25/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/25/brier",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/25/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/26/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/27/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/27/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/28/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/28/brier",
+          "absolute_difference": 3.144186300207963e-18
+        },
+        {
+          "field": "/29/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/29/brier",
+          "absolute_difference": 8.326672684688674e-17
+        },
+        {
+          "field": "/29/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/30/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/30/brier",
+          "absolute_difference": 6.245004513516506e-17
+        },
+        {
+          "field": "/30/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/31/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/31/brier",
+          "absolute_difference": 6.938893903907228e-17
+        },
+        {
+          "field": "/32/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/32/brier",
+          "absolute_difference": 3.686287386450715e-18
+        },
+        {
+          "field": "/33/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/33/brier",
+          "absolute_difference": 3.469446951953614e-18
+        },
+        {
+          "field": "/34/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/34/brier",
+          "absolute_difference": 5.204170427930421e-17
+        },
+        {
+          "field": "/34/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/35/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/35/brier",
+          "absolute_difference": 8.326672684688674e-17
+        },
+        {
+          "field": "/35/mean_score",
+          "absolute_difference": 1.6653345369377348e-16
+        },
+        {
+          "field": "/36/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/36/brier",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/36/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/37/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/37/brier",
+          "absolute_difference": 1.3877787807814457e-16
+        },
+        {
+          "field": "/37/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/38/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/38/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/38/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/39/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/39/brier",
+          "absolute_difference": 3.1530333899354446e-14
+        },
+        {
+          "field": "/39/mean_score",
+          "absolute_difference": 1.8984813721090177e-14
+        },
+        {
+          "field": "/40/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/40/brier",
+          "absolute_difference": 5.911937606128959e-14
+        },
+        {
+          "field": "/40/mean_score",
+          "absolute_difference": 7.227551890309769e-14
+        },
+        {
+          "field": "/41/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/41/brier",
+          "absolute_difference": 5.299927163804341e-14
+        },
+        {
+          "field": "/41/mean_score",
+          "absolute_difference": 7.771561172376096e-15
+        },
+        {
+          "field": "/42/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/42/brier",
+          "absolute_difference": 2.5569824035898137e-14
+        },
+        {
+          "field": "/42/mean_score",
+          "absolute_difference": 1.965094753586527e-14
+        },
+        {
+          "field": "/43/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/43/brier",
+          "absolute_difference": 2.2051804826617172e-14
+        },
+        {
+          "field": "/43/mean_score",
+          "absolute_difference": 6.88338275267597e-14
+        },
+        {
+          "field": "/44/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/44/brier",
+          "absolute_difference": 2.6451063561694355e-14
+        },
+        {
+          "field": "/44/mean_score",
+          "absolute_difference": 1.2212453270876722e-15
+        },
+        {
+          "field": "/45/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/45/brier",
+          "absolute_difference": 4.926614671774132e-15
+        },
+        {
+          "field": "/45/mean_score",
+          "absolute_difference": 1.4155343563970746e-14
+        },
+        {
+          "field": "/46/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/46/brier",
+          "absolute_difference": 1.148942052608959e-13
+        },
+        {
+          "field": "/46/mean_score",
+          "absolute_difference": 1.3322676295501878e-14
+        },
+        {
+          "field": "/47/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/47/brier",
+          "absolute_difference": 5.945244296867713e-14
+        },
+        {
+          "field": "/47/mean_score",
+          "absolute_difference": 6.322720125240266e-14
+        },
+        {
+          "field": "/48/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/48/brier",
+          "absolute_difference": 3.058664432842306e-14
+        },
+        {
+          "field": "/48/mean_score",
+          "absolute_difference": 4.951594689828198e-14
+        },
+        {
+          "field": "/49/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/49/brier",
+          "absolute_difference": 1.1915815556484688e-14
+        },
+        {
+          "field": "/49/mean_score",
+          "absolute_difference": 1.709743457922741e-14
+        },
+        {
+          "field": "/50/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/50/brier",
+          "absolute_difference": 4.9432680171435095e-14
+        },
+        {
+          "field": "/50/mean_score",
+          "absolute_difference": 1.659783421814609e-14
+        },
+        {
+          "field": "/51/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/51/brier",
+          "absolute_difference": 1.6275869541004795e-13
+        },
+        {
+          "field": "/51/mean_score",
+          "absolute_difference": 1.1457501614131615e-13
+        },
+        {
+          "field": "/52/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/52/brier",
+          "absolute_difference": 1.9827889330414905e-14
+        },
+        {
+          "field": "/52/mean_score",
+          "absolute_difference": 3.8746783559417963e-14
+        },
+        {
+          "field": "/53/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/53/brier",
+          "absolute_difference": 5.3484994211316916e-14
+        },
+        {
+          "field": "/53/mean_score",
+          "absolute_difference": 1.5631940186722204e-13
+        },
+        {
+          "field": "/54/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/54/brier",
+          "absolute_difference": 8.287120989436403e-14
+        },
+        {
+          "field": "/54/mean_score",
+          "absolute_difference": 6.872280522429719e-14
+        },
+        {
+          "field": "/55/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/55/brier",
+          "absolute_difference": 7.835398996292042e-14
+        },
+        {
+          "field": "/55/mean_score",
+          "absolute_difference": 4.296563105299356e-14
+        },
+        {
+          "field": "/56/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/56/brier",
+          "absolute_difference": 2.806088694740083e-14
+        },
+        {
+          "field": "/56/mean_score",
+          "absolute_difference": 5.051514762044462e-15
+        },
+        {
+          "field": "/57/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/57/brier",
+          "absolute_difference": 2.0844437287337314e-14
+        },
+        {
+          "field": "/57/mean_score",
+          "absolute_difference": 1.0325074129013956e-14
+        },
+        {
+          "field": "/58/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/58/brier",
+          "absolute_difference": 1.0417014473240727e-15
+        },
+        {
+          "field": "/58/mean_score",
+          "absolute_difference": 9.103828801926284e-15
+        },
+        {
+          "field": "/59/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/59/brier",
+          "absolute_difference": 9.624245844719326e-14
+        },
+        {
+          "field": "/59/mean_score",
+          "absolute_difference": 1.177946629127291e-13
+        },
+        {
+          "field": "/60/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/60/brier",
+          "absolute_difference": 3.060399156318283e-14
+        },
+        {
+          "field": "/60/mean_score",
+          "absolute_difference": 4.5352610555937645e-14
+        },
+        {
+          "field": "/61/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/61/brier",
+          "absolute_difference": 1.952604744559494e-14
+        },
+        {
+          "field": "/61/mean_score",
+          "absolute_difference": 1.8984813721090177e-14
+        },
+        {
+          "field": "/62/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/62/brier",
+          "absolute_difference": 1.470178145890344e-16
+        },
+        {
+          "field": "/62/mean_score",
+          "absolute_difference": 1.73749903353837e-14
+        },
+        {
+          "field": "/63/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/63/brier",
+          "absolute_difference": 4.524158825347513e-15
+        },
+        {
+          "field": "/63/mean_score",
+          "absolute_difference": 3.752553823233029e-14
+        },
+        {
+          "field": "/64/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/64/brier",
+          "absolute_difference": 1.5487611193520934e-14
+        },
+        {
+          "field": "/64/mean_score",
+          "absolute_difference": 9.209299989265674e-14
+        },
+        {
+          "field": "/65/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/65/brier",
+          "absolute_difference": 2.0587698212892747e-14
+        },
+        {
+          "field": "/65/mean_score",
+          "absolute_difference": 1.0658141036401503e-14
+        },
+        {
+          "field": "/66/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/66/brier",
+          "absolute_difference": 4.381217610927024e-14
+        },
+        {
+          "field": "/66/mean_score",
+          "absolute_difference": 2.2926105458509483e-14
+        },
+        {
+          "field": "/67/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/67/brier",
+          "absolute_difference": 4.494668526255907e-15
+        },
+        {
+          "field": "/67/mean_score",
+          "absolute_difference": 3.785860513971784e-14
+        },
+        {
+          "field": "/68/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/68/brier",
+          "absolute_difference": 5.94177484991576e-14
+        },
+        {
+          "field": "/68/mean_score",
+          "absolute_difference": 6.45039577307216e-14
+        },
+        {
+          "field": "/69/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/69/brier",
+          "absolute_difference": 1.607047828144914e-14
+        },
+        {
+          "field": "/69/mean_score",
+          "absolute_difference": 1.4277468096679513e-13
+        },
+        {
+          "field": "/70/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/70/brier",
+          "absolute_difference": 4.0495384823202585e-14
+        },
+        {
+          "field": "/70/mean_score",
+          "absolute_difference": 5.6343818499726694e-14
+        },
+        {
+          "field": "/71/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/71/brier",
+          "absolute_difference": 1.3211653993039363e-14
+        },
+        {
+          "field": "/71/mean_score",
+          "absolute_difference": 7.183142969324763e-14
+        },
+        {
+          "field": "/72/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/72/brier",
+          "absolute_difference": 9.317546734166626e-14
+        },
+        {
+          "field": "/72/mean_score",
+          "absolute_difference": 3.219646771412954e-15
+        },
+        {
+          "field": "/73/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/73/brier",
+          "absolute_difference": 3.430589146091734e-14
+        },
+        {
+          "field": "/73/mean_score",
+          "absolute_difference": 2.8199664825478976e-14
+        },
+        {
+          "field": "/74/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/74/brier",
+          "absolute_difference": 2.5729418595688003e-14
+        },
+        {
+          "field": "/74/mean_score",
+          "absolute_difference": 4.4797499043625066e-14
+        },
+        {
+          "field": "/75/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/75/brier",
+          "absolute_difference": 1.6868451080398472e-14
+        },
+        {
+          "field": "/75/mean_score",
+          "absolute_difference": 3.091971123581061e-14
+        },
+        {
+          "field": "/76/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/76/brier",
+          "absolute_difference": 2.979561042337764e-14
+        },
+        {
+          "field": "/76/mean_score",
+          "absolute_difference": 3.624878175401136e-14
+        },
+        {
+          "field": "/77/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/77/brier",
+          "absolute_difference": 1.292022044907526e-14
+        },
+        {
+          "field": "/77/mean_score",
+          "absolute_difference": 2.3203661214665772e-14
+        },
+        {
+          "field": "/78/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/79/brier",
+          "absolute_difference": 8.326672684688674e-17
+        },
+        {
+          "field": "/81/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/81/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/82/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/83/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/86/brier",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/91/brier",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/96/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/99/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/101/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/102/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/102/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/103/brier",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/104/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/105/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/106/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/108/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/109/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/111/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/112/brier",
+          "absolute_difference": 1.3877787807814457e-17
+        },
+        {
+          "field": "/113/brier",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/114/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/116/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/analysis/20260915_baseline/cohort_composition.csv",
+      "current": "results/analysis/20260922_mac_clone/cohort_composition.csv",
+      "reference_sha256": "269781684617388f99f24992deb3a70cc3520ce246a8b97ae37526178d4433c8",
+      "current_sha256": "7c86c3e2c1bc1f64230f488c21c2b1079beb216f207f8d78eff1b9b04498fd0f",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/analysis/20260915_baseline/error_overlap.csv",
+      "current": "results/analysis/20260922_mac_clone/error_overlap.csv",
+      "reference_sha256": "46bd8c7ed4e2ba2448600c238a4d4729220464c549e209176f3cb9f0176c6c7d",
+      "current_sha256": "df6fabd61616f189da466113722b80fa8a849ac54035fe881ee53dda3aed0304",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/analysis/20260915_baseline/errors_by_diagnosis.csv",
+      "current": "results/analysis/20260922_mac_clone/errors_by_diagnosis.csv",
+      "reference_sha256": "4048a7ffad8776bfa89c43371328bd1708f6bfa2aeddb030d020545117e1d9ee",
+      "current_sha256": "f4d8aba5bbe62fb825129a842e420f5707a2e93dd738b093f2630bb1849087e1",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/analysis/20260915_baseline/metric_intervals.csv",
+      "current": "results/analysis/20260922_mac_clone/metric_intervals.csv",
+      "reference_sha256": "015b7c039ebf439059e2b41575deb319e13c1c38ac4d7991f647fcb2df38b3d7",
+      "current_sha256": "23be887d177c2016143451dce502ef47e3337624e2df728911d636dbaff0f6d0",
+      "passed": true,
+      "max_absolute_numeric_difference": 2.403632848313464e-14,
+      "numeric_differences": [
+        {
+          "field": "/7/estimate",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/7/upper",
+          "absolute_difference": 4.163336342344337e-17
+        },
+        {
+          "field": "/8/estimate",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/8/upper",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/18/estimate",
+          "absolute_difference": 1.292022044907526e-14
+        },
+        {
+          "field": "/18/lower",
+          "absolute_difference": 1.0380585280245214e-14
+        },
+        {
+          "field": "/18/upper",
+          "absolute_difference": 2.213507155346406e-14
+        },
+        {
+          "field": "/19/estimate",
+          "absolute_difference": 2.3203661214665772e-14
+        },
+        {
+          "field": "/19/lower",
+          "absolute_difference": 2.403632848313464e-14
+        },
+        {
+          "field": "/19/upper",
+          "absolute_difference": 1.887379141862766e-14
+        },
+        {
+          "field": "/30/estimate",
+          "absolute_difference": 2.220446049250313e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/analysis/20260915_baseline/model_metrics.csv",
+      "current": "results/analysis/20260922_mac_clone/model_metrics.csv",
+      "reference_sha256": "b0c61c942369c150bd74b3f7bc092e7c9eb689a12bb54dd607a123b7daf0ec69",
+      "current_sha256": "4fbad54e89bdda9b3412f07ada6819b14dbef8dca9fa845c08c025ccedd191a2",
+      "passed": true,
+      "max_absolute_numeric_difference": 1.9562129693895258e-13,
+      "numeric_differences": [
+        {
+          "field": "/0/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/0/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/0/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/1/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/1/brier",
+          "absolute_difference": 1.292022044907526e-14
+        },
+        {
+          "field": "/1/mean_score",
+          "absolute_difference": 2.3203661214665772e-14
+        },
+        {
+          "field": "/2/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/analysis/20260915_baseline/paired_differences.csv",
+      "current": "results/analysis/20260922_mac_clone/paired_differences.csv",
+      "reference_sha256": "1fd083292f7a7ba90cd8545d468e63a3f37f444b4aee441bd62b39b0c7cfe436",
+      "current_sha256": "f918b1d513f9767c9414ab1b7be3998eccc7d3d01dd0d10b50cbc9918e48c6ee",
+      "passed": true,
+      "max_absolute_numeric_difference": 3.501712808606783e-14,
+      "numeric_differences": [
+        {
+          "field": "/3/estimate",
+          "absolute_difference": 1.2947976024690888e-14
+        },
+        {
+          "field": "/3/lower",
+          "absolute_difference": 3.501712808606783e-14
+        },
+        {
+          "field": "/3/upper",
+          "absolute_difference": 1.3910747553858016e-14
+        },
+        {
+          "field": "/9/estimate",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/9/lower",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/9/upper",
+          "absolute_difference": 4.163336342344337e-17
+        }
+      ]
+    },
+    {
+      "reference": "results/analysis/20260915_baseline/reliability_bins.csv",
+      "current": "results/analysis/20260922_mac_clone/reliability_bins.csv",
+      "reference_sha256": "8c300664473ab37dedb5997726c1afb5ef84f662267d556db393df9c1cde6719",
+      "current_sha256": "7f3a6d876c5969a2392485e2519c5f36f5232e36948a2c181702ae2cc6c2bf9f",
+      "passed": true,
+      "max_absolute_numeric_difference": 2.7400304247748863e-13,
+      "numeric_differences": [
+        {
+          "field": "/0/mean_score",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/1/mean_score",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/2/mean_score",
+          "absolute_difference": 2.7755575615628914e-16
+        },
+        {
+          "field": "/3/mean_score",
+          "absolute_difference": 2.7755575615628914e-16
+        },
+        {
+          "field": "/4/mean_score",
+          "absolute_difference": 5.551115123125783e-16
+        },
+        {
+          "field": "/5/mean_score",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/6/mean_score",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/7/mean_score",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/8/mean_score",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/10/mean_score",
+          "absolute_difference": 6.439293542825908e-15
+        },
+        {
+          "field": "/11/mean_score",
+          "absolute_difference": 7.105427357601002e-15
+        },
+        {
+          "field": "/12/mean_score",
+          "absolute_difference": 1.2131962101591398e-13
+        },
+        {
+          "field": "/13/mean_score",
+          "absolute_difference": 1.6908696665041134e-13
+        },
+        {
+          "field": "/14/mean_score",
+          "absolute_difference": 1.9628743075372768e-13
+        },
+        {
+          "field": "/15/mean_score",
+          "absolute_difference": 2.7400304247748863e-13
+        },
+        {
+          "field": "/16/mean_score",
+          "absolute_difference": 2.1405099914773018e-13
+        },
+        {
+          "field": "/17/mean_score",
+          "absolute_difference": 1.474376176702208e-13
+        },
+        {
+          "field": "/18/mean_score",
+          "absolute_difference": 1.3422596367718143e-13
+        },
+        {
+          "field": "/19/mean_score",
+          "absolute_difference": 2.6645352591003757e-15
+        },
+        {
+          "field": "/20/mean_score",
+          "absolute_difference": 2.0816681711721685e-17
+        },
+        {
+          "field": "/21/mean_score",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/22/mean_score",
+          "absolute_difference": 5.551115123125783e-17
+        },
+        {
+          "field": "/23/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/24/mean_score",
+          "absolute_difference": 5.551115123125783e-17
+        }
+      ]
+    },
+    {
+      "reference": "results/analysis/20260915_viral/batch_cohort_overlap.csv",
+      "current": "results/analysis/20260922_mac_clone_viral/batch_cohort_overlap.csv",
+      "reference_sha256": "e71709fe0364343a4a280b0e5b2394bb76b1e8769407ee6f8e9aafe6f112a678",
+      "current_sha256": "a6d4f9e8f61e558561eacc0a81e84ab0d1b00806c2a283d695ca636502cd12e4",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/analysis/20260915_viral/higher_signal_counts.csv",
+      "current": "results/analysis/20260922_mac_clone_viral/higher_signal_counts.csv",
+      "reference_sha256": "8afae0db7cd265e83e09a610851d41f0a42a881fc72b59e8776af704a9ed3600",
+      "current_sha256": "968a1d57013296cd808b5f377b66516611fdf38a0da24bc3b2721c00137a3996",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/analysis/20260915_viral/higher_signal_error_counts.csv",
+      "current": "results/analysis/20260922_mac_clone_viral/higher_signal_error_counts.csv",
+      "reference_sha256": "36335e6037560dd2a10f9b6e734597751ef2b428977af47c631e77799b6916b7",
+      "current_sha256": "b76663eb344b972c5f55baa09ec94579a4b99cd776472513666e69463f00309b",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/analysis/20260915_viral/signals_by_cohort_diagnosis.csv",
+      "current": "results/analysis/20260922_mac_clone_viral/signals_by_cohort_diagnosis.csv",
+      "reference_sha256": "ea52f9e9e0e9dde2be4bc2d2537cc987c14064e784fe075c3b6714aeab84409a",
+      "current_sha256": "f4f0de8f017639e1ae4b0b83d1dedf676ee21d8b868f30186fbb4ec436712632",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/analysis/20260915_viral/signals_by_validation_error.csv",
+      "current": "results/analysis/20260922_mac_clone_viral/signals_by_validation_error.csv",
+      "reference_sha256": "1859da826b3fef0c54c7685b653dd945c8024cba6cac92abccb50ac8fd74e994",
+      "current_sha256": "e424093a13b30e45ceafd50c1caddfc38a5b0136df11212cb03cb856c49f1dc4",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/analysis/20260915_viral/viral_feature_importance.csv",
+      "current": "results/analysis/20260922_mac_clone_viral/viral_feature_importance.csv",
+      "reference_sha256": "92fdc8767d12ff8e63a05ccf9f551b7b8f95b48bda52d0f6ba77e3b03d23991b",
+      "current_sha256": "36a9015683671d22d566634a753c717d4874f928c27b3996f5b1e26fdd6721c6",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/any_errors_by_diagnosis.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/any_errors_by_diagnosis.csv",
+      "reference_sha256": "3b92d614f7f321405f725894779b08c7ad3c532599627fbb10d241ebbb03a213",
+      "current_sha256": "9644cbd48fb3021d44783eb2a253639c279faf0ae1ce4aa3d2c23bd28f5b173e",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/any_rejection_metrics.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/any_rejection_metrics.csv",
+      "reference_sha256": "22fb812a4acc7bbbab78dbfc7146aae44282a502d8971efe180e58957ddaaaa6",
+      "current_sha256": "f5773bfe3f409ef76a73a3b4366e531387adfb231809b7d9ab09ec88efbc6e2e",
+      "passed": false,
+      "max_absolute_numeric_difference": 9.636536013601926e-11,
+      "numeric_differences": [
+        {
+          "field": "/1/threshold",
+          "absolute_difference": 9.636536013601926e-11
+        },
+        {
+          "field": "/2/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/5/threshold",
+          "absolute_difference": 9.636536013601926e-11
+        },
+        {
+          "field": "/6/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/candidate_screen.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/candidate_screen.csv",
+      "reference_sha256": "8af14658ef57ca18230c7861efffd2375fdc9b7ae70225df641ece3924c16afa",
+      "current_sha256": "408ae3a55b1f052623f1fcc45625574a19a146858c72bf5a9cba28b2daeb188a",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/class_counts.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/class_counts.csv",
+      "reference_sha256": "d5fd0e6a8a000a207fe039a44c3fc98345a406a6ff4c6bb675da523064f392c8",
+      "current_sha256": "a5a9a386fe48ceb381cc0474eea97211e0e693910089e23fa0da98ad9323a7eb",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/component_metrics.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/component_metrics.csv",
+      "reference_sha256": "1fb547c29e3947973b30517007e55e5959f364c6a1e43a8451d5b525fb068399",
+      "current_sha256": "f70c7c2257af9582b89a7ee0d887c542056b47998896ee6fbacd64612bd70c0d",
+      "passed": false,
+      "max_absolute_numeric_difference": 1.6698198379572204e-10,
+      "numeric_differences": [
+        {
+          "field": "/1/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/2/threshold",
+          "absolute_difference": 2.407474219978667e-11
+        },
+        {
+          "field": "/3/threshold",
+          "absolute_difference": 1.6698198379572204e-10
+        },
+        {
+          "field": "/4/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/5/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/7/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/8/threshold",
+          "absolute_difference": 2.407474219978667e-11
+        },
+        {
+          "field": "/9/threshold",
+          "absolute_difference": 1.6698198379572204e-10
+        },
+        {
+          "field": "/10/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/11/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/confusion_matrices.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/confusion_matrices.csv",
+      "reference_sha256": "c7c61c1ffc613ec2cabfdc5d75c3793ce7a79ccd72841b55f150378e6a557a95",
+      "current_sha256": "7f8c545860b0c21baf15dcd3e504016e0867fdf31509347b8b212a5d7db67587",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/mixed_rejection.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/mixed_rejection.csv",
+      "reference_sha256": "01f1c0b900732cc70e1215927c45d4ca1b8dbc92b0da1e6ea99f954910454b46",
+      "current_sha256": "8a25de249f688638a986e7f466a29181c379bd2d25aa58e231f0406d9f098196",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/paired_error_differences.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/paired_error_differences.csv",
+      "reference_sha256": "a508163f530fba8f0b99d4e601e9a9aeae8e544114b17cf67ee695b0752c6026",
+      "current_sha256": "2f54324714230c6989dde93a2995ab1771a4f3bca589b4da1fbb5311ce81457d",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/per_class_metrics.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/per_class_metrics.csv",
+      "reference_sha256": "46f627ca0067768bab2dc5f187f4ac5fc8a1aed0a4e2b565eda554849eb07007",
+      "current_sha256": "091541aef643dee3b60db1374329729ea16bedb6b427f253581e3cd4f7e949c5",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260915_subtypes/subtype_summary.csv",
+      "current": "results/followup/20260922_mac_clone_subtypes/subtype_summary.csv",
+      "reference_sha256": "796d4ea2374d80b0ab76f74ca9859a287805675646cb50f49d29fd721b441350",
+      "current_sha256": "0222e2f33cf56a6ef1ee05bea6cd98aedfdaa258e3a96422c418a86eeed6a18f",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260917_stability/assessment_metrics.csv",
+      "current": "results/followup/20260922_mac_clone_stability/assessment_metrics.csv",
+      "reference_sha256": "38f2ed93908f15520cdaf93801004dbf06f9ef45d93854ed03c4671ee6e54a1e",
+      "current_sha256": "0808ccf46b009c82903accd8c1f9eb06f4d080794920a0353e7df870590daf3e",
+      "passed": false,
+      "max_absolute_numeric_difference": 3.834410566838642e-11,
+      "numeric_differences": [
+        {
+          "field": "/0/threshold",
+          "absolute_difference": 2.183586644832758e-12
+        },
+        {
+          "field": "/1/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/2/threshold",
+          "absolute_difference": 1.1102230246251565e-15
+        },
+        {
+          "field": "/3/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/4/threshold",
+          "absolute_difference": 8.881784197001252e-16
+        },
+        {
+          "field": "/5/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/6/threshold",
+          "absolute_difference": 4.669487019270946e-12
+        },
+        {
+          "field": "/7/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/8/threshold",
+          "absolute_difference": 7.506217869490683e-13
+        },
+        {
+          "field": "/10/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/12/threshold",
+          "absolute_difference": 2.531308496145357e-14
+        },
+        {
+          "field": "/13/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/14/threshold",
+          "absolute_difference": 7.882583474838611e-15
+        },
+        {
+          "field": "/16/threshold",
+          "absolute_difference": 3.834410566838642e-11
+        },
+        {
+          "field": "/17/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/18/threshold",
+          "absolute_difference": 3.774758283725532e-15
+        },
+        {
+          "field": "/19/threshold",
+          "absolute_difference": 6.661338147750939e-16
+        },
+        {
+          "field": "/20/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/21/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/22/threshold",
+          "absolute_difference": 3.3306690738754696e-15
+        },
+        {
+          "field": "/23/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/24/threshold",
+          "absolute_difference": 6.3541394368371584e-12
+        },
+        {
+          "field": "/26/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/27/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/28/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/29/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/30/threshold",
+          "absolute_difference": 8.881784197001252e-16
+        },
+        {
+          "field": "/31/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/32/threshold",
+          "absolute_difference": 2.007283228522283e-13
+        },
+        {
+          "field": "/34/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/35/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/36/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/37/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/38/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/followup/20260917_stability/class_counts.csv",
+      "current": "results/followup/20260922_mac_clone_stability/class_counts.csv",
+      "reference_sha256": "9b11273146c8ad12ea6df874819d252a12b7f8182396943f9bca8498ebf9f45b",
+      "current_sha256": "c4f43d9506206a8a3e3d9e2c4a8c8348452db89349554209f5d1f99c54bd0dcb",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260917_stability/paired_differences.csv",
+      "current": "results/followup/20260922_mac_clone_stability/paired_differences.csv",
+      "reference_sha256": "3bb42fd5b03fe8baf3c8e9244c851f210c9fe8ea940fe65dff49ae703c96541b",
+      "current_sha256": "85bc4528b1b87d4c0f827806d87b730b852fb77fcd332f49f91ea104d1d1634a",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/followup/20260917_stability/screening_metrics.csv",
+      "current": "results/followup/20260922_mac_clone_stability/screening_metrics.csv",
+      "reference_sha256": "0a825583fdce7783d2f5e192ab426c63b55b4ec08f1a946ac0d95fc3743fbcc7",
+      "current_sha256": "86cc869165d5901ac206b2894457c4b98f5c878dd1cff85e32ba23ad811d356d",
+      "passed": false,
+      "max_absolute_numeric_difference": 0.001109459730870177,
+      "numeric_differences": [
+        {
+          "field": "/0/threshold",
+          "absolute_difference": 3.774758283725532e-15
+        },
+        {
+          "field": "/1/threshold",
+          "absolute_difference": 2.183586644832758e-12
+        },
+        {
+          "field": "/2/threshold",
+          "absolute_difference": 4.576858003702e-09
+        },
+        {
+          "field": "/4/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/5/threshold",
+          "absolute_difference": 1.1102230246251565e-15
+        },
+        {
+          "field": "/6/threshold",
+          "absolute_difference": 7.027711745877241e-14
+        },
+        {
+          "field": "/7/threshold",
+          "absolute_difference": 1.0736966871149889e-12
+        },
+        {
+          "field": "/8/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/9/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/10/threshold",
+          "absolute_difference": 8.881784197001252e-16
+        },
+        {
+          "field": "/11/threshold",
+          "absolute_difference": 2.4424906541753444e-15
+        },
+        {
+          "field": "/12/threshold",
+          "absolute_difference": 2.0607959783092156e-12
+        },
+        {
+          "field": "/13/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/15/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/16/threshold",
+          "absolute_difference": 3.9968028886505635e-15
+        },
+        {
+          "field": "/17/threshold",
+          "absolute_difference": 4.669487019270946e-12
+        },
+        {
+          "field": "/18/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/19/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/20/threshold",
+          "absolute_difference": 8.881784197001252e-16
+        },
+        {
+          "field": "/21/threshold",
+          "absolute_difference": 7.506217869490683e-13
+        },
+        {
+          "field": "/22/threshold",
+          "absolute_difference": 2.8527180617743397e-11
+        },
+        {
+          "field": "/25/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/26/threshold",
+          "absolute_difference": 2.8754776337791554e-14
+        },
+        {
+          "field": "/27/threshold",
+          "absolute_difference": 8.66012817013484e-11
+        },
+        {
+          "field": "/29/threshold",
+          "absolute_difference": 0.001109459730870177
+        },
+        {
+          "field": "/29/roc_auc",
+          "absolute_difference": 0.00010132738879320424
+        },
+        {
+          "field": "/29/average_precision",
+          "absolute_difference": 0.0001074248055530358
+        },
+        {
+          "field": "/30/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/31/threshold",
+          "absolute_difference": 2.531308496145357e-14
+        },
+        {
+          "field": "/32/threshold",
+          "absolute_difference": 7.116829348063902e-11
+        },
+        {
+          "field": "/33/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/34/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/35/threshold",
+          "absolute_difference": 7.882583474838611e-15
+        },
+        {
+          "field": "/36/threshold",
+          "absolute_difference": 2.4424906541753444e-15
+        },
+        {
+          "field": "/37/threshold",
+          "absolute_difference": 1.7297274723659939e-12
+        },
+        {
+          "field": "/38/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/40/threshold",
+          "absolute_difference": 5.551115123125783e-16
+        },
+        {
+          "field": "/41/threshold",
+          "absolute_difference": 3.834410566838642e-11
+        },
+        {
+          "field": "/42/threshold",
+          "absolute_difference": 4.832967359647e-11
+        },
+        {
+          "field": "/43/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/44/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/45/threshold",
+          "absolute_difference": 3.774758283725532e-15
+        },
+        {
+          "field": "/46/threshold",
+          "absolute_difference": 3.6981528950263964e-13
+        },
+        {
+          "field": "/47/threshold",
+          "absolute_difference": 1.176836406102666e-14
+        },
+        {
+          "field": "/48/threshold",
+          "absolute_difference": 6.661338147750939e-16
+        },
+        {
+          "field": "/50/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/51/threshold",
+          "absolute_difference": 1.4521717162097048e-13
+        },
+        {
+          "field": "/52/threshold",
+          "absolute_difference": 8.01358979174438e-13
+        },
+        {
+          "field": "/53/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/54/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/55/threshold",
+          "absolute_difference": 3.3306690738754696e-15
+        },
+        {
+          "field": "/56/threshold",
+          "absolute_difference": 2.9976021664879227e-15
+        },
+        {
+          "field": "/57/threshold",
+          "absolute_difference": 3.528177749956285e-12
+        },
+        {
+          "field": "/58/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/60/threshold",
+          "absolute_difference": 2.55351295663786e-15
+        },
+        {
+          "field": "/61/threshold",
+          "absolute_difference": 1.865174681370263e-14
+        },
+        {
+          "field": "/62/threshold",
+          "absolute_difference": 6.3541394368371584e-12
+        },
+        {
+          "field": "/63/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/65/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/66/threshold",
+          "absolute_difference": 8.37108160567368e-14
+        },
+        {
+          "field": "/67/threshold",
+          "absolute_difference": 5.752065490582936e-13
+        },
+        {
+          "field": "/68/threshold",
+          "absolute_difference": 7.771561172376096e-16
+        },
+        {
+          "field": "/69/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/70/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/71/threshold",
+          "absolute_difference": 7.105427357601002e-15
+        },
+        {
+          "field": "/72/threshold",
+          "absolute_difference": 3.4416913763379853e-15
+        },
+        {
+          "field": "/73/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/75/threshold",
+          "absolute_difference": 8.881784197001252e-16
+        },
+        {
+          "field": "/76/threshold",
+          "absolute_difference": 3.68594044175552e-14
+        },
+        {
+          "field": "/77/threshold",
+          "absolute_difference": 2.7538527014314695e-11
+        },
+        {
+          "field": "/78/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/79/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/80/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/81/threshold",
+          "absolute_difference": 2.007283228522283e-13
+        },
+        {
+          "field": "/82/threshold",
+          "absolute_difference": 3.447020446856186e-12
+        },
+        {
+          "field": "/83/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/85/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/86/threshold",
+          "absolute_difference": 3.042011087472929e-14
+        },
+        {
+          "field": "/87/threshold",
+          "absolute_difference": 1.8722561900830215e-07
+        },
+        {
+          "field": "/88/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/89/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/90/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/91/threshold",
+          "absolute_difference": 3.079758670310184e-13
+        },
+        {
+          "field": "/92/threshold",
+          "absolute_difference": 6.062972346398965e-11
+        },
+        {
+          "field": "/94/threshold",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/95/threshold",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/96/threshold",
+          "absolute_difference": 4.2033043712308427e-13
+        },
+        {
+          "field": "/97/threshold",
+          "absolute_difference": 7.568401461099938e-11
+        }
+      ]
+    },
+    {
+      "reference": "results/followup/20260917_stability/selections.csv",
+      "current": "results/followup/20260922_mac_clone_stability/selections.csv",
+      "reference_sha256": "972fd8e3cf5d1ec74f2b91b18a38025de6c3a74b95142140db6ddcfc3f5f9424",
+      "current_sha256": "923cf9439fb9a42ec3750bba7ecb69639d8be9bc521b0a7ef261fc00fd62391b",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/analysis/20260915_baseline/model_metrics.json",
+      "current": "results/analysis/20260922_mac_clone/model_metrics.json",
+      "reference_sha256": "cfccd17b99715e9d0ca97929b4fd2205dd9e293ec2fc11125c2d27e68b7dcdb7",
+      "current_sha256": "954cfa31ab3bad9811bd00f9ded540fdab658652a4a6f5ee557424c7ae39d32b",
+      "passed": true,
+      "max_absolute_numeric_difference": 1.9562129693895258e-13,
+      "numeric_differences": [
+        {
+          "field": "/catboost_all_depth4/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        },
+        {
+          "field": "/catboost_all_depth4/brier",
+          "absolute_difference": 2.7755575615628914e-17
+        },
+        {
+          "field": "/catboost_all_depth4/mean_score",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/logistic_all/threshold",
+          "absolute_difference": 1.9562129693895258e-13
+        },
+        {
+          "field": "/logistic_all/brier",
+          "absolute_difference": 1.292022044907526e-14
+        },
+        {
+          "field": "/logistic_all/mean_score",
+          "absolute_difference": 2.3203661214665772e-14
+        },
+        {
+          "field": "/single_gene_IFNG/mean_score",
+          "absolute_difference": 2.220446049250313e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/followup/20260917_stability/summary.json",
+      "current": "results/followup/20260922_mac_clone_stability/summary.json",
+      "reference_sha256": "e31a297e06eeb19d0bc116f2d036c5184e8fd3e9198ea88304073e794bc6cffc",
+      "current_sha256": "152cafc966ecc253ea845b60dfdb4c7f00d8a4ccc9101978b59006b25edc2aa1",
+      "passed": false,
+      "max_absolute_numeric_difference": 3.834410566838642e-11,
+      "numeric_differences": [
+        {
+          "field": "/assessment/logistic/threshold/median",
+          "absolute_difference": 5.551115123125783e-16
+        },
+        {
+          "field": "/assessment/logistic/threshold/p10",
+          "absolute_difference": 1.1102230246251565e-16
+        },
+        {
+          "field": "/assessment/logistic/threshold/p90",
+          "absolute_difference": 4.838018874409045e-12
+        },
+        {
+          "field": "/assessment/logistic/threshold/min",
+          "absolute_difference": 1.1102230246251565e-15
+        },
+        {
+          "field": "/assessment/logistic/threshold/max",
+          "absolute_difference": 3.834410566838642e-11
+        },
+        {
+          "field": "/assessment/catboost/threshold/median",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/assessment/catboost/threshold/p10",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/assessment/catboost/threshold/p90",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/assessment/catboost/threshold/min",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/assessment/catboost/threshold/max",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/assessment/selected/threshold/median",
+          "absolute_difference": 5.551115123125783e-16
+        },
+        {
+          "field": "/assessment/selected/threshold/p10",
+          "absolute_difference": 3.3306690738754696e-16
+        },
+        {
+          "field": "/assessment/selected/threshold/p90",
+          "absolute_difference": 2.220446049250313e-16
+        },
+        {
+          "field": "/assessment/selected/threshold/min",
+          "absolute_difference": 3.3306690738754696e-15
+        },
+        {
+          "field": "/assessment/selected/threshold/max",
+          "absolute_difference": 2.220446049250313e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/data_audit.json",
+      "current": "results/reproduction/20260922_mac_clone/data_audit.json",
+      "reference_sha256": "785ff15f476efcdd8cba2eea72bef0ecac740a9404058dad89e0d3001ff3c888",
+      "current_sha256": "d95174762dadb6fb1b884ec9d85d116d83737130217079d4e69a07b416cdcd13",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/configuration.json",
+      "current": "results/reproduction/20260922_mac_clone/configuration.json",
+      "reference_sha256": "1704a1e4ce9ffce95127d83b8843177cd8aab4e7e46cc42565af206f5763c7b6",
+      "current_sha256": "39ed0237db1a28543eb4ad4b13d47d22564b6eaf3cf82f0b5e7ab83d601b26ba",
+      "passed": true,
+      "max_absolute_numeric_difference": 0,
+      "numeric_differences": []
+    }
+  ],
+  "frozen_choices": [
+    {
+      "reference": "results/reproduction/baseline/antibody_mediated_component_frozen.json",
+      "fields_compared": [
+        "target",
+        "selected_model",
+        "threshold",
+        "features",
+        "train_n",
+        "screen_n",
+        "test_n"
+      ],
+      "selected_model": "catboost_all_depth6",
+      "reference_threshold": 0.28974403910876173,
+      "current_threshold": 0.28974403910876184,
+      "passed": true,
+      "numeric_differences": [
+        {
+          "field": "/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/reproduction/baseline/any_rejection_frozen.json",
+      "fields_compared": [
+        "target",
+        "selected_model",
+        "threshold",
+        "features",
+        "train_n",
+        "screen_n",
+        "test_n"
+      ],
+      "selected_model": "catboost_all_depth4",
+      "reference_threshold": 0.8765880870219778,
+      "current_threshold": 0.8765880870219773,
+      "passed": true,
+      "numeric_differences": [
+        {
+          "field": "/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/reproduction/baseline/t_cell_mediated_component_frozen.json",
+      "fields_compared": [
+        "target",
+        "selected_model",
+        "threshold",
+        "features",
+        "train_n",
+        "screen_n",
+        "test_n"
+      ],
+      "selected_model": "catboost_all_depth4",
+      "reference_threshold": 0.5048651647359682,
+      "current_threshold": 0.5048651647359681,
+      "passed": true,
+      "numeric_differences": [
+        {
+          "field": "/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/antibody_mediated_component_frozen.json",
+      "fields_compared": [
+        "target",
+        "selected_model",
+        "threshold",
+        "features",
+        "train_n",
+        "screen_n",
+        "test_n",
+        "schema"
+      ],
+      "selected_model": "catboost_all_depth6",
+      "reference_threshold": 0.28974403910876173,
+      "current_threshold": 0.28974403910876184,
+      "passed": true,
+      "numeric_differences": [
+        {
+          "field": "/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/any_rejection_frozen.json",
+      "fields_compared": [
+        "target",
+        "selected_model",
+        "threshold",
+        "features",
+        "train_n",
+        "screen_n",
+        "test_n",
+        "schema"
+      ],
+      "selected_model": "catboost_all_depth4",
+      "reference_threshold": 0.8765880870219778,
+      "current_threshold": 0.8765880870219773,
+      "passed": true,
+      "numeric_differences": [
+        {
+          "field": "/threshold",
+          "absolute_difference": 4.440892098500626e-16
+        }
+      ]
+    },
+    {
+      "reference": "results/reproduction/20260915_shared/t_cell_mediated_component_frozen.json",
+      "fields_compared": [
+        "target",
+        "selected_model",
+        "threshold",
+        "features",
+        "train_n",
+        "screen_n",
+        "test_n",
+        "schema"
+      ],
+      "selected_model": "catboost_all_depth4",
+      "reference_threshold": 0.5048651647359682,
+      "current_threshold": 0.5048651647359681,
+      "passed": true,
+      "numeric_differences": [
+        {
+          "field": "/threshold",
+          "absolute_difference": 1.1102230246251565e-16
+        }
+      ]
+    }
+  ],
+  "original_evidence_integrity": [
+    {
+      "reference_run": "baseline",
+      "existing_artifacts_verified": 7,
+      "artifacts_absent_from_clone": 18,
+      "python_matches": true,
+      "modeling_dependencies_match": true,
+      "seeds_match": true
+    },
+    {
+      "reference_run": "20260915_shared",
+      "existing_artifacts_verified": 18,
+      "artifacts_absent_from_clone": 35,
+      "python_matches": true,
+      "modeling_dependencies_match": true,
+      "seeds_match": true
+    }
+  ],
+  "new_run_artifacts_verified": 55,
+  "split_and_prediction_hash_comparisons": [
+    {
+      "reference_file": "results/reproduction/baseline/antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "reference_sha256": "d3f6b663e7fb6490f794056cb707a8a4ce72a0a05618f8a1c73d09326e5e0790",
+      "current_sha256": "3fbc68520b52f740bdb31bb5fb8b37e0fd2725aad4aba6bbb6ad11b61d49380d",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/baseline/antibody_mediated_component_logistic_all_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_logistic_all_test_predictions.csv",
+      "reference_sha256": "8a0d9460951d987fef6aa74c8fd511faa44d941d707338ae3b97ed6d14d5189d",
+      "current_sha256": "c2470aa7cc908132029ca7094758010aaa8d57d3741320401ff9e1b24d1f280f",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/baseline/antibody_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "reference_sha256": "aa80d3e8d24f1f94db15695142d3a4dc08444f64855bca95966c709e020329b7",
+      "current_sha256": "ede9813cc67b345b67f598b5bed833431ffa280e2a60fedc4f69aa2c1462d422",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/baseline/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "reference_sha256": "2c5fcedb726348ba7a7ac06e4e195f81f4b8d921d186997cb2ab2ee8197ab91a",
+      "current_sha256": "69bc1f6180c55550b607058a666b1b0176c938c925526fa1559d24fe52369385",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/baseline/any_rejection_logistic_all_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/any_rejection_logistic_all_test_predictions.csv",
+      "reference_sha256": "7a722fa2ea5766e166557be9b1f6449541edf4ed14040e11d7e975d0c5b89e76",
+      "current_sha256": "d917c1fcf405c084de0c8f35e39719f240538196c2176f07a4afa5eee50052b3",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/baseline/any_rejection_single_gene_IFNG_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/any_rejection_single_gene_IFNG_test_predictions.csv",
+      "reference_sha256": "01f67a15880020aca5a085a2e50b526cd3599878fbd4c4ba3cc282a0cdda7835",
+      "current_sha256": "4e717bbe17f71ad0d24126430a4ad2cfe24d32e7e1d097daf6ad872a6afee1a1",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/baseline/biopsy_split.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/biopsy_split.csv",
+      "reference_sha256": "e179b5ef6fdceac592db55878bd82aaf01f08b7c9eb65afa99d326b309ecab6a",
+      "current_sha256": "2e6eda3b04d24e872919fe2a69fc6a9f671f337c9dcba2da6766a585067e29d6",
+      "matching_serialization": "CRLF",
+      "content_proven_identical": true
+    },
+    {
+      "reference_file": "results/reproduction/baseline/raw_batch_identifiers.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/raw_batch_identifiers.csv",
+      "reference_sha256": "1f13b4b73940c5756edd4509d1784db60a4925a25eb41530b6807ef36134a3ae",
+      "current_sha256": "56c099f2c006ad72634fb8cb02caf141530cabf2d4eff432b450a7854185ed06",
+      "matching_serialization": "CRLF",
+      "content_proven_identical": true
+    },
+    {
+      "reference_file": "results/reproduction/baseline/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "reference_sha256": "03deba22cee69854910534b228c80e4ea94197ecfcc78504d623e5ba07abde96",
+      "current_sha256": "6abca43cf1d7781eeb75c2f607bd957891ec5da3e7e11a2a583b5a204d3c95e1",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/baseline/t_cell_mediated_component_logistic_all_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_logistic_all_test_predictions.csv",
+      "reference_sha256": "b035af173249956498c4e5844fbe80b3dd06cd7d68ae82f01d23e8bef9ccf21e",
+      "current_sha256": "299643a4a8e12e817eba4cc76db81ddcd71c82fec726898a59d76c4cf6b0bf86",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/baseline/t_cell_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "reference_sha256": "13a0981402f285cfee33b8263503a5592ca5b76bf6d25c166514a4d7c21adabf",
+      "current_sha256": "dd6e9fc5d21f102ce5fda5b760cc4299c14229645cbe9d33a2f58ba8771a3f71",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/antibody_mediated_component_catboost_all_depth6_screen_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_catboost_all_depth6_screen_predictions.csv",
+      "reference_sha256": "8797e1469b9549331ad3e0caf5537a1613b794d92ea7a086d61f516968744819",
+      "current_sha256": "0b70aed2188134523e2274de81b8b38d9f75714120f1ec0fe209a2e8cccfd4d8",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_catboost_all_depth6_test_predictions.csv",
+      "reference_sha256": "d3f6b663e7fb6490f794056cb707a8a4ce72a0a05618f8a1c73d09326e5e0790",
+      "current_sha256": "3fbc68520b52f740bdb31bb5fb8b37e0fd2725aad4aba6bbb6ad11b61d49380d",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/antibody_mediated_component_logistic_all_screen_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_logistic_all_screen_predictions.csv",
+      "reference_sha256": "48e3be051f1a77cc8fca0a1f9ddce4d72036a5a10914942c24b6394cf9684574",
+      "current_sha256": "7098b08cf0ced2a4c22a2fc068e27411b59eed0f0cff5ce3037a4eb97476c050",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/antibody_mediated_component_logistic_all_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_logistic_all_test_predictions.csv",
+      "reference_sha256": "8a0d9460951d987fef6aa74c8fd511faa44d941d707338ae3b97ed6d14d5189d",
+      "current_sha256": "c2470aa7cc908132029ca7094758010aaa8d57d3741320401ff9e1b24d1f280f",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/antibody_mediated_component_single_gene_IFNG_screen_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_single_gene_IFNG_screen_predictions.csv",
+      "reference_sha256": "e49510766bce77fad94376fc0c4deac00ad880a0acc35fda7717cd98f40fef85",
+      "current_sha256": "9ec027acaecf4ede4bbe5ae698dcb1d13db062e97d7992cc38194605ede06514",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/antibody_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/antibody_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "reference_sha256": "aa80d3e8d24f1f94db15695142d3a4dc08444f64855bca95966c709e020329b7",
+      "current_sha256": "ede9813cc67b345b67f598b5bed833431ffa280e2a60fedc4f69aa2c1462d422",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/any_rejection_catboost_all_depth4_screen_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/any_rejection_catboost_all_depth4_screen_predictions.csv",
+      "reference_sha256": "57aef2ed1f39aa8644f2d5e5da2176f553e652c87946ff5565ef648c361334ea",
+      "current_sha256": "1a224e3794e1bea1ecac2088b15d2660f2ecf2eaf50f8f96b1ff8662e31b00ea",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/any_rejection_catboost_all_depth4_test_predictions.csv",
+      "reference_sha256": "2c5fcedb726348ba7a7ac06e4e195f81f4b8d921d186997cb2ab2ee8197ab91a",
+      "current_sha256": "69bc1f6180c55550b607058a666b1b0176c938c925526fa1559d24fe52369385",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/any_rejection_logistic_all_screen_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/any_rejection_logistic_all_screen_predictions.csv",
+      "reference_sha256": "591a4d88ffad96b2ebcadb3afad69af0d200db8aa400df43e5d6a08b344b21e7",
+      "current_sha256": "03082e28788557bd0277cc5fa0b156e04dc8eb4a7a6818625c3a750dab81d5d0",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/any_rejection_logistic_all_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/any_rejection_logistic_all_test_predictions.csv",
+      "reference_sha256": "7a722fa2ea5766e166557be9b1f6449541edf4ed14040e11d7e975d0c5b89e76",
+      "current_sha256": "d917c1fcf405c084de0c8f35e39719f240538196c2176f07a4afa5eee50052b3",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/any_rejection_single_gene_IFNG_screen_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/any_rejection_single_gene_IFNG_screen_predictions.csv",
+      "reference_sha256": "c6916c304ca671d659232a02f3ed25abda9df4c0a5e3629172441c4715ef6516",
+      "current_sha256": "5072719ed65b533c31e65f668566fed3c9c041e536a8f8ebeb43ae65c819f38d",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/any_rejection_single_gene_IFNG_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/any_rejection_single_gene_IFNG_test_predictions.csv",
+      "reference_sha256": "01f67a15880020aca5a085a2e50b526cd3599878fbd4c4ba3cc282a0cdda7835",
+      "current_sha256": "4e717bbe17f71ad0d24126430a4ad2cfe24d32e7e1d097daf6ad872a6afee1a1",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/biopsy_split.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/biopsy_split.csv",
+      "reference_sha256": "e179b5ef6fdceac592db55878bd82aaf01f08b7c9eb65afa99d326b309ecab6a",
+      "current_sha256": "2e6eda3b04d24e872919fe2a69fc6a9f671f337c9dcba2da6766a585067e29d6",
+      "matching_serialization": "CRLF",
+      "content_proven_identical": true
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/raw_batch_identifiers.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/raw_batch_identifiers.csv",
+      "reference_sha256": "1f13b4b73940c5756edd4509d1784db60a4925a25eb41530b6807ef36134a3ae",
+      "current_sha256": "56c099f2c006ad72634fb8cb02caf141530cabf2d4eff432b450a7854185ed06",
+      "matching_serialization": "CRLF",
+      "content_proven_identical": true
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/t_cell_mediated_component_catboost_all_depth4_screen_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_catboost_all_depth4_screen_predictions.csv",
+      "reference_sha256": "f5efaec729896e4452c57c3e3b713ca2716bad5a2f3a6352c06d6926e9ae2034",
+      "current_sha256": "9f6c0e4691bcec6e864b72f659f1195370d6801021f757b55dd6d4905443789d",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_catboost_all_depth4_test_predictions.csv",
+      "reference_sha256": "03deba22cee69854910534b228c80e4ea94197ecfcc78504d623e5ba07abde96",
+      "current_sha256": "6abca43cf1d7781eeb75c2f607bd957891ec5da3e7e11a2a583b5a204d3c95e1",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/t_cell_mediated_component_logistic_all_screen_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_logistic_all_screen_predictions.csv",
+      "reference_sha256": "0455f43cb3a68c589c7b25e2c74830a53fda932749a899362d0e05f493e78146",
+      "current_sha256": "74a55919ba56bdc03b60841b71cca88ac43e70c73d10001232be24eee9d16cc7",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/t_cell_mediated_component_logistic_all_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_logistic_all_test_predictions.csv",
+      "reference_sha256": "b035af173249956498c4e5844fbe80b3dd06cd7d68ae82f01d23e8bef9ccf21e",
+      "current_sha256": "299643a4a8e12e817eba4cc76db81ddcd71c82fec726898a59d76c4cf6b0bf86",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/t_cell_mediated_component_single_gene_IFNG_screen_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_single_gene_IFNG_screen_predictions.csv",
+      "reference_sha256": "b66bf25846d4e6d31cbd63b4ebc7cdd46fc7abff7854a3858f5439e81fdaded4",
+      "current_sha256": "78bc966cfe85389585c7b744d8bfbf7593ea27fa3fd2354288856ff58b756135",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    },
+    {
+      "reference_file": "results/reproduction/20260915_shared/t_cell_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "current_file": "results/reproduction/20260922_mac_clone/t_cell_mediated_component_single_gene_IFNG_test_predictions.csv",
+      "reference_sha256": "13a0981402f285cfee33b8263503a5592ca5b76bf6d25c166514a4d7c21adabf",
+      "current_sha256": "dd6e9fc5d21f102ce5fda5b760cc4299c14229645cbe9d33a2f58ba8771a3f71",
+      "matching_serialization": null,
+      "content_proven_identical": false
+    }
+  ],
+  "limits": [
+    "Original specimen-level prediction tables and fitted models were not committed.",
+    "A matching hash after only newline conversion proves text content identity. A mismatching hash cannot quantify score differences or prove identical individual flags.",
+    "Aggregate agreement within 1e-12 is distinct from an original-versus-current per-specimen score comparison.",
+    "Fresh model binary hashes and run identifiers are not expected to match the desktop artifacts."
+  ]
+}

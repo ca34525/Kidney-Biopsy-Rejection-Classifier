@@ -1,0 +1,1061 @@
+{
+  "started_utc": "2026-09-22T04:16:37.044316+00:00",
+  "finished_utc": "2026-09-22T04:20:39.664517+00:00",
+  "elapsed_seconds": 242.62261670800012,
+  "python": "3.12.13",
+  "packages": {
+    "catboost": "1.2.10",
+    "joblib": "1.6.0",
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1"
+  },
+  "inputs": [
+    {
+      "gse": "GSE212160",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/matrix/GSE212160_series_matrix.txt.gz",
+      "file": "data/raw/rejection_public/GSE212160_series_matrix.txt.gz",
+      "retrieved": "2026-09-15",
+      "sha256": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050",
+      "bytes": 2444946
+    },
+    {
+      "gse": "GSE212160",
+      "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE212nnn/GSE212160/suppl/GSE212160_RAW.tar",
+      "file": "data/raw/rejection_public/GSE212160_RAW.tar",
+      "retrieved": "2026-09-15",
+      "sha256": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8",
+      "bytes": 13547520
+    }
+  ],
+  "lock_sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581",
+  "configuration_sha256": "a56f6a38636d97f1acbb2b5b6fff74bdae324fe6d881e33cb00e5d7cc3d430eb",
+  "source_import_path": "src/kidney_biopsy/__init__.py",
+  "fit_count": 100,
+  "reload_tolerance": 1e-12,
+  "reload_max_abs_difference": 0.0,
+  "artifacts": [
+    {
+      "file": "results/followup/20260922_mac_clone_stability/REPORT.md",
+      "bytes": 5819,
+      "sha256": "beedf8dd757c2519631e5fedb559d68c03fcb7ee2c9900a1cbdc0b9251e08e93"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/assessment_metrics.csv",
+      "bytes": 7690,
+      "sha256": "0808ccf46b009c82903accd8c1f9eb06f4d080794920a0353e7df870590daf3e"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/class_counts.csv",
+      "bytes": 2013,
+      "sha256": "c4f43d9506206a8a3e3d9e2c4a8c8348452db89349554209f5d1f99c54bd0dcb"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/design.json",
+      "bytes": 2883,
+      "sha256": "a56f6a38636d97f1acbb2b5b6fff74bdae324fe6d881e33cb00e5d7cc3d430eb"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/model_choice_stability.png",
+      "bytes": 160209,
+      "sha256": "1c61aa4ebba659cb33a7de4ca8bab40c94c6846430f12df987fb703aba12ee0b"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/model_choice_stability.svg",
+      "bytes": 17527,
+      "sha256": "39f2c46fa36ecba299f9a32ce47ba5d7bbec365cc5a48db11b55bd8d2204e498"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/paired_differences.csv",
+      "bytes": 1477,
+      "sha256": "85bc4528b1b87d4c0f827806d87b730b852fb77fcd332f49f91ea104d1d1634a"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/screening_metrics.csv",
+      "bytes": 21283,
+      "sha256": "86cc869165d5901ac206b2894457c4b98f5c878dd1cff85e32ba23ad811d356d"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/selections.csv",
+      "bytes": 1630,
+      "sha256": "923cf9439fb9a42ec3750bba7ecb69639d8be9bc521b0a7ef261fc00fd62391b"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/experiments/rejection_public/run.py",
+      "bytes": 21766,
+      "sha256": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/experiments/rejection_stability/run.py",
+      "bytes": 33379,
+      "sha256": "004b59ff0637f4518f96cf703c4373101167b33b35bdd9ae66aaac3fbd5a8904"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/pyproject.toml",
+      "bytes": 1469,
+      "sha256": "d2116e54d649c31bd4527b33b7f7c7955a9611cf0372814e9beb3f2d9604ca8a"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/scripts/verify_local_data.py",
+      "bytes": 2852,
+      "sha256": "046983f51133b558081023143776f6128db067810106bfc55bd1ba239ccda897"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/src/kidney_biopsy/__init__.py",
+      "bytes": 708,
+      "sha256": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/src/kidney_biopsy/__main__.py",
+      "bytes": 30,
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/src/kidney_biopsy/api.py",
+      "bytes": 14353,
+      "sha256": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/src/kidney_biopsy/cli.py",
+      "bytes": 3091,
+      "sha256": "b39046bc311f9db801ac5c5f4f49835d3e20d5e62bd6cadda525935ea60315bc"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/src/kidney_biopsy/prediction.py",
+      "bytes": 8511,
+      "sha256": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/src/kidney_biopsy/preprocessing.py",
+      "bytes": 8595,
+      "sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/src/kidney_biopsy/source.py",
+      "bytes": 5031,
+      "sha256": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/src/kidney_biopsy/walkthrough.py",
+      "bytes": 2635,
+      "sha256": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/tests/test_stability.py",
+      "bytes": 9529,
+      "sha256": "02b9b83f29ffd27753af6bb7477c0873552705b24fa2bd1c69233d7e6382fb99"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/source/uv.lock",
+      "bytes": 68586,
+      "sha256": "ebaa50da1a4eb77a5416e1c58443c926e5bf63ca83d0c38a70ce13236bdfd581"
+    },
+    {
+      "file": "results/followup/20260922_mac_clone_stability/summary.json",
+      "bytes": 5644,
+      "sha256": "152cafc966ecc253ea845b60dfdb4c7f00d8a4ccc9101978b59006b25edc2aa1"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_01/assessment_predictions.csv",
+      "bytes": 33981,
+      "sha256": "2123633b6b44a1d29a213620df6c1f0268012c76cc143c3ac1441d024f1edfc2"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_01/assignments.csv",
+      "bytes": 44212,
+      "sha256": "9ebf7e21555d90505dffa546c750d4c4cf5e33507bce01fa59f0a61fb3fafa4d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_01/catboost_depth4.joblib",
+      "bytes": 153053,
+      "sha256": "dae58e7374da8da399c05368f8273bb9ee13881964a8d5560327a0f6d24d0dfc"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_01/catboost_depth6.joblib",
+      "bytes": 390229,
+      "sha256": "bca981431203a94a2f9c0d83e13fbe883945d2485da458273d91d469190e3b93"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_01/frozen.json",
+      "bytes": 13030,
+      "sha256": "e4e0f3348d99da22ef9599cfd2dcf8d005b1652a6f29e58469e0abd95fdb9a6d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_01/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "9914df4f71a7b210304b26a22539a3a792e85b6ca789c3e43a6af1bf55867749"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_01/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "535ded45d064c83a4a6cdec5c832e5bf791f6dc8173bc6950eec754d68298595"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_01/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "3d9dd622b7169644098ea0ae9f0d5390d3361faecb134af834d5be5324df1ad9"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_01/screen_predictions.csv",
+      "bytes": 55128,
+      "sha256": "e90dbe6a4f577b34d92237ae45980c11e37913f7cf21e9c2e2d0e0796d13a09e"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_02/assessment_predictions.csv",
+      "bytes": 34178,
+      "sha256": "9f6cb8b85c1ce30769ef576475452d2e53adde94c64104f564423c7a98ed45c2"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_02/assignments.csv",
+      "bytes": 44212,
+      "sha256": "961ba3e0300a654c85159b7b2a497fa439dde36b1a44d372dae83bba255dd101"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_02/catboost_depth4.joblib",
+      "bytes": 153045,
+      "sha256": "05040f6d3cc69c6503d9f6ff1cfa0df77635e86ae04ceeab49d29c644d871a6c"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_02/catboost_depth6.joblib",
+      "bytes": 390285,
+      "sha256": "477b446e571b8dc3633c8c27e764f67d5eb4d8244ad7a3f2972bdace2c97fcab"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_02/frozen.json",
+      "bytes": 13043,
+      "sha256": "0dacd1b7c7850e164c7de682cc50780be727bf0bbf962b69e600095a720b0985"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_02/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "68300465316a8a9e920bf4b69182b0dedb1e18a5ce86a665dbd44edae9ba3c8e"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_02/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "a8d7a3f1c1c03c0c156700222aa9c2509cb52ec894fc5d4e42f196340fc4a687"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_02/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "6a8940bf30cbc354de97534eedbba29d4f8646ad8641ba3b22daab4c52329503"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_02/screen_predictions.csv",
+      "bytes": 54986,
+      "sha256": "402fc6596e20ea2aced41369f080b19285ecd788ceae700ed0810527461b013f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_03/assessment_predictions.csv",
+      "bytes": 33944,
+      "sha256": "12506e682de9b8551e4e71b04141ce74302d7e26dd0f5af1a646151241abf74f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_03/assignments.csv",
+      "bytes": 44212,
+      "sha256": "bf54f8798da4bb1d742bd2633f74a026fe914ca764503aea7407001310a6f29f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_03/catboost_depth4.joblib",
+      "bytes": 153141,
+      "sha256": "17d491c0597d3ce58982cf7e184770619bd5d4428e51b6cf648924ff87ff625b"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_03/catboost_depth6.joblib",
+      "bytes": 390197,
+      "sha256": "66d39ace2cd8eefd3ed7f78de50be8166e2eb52053181994750a24ed80709237"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_03/frozen.json",
+      "bytes": 13032,
+      "sha256": "a680fd119e0b8e8d60341a3b8581cd5cf097c593b7c64d1b1bc55041471efc3e"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_03/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "a320f9275045fe4b5639e5d1bb2a81a2c786b3efe448fae99346b7a00e452da0"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_03/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "d63de70889ae884e29b651361f2f9588fc4559c53efe6eb0e880ecf3bf9ff00f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_03/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "f34c81f9ea22c5a0368bde4f3343b673f5e02a4b294cb5b8728c0562b4518a6c"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_03/screen_predictions.csv",
+      "bytes": 55090,
+      "sha256": "0ef143223f575159c05e90c1d39f12994997930ee3f9062b47f063be71b11580"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_04/assessment_predictions.csv",
+      "bytes": 33605,
+      "sha256": "d7bf719274ec5e588cf273e837e08a80d5f45b5c92d4d6d9f84f905c50d9b6ec"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_04/assignments.csv",
+      "bytes": 44212,
+      "sha256": "9dbbb869cbc505d765c5b035cc77d1fe7843695017140761c6ea7277b1692c5d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_04/catboost_depth4.joblib",
+      "bytes": 153069,
+      "sha256": "8a9104cd396b2ce3b5be83fa604cba3fbaae065fc41aa49cce7605e29b0eefc1"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_04/catboost_depth6.joblib",
+      "bytes": 390245,
+      "sha256": "926a851d2d2b80e369325acc1b52490f7539a8e15b59334d31d9f86c2e64256a"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_04/frozen.json",
+      "bytes": 13032,
+      "sha256": "79e3ad984c06bb4d131819a007acd13c46d7cdf8fdcb934516edae386693d32c"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_04/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "7c54fb4c01ba087a7023eba4a5cf2cdb575f6120b26239753aecdc4a370ab9f4"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_04/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "65be106902477a350f6e89a8a82310efac754b43d67b2d8b5f703db7cc15c8d8"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_04/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "f0164acfc6ddf950597b00ecdfcc8d63e1d3c7c4af9baa7e848509101fac1d42"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_04/screen_predictions.csv",
+      "bytes": 55102,
+      "sha256": "d4ac1b3cc16cdd8d70255c9a4145c5f49ecd26de5d82437dcca4aead49a83f6c"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_05/assessment_predictions.csv",
+      "bytes": 34034,
+      "sha256": "143c9b10753f65753d7a6ac68f58ed16b8face5e61f4cbf19aca648a5f055c88"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_05/assignments.csv",
+      "bytes": 44212,
+      "sha256": "d58b6684f78fc354cdcc14c2ffbbf37d8fae2b3194a5527b86945f18db8c7c7b"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_05/catboost_depth4.joblib",
+      "bytes": 153061,
+      "sha256": "f8da9ffd3d183c7d734f4bf129c2338b403fbcdd5de96eb5b88c9fc18f21fe63"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_05/catboost_depth6.joblib",
+      "bytes": 390245,
+      "sha256": "f2d1e4ce2413fbac8ef8a3a927babccc6639b47e754888117eecc64e8ea0c714"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_05/frozen.json",
+      "bytes": 13038,
+      "sha256": "9261e886a9cb173b4ca89143368dae5f6f2657a03482b19345a697077cfdceb5"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_05/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "332684c4efce383ab56c9e2ca59a0481e98971df9b0c44b8564bce6b7032e07e"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_05/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "168117d9da2cdbbdc9b5ac8d2d17ed45a63df4160dabc2e079f16d50bd38561e"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_05/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "5c713c0f493421fe7a26ea2e2725a2513a11ef9af4438180aae6285d71920a2c"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_05/screen_predictions.csv",
+      "bytes": 55078,
+      "sha256": "eebf42082a840cacff4cad277b5dc77aad69a75e06f5d384172b10e6a093bee7"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_06/assessment_predictions.csv",
+      "bytes": 34151,
+      "sha256": "09cbae5434a2a7e71f6b466f8b4ad9d0697dbf4ed9e76b63035e1067a001576f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_06/assignments.csv",
+      "bytes": 44212,
+      "sha256": "83d9ab911b940b1614151eeda3193711c940dad014d1106df2ccc545a673669d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_06/catboost_depth4.joblib",
+      "bytes": 153397,
+      "sha256": "460282fb586ebe353fb625d6b1b5d308fb5b83476d5d9e5ba5637b9a52296c20"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_06/catboost_depth6.joblib",
+      "bytes": 390605,
+      "sha256": "2bcd0c3b006e6d55096a75553aca666eeee3d22a49ca590ec24854f011875a19"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_06/frozen.json",
+      "bytes": 13031,
+      "sha256": "8dec6967a369a1ee68adcf43c8bd116c21b31012c50bdc3fb7aac5731cf5de0b"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_06/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "062e7aa5eea948cbe06f4066d27b2fa1a69a847d2549f1437aec068194babfd1"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_06/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "c2cefc04d4720737ef3700a7498fdf92ed3aac5dca096fcba93c09521e06fb7f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_06/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "47acd63c8718b24a3b649a3e21c95102b223a2556fec8740642d565460976ad6"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_06/screen_predictions.csv",
+      "bytes": 55039,
+      "sha256": "60ff7d74d3cc102fcd5f0187d3b036deb62b9b396951d6896312a800125bd824"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_07/assessment_predictions.csv",
+      "bytes": 34021,
+      "sha256": "286e055568b8ba376c3be152a6b82b32cad745655b3a820406aac85ff080346c"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_07/assignments.csv",
+      "bytes": 44212,
+      "sha256": "c29b7e40d946347b91f6a4e1e1355d2b1a797d9755c93abe9d4e50187c57cbbd"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_07/catboost_depth4.joblib",
+      "bytes": 153069,
+      "sha256": "4f9ed40ccb48543bc7da28d37f8e9c1e64fc5a47f189e39ea69df2e7ae7bead5"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_07/catboost_depth6.joblib",
+      "bytes": 390389,
+      "sha256": "df59721d5392ce9ebdb343f0dfa150d7e30e2dc641b1c96b43dcc6254243b54e"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_07/frozen.json",
+      "bytes": 13026,
+      "sha256": "a57c90ac166f6debff1ecc69c2d33f34ebf99ebeea1467c37d94016fc65aaa4f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_07/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "e7822619d11576029e0af518dff7a2dc0a0885bf917b01b2114ff8f216b4b9ba"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_07/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "0d0ceaacfa7832219b649b1977ac48c046d6ac00b897fa3c2cc9ad863386b113"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_07/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "491fd049bd044050a385eed58f4c67945ac6e7fdc6c0502cc514a80723f4863d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_07/screen_predictions.csv",
+      "bytes": 55114,
+      "sha256": "b75d68e0e1a97cd5a1598ae73699125cc56557ea74e020094a98d391c6e24187"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_08/assessment_predictions.csv",
+      "bytes": 34176,
+      "sha256": "2b77376fdb9593ef806c579c91fb5f33b19d71b6a9f30b331f29c8012b3b68cc"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_08/assignments.csv",
+      "bytes": 44212,
+      "sha256": "61993b1a39bb909c8d8b2d2d01847d579274182106bdb02b34f59b078d6720d9"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_08/catboost_depth4.joblib",
+      "bytes": 153173,
+      "sha256": "7a68c625d4eb15a51b930fa8f7841c25bef6b6c59132142ca3938d9d23ad3b6a"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_08/catboost_depth6.joblib",
+      "bytes": 390157,
+      "sha256": "2a979d83b0e1cd2c5767801881e91aecd5196f0511fb216fcc921674a778bbb7"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_08/frozen.json",
+      "bytes": 13019,
+      "sha256": "bf910bbfb6fc1e8563efb075b945e49f4f0c0e6afdb75eb3f0d837660c6fc9a3"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_08/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "679673154c6d68cc1c7246fb4e31121f6948667d65a478b8447f9a265f84da6d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_08/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "e4ef74dded02283edbb0f974845af39bb5bd5b7674444e6a88a85772b628c654"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_08/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "058671be210c5de2ee7295c21bf5e5bceb561cb64e7da8ba22247ecec224c52b"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_08/screen_predictions.csv",
+      "bytes": 55148,
+      "sha256": "ab2b9930efae9d8cdc4072494cfc28f18466f5b89914f63dc327187bb3702339"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_09/assessment_predictions.csv",
+      "bytes": 34069,
+      "sha256": "15b0c3813f9f087f1891a3dfd8d397e2624111b47ef546f31ced1317de51d36d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_09/assignments.csv",
+      "bytes": 44212,
+      "sha256": "d2abadbd264c3a3ad2fe676e4583c98eb4d8620114609816945c0eeca47ccbc7"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_09/catboost_depth4.joblib",
+      "bytes": 153093,
+      "sha256": "7ebbd6241f2423ce355a3a46487f014e43a606047be24eaa28552d026ddac7d5"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_09/catboost_depth6.joblib",
+      "bytes": 390445,
+      "sha256": "be3b2865ab631631643d5ec645d6531cd1936516611db8b9d51a1a5379c54645"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_09/frozen.json",
+      "bytes": 13009,
+      "sha256": "5da2e06d5473abb6976382a219f0dbb7c581773d73a98d68961a5aaac83f96de"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_09/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "d9f89bc9c3d80090719831ae29c69cd2726a3cd6c56d5123fba0b6ab299e9b7d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_09/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "1486f596e5e5647205e8e653c64b2aa6c0d96b9c826a61446f21da26a632d607"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_09/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "9b38422fddc2cc260a8e79596c9ea4b2c3507635f20a3a873fcb79d4077fd0df"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_09/screen_predictions.csv",
+      "bytes": 55135,
+      "sha256": "e02449fe7d3914dd2264cb058eed6a13ce0cfb876b01545045f923e74e2d92ca"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_10/assessment_predictions.csv",
+      "bytes": 34158,
+      "sha256": "0034cf87f7974ea95aae1da1a87afab5eaca63437b5bbf88f639585ab94c3eab"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_10/assignments.csv",
+      "bytes": 44212,
+      "sha256": "51e20970a54e47b399418d91a210e95a03cb5417f2044fa07162f7dc7e1d43df"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_10/catboost_depth4.joblib",
+      "bytes": 153029,
+      "sha256": "6fc65fbbb22ffd4981b08885b23fdf708c958031b16d08fe04c98cb5eb2ce4e1"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_10/catboost_depth6.joblib",
+      "bytes": 390157,
+      "sha256": "fb35f1e85bd41614bba0d16f7c00f2fe57c5145430f69c2edaf854526b115184"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_10/frozen.json",
+      "bytes": 13043,
+      "sha256": "df1aaab98ca6cb33b2289600f4f1187144dcd369844dba4513134c16b7f0c9e4"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_10/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "3e0ade33b449510b875c5cc2e4f2856b0ce9e2673bb581fb4f47fd2713593f6f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_10/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "0d0d370c2f16fcc0bee508eb6e12db094c6aaa50c1ab1bfa1e34b79362dc96d6"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_10/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "b614fcd7df9ce198f046b89400bdeacf832c0404c2259b69f084a57e0bbcc5de"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_10/screen_predictions.csv",
+      "bytes": 54978,
+      "sha256": "5092fb51b81bbe1297602254d3e6336b72bab375418b4289ff453ea6e31795d1"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_11/assessment_predictions.csv",
+      "bytes": 34170,
+      "sha256": "13b37b949d8e0cf86dc46e61c81cf38c9888e8159f1d4db4005691059efa66d0"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_11/assignments.csv",
+      "bytes": 44212,
+      "sha256": "7bce5111877298fe84caae58e67b98c15abe0e55106452daa1cf21c0068edbed"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_11/catboost_depth4.joblib",
+      "bytes": 153269,
+      "sha256": "f5c6e995a7952eaec98ff589826b461b9b9230b9b8d52751f16d25072d7e9736"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_11/catboost_depth6.joblib",
+      "bytes": 390341,
+      "sha256": "aa89a12a2a8e2ede84e317fa94abbbaa74b3c0be172c7701a0f25ac74d164204"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_11/frozen.json",
+      "bytes": 13019,
+      "sha256": "10adbbcfbc0e2f5eee800287aa05bf7529febf264adf66542f7d76a4588d4bff"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_11/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "3793679b1cfb74e8d01feac1042cf7b1062382c9bc5ad65c16ca8aabc1f08d50"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_11/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "4a710ac00ba8d80bfa0ac74e99593956d413c7580a41e2d8edb137f29e5ad714"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_11/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "5307f7e1457a4ca2e25a198e556a60ee8f82a4d62ac60a94c43ed8920df7d3d9"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_11/screen_predictions.csv",
+      "bytes": 55045,
+      "sha256": "909084bb84fbb50d4c4631f8e6354b2d683c7042b23e5766a501b1197af53f97"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_12/assessment_predictions.csv",
+      "bytes": 34156,
+      "sha256": "370f49108c68ec05f830732aec7b71ac96f8824a98e61a3d45cb5b9918b43e85"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_12/assignments.csv",
+      "bytes": 44212,
+      "sha256": "2886b4077584821737b1bea3d61fd7c9228b62dac2fa2314f3efa80fe2d8d5d0"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_12/catboost_depth4.joblib",
+      "bytes": 152981,
+      "sha256": "086a03c4fe291128b06a62c484e31992cd27633b04bbc27ad39bf89d87455568"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_12/catboost_depth6.joblib",
+      "bytes": 390053,
+      "sha256": "9195baab5232985503d94f3c43d4a095a08c990e6ab31c300d03d9bca4468531"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_12/frozen.json",
+      "bytes": 13029,
+      "sha256": "6ed61c8a97b6b69f87a17c29e43edeefc78e1b1a8eea568e0e087d5e41b7e8eb"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_12/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "0f9353f7c602f4719c0c469a4160a0ba059cd68ca1076154205d45e2a0371a44"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_12/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "ae427ab76e65ee25d9af36afc7a5386e14b08d3a7b55d1b646dda0d910805616"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_12/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "b076892ccfda488d946cc84417d787b373bbabd5438e5ba63794aabda2500dbf"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_12/screen_predictions.csv",
+      "bytes": 55027,
+      "sha256": "4c32f3e9d14e97021d38158fa86350e9d4bcf88887eadd8f5533725cc934294f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_13/assessment_predictions.csv",
+      "bytes": 33603,
+      "sha256": "4eb537f0b499cb6eadf05428b6f5c1c0402e362a0e259e162338a56362030147"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_13/assignments.csv",
+      "bytes": 44212,
+      "sha256": "be19369fb580c73e7d722bfd65b160ab2c923dcda4743abbb1d607822e970f18"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_13/catboost_depth4.joblib",
+      "bytes": 153053,
+      "sha256": "e5ae5243c5d9c8a5f1c967d10dd4e58c07dc6274c01a0159ec69e9c63487f0b3"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_13/catboost_depth6.joblib",
+      "bytes": 390117,
+      "sha256": "881a24216a882f9cac883e3ff1684e26222d7a772a7732786deb553e64130e2f"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_13/frozen.json",
+      "bytes": 13032,
+      "sha256": "e0351828a259faacd19572e52ca15ae2cc7a9f819efe5d098aab9c9839b6bfe3"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_13/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "25e343d0ad85af37ace2b866ab4c87aec4aedbfe5e6ef836cc3e74c61868ef30"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_13/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "0846c5009fafbacf1251d2ea3a1ae5cc97c08fb6853c9e111ad32c542bffe927"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_13/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "9543576f86c8353f054e8c7a6a92e882c2ce2863682778d73cabf0285abbd96d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_13/screen_predictions.csv",
+      "bytes": 55120,
+      "sha256": "8d682d6356f9670c8233b544d7d2117ed69d25df0b311de1d3d1a8b535ba49f3"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_14/assessment_predictions.csv",
+      "bytes": 34138,
+      "sha256": "906cfcbb6690c173280425e4f132cfc2149c396fffe33c3d3c05dfe836fbedfd"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_14/assignments.csv",
+      "bytes": 44212,
+      "sha256": "458511125dd7f8c4d76b19c54482c27a09c39ae1ed2c7b09ccb5c853f7810769"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_14/catboost_depth4.joblib",
+      "bytes": 153061,
+      "sha256": "e77ab51d3cdf094be85ae5e598e9b7ab40ca44089438993a08f6487d0d22dea2"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_14/catboost_depth6.joblib",
+      "bytes": 390165,
+      "sha256": "d0b4933741e156f5e11ee68ae867919afc074fef541e09e5698b3ab8277339c7"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_14/frozen.json",
+      "bytes": 13030,
+      "sha256": "eb9f7ea71c9a83e757536c7e80e65e25dee2807156893e19e89461b6add89821"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_14/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "926d867c1758416d757b6d356ae919fdc3f92a4857163bcc76eeb1276da336ba"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_14/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "1322d9b7a1aa1cd3d238ac18d815e0fbb82529f646a61cb09d46b72e8b1ecb73"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_14/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "0d0aec59ef2df70c269957ab01afdae70e8be760ee3c8e2625d162be20124d68"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_14/screen_predictions.csv",
+      "bytes": 55096,
+      "sha256": "c494072321eabf310443f5d14bcbea89aeb629e76e79a522716b9ee9c055775c"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_15/assessment_predictions.csv",
+      "bytes": 34183,
+      "sha256": "195c3c923ca214fe5e4b82dd48793b40addf05dc911e1ac0bc379c2d66adfda1"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_15/assignments.csv",
+      "bytes": 44212,
+      "sha256": "8a1ca330d15a9bddb55e6145fad496a31fcb808e22b6ac6de590f7dd1ed02619"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_15/catboost_depth4.joblib",
+      "bytes": 152957,
+      "sha256": "7cdc025227273274de5a2ba84075aa5faaa09796cf1401c96e79248e0a35c498"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_15/catboost_depth6.joblib",
+      "bytes": 390237,
+      "sha256": "e685b36411e86e74ecb2158a798e2749f83f0921d8b65967d3eaccf08e48d59e"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_15/frozen.json",
+      "bytes": 13018,
+      "sha256": "0e62dc31880b9b469b6c660b17bf24e88e723d80fc39c878d22de72175a88faf"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_15/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "df1f5a52ddaf8745505bb3f157ee3e309b305cb56ba2b91ad6895bb74a9feb3b"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_15/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "d824d768e5a7b43fa21af27bada570bc720a7c7a85daedacbfaf31e8cd90a050"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_15/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "3be186a407fd53d100e95c75d15fb2c15cb392119600f7ff67c3550744563b4a"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_15/screen_predictions.csv",
+      "bytes": 55103,
+      "sha256": "6bb06aaaa97629c8c709b7a4e726d3fd4247239fc33b17e01138cb73bc31f5f4"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_16/assessment_predictions.csv",
+      "bytes": 34194,
+      "sha256": "77d338fcb49cf65aeaec86e44d65364c62faa42a808cdf75bfc6b74789771deb"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_16/assignments.csv",
+      "bytes": 44212,
+      "sha256": "3cd491959653b8c2d1bfc7c0c81a4228aa0c92360ac28d2bdd21340f1247ab97"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_16/catboost_depth4.joblib",
+      "bytes": 153181,
+      "sha256": "2d00f6d303531520c7044bfba128fc9a570dffd24d13a4f80a06daff6e84782a"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_16/catboost_depth6.joblib",
+      "bytes": 390349,
+      "sha256": "378009a6c6c880b910f11bc1003ff8d731ccb2098c3ed3f14630541554799d42"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_16/frozen.json",
+      "bytes": 13029,
+      "sha256": "7c744126096524e95dbf697aebf25fe8b0d6213e605cfe9a620917c08f5492a1"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_16/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "ced47a24a544d330827ff8d63ea42fa8541648a21b4e1b9e8bb3ebc754c0f661"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_16/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "9fdfa2b079d7755b20380be47e86d0c6b0b92f97954e8228edbf73fc397be7e9"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_16/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "3b502d63cdead9e0e20c1daf5e6d686f1c197aaa4b2148331399b9a1863f1b4c"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_16/screen_predictions.csv",
+      "bytes": 55054,
+      "sha256": "551bd9ea47d0b0604a2fae3ac988d93f3b0a24494be2da09f859f655072e044a"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_17/assessment_predictions.csv",
+      "bytes": 33995,
+      "sha256": "8f82385c6bc4c07acf602dcd005f378dab5c018e749b65af0e1879162fb391bb"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_17/assignments.csv",
+      "bytes": 44212,
+      "sha256": "d9919ed86e119a79e79c772b96a5ad92dbce930692b97b129475a437d176668e"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_17/catboost_depth4.joblib",
+      "bytes": 153133,
+      "sha256": "f68ee4db787d4cf42f48bb779f523fb16de29c3e1fb66af74bb25c16233b6c70"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_17/catboost_depth6.joblib",
+      "bytes": 390405,
+      "sha256": "4a8c980654d34dddeab6c9b5855878bc413807c4b9796280250f1fc06acfe05c"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_17/frozen.json",
+      "bytes": 13028,
+      "sha256": "af71d658cdb0446b2c011b83024842df9636064ebb52322488c1977420621df2"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_17/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "260a45cec8f413441459057dc34c9a2dc76b6c170a0b2da7d7f34d24bb0a5a06"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_17/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "b54988a565ef61284e00426526b20707e01cbb2139f21f00d9f759466f670fb4"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_17/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "990e26f91d01733e48e63a1d6b1d8049262d75f1b70cf99d6cb6430dd59868bb"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_17/screen_predictions.csv",
+      "bytes": 54950,
+      "sha256": "471c2ba2cf46bb815ca67cd685d765f670ede52cdc1e5633c8fad1395fe33455"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_18/assessment_predictions.csv",
+      "bytes": 33769,
+      "sha256": "799ecc3685b6f1ac9787799a04713cfed34b54ed958000eaf446736b41603acc"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_18/assignments.csv",
+      "bytes": 44212,
+      "sha256": "1e379f8d26d31959b96ae30a4268adcc4e6e56d04e87e398aa062f87d720aa69"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_18/catboost_depth4.joblib",
+      "bytes": 153165,
+      "sha256": "6879e6fbcd602b0066d205953dc679944e3fdb3993ce960bfb37663a9649f3c3"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_18/catboost_depth6.joblib",
+      "bytes": 390285,
+      "sha256": "f0e8ed8950b72d188e0c08acc8e071217ff0481e3af7dd528064a053bb53337d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_18/frozen.json",
+      "bytes": 13018,
+      "sha256": "100eaab3a99370da0b6484c6bc1c34376f4e184cc25f1beb6a35863a9e878078"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_18/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "17558043d4aa25e2cbceaa796120db210c2a5f90bc40bd5eeba3c31449bad790"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_18/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "9aac7d6817ce5a65a3893ec5d4ef781c2ca447511e9083ffbc3333dee9eb956a"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_18/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "69459e39a13c8a6aa6dca22f98283fecee0f475cd55a256801dabfc65bd0134a"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_18/screen_predictions.csv",
+      "bytes": 55011,
+      "sha256": "9beb9c12cc2d142ed46259b65fe8f301bec95c3288e9ea8ae83203f7d97514ee"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_19/assessment_predictions.csv",
+      "bytes": 33971,
+      "sha256": "05aa81950ff893b6d9a50f3c46325b060c5ad85721105278f1ba7e0c0a98b0fb"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_19/assignments.csv",
+      "bytes": 44212,
+      "sha256": "feac933ed21e3565ddfadc1e23a2b11751823d54a51b91f2fdc41671c695fde5"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_19/catboost_depth4.joblib",
+      "bytes": 152989,
+      "sha256": "200333e92e2a212bf270164470e83236840c71b44fce7ba3169daae435012e49"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_19/catboost_depth6.joblib",
+      "bytes": 390061,
+      "sha256": "c7c9bacc61fc4ea6fb4255c2b5ea0997d5b8e073adbb2f7a3f77046a603e88b1"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_19/frozen.json",
+      "bytes": 13018,
+      "sha256": "43edc39106c5d4aee646d179585c8e4fe582fd4a709138916e48c525de6bcb88"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_19/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "d2a0b572bb47cf683470242eb6ee0b7067aafd5f97e71ba5d73c829ce9cece90"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_19/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "f1f9d87091cce864e456defc40c6778141dce2541c2ea8f08ddbfb28e52bdda2"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_19/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "c97202e76ec704dc405c08dfc0637485ad03963b22c413681b2c88b95d8fd7e9"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_19/screen_predictions.csv",
+      "bytes": 55067,
+      "sha256": "8adcf994ec7ac9a75e4985f3c60b2ec6023958531df64c5322012bba76ca5e97"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_20/assessment_predictions.csv",
+      "bytes": 34182,
+      "sha256": "b03651f32364c95da505359fa042e6f708a5240ee7f5703672c3ad929482d37d"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_20/assignments.csv",
+      "bytes": 44212,
+      "sha256": "b749a6ebf7bfa7942ce251f90572deb33705328f51ca4d2b35199311203f7684"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_20/catboost_depth4.joblib",
+      "bytes": 153141,
+      "sha256": "c8814942062c8d668c02ee38c487c8c5d3b5bf1421cc05b054d942f190958b10"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_20/catboost_depth6.joblib",
+      "bytes": 390229,
+      "sha256": "ed0c67c8a926acb1a487e3a79d349613e84abe77d20ddb5e5905319ee7d95ee5"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_20/frozen.json",
+      "bytes": 13040,
+      "sha256": "22614a7fa98bddabeb1cac5d5b15b36b19b48b4c167c376a63ad163618b5a428"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_20/logistic_C0.01.joblib",
+      "bytes": 31937,
+      "sha256": "f4ff9195141b599961400bad6e263934d7d94c67f17675691788547da057f558"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_20/logistic_C0.1.joblib",
+      "bytes": 31937,
+      "sha256": "b4a21f2e648de318fec41c2307bd3daaa9eb92d7694c9c4f46223496cdc73393"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_20/logistic_C1.joblib",
+      "bytes": 31937,
+      "sha256": "37bf8fe53ffd9f5ec3a03b5c4c77366dc37dcd2464fd8e88c2d6a0b4d86b2f12"
+    },
+    {
+      "file": "data/processed/stability/20260922_mac_clone/repeat_20/screen_predictions.csv",
+      "bytes": 55074,
+      "sha256": "8749966cfe870047c16dbd78110e4f094f4784e82686165bf641105d92c61573"
+    }
+  ]
+}
