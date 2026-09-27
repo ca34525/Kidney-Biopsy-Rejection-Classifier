@@ -1,0 +1,102 @@
+{
+  "schema":{
+    "fields":[
+      {
+        "name":"index",
+        "type":"integer"
+      },
+      {
+        "name":"check",
+        "type":"string",
+        "extDtype":"str"
+      },
+      {
+        "name":"observed",
+        "type":"integer"
+      },
+      {
+        "name":"action",
+        "type":"string",
+        "extDtype":"str"
+      }
+    ],
+    "primaryKey":[
+      "index"
+    ],
+    "pandas_version":"1.4.0"
+  },
+  "data":[
+    {
+      "index":0,
+      "check":"Missing count values",
+      "observed":0,
+      "action":"Stop if present"
+    },
+    {
+      "index":1,
+      "check":"Nonnumeric count columns",
+      "observed":0,
+      "action":"Stop if present"
+    },
+    {
+      "index":2,
+      "check":"Non-finite count values",
+      "observed":0,
+      "action":"Stop if present"
+    },
+    {
+      "index":3,
+      "check":"Negative counts",
+      "observed":0,
+      "action":"Stop if present"
+    },
+    {
+      "index":4,
+      "check":"Noninteger counts",
+      "observed":0,
+      "action":"Inspect if present"
+    },
+    {
+      "index":5,
+      "check":"Duplicate specimen IDs",
+      "observed":0,
+      "action":"Stop if present"
+    },
+    {
+      "index":6,
+      "check":"Duplicate target names",
+      "observed":0,
+      "action":"Stop if present"
+    },
+    {
+      "index":7,
+      "check":"Unmatched metadata\/count IDs",
+      "observed":0,
+      "action":"Stop if present"
+    },
+    {
+      "index":8,
+      "check":"Missing housekeeping targets",
+      "observed":0,
+      "action":"Stop if present"
+    },
+    {
+      "index":9,
+      "check":"Unknown or missing diagnoses",
+      "observed":0,
+      "action":"Stop if present"
+    },
+    {
+      "index":10,
+      "check":"All-zero specimens",
+      "observed":0,
+      "action":"Inspect assay quality"
+    },
+    {
+      "index":11,
+      "check":"Duplicate raw profiles (all members)",
+      "observed":0,
+      "action":"Review repeated measurements"
+    }
+  ]
+}

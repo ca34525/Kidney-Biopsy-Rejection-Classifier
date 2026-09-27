@@ -1,0 +1,53 @@
+{
+  "schema":{
+    "fields":[
+      {
+        "name":"index",
+        "type":"integer"
+      },
+      {
+        "name":"table",
+        "type":"string",
+        "extDtype":"str"
+      },
+      {
+        "name":"rows",
+        "type":"integer"
+      },
+      {
+        "name":"columns",
+        "type":"integer"
+      }
+    ],
+    "primaryKey":[
+      "index"
+    ],
+    "pandas_version":"1.4.0"
+  },
+  "data":[
+    {
+      "index":0,
+      "table":"Raw counts",
+      "rows":1395,
+      "columns":770
+    },
+    {
+      "index":1,
+      "table":"Deposited processed expression (unused)",
+      "rows":1395,
+      "columns":770
+    },
+    {
+      "index":2,
+      "table":"Metadata",
+      "rows":1395,
+      "columns":6
+    },
+    {
+      "index":3,
+      "table":"Assay metadata",
+      "rows":1395,
+      "columns":3
+    }
+  ]
+}

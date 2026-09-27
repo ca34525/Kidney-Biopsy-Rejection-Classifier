@@ -1,15 +1,16 @@
 # Current project status
 
 Updated September 27, 2026. The analysis, scoring application and presentation
-package are built. The presenter reports rehearsing; measured durations have not
-been supplied. Remaining delivery work is listed in the
-[presentation README](../presentation/README.md#rehearsal-and-backup).
+package are built. The user reports that the presentation has taken place.
+Three [analysis notebooks](../notebooks/README.md) now add data-quality checks,
+EDA, and RNA contribution plots as a retrospective deliverable.
 
 ## Start here
 
 | Need | Read |
 | --- | --- |
 | Question, main error counts, setup and reproduction | [Project README](../README.md) |
+| Read the executed data checks, EDA, and model explanations | [Analysis notebooks](../notebooks/README.md) |
 | Deliverables and analytical contract | [Project specification](PROJECT_SPEC.md) |
 | Clinical motivation and source evidence | [Research context](RESEARCH_CONTEXT.md) |
 | Relationship to the interview role | [Job requirements](JOB_REQUIREMENTS.md) |

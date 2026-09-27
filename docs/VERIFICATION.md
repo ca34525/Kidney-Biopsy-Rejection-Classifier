@@ -6,10 +6,16 @@ a historical pass does not verify later edits.
 
 ## Fast checks
 
+The [September 27 notebook execution](../results/notebooks/20260927_eda_reviewed/README.md)
+adds 39 executed code cells, 17 embedded figures, score/threshold agreement checks,
+and SHAP reconstruction checks. The associated
+[software record](../results/checks/20260927_notebooks/checks.json) has 109 passing
+tests, including failures for mismatched notebook inputs and modified artifacts.
+
 ```powershell
 uv sync --frozen
-uv run --no-sync ruff check src scripts tests experiments
-uv run --no-sync ruff format --check src scripts tests experiments
+uv run --no-sync ruff check src scripts tests experiments notebooks
+uv run --no-sync ruff format --check src scripts tests experiments notebooks
 $checkName = Get-Date -Format 'yyyyMMdd-HHmmss'
 uv run --no-sync python scripts/check_project.py --output "results/checks/$checkName/checks.json"
 ```
@@ -21,8 +27,8 @@ Its formatter gives the source a consistent layout, with a target line length of
 To apply import fixes and formatting while editing, run:
 
 ```powershell
-uv run --no-sync ruff check --fix src scripts tests experiments
-uv run --no-sync ruff format src scripts tests experiments
+uv run --no-sync ruff check --fix src scripts tests experiments notebooks
+uv run --no-sync ruff format src scripts tests experiments notebooks
 ```
 
 Review the diff after applying fixes. The configuration excludes `results`,

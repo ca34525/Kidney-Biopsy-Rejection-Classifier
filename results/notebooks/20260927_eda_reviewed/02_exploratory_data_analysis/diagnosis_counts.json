@@ -1,0 +1,54 @@
+{
+  "schema":{
+    "fields":[
+      {
+        "name":"split",
+        "type":"string",
+        "extDtype":"str"
+      },
+      {
+        "name":"No Rejection",
+        "type":"integer"
+      },
+      {
+        "name":"Antibody-mediated Rejection",
+        "type":"integer"
+      },
+      {
+        "name":"T cell-mediated Rejection",
+        "type":"integer"
+      },
+      {
+        "name":"Mixed Rejection",
+        "type":"integer"
+      }
+    ],
+    "primaryKey":[
+      "split"
+    ],
+    "pandas_version":"1.4.0"
+  },
+  "data":[
+    {
+      "split":"train",
+      "No Rejection":267,
+      "Antibody-mediated Rejection":207,
+      "T cell-mediated Rejection":256,
+      "Mixed Rejection":57
+    },
+    {
+      "split":"discovery_screen",
+      "No Rejection":89,
+      "Antibody-mediated Rejection":69,
+      "T cell-mediated Rejection":86,
+      "Mixed Rejection":19
+    },
+    {
+      "split":"author_validation",
+      "No Rejection":176,
+      "Antibody-mediated Rejection":56,
+      "T cell-mediated Rejection":95,
+      "Mixed Rejection":18
+    }
+  ]
+}

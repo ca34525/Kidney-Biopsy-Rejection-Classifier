@@ -1,0 +1,91 @@
+{
+  "schema":{
+    "fields":[
+      {
+        "name":"cohort",
+        "type":"string",
+        "extDtype":"str"
+      },
+      {
+        "name":"diagnosis",
+        "type":"string",
+        "extDtype":"str"
+      },
+      {
+        "name":"specimens",
+        "type":"integer"
+      },
+      {
+        "name":"below_fence",
+        "type":"integer"
+      },
+      {
+        "name":"above_fence",
+        "type":"integer"
+      }
+    ],
+    "primaryKey":[
+      "cohort",
+      "diagnosis"
+    ],
+    "pandas_version":"1.4.0"
+  },
+  "data":[
+    {
+      "cohort":"Discovery cohort sample",
+      "diagnosis":"Antibody-mediated Rejection",
+      "specimens":276,
+      "below_fence":10,
+      "above_fence":0
+    },
+    {
+      "cohort":"Discovery cohort sample",
+      "diagnosis":"Mixed Rejection",
+      "specimens":76,
+      "below_fence":0,
+      "above_fence":0
+    },
+    {
+      "cohort":"Discovery cohort sample",
+      "diagnosis":"No Rejection",
+      "specimens":356,
+      "below_fence":6,
+      "above_fence":0
+    },
+    {
+      "cohort":"Discovery cohort sample",
+      "diagnosis":"T cell-mediated Rejection",
+      "specimens":342,
+      "below_fence":7,
+      "above_fence":0
+    },
+    {
+      "cohort":"Validation cohort sample",
+      "diagnosis":"Antibody-mediated Rejection",
+      "specimens":56,
+      "below_fence":0,
+      "above_fence":0
+    },
+    {
+      "cohort":"Validation cohort sample",
+      "diagnosis":"Mixed Rejection",
+      "specimens":18,
+      "below_fence":0,
+      "above_fence":0
+    },
+    {
+      "cohort":"Validation cohort sample",
+      "diagnosis":"No Rejection",
+      "specimens":176,
+      "below_fence":5,
+      "above_fence":0
+    },
+    {
+      "cohort":"Validation cohort sample",
+      "diagnosis":"T cell-mediated Rejection",
+      "specimens":95,
+      "below_fence":0,
+      "above_fence":0
+    }
+  ]
+}

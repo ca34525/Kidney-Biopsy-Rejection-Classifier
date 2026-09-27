@@ -1,0 +1,53 @@
+{
+  "schema":{
+    "fields":[
+      {
+        "name":"diagnosis",
+        "type":"string",
+        "extDtype":"str"
+      },
+      {
+        "name":"specimens",
+        "type":"integer"
+      },
+      {
+        "name":"missed",
+        "type":"integer"
+      },
+      {
+        "name":"false_flags",
+        "type":"integer"
+      }
+    ],
+    "primaryKey":[
+      "diagnosis"
+    ],
+    "pandas_version":"1.4.0"
+  },
+  "data":[
+    {
+      "diagnosis":"Antibody-mediated Rejection",
+      "specimens":56,
+      "missed":6,
+      "false_flags":0
+    },
+    {
+      "diagnosis":"Mixed Rejection",
+      "specimens":18,
+      "missed":1,
+      "false_flags":0
+    },
+    {
+      "diagnosis":"No Rejection",
+      "specimens":176,
+      "missed":0,
+      "false_flags":8
+    },
+    {
+      "diagnosis":"T cell-mediated Rejection",
+      "specimens":95,
+      "missed":18,
+      "false_flags":0
+    }
+  ]
+}

@@ -29,6 +29,14 @@ through six workflows, with clickable diagrams, detailed function explanations,
 embedded source and tests, and guidance for making and checking changes. Open the
 HTML in a browser; it works offline.
 
+## Analysis notebooks
+
+The [three executed notebooks](notebooks/README.md) walk through data-quality
+checks and normalization, exploratory analysis, and model comparison with RNA
+contribution plots. They include CatBoost importance, SHAP explanations, and
+logistic-regression coefficients. Added after the presentation, they use this
+project's preserved models and identify new plots as retrospective analysis.
+
 ## Result
 
 All four comparisons use the same 345 technical-validation specimens and fixed
@@ -68,7 +76,7 @@ assay quality.
 
 ## Presentation
 
-The draft includes [editable slides](presentation/unos_kidney_biopsy.pptx), a
+The presentation package includes [editable slides](presentation/unos_kidney_biopsy.pptx), a
 [PDF backup](presentation/unos_kidney_biopsy.pdf), and the separate
 [HTML speaking script](presentation/speaking_script.html). It has 14 main slides
 and a [continuous engineering demonstration](presentation/engineering_demo.html):
@@ -77,7 +85,7 @@ API and software checks. Switch to the browser after slide 13 and return to slid
 14 to close. The planned 20 minutes include 7:30 in the browser. All spoken text
 is in the script; PowerPoint notes are empty. See the
 [presentation guide](presentation/README.md) for the launch command and offline fallback.
-Full timed rehearsals remain pending.
+The presentation has taken place; these files preserve the delivered project package.
 
 ## Run the demo
 

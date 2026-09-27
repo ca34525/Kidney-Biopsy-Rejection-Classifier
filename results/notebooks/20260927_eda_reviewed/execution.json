@@ -1,0 +1,30 @@
+{
+  "run_dir": "results/reproduction/20260915_shared",
+  "successful": true,
+  "notebooks": [
+    {
+      "file": "01_data_quality_and_preprocessing.ipynb",
+      "source_sha256": "91f4e6c5842b68bc68d91190f9e3d29b48aa5732f17a3c18b9a989db8e7a8c7d",
+      "executed_sha256": "b75ca13cf40143b1ed9883415d379ed402ec02d1471672ff8e56fefed921037f",
+      "html_sha256": "1854eb0d35c7dbb711e11ebc6cc7d756abab8fda2007d5ef18f62e9f05561e2f",
+      "seconds": 5.98,
+      "code_cells": 10
+    },
+    {
+      "file": "02_exploratory_data_analysis.ipynb",
+      "source_sha256": "728abb57ef3998b4a6bdf318a8dde33256a4efa7fd8297a78a10cdb6abe1344e",
+      "executed_sha256": "0138bc85df63f79a8caa0dd3c842d445f672ca496410d8d4b0fe3d8264e44079",
+      "html_sha256": "c6808f3667de10e1f7a3aa321850dc076b5f5ba80dee1373e76a549adaf0cc13",
+      "seconds": 8.5,
+      "code_cells": 13
+    },
+    {
+      "file": "03_model_comparison_and_rna_contributions.ipynb",
+      "source_sha256": "56a1d4305b8fda9df3e86f68e348d97577682811b45bce5514ee53e2ba8a69f0",
+      "executed_sha256": "3d7bbe98239ea889138ae08d601111549ba543854dec85aa295cd1b22c2b3797",
+      "html_sha256": "1f7fb1f1044a070bc911b19bdf575cc01263843eb7e06d73cb268ad3d2543e0f",
+      "seconds": 14.1,
+      "code_cells": 16
+    }
+  ]
+}

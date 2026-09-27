@@ -1,0 +1,41 @@
+{
+  "schema":{
+    "fields":[
+      {
+        "name":"unusual_total",
+        "type":"string",
+        "extDtype":"str"
+      },
+      {
+        "name":"total_count",
+        "type":"number"
+      },
+      {
+        "name":"zero_fraction",
+        "type":"number"
+      },
+      {
+        "name":"housekeeping_log2_mean",
+        "type":"number"
+      }
+    ],
+    "primaryKey":[
+      "unusual_total"
+    ],
+    "pandas_version":"1.4.0"
+  },
+  "data":[
+    {
+      "unusual_total":"Within fences",
+      "total_count":427774.0,
+      "zero_fraction":0.0012987013,
+      "housekeeping_log2_mean":8.3883434917
+    },
+    {
+      "unusual_total":"Outside fences",
+      "total_count":90111.0,
+      "zero_fraction":0.0064935065,
+      "housekeeping_log2_mean":6.6035396715
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "analysis": "Retrospective descriptive notebook addition; no model or threshold changes.",
+  "notebook": "02_exploratory_data_analysis",
+  "run_dir": "results/reproduction/20260915_shared",
+  "started_utc": "2026-09-27T18:44:24.499324+00:00",
+  "finished_utc": "2026-09-27T18:44:31.414973+00:00",
+  "python": "3.12.13",
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.1",
+    "catboost": "1.2.10",
+    "matplotlib": "3.11.2",
+    "nbclient": "0.11.0"
+  },
+  "inputs": {
+    "data/raw/rejection_public/GSE212160_series_matrix.txt.gz": "4a61ea1df333b50bcab8844bca293d81520bcd9dc7d2dca1866c5611a0e71050",
+    "data/raw/rejection_public/GSE212160_RAW.tar": "d131fa71b0980290acf5de8711748d987cee9cf8029a947aea5dd0230b42b1a8",
+    "data/manifest.json": "3a750738519e5524ecabd1af6984d013d0c1ce92d31a7420dd33bffeaf9a4cd6",
+    "results/reproduction/20260915_shared/run_manifest.json": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d",
+    "results/reproduction/20260915_shared/biopsy_split.csv": "e179b5ef6fdceac592db55878bd82aaf01f08b7c9eb65afa99d326b309ecab6a"
+  },
+  "sources": {
+    "notebooks/02_exploratory_data_analysis.ipynb": "728abb57ef3998b4a6bdf318a8dde33256a4efa7fd8297a78a10cdb6abe1344e",
+    "notebooks/notebook_support.py": "6e2e674b08c6fb59bf293125836625426d24731506fe3266852aadc3e441bf47",
+    "scripts/run_notebooks.py": "3dcdf5e664923801febdf320abc74e881704be2518a66f7bbfb5e29713410369",
+    "scripts/analyze_results.py": "4f366a9935f0f4e010ee4cf95d1b1a861251c1fba59227472f5a8c355a34c9e8",
+    "experiments/rejection_public/run.py": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62",
+    "pyproject.toml": "e430a702f5216e643982bff11bfab3efddc7a167cbba61e6fefc8c5cfb8df4a2",
+    "uv.lock": "1ff490cc89d6618faf7db3dff61ed03458b1f4bb3cb4fcb7a941dd1023b91550",
+    "src/kidney_biopsy/__init__.py": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37",
+    "src/kidney_biopsy/__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "src/kidney_biopsy/api.py": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442",
+    "src/kidney_biopsy/cli.py": "b39046bc311f9db801ac5c5f4f49835d3e20d5e62bd6cadda525935ea60315bc",
+    "src/kidney_biopsy/prediction.py": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5",
+    "src/kidney_biopsy/preprocessing.py": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08",
+    "src/kidney_biopsy/source.py": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03",
+    "src/kidney_biopsy/walkthrough.py": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d"
+  },
+  "configuration": {
+    "pca": "StandardScaler and 2-component full-SVD PCA fitted on training only",
+    "correlation_targets": [
+      "IGHG1",
+      "IGHG2",
+      "IGHG4",
+      "IGHG3",
+      "HLA-DQA1",
+      "IGKC",
+      "IGHA1",
+      "IGHM",
+      "IGLC1",
+      "CXCL9",
+      "LTF",
+      "CXCL13"
+    ],
+    "excluded_specimens": 0
+  },
+  "findings": {
+    "cross_split_duplicate_profiles": 0,
+    "constant_training_targets": 0,
+    "first_two_pc_variance": 0.4544525236812114,
+    "bk_both_above_zero": 20,
+    "bk_both_above_zero_rejection": 0
+  },
+  "outputs": {
+    "batch_overlap.json": "94fffade953054afebb8658b5694ace908a509ba6cfdbec458f12cf362820481",
+    "bk_signal_groups.json": "1f6ef8c79e3d042cc7b62e550717e05b817b495996af92dc840bb29bd2cdad8d",
+    "bk_targets.png": "1290a10899c461f400cae521a9025b568ca357120efccda351e58b92b8f8e5eb",
+    "bk_targets.svg": "40438ca35b5b2a151aac476d7b92f1106fc20eb25210c6faceed0190de5399df",
+    "cartridge_sizes.png": "e984dd3d496212eeff7b66e62988373c8451e9de928709cb06128dea42b60429",
+    "cartridge_sizes.svg": "752fc0e6e5139b1ad3564c57b6e17937fe38cf36f793537bdb9d191a6bdb70a1",
+    "diagnosis_composition.png": "b7638c1f87cbbbe5349e9fbca8c3399ac56f7071a68398a9b718a4d7b4128867",
+    "diagnosis_composition.svg": "8dffcbc4d922f8be46df18a59d1de95736d9b1afd896e6ce3a82b4127eb7fa0b",
+    "diagnosis_counts.json": "fc7911cb5988fd6b3c1c387ccc6db1ee0a816edfa0de8dc044120e0f1f3e24b1",
+    "largest_cohort_median_differences.json": "e0cb3edd39c940bf1eb220e1eb40d3f36853ef23e34be05ad7b2e26ce685d8fe",
+    "pca_diagnosis_and_split.png": "97cbaa889e3a215c617086a546ab0b897d6b199d26cb80a39dcc545db905e88a",
+    "pca_diagnosis_and_split.svg": "134dcd6987954dda3514b50443976b2ead3e114c552feccb46162b939285184e",
+    "rna_by_diagnosis.png": "0e6dd0f3082013fabe729f09af87cb205d75b543eda1145454fd441f745cc3e3",
+    "rna_by_diagnosis.svg": "8d7d70008e3f1df19d45928bc36cbdd440cf23a76f1dc287c3743b094c1c0b6d",
+    "split_prevalence.json": "63ce6321ec2f5e56c363e6cf3f364ab6cbc9e1074db40223d238a9990c8ba568",
+    "strongest_training_correlations.json": "ef2b5dc9c1ae08305fb8752437776f7916b9eb9846e149d34d26e0673fbee813",
+    "target_variation.png": "9a010cad469ea18ec4b2262edd26039171515f318273b0d6798dac405f8701b6",
+    "target_variation.svg": "378a894e626f19cc8ae45b9c01956bab24c3093bb70b78bbc96e72a65ed86979",
+    "training_correlations.png": "75f52d74db9ca2b64ae4ef5e55b4efe595468701a677389198ea5ee65a0306e1",
+    "training_correlations.svg": "9016b4768ec31ccb9f526e86c4b61b51434d257346c13c2c57de4414f98c7e64",
+    "training_target_summary.json": "c98c8df4c1291be1d865b98a68e0214b788ff7513a05a24330931d86ecaeb392"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "successful": true,
+  "notebooks": [
+    {
+      "notebook": "01_data_quality_and_preprocessing.ipynb",
+      "executed_cells": 10,
+      "embedded_figures": 3,
+      "hashes_and_local_links": "passed"
+    },
+    {
+      "notebook": "02_exploratory_data_analysis.ipynb",
+      "executed_cells": 13,
+      "embedded_figures": 7,
+      "hashes_and_local_links": "passed"
+    },
+    {
+      "notebook": "03_model_comparison_and_rna_contributions.ipynb",
+      "executed_cells": 16,
+      "embedded_figures": 7,
+      "hashes_and_local_links": "passed"
+    }
+  ]
+}

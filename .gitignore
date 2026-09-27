@@ -6,6 +6,11 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+.ipynb_checkpoints/
+# Local notebook construction runs; reviewed deliverables have their own dated directory.
+results/notebooks/20260927_draft/
+results/notebooks/20260927_draft2/
+results/notebooks/20260927_eda/
 # macOS Finder metadata and resource forks.
 .DS_Store
 ._*
