@@ -6,7 +6,8 @@ import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 
 const root = process.cwd();
-const require = createRequire(path.join(root, 'build/presentation/runtime.mjs'));
+const modules = process.env.RUNTIME_NODE_MODULES || path.join(root, 'build/presentation/node_modules');
+const require = createRequire(path.join(modules, 'package.json'));
 const { marked } = await import(pathToFileURL(require.resolve('marked')).href);
 const read = name => fs.readFile(path.join(root, name), 'utf8');
 const esc = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -205,7 +206,8 @@ const html = `<!doctype html>
     <h2 id="application-heading">Local application</h2>
     <p>The following command starts the service from the project root. The application opens in a separate tab, keeping this explanation available.</p>
     <p>On this Mac, use the existing virtual environment:</p>
-    <pre>.venv/bin/python presentation/source/serve_demo.py</pre>
+    <pre>uv run --frozen python presentation/source/serve_demo.py</pre>
+    <p class="small">Windows and macOS use the same launcher. Select another prepared run with both <code>--run-dir</code> and <code>--demo-dir</code>; see <code>docs/SETUP.md</code>.</p>
     <p>With uv installed, the equivalent command is <code>uv run --frozen python presentation/source/serve_demo.py</code>.</p>
     <p>The launcher uses the frozen run and prepared examples selected in <code>presentation/source/demo_config.json</code>.</p>
     <p><a class="button" id="application-link" href="${applicationUrl}" target="_blank" rel="noopener">Kidney biopsy application</a> <span id="application-url">${applicationUrl}</span></p>

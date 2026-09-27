@@ -1,6 +1,6 @@
 # Current project status
 
-Updated September 23, 2026. The analysis, scoring application and presentation
+Updated September 27, 2026. The analysis, scoring application and presentation
 package are built. The presenter reports rehearsing; measured durations have not
 been supplied. Remaining delivery work is listed in the
 [presentation README](../presentation/README.md#rehearsal-and-backup).
@@ -14,6 +14,7 @@ been supplied. Remaining delivery work is listed in the
 | Clinical motivation and source evidence | [Research context](RESEARCH_CONTEXT.md) |
 | Relationship to the interview role | [Job requirements](JOB_REQUIREMENTS.md) |
 | Run the application or use the API | [Application guide](API.md) |
+| Use the same branch on Windows and macOS | [Setup guide](SETUP.md) |
 | Follow preprocessing and prediction | [Code guide](CODE_GUIDE.md) |
 | Run checks and find dated evidence | [Verification](VERIFICATION.md) |
 | Present, rehearse or rebuild | [Presentation package](../presentation/README.md) |
@@ -21,10 +22,14 @@ been supplied. Remaining delivery work is listed in the
 
 ## Runs and evidence
 
-The laptop presentation launcher explicitly selects
+The presentation launcher defaults to
 `results/reproduction/20260922_mac_clone` through
 `presentation/source/demo_config.json`. The generic CLI/API default remains
 `results/reproduction/20260915_shared`; these are separate launch configurations.
+Windows now uses the same presentation launcher with explicit `--run-dir` and
+`--demo-dir` options for its preserved model. The [September 27 checks](../results/checks/20260927_portability/README.md)
+record 105 installed-package tests and HTTP/CLI/saved agreement on all 345 specimens.
+CI now checks Windows, macOS and Linux; the PR reports the hosted run status.
 The presentation's [source record](../presentation/README.md#frozen-run-and-evidence)
 distinguishes the Mac demonstration from the earlier desktop reports and container
 checks still included in its reference library.

@@ -21,7 +21,7 @@ from pathlib import Path
 
 from verify_local_data import ROOT, local_path, sha256
 
-SOURCE_DIRS = ("src/kidney_biopsy", "scripts", "tests", "experiments")
+SOURCE_DIRS = ("src/kidney_biopsy", "scripts", "tests", "experiments", "presentation/source")
 STATIC_ASSETS = ("index.html", "style.css", "app.js")
 
 
@@ -58,6 +58,8 @@ def check_environment(require_installed: bool) -> dict:
             raise ValueError(f"Installed application asset differs from this source: {name}")
     return {
         "python": platform.python_version(),
+        "system": platform.system(),
+        "machine": platform.machine(),
         "environment": environment.relative_to(ROOT).as_posix(),
         "package": package_path.relative_to(ROOT).as_posix(),
         "installed_package_required": require_installed,

@@ -41,26 +41,33 @@ excerpts and original evidence CSV/JSON. It uses the slide palette: teal
 
 ## Start the live demonstration
 
-From this project's root on the Mac, use the existing environment:
-
-```sh
-.venv/bin/python presentation/source/serve_demo.py
-```
-
-With uv installed (including from PowerShell):
+From this project's root, use the same uv command on Windows and macOS.
+For the preserved Mac model and examples:
 
 ```powershell
 uv run --frozen python presentation/source/serve_demo.py
 ```
 
+On the populated Windows checkout, select its preserved model explicitly:
+
+```sh
+uv run --frozen python presentation/source/serve_demo.py --run-dir results/reproduction/20260915_shared --demo-dir data/demo/20260927_windows
+```
+
+The [setup guide](../docs/SETUP.md) covers preparing examples, clean installations
+and using an existing environment without uv. Models and examples are Git-ignored.
+The launcher checks that both belong to the selected run before opening a port.
+
 Open [the local engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html).
-The launcher and saved-response capture both use `source/demo_config.json`, which
+By default, the launcher and saved-response capture use `source/demo_config.json`, which
 explicitly selects `results/reproduction/20260922_mac_clone` and its prepared examples.
 Keep the terminal running; Ctrl+C stops the server. Port 8766 serves both the
 engineering page and scoring app. The standalone application on port 8765 is a
 separate process and does not inherit this presentation configuration.
 The Application tab links to the scoring app at the server root. The integration
 check verifies the served model version and threshold against the saved example.
+With an explicit `--run-dir`, it verifies against that local frozen model instead.
+The embedded Mac response keeps its original date and model identity.
 The launcher binds to localhost and adds presentation-file serving around the
 existing FastAPI application. It does not change the model or scoring routes.
 Use `--port` to select a different local port if needed.
@@ -71,7 +78,8 @@ the [project README](../README.md). The presentation launcher does not train mod
 
 Before presenting, follow **Kidney biopsy application** from the Application tab.
 Choose **No Rejection**, click **Get research score**, and then
-**Try an incomplete file**. The complete specimen is GSM6510425, with score
+select **Invalid: missing IFNG** and click **Get research score** again.
+For the Mac run, the complete specimen is GSM6510425, with score
 `0.2749342138027727` and frozen threshold `0.8765880870219773`.
 Removing IFNG returns HTTP 422 and no score. The model version is
 `20260922_mac_clone:any_rejection:catboost_all_depth4`.
@@ -151,7 +159,8 @@ No cloud deployment has been performed.
 Use the bundled Node runtime and packages for the `.mjs` builders. Deck authoring
 uses `@oai/artifact-tool`; the HTML builder uses `marked`. PDF generation uses
 bundled Python with ReportLab. Keep the package link at
-`build/presentation/node_modules`. The deck builder requires
+`build/presentation/node_modules`, or set `RUNTIME_NODE_MODULES` to the installed
+packages directory for the engineering HTML builder. The deck builder requires
 `PRESENTATION_SKILL_DIR`, `RUNTIME_PYTHON` and `RUNTIME_NODE_MODULES`.
 Use a new `DECK_FILENAME` for each finalized revision, then preserve and replace
 the canonical PPTX, render it, rebuild the PDF and script, and record the manifest.
@@ -173,6 +182,10 @@ With the demonstration server running, verify the current package:
 ```powershell
 uv run --frozen python presentation/source/check_demo.py
 ```
+
+For the Windows launch above, add `--run-dir results/reproduction/20260915_shared`.
+Use `--offline` to check the tracked presentation and embedded sources without
+a server or model. These offline checks also run on all three CI platforms.
 
 The check records its results under `build/presentation/`. It also compares
 retained slide renders when the local pre-revision backup is available.

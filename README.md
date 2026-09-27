@@ -81,17 +81,27 @@ Full timed rehearsals remain pending.
 
 ## Run the demo
 
-Run all commands from this project's root. On this populated Mac checkout, the
-Python 3.12 environment, frozen Mac model and public examples are already available:
+Run all commands from this project's root. The [Windows and macOS setup guide](docs/SETUP.md)
+covers both existing checkouts and a clean installation. With the preserved Mac
+model and examples available:
 
 ```sh
-.venv/bin/python presentation/source/serve_demo.py
+uv run --frozen python presentation/source/serve_demo.py
 ```
 
 Open [the engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html)
 or [the scoring application](http://127.0.0.1:8766/). The launcher explicitly selects
 the run and examples in `presentation/source/demo_config.json`; it does not retrain.
 Keep its terminal running. Stop it with Ctrl+C.
+
+On this Windows checkout, use its preserved model and prepared examples:
+
+```sh
+uv run --frozen python presentation/source/serve_demo.py --run-dir results/reproduction/20260915_shared --demo-dir data/demo/20260927_windows
+```
+
+Models and examples are Git-ignored. The setup guide explains how to prepare them
+if absent; a Git pull alone does not transfer them between computers.
 
 For the original default run, with its model artifacts present and uv installed:
 

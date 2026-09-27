@@ -659,7 +659,7 @@
         ],
         "actions": [
           "The Application tab contains the CSV preview and one Kidney biopsy application link. That link opens a separate tab. The No Rejection example and Get research score control produce the public specimen result.",
-          "Try an incomplete file clears the prior result and displays Missing required assay targets: IFNG.",
+          "Choose Invalid: missing IFNG from Public study example, then click Get research score. The application clears the prior result and displays Missing required assay targets: IFNG.",
           "If the service is unavailable, the separate demo_fallback.html contains captured application screenshots. The fallback wording is: “These are captured responses from the same application.” They are not live requests.",
           "The engineering-page tab remains open. Its Engineering tab continues with the shared calculation."
         ],
@@ -667,7 +667,7 @@
           "Selected columns from the actual public example",
           "Kidney biopsy application",
           "Get research score",
-          "Try an incomplete file",
+          "Invalid: missing IFNG",
           "Model score, threshold, rejection flag and model version in the application"
         ],
         "sources": [

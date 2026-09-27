@@ -20,7 +20,16 @@ from pathlib import Path
 
 from verify_local_data import ROOT, local_path, records, sha256, verify
 
-COPY_DIRS = ("src/kidney_biopsy", "scripts", "tests", "experiments", "docs", ".github", "data/demo")
+COPY_DIRS = (
+    "src/kidney_biopsy",
+    "scripts",
+    "tests",
+    "experiments",
+    "docs",
+    ".github",
+    "data/demo",
+    "presentation/source",
+)
 COPY_FILES = (
     "README.md",
     "AGENTS.md",

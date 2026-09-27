@@ -1,0 +1,224 @@
+{
+  "verified_utc": "2026-09-27T16:39:49.055853+00:00",
+  "successful": false,
+  "errors": [
+    "ValueError: Installed application asset differs from this source: index.html"
+  ],
+  "checks": {
+    "syntax": {
+      "python_files": 46,
+      "toml_files": 2
+    }
+  },
+  "sources": [
+    {
+      "file": "experiments/rejection_public/download.py",
+      "sha256": "5ecd2840b57df7bde340cdc519ffc343d09f3fab59dedc824cb587b753a7ebdf"
+    },
+    {
+      "file": "experiments/rejection_public/predict.py",
+      "sha256": "7e042fbe66563bfded69487da392c9ecee048b8622ea51b4af9ace55e0650abc"
+    },
+    {
+      "file": "experiments/rejection_public/run.py",
+      "sha256": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62"
+    },
+    {
+      "file": "experiments/rejection_stability/run.py",
+      "sha256": "004b59ff0637f4518f96cf703c4373101167b33b35bdd9ae66aaac3fbd5a8904"
+    },
+    {
+      "file": "experiments/rejection_subtypes/run.py",
+      "sha256": "acb06f44ac35cc2a7bbe2e04d2dd6f5cb4ab1dd3b89ab9647adb835909bf53aa"
+    },
+    {
+      "file": "presentation/source/build_backups.py",
+      "sha256": "5ef54a7190e1bcb664b5e53158266db6b12d635f57b2f5a06959f2b0e463f998"
+    },
+    {
+      "file": "presentation/source/build_script_html.py",
+      "sha256": "b77e0cd1387ce17c6a6ec2be0f3e4f9804005f57ca177c6fc6080c67d0e2ecbf"
+    },
+    {
+      "file": "presentation/source/capture_demo.py",
+      "sha256": "6b4e277e3b68e6da588aefd47bfd9471e6e83c777b5c8bbba7d568740930dbf6"
+    },
+    {
+      "file": "presentation/source/check_demo.py",
+      "sha256": "36aa90d1477ebaec9bd0adeb93d25f7131ced78fd08deba608db23292f039fbb"
+    },
+    {
+      "file": "presentation/source/record_manifest.py",
+      "sha256": "43dc6169d10ef4f12e2ef65d4256efaf4cb0e6eab0081c3bc64956c673c00370"
+    },
+    {
+      "file": "presentation/source/remove_notes.py",
+      "sha256": "1f1d2c2d1b063133195df9b1540e66960d05f142b7bc4637850d335d36114e83"
+    },
+    {
+      "file": "presentation/source/serve_demo.py",
+      "sha256": "6ce7fa64d63a4072331b263031c914cbd3ec67b32fed61ef3efd798d992b18ef"
+    },
+    {
+      "file": "scripts/analyze_results.py",
+      "sha256": "4f366a9935f0f4e010ee4cf95d1b1a861251c1fba59227472f5a8c355a34c9e8"
+    },
+    {
+      "file": "scripts/build_code_guide.py",
+      "sha256": "16726bdbf33bfa1f8c0f1c62d6461ec8f102056bced710391cf0deb0c2083646"
+    },
+    {
+      "file": "scripts/check_project.py",
+      "sha256": "712f988fddc74ac04fff1fbc4f7a3664e6c7477632d48fb9a6b1834ce06a69fa"
+    },
+    {
+      "file": "scripts/prepare_ci_fixture.py",
+      "sha256": "dd02963f6621990b53fe73ff6cac45dad5ffaa1a0aba7defd64974d10b52ebfe"
+    },
+    {
+      "file": "scripts/prepare_container.py",
+      "sha256": "75e32593b6810864b4a8020a36e474afc6b1220860597b31abf0e10543c1d578"
+    },
+    {
+      "file": "scripts/prepare_demo.py",
+      "sha256": "383ccc21fb47ca248a99d1f01f884e6a114138dcfe7c7bcd982d1ee4ff4e2509"
+    },
+    {
+      "file": "scripts/prepare_presentation_figures.py",
+      "sha256": "e9412e444f0e372e694fc6a2afcc3d886a0ce1faff5700ed0f66e458ab4b8bd9"
+    },
+    {
+      "file": "scripts/review_viral_targets.py",
+      "sha256": "49ea59ad88d1ae6cd75641229aba64bb286a966dc6e87219acae1036158eb313"
+    },
+    {
+      "file": "scripts/serve_container.py",
+      "sha256": "c2c4f6c0ba0676490378a678e92cd02e679a976fcaf51045d1a0672f2924841d"
+    },
+    {
+      "file": "scripts/verify_container.py",
+      "sha256": "df21c6c3c6502e14c1864cb4605842fe9c478e546baabc2e10290ac0d60c2242"
+    },
+    {
+      "file": "scripts/verify_fresh_setup.py",
+      "sha256": "6527cb07dca2f3920dd5c95d6d3cba409fdc6777cd8dc6b693f925e42a6e5996"
+    },
+    {
+      "file": "scripts/verify_http_service.py",
+      "sha256": "85623b728d637e4cff6866eabf2617da9e7617c2304dfe2760530550c59c2b97"
+    },
+    {
+      "file": "scripts/verify_inference.py",
+      "sha256": "d3e14c365687226bcc6d59885cc28079943e66e91fcd3a46f07310624eed0585"
+    },
+    {
+      "file": "scripts/verify_local_data.py",
+      "sha256": "046983f51133b558081023143776f6128db067810106bfc55bd1ba239ccda897"
+    },
+    {
+      "file": "scripts/verify_reproduction.py",
+      "sha256": "e943a3efc554ad4ec067a7babec8ca9266bc2c42ef520088a10a9b482eb46702"
+    },
+    {
+      "file": "src/kidney_biopsy/__init__.py",
+      "sha256": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37"
+    },
+    {
+      "file": "src/kidney_biopsy/__main__.py",
+      "sha256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279"
+    },
+    {
+      "file": "src/kidney_biopsy/api.py",
+      "sha256": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442"
+    },
+    {
+      "file": "src/kidney_biopsy/cli.py",
+      "sha256": "b39046bc311f9db801ac5c5f4f49835d3e20d5e62bd6cadda525935ea60315bc"
+    },
+    {
+      "file": "src/kidney_biopsy/prediction.py",
+      "sha256": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5"
+    },
+    {
+      "file": "src/kidney_biopsy/preprocessing.py",
+      "sha256": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08"
+    },
+    {
+      "file": "src/kidney_biopsy/source.py",
+      "sha256": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03"
+    },
+    {
+      "file": "src/kidney_biopsy/walkthrough.py",
+      "sha256": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d"
+    },
+    {
+      "file": "tests/test_analysis.py",
+      "sha256": "cf7c97ea76d30dd532be46f23dc0ecb25f60dc7131d77f8ef5eb4d3dc98cb2d3"
+    },
+    {
+      "file": "tests/test_api.py",
+      "sha256": "2b82f783e17240ed5d160fcdc19b23468ffc82eaac7d3f6de90e79509b84949d"
+    },
+    {
+      "file": "tests/test_code_guide.py",
+      "sha256": "af012e467e96747d7ad6ca8efb07782a4bf9f74e67a489c2cf5a925f9f982183"
+    },
+    {
+      "file": "tests/test_container_bundle.py",
+      "sha256": "d690893fea54692ab0e1496d61015d5ab0307c96202b21e88393b452cecb4e4b"
+    },
+    {
+      "file": "tests/test_container_verification.py",
+      "sha256": "9740fd659330a59a88e4f50953a183b945738cbc8b02014b5b0f1cf34f2368cc"
+    },
+    {
+      "file": "tests/test_demo_examples.py",
+      "sha256": "732256d4b2615fa5cb653945a10a1f846eeee0d796831cc2bdff710a7690755a"
+    },
+    {
+      "file": "tests/test_presentation.py",
+      "sha256": "468b9d1c25dd03be7e84e1a1d11582c88d519a08e859a64157f0470ba96fdd22"
+    },
+    {
+      "file": "tests/test_shared_prediction.py",
+      "sha256": "918c4629da9ff8b16d2736b27c38f073a530719c555529b8e191763a03755189"
+    },
+    {
+      "file": "tests/test_source_readers.py",
+      "sha256": "f9f1c68d19b5d055843315e7201a73351bd5e0ab41e0452730509e02e2665ad8"
+    },
+    {
+      "file": "tests/test_stability.py",
+      "sha256": "02b9b83f29ffd27753af6bb7477c0873552705b24fa2bd1c69233d7e6382fb99"
+    },
+    {
+      "file": "tests/test_subtypes.py",
+      "sha256": "87c27f19e8de9846b81b8b08d390e1094a7b387bb71bb67f93d817ac2d6ae5d5"
+    },
+    {
+      "file": "pyproject.toml",
+      "sha256": "ba6d0aa0d1fafc53a7df8ecd9041c6edf8f718d53019356dc297c0ed5a1998f1"
+    },
+    {
+      "file": "uv.lock",
+      "sha256": "e91b18c34ecc90c61ad12e378a7b87b32d4768e13cf75ce25f1a9af642c4b5f6"
+    },
+    {
+      "file": ".github/workflows/checks.yml",
+      "sha256": "8ba4207b84d0206bad2ec5b30fd7ab23348b5584ecb1d105bc456cbc02d37e63"
+    },
+    {
+      "file": "src/kidney_biopsy/static/index.html",
+      "sha256": "355d08cea7a0c003e4a6a3ef77905fa2e11ca676d9dbcc86eea0098bcd9d4348"
+    },
+    {
+      "file": "src/kidney_biopsy/static/style.css",
+      "sha256": "acb987845764f206d241214e450e90cd9c4338fe49e15f7f24bf29a8522c9a11"
+    },
+    {
+      "file": "src/kidney_biopsy/static/app.js",
+      "sha256": "8131c093b42aacffdc6cf4714b71e04668e291a7c715038d5932272c024cfbd7"
+    }
+  ],
+  "elapsed_seconds": 0.407
+}

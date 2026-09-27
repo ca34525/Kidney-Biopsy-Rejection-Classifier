@@ -41,13 +41,15 @@ failures, and elapsed time. Lint and formatting results appear separately in the
 terminal and CI log so a failed check is easy to identify.
 
 The [CI workflow](../.github/workflows/checks.yml) runs the same checks after
-`uv sync --locked --no-editable` on Python 3.12. `--locked` fails if dependency
+`uv sync --locked --no-editable` on Python 3.12 across Windows, macOS and Linux.
+It also checks the offline presentation and embedded sources on each system.
+`--locked` fails if dependency
 declarations disagree with the lockfile. The noneditable installation builds
 and installs the package, so missing packaged web assets fail the check. Lint and
 format checks run before tests. CI saves the small JSON evidence as an artifact.
-The workflow then builds a container with a tiny synthetic CatBoost model and
+The Linux job then builds a container with a tiny synthetic CatBoost model and
 checks readiness, predictions, displayed error counts, and invalid input over
-HTTP. Both JSON check records are retained. Full research model training stays
+HTTP. Each platform's JSON check records are retained. Full research model training stays
 outside CI. See the [container guide](CONTAINERS.md) for the same commands locally.
 
 The workflow uses the documented interfaces for [checkout](https://github.com/actions/checkout),
@@ -90,6 +92,7 @@ Container build and verification commands are in [Containers](CONTAINERS.md).
 
 | Date and scope | Result and source |
 | --- | --- |
+| September 27: Windows and macOS portability | [105 installed-package tests, 345-specimen HTTP agreement, presentation checks and local build-policy limitation](../results/checks/20260927_portability/README.md). The workflow now checks Windows, macOS and Linux. |
 | September 22: Mac setup | [94 tests](../results/checks/20260922_mac_clone/checks_after_path_fix.json), [345-specimen HTTP agreement](../results/checks/20260922_mac_clone/http/http.json), [model reload](../results/checks/20260922_mac_clone/inference.json), and [public examples](../results/checks/20260922_mac_clone/demo_service.json). The [setup record](../results/checks/20260922_mac_clone/README.md) separates reproduction differences from software checks. |
 | September 21: source and presentation corrections | [Check record](../results/checks/20260921_source_review/README.md), including preservation of baseline and service artifacts. |
 | September 17: local application | [94 tests, HTTP agreement, research container and artifact checks](../results/checks/20260917_coherence/README.md). |

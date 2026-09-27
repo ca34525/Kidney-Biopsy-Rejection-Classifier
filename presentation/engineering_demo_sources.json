@@ -8,10 +8,10 @@
     "results/followup/20260917_stability/summary.json": "e31a297e06eeb19d0bc116f2d036c5184e8fd3e9198ea88304073e794bc6cffc",
     "results/analysis/20260915_baseline/REPORT.md": "a5562e1ee7ba45e5f754ebc5f07b557b73f47fc1743e8373bdbd525d9fc9ea55",
     "results/followup/20260917_stability/REPORT.md": "e8e84b05e781ac4081cea4a2aec80bc124b50c49745183b01e76942fa2a08efd",
-    "docs/API.md": "8f363f47cfd90c69c6b88889923fec9270a2723cd6146c783d384e99b98084e7",
-    "docs/VERIFICATION.md": "f015a7ccd65ec06c61178cb920be11202b0c9ea226a5798b96f8fcb8434b4aa2",
-    "docs/CODE_GUIDE.md": "e92112b27ae5fac7928689dc154287e9101b6e9e7dcc46061b0a9957e7f1485b",
-    "docs/METHODOLOGY_REVIEW.md": "2ef24c24a3a283474024317424e55c798b33838f8da107047be8f78780190ebf",
+    "docs/API.md": "d87e359fd6c53669e8b1bb8980ff7caaddb26d4792bab3c78b3ea014c2c105eb",
+    "docs/VERIFICATION.md": "87df8f9c3dc2fd90cec05d7da17b3c2706fe5033d211f28da42769cf8ad5ff1a",
+    "docs/CODE_GUIDE.md": "d1d8edddc894bd4a43868fcd6b850b3bea066f3840835117ac7244316e0137ec",
+    "docs/METHODOLOGY_REVIEW.md": "563817324bf4ff6f0935f929163efa0f905ca65971f0b2543e9da0d5a192f003",
     "results/checks/20260917_coherence/http/http.json": "47c94032872aa389c800158f1ad316e8683b26c134290054ddd1851c459d0834",
     "results/checks/20260917_coherence/container.json": "b379bcbbb6d58a7245852d08deecde42752397ac63d34a83232b97eaf1fae49f",
     "results/analysis/20260915_baseline/errors_by_diagnosis.csv": "4048a7ffad8776bfa89c43371328bd1708f6bfa2aeddb030d020545117e1d9ee",
@@ -23,7 +23,7 @@
     "tests/test_shared_prediction.py": "918c4629da9ff8b16d2736b27c38f073a530719c555529b8e191763a03755189",
     "experiments/rejection_public/run.py": "5c6cc815b084f0762e42e71b115b2c53c467e6cb8126428e66d65febe0f9aa62",
     "scripts/verify_http_service.py": "85623b728d637e4cff6866eabf2617da9e7617c2304dfe2760530550c59c2b97",
-    ".github/workflows/checks.yml": "0469e5381f6d127318584ec4a495dede15c55d81ba2982e50677856376dd4354"
+    ".github/workflows/checks.yml": "8ba4207b84d0206bad2ec5b30fd7ab23348b5584ecb1d105bc456cbc02d37e63"
   },
-  "output_sha256": "5f87cf29ed5a8bf9746c46b2fb35b02bf14c8e8c9de42c275bf892fe1e13d148"
+  "output_sha256": "f2532ece9b7b35d679d7e79dded50d6bde2b8475512f72d98f0bf58aea6934ec"
 }

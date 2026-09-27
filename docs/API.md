@@ -8,22 +8,23 @@ follow-up does not replace this model or its threshold.
 
 ## Start the demonstration
 
-For the interview's single-page engineering demonstration, use the presentation
-launcher from the project root. On the populated Mac checkout:
-
-```sh
-.venv/bin/python presentation/source/serve_demo.py
-```
-
-With uv installed (including from PowerShell):
+For the interview's engineering demonstration, use the presentation launcher
+from the project root. The [Windows and macOS setup guide](SETUP.md) lists the
+available runs and the clean-checkout procedure. For the preserved Mac run:
 
 ```powershell
 uv run --frozen python presentation/source/serve_demo.py
 ```
 
+For this Windows checkout's preserved run and prepared examples:
+
+```sh
+uv run --frozen python presentation/source/serve_demo.py --run-dir results/reproduction/20260915_shared --demo-dir data/demo/20260927_windows
+```
+
 Open [the engineering demonstration](http://127.0.0.1:8766/presentation/engineering_demo.html).
 The scoring app is at [the same server's root](http://127.0.0.1:8766/). Keep the
-launcher running in its terminal. Its configuration selects the completed
+launcher running in its terminal. Its default configuration selects the completed
 `20260922_mac_clone` run and `data/demo/20260922_ui_examples` examples, including
 their actual model version and threshold. Missing artifacts for the original
 default run cause the standalone service to report "model not ready"; loading

@@ -1,0 +1,34 @@
+{
+  "verified_utc": "2026-09-27T16:42:33.487574+00:00",
+  "successful": true,
+  "run_dir": "results/reproduction/20260915_shared",
+  "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+  "run_manifest_sha256": "8a8cbbdf5dd55a8e8b60277fbcdd0500d51f1f34afa0a6ba6f49ef80800f9a2d",
+  "specimens": 345,
+  "http_requests_for_predictions": 22,
+  "numeric_tolerance": 1e-12,
+  "max_http_cli_score_difference": 1.1102230246251565e-16,
+  "max_http_saved_score_difference": 1.1102230246251565e-16,
+  "checks": [
+    "real_http_server_ready",
+    "demo_page_served",
+    "all_345_http_cli_saved_predictions_agree_with_reordered_columns",
+    "invalid_http_batch_rejected_without_predictions",
+    "http_batch_limit_enforced"
+  ],
+  "script_sha256": "85623b728d637e4cff6866eabf2617da9e7617c2304dfe2760530550c59c2b97",
+  "source_hashes": {
+    "src/kidney_biopsy/__init__.py": "70fe0af7b18ce6fbf781490f14d7df895577287b2e69a0206f9378061fd29b37",
+    "src/kidney_biopsy/__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "src/kidney_biopsy/api.py": "0cef85e46c76732af30589881dcd5d00e217677875a50dd89b127427ae29b442",
+    "src/kidney_biopsy/cli.py": "b39046bc311f9db801ac5c5f4f49835d3e20d5e62bd6cadda525935ea60315bc",
+    "src/kidney_biopsy/prediction.py": "55b8c21bf89d705f76d132addb90539abd0bad170232e364926c8de6c599c9d5",
+    "src/kidney_biopsy/preprocessing.py": "351dbcd5dfc1269af03f8ae87587715c08c66a824d4f040a7372747f975f3c08",
+    "src/kidney_biopsy/source.py": "df691588ecc2e2f477585efa82d71ce434bb487cd81adcae483c1ee806f11a03",
+    "src/kidney_biopsy/static/app.js": "8131c093b42aacffdc6cf4714b71e04668e291a7c715038d5932272c024cfbd7",
+    "src/kidney_biopsy/static/index.html": "355d08cea7a0c003e4a6a3ef77905fa2e11ca676d9dbcc86eea0098bcd9d4348",
+    "src/kidney_biopsy/static/style.css": "acb987845764f206d241214e450e90cd9c4338fe49e15f7f24bf29a8522c9a11",
+    "src/kidney_biopsy/walkthrough.py": "121c32f0a28738c5d9ef6585128e01741107d8eeac1f47d3eefe93db253eaf7d"
+  },
+  "case_directory": "data/processed/application_checks/20260927_portability_final"
+}

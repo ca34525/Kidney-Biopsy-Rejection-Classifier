@@ -1,0 +1,26 @@
+{
+  "checked_utc": "2026-09-27T16:45:38.327634+00:00",
+  "successful": true,
+  "checks": [
+    "embedded_reference_hashes_verified_and_sources_match_allowing_lf_crlf",
+    "self_contained_static_content_without_external_asset_dependencies",
+    "three_stop_navigation_structure_and_unique_ids",
+    "14_slides_and_three_browser_stops_in_script_order_total_1200_seconds",
+    "real_http_valid_response_matches_local_model",
+    "real_http_missing_target_rejected_without_predictions",
+    "expected_model_version_and_threshold",
+    "existing_application_and_assets_available"
+  ],
+  "embedded_reference_count": 18,
+  "model_version": "20260915_shared:any_rejection:catboost_all_depth4",
+  "saved_example_model_version": "20260922_mac_clone:any_rejection:catboost_all_depth4",
+  "run_dir_override": "results/reproduction/20260915_shared",
+  "offline": false,
+  "numeric_tolerance": 1e-12,
+  "changed_retained_slide_renders": [
+    4,
+    12
+  ],
+  "prior_render_comparison": "passed",
+  "scope": "Presentation integration and one public example. Does not rerun model comparison, the historical 345-specimen check, hosted CI or container validation."
+}

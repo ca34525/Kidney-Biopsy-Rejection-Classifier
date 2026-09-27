@@ -1,5 +1,6 @@
 """Check package requirements and record the exact presentation sources/outputs."""
 from pathlib import Path
+from datetime import datetime, timezone
 import hashlib
 import json
 import posixpath
@@ -172,6 +173,7 @@ sources = [
     "docs/NEXT_STEPS.md",
     "docs/references/JOB_DESCRIPTION.txt",
     "docs/API.md",
+    "docs/SETUP.md",
     "docs/CODE_GUIDE.md",
     "docs/VERIFICATION.md",
     "docs/CONTAINERS.md",
@@ -191,7 +193,7 @@ sources = [
 
 
 manifest = {
-    "created": "2026-09-23",
+    "created": datetime.now(timezone.utc).date().isoformat(),
     "revision": data.get("revision", data["status"]),
     "main_slides": len(data['slides']),
     "backup_slides": len(data['backups']),
@@ -213,6 +215,7 @@ manifest = {
         file.relative_to(ROOT).as_posix(): sha(file)
         for file in sorted(OUT.rglob("*"))
         if file.is_file() and file.name != "manifest.json" and not file.name.startswith(".~lock.")
+        and "__pycache__" not in file.parts and file.suffix not in {".pyc", ".pyo"}
     },
 }
 (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")

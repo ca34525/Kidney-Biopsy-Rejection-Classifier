@@ -1,0 +1,22 @@
+{
+  "checked_utc": "2026-09-27T16:45:01.396332+00:00",
+  "successful": true,
+  "checks": [
+    "embedded_reference_hashes_verified_and_sources_match_allowing_lf_crlf",
+    "self_contained_static_content_without_external_asset_dependencies",
+    "three_stop_navigation_structure_and_unique_ids",
+    "14_slides_and_three_browser_stops_in_script_order_total_1200_seconds"
+  ],
+  "embedded_reference_count": 18,
+  "model_version": null,
+  "saved_example_model_version": "20260922_mac_clone:any_rejection:catboost_all_depth4",
+  "run_dir_override": null,
+  "offline": true,
+  "numeric_tolerance": 1e-12,
+  "changed_retained_slide_renders": [
+    4,
+    12
+  ],
+  "prior_render_comparison": "passed",
+  "scope": "Static presentation checks only."
+}
