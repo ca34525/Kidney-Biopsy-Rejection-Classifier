@@ -6,6 +6,10 @@ preserved. No models were retrained during this check.
 
 ## Results
 
+- [Hosted Software checks #41](https://github.com/ca34525/Kidney-Biopsy-Rejection-Classifier/actions/runs/36334477380)
+  passed for commit `2e601ca99226a0905165ab9f57f62b5baa8ff9df` on **Windows,
+  macOS and Linux**, including clean installed-package tests and offline
+  presentation checks. The Linux Docker build and prediction check also passed.
 - [Installed package](installed_checks_final.json): **105 tests passed**; packaged
   HTML, CSS and JavaScript match the working source. Ruff lint and formatting
   passed for `src`, `scripts`, `tests` and `experiments` (39 Python files).
@@ -54,7 +58,7 @@ No Windows security settings were changed. A clean local installation is therefo
 not claimed; the [setup guide](../../../docs/SETUP.md) records the working procedure.
 The CI matrix performs ordinary clean installs on Windows, macOS and Linux and
 runs the same tests plus the offline presentation check. The Linux job also
-builds and verifies the synthetic Docker image. Hosted results are linked in the PR.
+builds and verifies the synthetic Docker image. Hosted results are linked above.
 
 ## Commands
 
